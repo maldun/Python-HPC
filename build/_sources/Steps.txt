@@ -1,0 +1,32 @@
+How to use Python
+=========================================
+
+The "Goodbye World" program.
+-----------------------------------------
+In the old tradition of the "<insert Language here> for Dummies" books, 
+we start with the "Goodbye World" program.
+
+#. Make a file goodbye_world.py (or what name you like).
+#. Open your Editor.
+#. Write::
+    
+    print("Goodbye World!")
+
+#. Execute::
+
+    python goodbye_world.py
+
+   and you get the output::
+
+    Goodbye World!
+
+Thats all!
+
+**Remark:** If you use Sage as your Python interpreter, simply start the program with ::
+    
+    sage goodbye_world.py
+
+or ::
+
+    sage -python goodbye_world.py
+ 

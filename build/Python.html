@@ -20,6 +20,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="hpc v1.0 documentation" href="index.html" />
+    <link rel="next" title="The Zen of Python, and some (personal) words on it" href="Zen.html" />
     <link rel="prev" title="Introduction" href="Introduction.html" /> 
   </head>
   <body>
@@ -29,6 +30,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Zen.html" title="The Zen of Python, and some (personal) words on it"
+             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="Introduction.html" title="Introduction"
              accesskey="P">previous</a> |</li>
@@ -47,6 +51,9 @@
 <h2>What is Python<a class="headerlink" href="#what-is-python" title="Permalink to this headline">¶</a></h2>
 <p>Python is a high level interpreted object oriented (OO) language.
 It&#8217;s main field of application is in web design and scripting.</p>
+<p>It was invented by Guido VanRossum in the end of the 80&#8217;s and the begin of
+the 90&#8217;s <a class="footnote-reference" href="#id6" id="id1">[1]</a>. The name was derived of the <em>Monty Python&#8217;s Flying Curcus</em>
+show.</p>
 <p>In the last five years there was a huge development of mathematical tools
 and libraries for Python. Actually it seems that there is no particular reason for
 this one could see it as a phenomen, or as a trend. But in the meantime the currently
@@ -56,45 +63,63 @@ for the &#8220;classical&#8221; mathematical languages like Matlab or MAthematic
 that makes it possible to compile your Python Code to <em>C</em> and make it up to 1000x faster,
 than normal Python code.</p>
 </div>
-<div class="section" id="a-brief-history">
-<h2>A brief History<a class="headerlink" href="#a-brief-history" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="why-python">
+<h2>Why Python?<a class="headerlink" href="#why-python" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Intuitive Syntax</li>
+<li>Simple</li>
+<li>An easy to learn language.</li>
+<li>Object orientated.</li>
+<li>Fast (if used with brains).</li>
+<li>Rapidly developing.</li>
+<li>A common language, so you will find answers to your problem.</li>
+<li>Many nice tools which makes your life easier (like Sphinx, which I use to write this report)</li>
+</ul>
 </div>
 <div class="section" id="get-python">
 <h2>Get Python<a class="headerlink" href="#get-python" title="Permalink to this headline">¶</a></h2>
 <p>The programs and packages used here are all open source, so they can be obtained freely.
 Most Linux distributions already ship Python, because many scripts are written in Python.
-See also the <em>Python</em> project page for further information <a class="footnote-reference" href="#id5" id="id1">[1]</a> .
-An easy way to obtain Python is to install <em>Sagemath</em> <a class="footnote-reference" href="#id6" id="id2">[2]</a>, which contains many useful packages extensions
-and packages for mathematics.
-Another possibility would be <em>FEMhub</em> which is a fork of <em>Sage</em> <a class="footnote-reference" href="#id7" id="id3">[3]</a> . FEMhub is smaller, but more experimental than
+See also the <em>Python</em> project page for further information <a class="footnote-reference" href="#id7" id="id2">[2]</a> .</p>
+<p>An easy way to obtain Python is to install <em>Sagemath</em> <a class="footnote-reference" href="#id8" id="id3">[3]</a>, which contains many useful packages extensions
+and packages for mathematics.</p>
+<p>Another possibility would be <em>FEMhub</em> which is a fork of <em>Sage</em> <a class="footnote-reference" href="#id9" id="id4">[4]</a> . FEMhub is smaller, but more experimental than
 Sage, and is aimed only for numerics.
 Some of the packages I introduce here are are currently outdated in Sage/FEMhub or not available yet. Current Versions are
-available on my Google code project page <a class="footnote-reference" href="#id8" id="id4">[4]</a>.
-The drawback of these distributions is that they are not available as .deb or .rpm packages. They have to be build
-from source, and currently only work on Linux and</p>
+available on my Google code project page <a class="footnote-reference" href="#id10" id="id5">[5]</a>.</p>
+<p>The drawback of these distributions is that they are not available as .deb or .rpm packages. They have to be build
+from source, and currently only work on Linux and other Unix type systems.
+But there are precompiled binaries available. (I personally recommand to
+build it from source because then many optimisation options are applied)</p>
 <p class="rubric">Links</p>
-<table class="docutils footnote" frame="void" id="id5" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://www.python.org/">http://www.python.org/</a></td></tr>
-</tbody>
-</table>
 <table class="docutils footnote" frame="void" id="id6" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="http://www.sagemath.org/">http://www.sagemath.org/</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://python-history.blogspot.com/2009/01/brief-timeline-of-python.html">http://python-history.blogspot.com/2009/01/brief-timeline-of-python.html</a></td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="id7" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><a class="reference external" href="http://www.femhub.org">http://www.femhub.org</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="http://www.python.org/">http://www.python.org/</a></td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="id8" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td><a class="reference external" href="http://code.google.com/p/computational-sage/">http://code.google.com/p/computational-sage/</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><a class="reference external" href="http://www.sagemath.org/">http://www.sagemath.org/</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td><a class="reference external" href="http://www.femhub.org">http://www.femhub.org</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[5]</a></td><td><a class="reference external" href="http://code.google.com/p/computational-sage/">http://code.google.com/p/computational-sage/</a></td></tr>
 </tbody>
 </table>
 </div>
@@ -110,7 +135,7 @@ from source, and currently only work on Linux and</p>
             <ul>
 <li><a class="reference external" href="#">About Python</a><ul>
 <li><a class="reference external" href="#what-is-python">What is Python</a></li>
-<li><a class="reference external" href="#a-brief-history">A brief History</a></li>
+<li><a class="reference external" href="#why-python">Why Python?</a></li>
 <li><a class="reference external" href="#get-python">Get Python</a></li>
 </ul>
 </li>
@@ -119,6 +144,9 @@ from source, and currently only work on Linux and</p>
             <h4>Previous topic</h4>
             <p class="topless"><a href="Introduction.html"
                                   title="previous chapter">Introduction</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="Zen.html"
+                                  title="next chapter">The Zen of Python, and some (personal) words on it</a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
               <li><a href="_sources/Python.txt"
@@ -147,6 +175,9 @@ from source, and currently only work on Linux and</p>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="Zen.html" title="The Zen of Python, and some (personal) words on it"
+             >next</a> |</li>
         <li class="right" >
           <a href="Introduction.html" title="Introduction"
              >previous</a> |</li>

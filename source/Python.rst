@@ -1,4 +1,4 @@
-.. highlight:: rst
+.. highlight:: python
 
 About Python
 ==============================
@@ -7,6 +7,10 @@ What is Python
 -----------------------------
 Python is a high level interpreted object oriented (OO) language.
 It's main field of application is in web design and scripting. 
+
+It was invented by Guido VanRossum in the end of the 80's and the begin of
+the 90's [#]_. The name was derived of the *Monty Python's Flying Curcus*
+show.
 
 In the last five years there was a huge development of mathematical tools
 and libraries for Python. Actually it seems that there is no particular reason for 
@@ -18,25 +22,43 @@ Also there are now some very useful tools for code optimization available like *
 that makes it possible to compile your Python Code to *C* and make it up to 1000x faster,
 than normal Python code. 
 
-A brief History
+Why Python?
 -----------------------------
+
+* Intuitive Syntax
+* Simple
+* An easy to learn language.
+* Object orientated.
+* Fast (if used with brains).
+* Rapidly developing.
+* A common language, so you will find answers to your problem.
+* Many nice tools which makes your life easier (like Sphinx, which I use to write this report)
+
 
 Get Python
 ------------------------------
 The programs and packages used here are all open source, so they can be obtained freely.
 Most Linux distributions already ship Python, because many scripts are written in Python.
 See also the *Python* project page for further information [#]_ . 
+
 An easy way to obtain Python is to install *Sagemath* [#]_, which contains many useful packages extensions
 and packages for mathematics.
+
 Another possibility would be *FEMhub* which is a fork of *Sage* [#]_ . FEMhub is smaller, but more experimental than
 Sage, and is aimed only for numerics. 
 Some of the packages I introduce here are are currently outdated in Sage/FEMhub or not available yet. Current Versions are
 available on my Google code project page [#]_.
+
 The drawback of these distributions is that they are not available as .deb or .rpm packages. They have to be build
-from source, and currently only work on Linux and 
+from source, and currently only work on Linux and other Unix type systems.
+But there are precompiled binaries available. (I personally recommand to
+build it from source because then many optimisation options are applied) 
+
+
 
 .. rubric:: Links
 
+.. [#] http://python-history.blogspot.com/2009/01/brief-timeline-of-python.html
 .. [#] http://www.python.org/
 .. [#] http://www.sagemath.org/
 .. [#] http://www.femhub.org
