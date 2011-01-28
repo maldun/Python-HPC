@@ -73,6 +73,119 @@ we start with the &#8220;Goodbye World&#8221; program.</p>
 <div class="highlight-python"><pre>sage -python goodbye_world.py</pre>
 </div>
 </div>
+<div class="section" id="basic-datatpypes">
+<h2>Basic datatpypes<a class="headerlink" href="#basic-datatpypes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="numbers">
+<h3>Numbers<a class="headerlink" href="#numbers" title="Permalink to this headline">¶</a></h3>
+<p>You can represent numbers in many ways:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="mi">1</span>
+</pre></div>
+</div>
+<p>is the <strong>integer</strong> one.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="mf">1.0</span>
+</pre></div>
+</div>
+<p>is the <strong>float</strong>  one.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="il">1L</span>
+</pre></div>
+</div>
+<p>represents the <strong>long int</strong> one.</p>
+<p>There is also a representation for floats with exponential:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="mf">1e3</span>
+</pre></div>
+</div>
+<p>which is thousand, or complex numbers:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="mi">1</span> <span class="o">+</span> <span class="mi">3</span><span class="n">j</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="basic-arithmetics">
+<h3>Basic arithmetics<a class="headerlink" href="#basic-arithmetics" title="Permalink to this headline">¶</a></h3>
+<p>Of course you can use your Python interpreter as a calculator:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">2</span><span class="o">*</span><span class="mi">3</span>
+<span class="go">6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">3</span><span class="o">-</span><span class="mi">2</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span><span class="o">-</span><span class="mi">1</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">2</span><span class="o">*</span><span class="mi">3</span>
+<span class="go">6</span>
+</pre></div>
+</div>
+<p>Division is a little more tricky in Python:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+<p>What happened here: A division between two integers return an integer, and Python simply returns the floor.
+So taking negative numbers it works in the other direction:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="o">-</span><span class="mi">5</span><span class="o">/</span><span class="mi">2</span>
+<span class="go">-3</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="notes-on-the-syntax">
+<h2>Notes on the syntax<a class="headerlink" href="#notes-on-the-syntax" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="intendation-for-organising-blocks-of-codes">
+<h3>Intendation for organising blocks of codes<a class="headerlink" href="#intendation-for-organising-blocks-of-codes" title="Permalink to this headline">¶</a></h3>
+<p>Codes of blocks are, unlike other programming languages like C++
+not organized with parantheses but with indentation. I.e. it looks
+like the following:</p>
+<div class="highlight-python"><pre>Code outside Block
+
+&lt;statement&gt; &lt;identifier(s)&gt; :
+    Code in block 1
+    Code in block 1
+    ...
+    &lt;statement2&gt; &lt;id&gt; :
+        Code in block 2
+        Code in block 2
+        ...
+
+    Code in block 1
+    Code in block 1
+
+    &lt;statement3 &lt;id3&gt; :
+        Code in block 3
+
+    Code in block 1
+
+Code outside Block</pre>
+</div>
+<p>This sounds for many confusing at the beginning (including myself),
+but actually it is not.
+After writing some code (with a good editor!) one get&#8217;s
+used to this very quickly.
+Try it yourself: After a week or even a month
+writing code in Python, go back to Matlab or C.</p>
+<p>The benefit of this is, that the code is much more readible,
+and a good programmer makes indentation nevertheless.
+It&#8217;s also helpful for debugging: If you make an indentation error
+the interpreter knows where it happend, if you forget an <strong>end</strong> or
+an <strong>}</strong> the compiler often points you to a line number anywere in the code.</p>
+<p><strong>Important note:</strong> You can choose the type of indentation as you wish.
+One, two, three, four,... 2011 whitespaces, or tabulators. <strong>But</strong> you should
+never mix whitespaces with tabulators! This will result in an error.</p>
+</div>
+<div class="section" id="the-semicolon">
+<h3>The semicolon<a class="headerlink" href="#the-semicolon" title="Permalink to this headline">¶</a></h3>
+<p>Generally you don&#8217;t need a semicolon, and often you don&#8217;t use it.
+It&#8217;s usage is for putting more than one statment in a line.For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="mi">1</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="mi">2</span><span class="o">+</span><span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="the-print-statement">
+<h2>The print statement<a class="headerlink" href="#the-print-statement" title="Permalink to this headline">¶</a></h2>
+<p>We start here with some explainations of the print statement.</p>
+<p>We can print</p>
+</div>
 </div>
 
 
@@ -85,6 +198,17 @@ we start with the &#8220;Goodbye World&#8221; program.</p>
             <ul>
 <li><a class="reference external" href="#">How to use Python</a><ul>
 <li><a class="reference external" href="#the-goodbye-world-program">The &#8220;Goodbye World&#8221; program.</a></li>
+<li><a class="reference external" href="#basic-datatpypes">Basic datatpypes</a><ul>
+<li><a class="reference external" href="#numbers">Numbers</a></li>
+<li><a class="reference external" href="#basic-arithmetics">Basic arithmetics</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#notes-on-the-syntax">Notes on the syntax</a><ul>
+<li><a class="reference external" href="#intendation-for-organising-blocks-of-codes">Intendation for organising blocks of codes</a></li>
+<li><a class="reference external" href="#the-semicolon">The semicolon</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#the-print-statement">The print statement</a></li>
 </ul>
 </li>
 </ul>
