@@ -47,6 +47,126 @@
             
   <div class="section" id="programming-in-python">
 <h1>Programming in Python<a class="headerlink" href="#programming-in-python" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="go-with-the-control-flow">
+<h2>Go with the control flow<a class="headerlink" href="#go-with-the-control-flow" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="the-if-statement">
+<h3>The <tt class="docutils literal"><span class="pre">if</span></tt> statement<a class="headerlink" href="#the-if-statement" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">if</span></tt> statement in Python is quite the way one would
+expect from other languages.
+As mentioned in the section <em class="xref">indention_ref</em> the <tt class="docutils literal"><span class="pre">if</span></tt> statement
+has the following structure:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">if</span> <span class="n">condition_is_true</span><span class="p">:</span>
+  <span class="n">do_something</span>
+</pre></div>
+</div>
+<p>Note the intendention!</p>
+<p>There is also an <tt class="docutils literal"><span class="pre">else</span></tt> statement in Python:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">if</span> <span class="n">condition_is_true</span><span class="p">:</span>
+  <span class="n">do_something</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="n">do_something_else</span>
+</pre></div>
+</div>
+<p>Note that for the <tt class="docutils literal"><span class="pre">else</span></tt> statement the intendention rule applies
+too!</p>
+<p>There is also an <tt class="docutils literal"><span class="pre">elif</span></tt> clause short for else/if:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">if</span> <span class="n">condition_is_true</span><span class="p">:</span>
+  <span class="n">do_something</span>
+<span class="k">elif</span> <span class="n">another_condition_is_true</span><span class="p">:</span>
+  <span class="n">do_something_different</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="n">do_something_else</span>
+</pre></div>
+</div>
+<p>Here for example we determine the sign of a value:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+  <span class="n">sign</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">elif</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+  <span class="n">sign</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="n">sign</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="while-loops">
+<h3><tt class="docutils literal"><span class="pre">while</span></tt> loops<a class="headerlink" href="#while-loops" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">while</span></tt> loops are also like expected:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">while</span> <span class="n">condition_is_true</span><span class="p">:</span>
+  <span class="n">do_something</span>
+</pre></div>
+</div>
+<p>In Python while loops know alos an <tt class="docutils literal"><span class="pre">else</span></tt> statement.
+It is executed when the condition is violated:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">while</span> <span class="n">condition_is_true</span><span class="p">:</span>
+  <span class="n">do_something</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="n">do_something</span>
+</pre></div>
+</div>
+<p>Here an example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">while</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+  <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="k">print</span><span class="p">(</span><span class="s">&quot;Start&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>the output of this snippet is:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="mi">0</span>
+<span class="mi">1</span>
+<span class="mi">2</span>
+<span class="mi">3</span>
+<span class="mi">4</span>
+<span class="mi">5</span>
+<span class="mi">6</span>
+<span class="mi">7</span>
+<span class="mi">8</span>
+<span class="mi">9</span>
+<span class="n">Start</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="for-loops">
+<h3><tt class="docutils literal"><span class="pre">for</span></tt> loops<a class="headerlink" href="#for-loops" title="Permalink to this headline">¶</a></h3>
+<p>For loops are a little bit different in Python,
+because in contrast to other programming languages
+<tt class="docutils literal"><span class="pre">for</span></tt> iterates through a sequence/list, and not only to integers
+or numbers, like in C.</p>
+<p>A <tt class="docutils literal"><span class="pre">for</span></tt> loop looks like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">:</span>
+  <span class="n">do_something_with_x</span>
+</pre></div>
+</div>
+<p>We can use the <tt class="docutils literal"><span class="pre">range</span></tt> function (see the section about
+<a class="reference external" href="Steps.html#list-ref"><em>Lists</em></a> ) to create a <em>norma;</em> <tt class="docutils literal"><span class="pre">for</span></tt> loop:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+  <span class="n">do_something_with_x</span>
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">for</span></tt> loop knows also an <tt class="docutils literal"><span class="pre">else</span></tt> statement. It is executed when
+<tt class="docutils literal"><span class="pre">for</span></tt> reaches the end of the list/sequence.</p>
+<p>Analogous to our <tt class="docutils literal"><span class="pre">while</span></tt> example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="k">print</span><span class="p">(</span><span class="s">&quot;Start&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Remark:</strong> To get out more performance of your Python code use
+<tt class="docutils literal"><span class="pre">xrange</span></tt> instead of range, because <tt class="docutils literal"><span class="pre">xrange</span></tt> doesn&#8217;t need allocate
+memory for a list. In Python 3, however, <tt class="docutils literal"><span class="pre">range</span></tt> returns an iterator
+and not a list, so this is obsolete there.</p>
+<p>See also the Python wiki <a class="footnote-reference" href="#id2" id="id1">[1]</a> on this topic.</p>
+<p class="rubric">Links</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://wiki.python.org/moin/PythonSpeed/PerformanceTips">http://wiki.python.org/moin/PythonSpeed/PerformanceTips</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 
 
@@ -55,6 +175,19 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="#">Programming in Python</a><ul>
+<li><a class="reference external" href="#go-with-the-control-flow">Go with the control flow</a><ul>
+<li><a class="reference external" href="#the-if-statement">The <tt class="docutils literal"><span class="pre">if</span></tt> statement</a></li>
+<li><a class="reference external" href="#while-loops"><tt class="docutils literal"><span class="pre">while</span></tt> loops</a></li>
+<li><a class="reference external" href="#for-loops"><tt class="docutils literal"><span class="pre">for</span></tt> loops</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
             <h4>Previous topic</h4>
             <p class="topless"><a href="Steps.html"
                                   title="previous chapter">Python Basics</a></p>

@@ -94,7 +94,7 @@ we start with the &#8220;Goodbye World&#8221; program.</p>
 <div class="section" id="notes-on-the-syntax">
 <h2>Notes on the syntax<a class="headerlink" href="#notes-on-the-syntax" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="intendation-for-organising-blocks-of-codes">
-<h3>Intendation for organising blocks of codes<a class="headerlink" href="#intendation-for-organising-blocks-of-codes" title="Permalink to this headline">¶</a></h3>
+<span id="indention-ref"></span><h3>Intendation for organising blocks of codes<a class="headerlink" href="#intendation-for-organising-blocks-of-codes" title="Permalink to this headline">¶</a></h3>
 <p>Codes of blocks are, unlike other programming languages like C++
 not organized with parantheses but with indentation. I.e. it looks
 like the following:</p>
@@ -434,7 +434,7 @@ C or C++ which can be performed on integers.</p>
 <h3>Container Types<a class="headerlink" href="#container-types" title="Permalink to this headline">¶</a></h3>
 <p>There are several container types in Python</p>
 <div class="section" id="lists">
-<h4>Lists<a class="headerlink" href="#lists" title="Permalink to this headline">¶</a></h4>
+<span id="list-ref"></span><h4>Lists<a class="headerlink" href="#lists" title="Permalink to this headline">¶</a></h4>
 <p>Lists are the most common container type in Python.
 To create a list simply write use the rectangular brackets <tt class="docutils literal"><span class="pre">[,]</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
@@ -636,6 +636,16 @@ with the set function:</p>
 <p>Of course you can&#8217;t access an element since there is no ordering.
 But one can make tests on sets. We come to that right now.</p>
 </div>
+<div class="section" id="iterators">
+<h4>Iterators<a class="headerlink" href="#iterators" title="Permalink to this headline">¶</a></h4>
+<p>With help of the <tt class="docutils literal"><span class="pre">xrange</span></tt> function one can create iterators,
+which are not real lists, but functions, which generates items
+when addressed.</p>
+<p>They can be addressed like normal lists:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nb">xrange</span><span class="p">(</span><span class="mi">3</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="membership-test">
 <h4>Membership test<a class="headerlink" href="#membership-test" title="Permalink to this headline">¶</a></h4>
 <p>One can test the membership of elements within containers.</p>
@@ -709,6 +719,16 @@ them (<strong>Note:</strong> <tt class="docutils literal"><span class="pre">set<
 </div>
 </li>
 </ul>
+<p>To be more precise: Those operations are performed on so called
+sequence types. These are containers, with have an ordered structure,
+which can be addressed via integers (like normal sequences)</p>
+<p>Those types are:
+* strings
+* unicode strings
+* lists
+* tuples
+* iterators</p>
+<p>For more information I refer here to the Python documentation again.</p>
 </div>
 </div>
 <div class="section" id="strings">
@@ -1009,6 +1029,7 @@ statment, is different from the <tt class="docutils literal"><span class="pre">=
 <li><a class="reference external" href="#tuples">Tuples</a></li>
 <li><a class="reference external" href="#dictionaries">Dictionaries</a></li>
 <li><a class="reference external" href="#sets">Sets</a></li>
+<li><a class="reference external" href="#iterators">Iterators</a></li>
 <li><a class="reference external" href="#membership-test">Membership test</a></li>
 <li><a class="reference external" href="#other-operations-on-containers">Other operations on containers</a></li>
 </ul>

@@ -65,10 +65,10 @@ Here an example::
 
   k = 0
   while k < 10:
-    print k
+    print(k)
     k += 1
   else:
-    print "Start"
+    print("Start")
 
 the output of this snippet is::
 
@@ -103,10 +103,20 @@ We can use the ``range`` function (see the section about
   for i in range(n):
     do_something_with_x
 
+The ``for`` loop knows also an ``else`` statement. It is executed when
+``for`` reaches the end of the list/sequence. 
+
+Analogous to our ``while`` example::
+
+  for k in range(10):
+    print(k)
+  else:
+    print("Start")
+
 **Remark:** To get out more performance of your Python code use
 ``xrange`` instead of range, because ``xrange`` doesn't need allocate
 memory for a list. In Python 3, however, ``range`` returns an iterator
-and not a list, so this is obsolte there.
+and not a list, so this is obsolete there.
 
 See also the Python wiki [#]_ on this topic.
 

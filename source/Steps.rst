@@ -45,10 +45,11 @@ and press enter.
 Notes on the syntax
 ---------------------------------------------
 
+.. _indention_ref:
+
+
 Intendation for organising blocks of codes
 """""""""""""""""""""""""""""""""""""""""""""
-
-.. _indention_ref:
 
 Codes of blocks are, unlike other programming languages like C++
 not organized with parantheses but with indentation. I.e. it looks
@@ -371,10 +372,12 @@ Container Types
 
 There are several container types in Python
 
+.. _list_ref:
+
 Lists
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. _list_ref:
+
 
 Lists are the most common container type in Python.
 To create a list simply write use the rectangular brackets ``[,]``::
