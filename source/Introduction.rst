@@ -32,8 +32,25 @@ Stefan Reiterer,
 Graz Austria 
 2011
 
-The Zen of Python.
-------------------------------------------------------------
+
+Experiences I want to share with programming beginners
+-------------------------------------------------------------------------------------
+
+My professors in the basic programming and informatics lectures were all software devolopers, and often cursed programmers from scientific areas,
+because of their complicated and often weird codes. I didn't understand their words that time, but since I'm working with libraries like
+BLAS, LAPACK, ATLAS etc. I started to understand...  
+
+It's true that the processes of software engeneering for "normal" applications and scientific computation are two different areas, but I realised in the recent
+years that many people from the latter area seem to simply ignore **nearly all** basic concepts of software design and coding, and I don't know why.
+Maybe it's ignorance, because many think they don't need that much programming again, or because they are simply lazy. Another reason could be 
+that they are too deep into it, and think everyone else think the same way. Perhaps it has historical reasons, like in the case of BLAS,
+or it's me because of my friends and education I have a different viewpoint on  that things.
+
+Neverteless I want to use this section to give some important lectures to people, who aren't deep into programming, 
+I learnt during the last 13 years since I'm started "programming" Visual Basic with 13.
+
+The Zen of Python don't apply only to Python
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 If you type into your Python Interpretor the line
 ::
@@ -64,24 +81,10 @@ You will get this:
 #. *If the implementation is easy to explain, it may be a good idea.*
 #. *Namespaces are one honking great idea -- let's do more of those!*
 
-This is the philosophy of python and can argue about some the points, e.g. point 13., but some words are really true, especially the statements of simpleness.
-Simply keep this rules in mind.
-
-Experiences I want to share with programming beginners
--------------------------------------------------------------------------------------
-
-My professors in the basic programming and informatics lectures were all software devolopers, and often cursed programmers from scientific areas,
-because of their complicated and often weird codes. I didn't understand their words that time, but since I'm working with libraries like
-BLAS, LAPACK, ATLAS etc. I started to understand...  
-
-It's true that the processes of software engeneering for "normal" applications and scientific computation are two different areas, but I realised in the recent
-years that many people from the latter area seem to simply ignore **nearly all** basic concepts of software design and coding, and I don't know why.
-Maybe it's ignorance, because many think they don't need that much programming again, or because they are simply lazy. Another reason could be 
-that they are too deep into it, and think everyone else think the same way. Perhaps it has historical reasons, like in the case of BLAS,
-or it's me because of my friends and education I have a different viewpoint on  that things.
-
-Neverteless I want to use this section to give some important lectures to people, who aren't deep into programming, 
-I learnt during the last 13 years since I'm started "programming" Visual Basic with 13.
+This is the philosophy of python and can argue about some the points,
+e.g. point 13., but I can say without bad feeling, that **every**
+programmer should especially keep in mind the points 1-7, which apply in every
+language you will use!
 
 Code is more often read than written
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -129,15 +132,41 @@ other 97% and wonder why their program isn't getting quicker. The only gain you 
 of unreadible code. I remember that I implemented an "optimized" for loop some time ago, and the only gain were
 3 ms of more speed. And later when I looked on that function I had no Idea what I did that time... 
 
+Choice of the right tools
+"""""""""""""""""""""""""""""""
+Since I descend a family of craftsmans, this was taught me very early. You don't want to use
+a siedgehammer for hitting a tiny nail into a wall, and you don't want to use small axe to cut down a tree.   
+(Well I know people who do...). And this applies for programming as well. You don"t want to write a parser in Fortran,
+and you don't want to write a program for symbolic manipulation in Java. (I personally would never implement *anything* 
+mathematical in Java, because it lacks some aspects like operator overloading and efficiency, but that's only a biased opinion.) 
+The right choice of used languages
+and tools, can heavily affect the time you need, and also your success of your projects. It often helps to
+ask colleagues, teachers and Google to find the right tool. I list
+some of the tools I use here. Keep always in mind that the choice of
+your tools, depends also on your personal skills, and
+preferences. Something that a colleague of yours like, could possible
+a nuissance for yourself.
+
+Don't use Notepad as your editor!
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+A good editor is not expensive (often even free), and saves you a
+whole lot of work! Good editors are for example Emacs [#]_, VIM [#]_.
+A good List of editors can be found on Wikipedia. [#]_
+
 Use version control
-"""""""""""""""""""""""""""""""""""""""""""""""""""
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Many, many people simply don't know there are very nice
 tools to keep record of your changes, and make it possible
-to redo the changes like Git [#]_, Mercurial [#]_ (which is written in Python),
+to redo the changes. Most common are Git [#]_, Mercurial [#]_ (which is written in Python),
 or SVN [#]_. 
 
+Use debugging tools
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Very good debugging tools are for example Valgrind [#]_, GDB [#]_,
+and many, many more... [#]_ 
+
 Use Linux
-"""""""""""""""""""""""""""""""
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 This is of course only a personal recommondation. But Linux is in my opinion better
 suited as development enviroment, because most things you need for programming are native, or
 already integrated, and even the standard editors know syntax highlighting of the most programming
@@ -190,9 +219,15 @@ because I simply don't want to do unessecary work.
 .. rubric:: Links
 
 .. [#] http://en.wikiquote.org/wiki/Donald_Knuth
+.. [#] http://www.gnu.org/software/emacs/
+.. [#] http://www.vim.org/
+.. [#] http://en.wikipedia.org/wiki/List_of_text_editors
 .. [#] http://git-scm.com/
 .. [#] http://mercurial.selenic.com/
-.. [#] http://en.wikipedia.org/wiki/Apache_Subversion
+.. [#] http://subversion.apache.org/
+.. [#] http://valgrind.org/
+.. [#] http://www.gnu.org/software/gdb/
+.. [#] http://en.wikipedia.org/wiki/Debugger
 .. [#] http://www.virtualbox.org/
 .. [#] http://www.ubuntu.com/desktop/get-ubuntu/windows-installer
 .. [#] http://www.ubuntu.com/

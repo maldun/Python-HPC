@@ -38,12 +38,21 @@ Alternatively you can do this directly in the interpreter.
   
 #. Write::
   
-  >>> print("Goodbye World")
+    >>> print("Goodbye World")
 
 and press enter. 
 
-Basic datatpypes 
+Some basic datatpypes 
 ---------------------------------------------
+
+If you need more information on that topic
+look in the Python documentation [#]_.
+
+**Remark for Sage users** Sage uses it's own
+integers or reals. Lookup the documentation
+if you need further information.
+
+
 
 Numbers
 """""""""""""""""""""""""""""""""""""""""""""
@@ -73,15 +82,16 @@ There is also a representation for floats with exponential::
 which is thousand, or complex numbers::
   
   1 + 3j
-  
 
-Strings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+You can also create numbers directly, with their type specified::
 
-
+  int(5)
+  long(3)
+  float(7)
+  complex(3,4)
 
 Basic arithmetics
----------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Of course you can use your Python interpreter as a calculator.
 Simply call 
@@ -115,6 +125,153 @@ So taking negative numbers it works in the other direction::
   >>> -5/2
   -3
 
+If you use the // operator than you force floor division::
+
+     >>> 1.5//3
+     0.0 
+
+More on mathematical operations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Here is short table on basic operations:
+
++---------------------------+--------------+
+|Operation                  | Code         |
++===========================+==============+
+|:math:`a+b`                |  a+b         |
++---------------------------+--------------+
+|:math:`a-b`                |  a-b         |
++---------------------------+--------------+
+|:math:`a\cdot b`           |  a*b         |
++---------------------------+--------------+
+|:math:`a/b`                |  a/b         |
++---------------------------+--------------+
+|:math:`a^b`                |  a**b        | 
++---------------------------+--------------+
+|:math:`\lfloor a/b\rfloor` | a//b         |
++---------------------------+--------------+
+|:math:`a \mod b`           | a%b          |
++---------------------------+--------------+
+|:math:`-a`                 | -a           |
++---------------------------+--------------+
+|:math:`+a`                 | +a           |
++---------------------------+--------------+
+|:math:`|a|`                | abs(a)       |
++---------------------------+--------------+
+|:math:`\overline{a}`       | a.conjugate()|
++---------------------------+--------------+
+
+Some operations can be called by functions::
+
+  >>> 2**3
+  8
+  >>> pow(2,3)
+  8
+
+In Python one has also the well known bit operations from
+C or C++ which can be performed on integers.
+
++------------+--------------------------------+
+| Operation  | Result                         |
++============+================================+
+| ``x | y``  | bitwise :dfn:`or` of *x* and   |
+|            | *y*                            |
++------------+--------------------------------+
+| ``x ^ y``  | bitwise :dfn:`exclusive or` of |
+|            | *x* and *y*                    |
++------------+--------------------------------+
+| ``x & y``  | bitwise :dfn:`and` of *x* and  |
+|            | *y*                            |
++------------+--------------------------------+
+| ``x << n`` | *x* shifted left by *n* bits   |
++------------+--------------------------------+
+| ``x >> n`` | *x* shifted right by *n* bits  |
++------------+--------------------------------+
+| ``~x``     | the bits of *x* inverted       |
++------------+--------------------------------+
+
+
+Strings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+There are several ways to create strings in Python::
+
+    a = 'bla'
+    b = "bla"
+    c = """bla"""
+    d = str('bla')
+    e = '''bla'''
+
+The only one of these, which is slightly different is the triple
+quote **'''** or **"""**, which allows multilines and quotes inside 
+the string::
+
+  string = """Hi! I'm the "best" sting in this Universe.
+              You can believe me, there is no better one."""
+
+One can also create strings over more lines using the backslash::
+
+  >>> a = "First \
+  ... Second"
+  >>> a
+  'First Second'
+
+Note that writing two strings in one command leads to creating only
+one string::
+
+  >>> a = "First" " Second"
+  >>> a
+  'First Second'
+
+Of course strings are objects to so you can call class methods on them.
+Strings are immutable objects in Python, which means that you can't
+alter it, after you you created it. Like everything this has benefits 
+and drawbacks.
+
+Special types of strings in Python
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+You can specify some types of strings in Python::
+
+  r"Newlines are made with \n"
+
+This makes a raw string, on which no formating as applied.
+Capital R works also for this.
+
+We also can create unicode strings with utf8 support::
+
+  kebap = "Dürüm"
+
+This looks like the following in Python::
+
+  >>> kebap
+  'D\xc3\xbcr\xc3\xbcm'
+  >>> print(kebap)
+  Dürüm  
+
+Basic manipulation of strings
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Two put two strings together one can use the + operator::
+
+  >>> a = "First"
+  >>> b = " Second"
+  >>> a+b
+  'First Second'
+
+Formating like in C is also allowed::
+
+  >>> a = "First \nSecond"
+  >>> print(a)
+  First 
+  Second
+
+Note again the difference to the raw string::
+
+  >>> b = r"First \n Second"
+  >>> print(b)
+  First \n Second
+
+We can also make 
 
 Notes on the syntax
 ---------------------------------------------
@@ -181,3 +338,6 @@ We start here with some explainations of the print statement.
 
 We can print 
  
+.. rubric:: Links
+
+.. [#] http://docs.python.org/library/stdtypes.html

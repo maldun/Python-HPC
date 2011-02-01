@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>How to use Python &mdash; hpc v1.0 documentation</title>
+    <title>First steps in Python &mdash; hpc v1.0 documentation</title>
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -41,8 +41,8 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="how-to-use-python">
-<h1>How to use Python<a class="headerlink" href="#how-to-use-python" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="first-steps-in-python">
+<h1>First steps in Python<a class="headerlink" href="#first-steps-in-python" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="the-goodbye-world-program">
 <h2>The &#8220;Goodbye World&#8221; program.<a class="headerlink" href="#the-goodbye-world-program" title="Permalink to this headline">¶</a></h2>
 <p>In the old tradition of the &#8220;&lt;insert Language here&gt; for Dummies&#8221; books,
@@ -72,9 +72,28 @@ we start with the &#8220;Goodbye World&#8221; program.</p>
 <p>or</p>
 <div class="highlight-python"><pre>sage -python goodbye_world.py</pre>
 </div>
+<p>Alternatively you can do this directly in the interpreter.
+#. Open a shell
+#. Type:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">python</span>
+</pre></div>
 </div>
-<div class="section" id="basic-datatpypes">
-<h2>Basic datatpypes<a class="headerlink" href="#basic-datatpypes" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">Write:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;Goodbye World&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>and press enter.</p>
+</div>
+<div class="section" id="some-basic-datatpypes">
+<h2>Some basic datatpypes<a class="headerlink" href="#some-basic-datatpypes" title="Permalink to this headline">¶</a></h2>
+<p>If you need more information on that topic
+look in the Python documentation <a class="footnote-reference" href="#id2" id="id1">[1]</a>.</p>
+<p><strong>Remark for Sage users</strong> Sage uses it&#8217;s own
+integers or reals. Lookup the documentation
+if you need further information.</p>
 <div class="section" id="numbers">
 <h3>Numbers<a class="headerlink" href="#numbers" title="Permalink to this headline">¶</a></h3>
 <p>You can represent numbers in many ways:</p>
@@ -98,10 +117,21 @@ we start with the &#8220;Goodbye World&#8221; program.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="mi">1</span> <span class="o">+</span> <span class="mi">3</span><span class="n">j</span>
 </pre></div>
 </div>
+<p>You can also create numbers directly, with their type specified:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nb">int</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="nb">long</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="nb">float</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="nb">complex</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
 </div>
 <div class="section" id="basic-arithmetics">
-<h3>Basic arithmetics<a class="headerlink" href="#basic-arithmetics" title="Permalink to this headline">¶</a></h3>
-<p>Of course you can use your Python interpreter as a calculator:</p>
+<h4>Basic arithmetics<a class="headerlink" href="#basic-arithmetics" title="Permalink to this headline">¶</a></h4>
+<p>Of course you can use your Python interpreter as a calculator.
+Simply call</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">python</span>
+</pre></div>
+</div>
+<p>and then try for example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span>
 <span class="go">2</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="mi">2</span><span class="o">*</span><span class="mi">3</span>
@@ -127,6 +157,132 @@ So taking negative numbers it works in the other direction:</p>
 <span class="go">-3</span>
 </pre></div>
 </div>
+<p>If you use the // operator than you force floor division:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="mf">1.5</span><span class="o">//</span><span class="mi">3</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="more-on-mathematical-operations">
+<h4>More on mathematical operations<a class="headerlink" href="#more-on-mathematical-operations" title="Permalink to this headline">¶</a></h4>
+<p>Here is short table on basic operations:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="66%" />
+<col width="34%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Operation</th>
+<th class="head">Code</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><img class="math" src="_images/math/add2609af1bb7632cc22b68fd49fdd94de06b327.png" alt="a+b"/></td>
+<td>a+b</td>
+</tr>
+<tr><td><img class="math" src="_images/math/5a697bfdeadf2105048670e6f6c7d4dc6878dc4f.png" alt="a-b"/></td>
+<td>a-b</td>
+</tr>
+<tr><td><img class="math" src="_images/math/d2c29defc546024783f0c3e0f0d1800b316d1d70.png" alt="a\cdot b"/></td>
+<td>a*b</td>
+</tr>
+<tr><td><img class="math" src="_images/math/e0c22354f6f8870c3a024305aa3afed00b26bcf5.png" alt="a/b"/></td>
+<td>a/b</td>
+</tr>
+<tr><td><img class="math" src="_images/math/3a8be4a03400384a2719b865cf815f46d4f857be.png" alt="a^b"/></td>
+<td>a**b</td>
+</tr>
+<tr><td><img class="math" src="_images/math/2ef7b9b143b1de2f6313465ced8e130a72163368.png" alt="\lfloor a/b\rfloor"/></td>
+<td>a//b</td>
+</tr>
+<tr><td><img class="math" src="_images/math/22aad355d24c03725350e97c8209e47e456913da.png" alt="a \mod b"/></td>
+<td>a%b</td>
+</tr>
+<tr><td><img class="math" src="_images/math/5ab0d6b0f629cdfba5b6ce68695ff0c5a2d6fd8d.png" alt="-a"/></td>
+<td>-a</td>
+</tr>
+<tr><td><img class="math" src="_images/math/9029bad227e01fff796f99ec7bc182acbe4ea203.png" alt="+a"/></td>
+<td>+a</td>
+</tr>
+<tr><td><img class="math" src="_images/math/f42e32ea9361c740cbb968ee21d15749691f747c.png" alt="|a|"/></td>
+<td>abs(a)</td>
+</tr>
+<tr><td><img class="math" src="_images/math/84ed30abc3c509eb5712d25f95db533c618cbce7.png" alt="\overline{a}"/></td>
+<td>a.conjugate()</td>
+</tr>
+</tbody>
+</table>
+<p>Some operations can be called by functions:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="mi">2</span><span class="o">**</span><span class="mi">3</span>
+<span class="go">8</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">8</span>
+</pre></div>
+</div>
+<p>In Python one has also the well known bit operations from
+C or C++ which can be performed on integers.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="73%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Operation</th>
+<th class="head">Result</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><tt class="docutils literal"><span class="pre">x</span> <span class="pre">|</span> <span class="pre">y</span></tt></td>
+<td>bitwise <em>or</em> of <em>x</em> and
+<em>y</em></td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">x</span> <span class="pre">^</span> <span class="pre">y</span></tt></td>
+<td>bitwise <em>exclusive or</em> of
+<em>x</em> and <em>y</em></td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">x</span> <span class="pre">&amp;</span> <span class="pre">y</span></tt></td>
+<td>bitwise <em>and</em> of <em>x</em> and
+<em>y</em></td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">x</span> <span class="pre">&lt;&lt;</span> <span class="pre">n</span></tt></td>
+<td><em>x</em> shifted left by <em>n</em> bits</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">x</span> <span class="pre">&gt;&gt;</span> <span class="pre">n</span></tt></td>
+<td><em>x</em> shifted right by <em>n</em> bits</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">~x</span></tt></td>
+<td>the bits of <em>x</em> inverted</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="strings">
+<h3>Strings<a class="headerlink" href="#strings" title="Permalink to this headline">¶</a></h3>
+<p>There are several ways to create strings in Python:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">a</span> <span class="o">=</span> <span class="s">&#39;bla&#39;</span>
+<span class="n">b</span> <span class="o">=</span> <span class="s">&quot;bla&quot;</span>
+<span class="n">c</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;bla&quot;&quot;&quot;</span>
+<span class="n">d</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="s">&#39;bla&#39;</span><span class="p">)</span>
+<span class="n">e</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;bla&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+<p>The only one of these, which is slightly different is the triple
+quote <strong>&#8216;&#8217;&#8216;</strong> or <strong>&#8220;&#8221;&#8220;</strong>, which allows multilines and quotes inside
+the string:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">string</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;Hi! I&#39;m the &quot;best&quot; sting in this Universe.</span>
+<span class="s">            You can believe me, there is no better one.&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<p>Of course strings are objects to so you can call class methods on them.
+Strings are immutable objects in Python, which means that you can&#8217;t
+alter it, after you you created it. Like everything this has benefits
+and drawbacks.</p>
+<p>You can specify some types of strings in Python:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="s">r&quot;Here we use the reserved symbol %&quot;</span>
+</pre></div>
+</div>
+<p>This makes a raw string, on which no</p>
 </div>
 </div>
 <div class="section" id="notes-on-the-syntax">
@@ -185,6 +341,13 @@ It&#8217;s usage is for putting more than one statment in a line.For example:</p
 <h2>The print statement<a class="headerlink" href="#the-print-statement" title="Permalink to this headline">¶</a></h2>
 <p>We start here with some explainations of the print statement.</p>
 <p>We can print</p>
+<p class="rubric">Links</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://docs.python.org/library/stdtypes.html">http://docs.python.org/library/stdtypes.html</a></td></tr>
+</tbody>
+</table>
 </div>
 </div>
 
@@ -196,11 +359,15 @@ It&#8217;s usage is for putting more than one statment in a line.For example:</p
         <div class="sphinxsidebarwrapper">
             <h3><a href="index.html">Table Of Contents</a></h3>
             <ul>
-<li><a class="reference external" href="#">How to use Python</a><ul>
+<li><a class="reference external" href="#">First steps in Python</a><ul>
 <li><a class="reference external" href="#the-goodbye-world-program">The &#8220;Goodbye World&#8221; program.</a></li>
-<li><a class="reference external" href="#basic-datatpypes">Basic datatpypes</a><ul>
-<li><a class="reference external" href="#numbers">Numbers</a></li>
+<li><a class="reference external" href="#some-basic-datatpypes">Some basic datatpypes</a><ul>
+<li><a class="reference external" href="#numbers">Numbers</a><ul>
 <li><a class="reference external" href="#basic-arithmetics">Basic arithmetics</a></li>
+<li><a class="reference external" href="#more-on-mathematical-operations">More on mathematical operations</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#strings">Strings</a></li>
 </ul>
 </li>
 <li><a class="reference external" href="#notes-on-the-syntax">Notes on the syntax</a><ul>
