@@ -27,6 +27,15 @@ The Python version used here is Python 2.6. since most of the current packages a
 But I try to make them compatible with the new version so that this document don't get outdated soon.
 
 This document is aimed towards mathematicians who want learn Python in a quick way to use it.
+I have to admit that I'm a beginner too, and would be happy about
+feedback on this document. I plan to extend it frequently with tricks
+I learned and collected on various newsgroups. I don't know If this is
+a good guide, but I hope potential readers have the same fun reading,
+I had writing.
+
+
+I distribute this under an open license so people can share it
+freely. (See Section :ref:`license_ref` )
 
 Stefan Reiterer, 
 Graz Austria 

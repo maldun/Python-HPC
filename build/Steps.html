@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>First steps in Python &mdash; hpc v1.0 documentation</title>
+    <title>Python Basics &mdash; hpc v1.0 documentation</title>
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -20,6 +20,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="hpc v1.0 documentation" href="index.html" />
+    <link rel="next" title="Licenses" href="License.html" />
     <link rel="prev" title="About Python" href="Python.html" /> 
   </head>
   <body>
@@ -29,6 +30,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="License.html" title="Licenses"
+             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="Python.html" title="About Python"
              accesskey="P">previous</a> |</li>
@@ -41,8 +45,8 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="first-steps-in-python">
-<h1>First steps in Python<a class="headerlink" href="#first-steps-in-python" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="python-basics">
+<h1>Python Basics<a class="headerlink" href="#python-basics" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="the-goodbye-world-program">
 <h2>The &#8220;Goodbye World&#8221; program.<a class="headerlink" href="#the-goodbye-world-program" title="Permalink to this headline">¶</a></h2>
 <p>In the old tradition of the &#8220;&lt;insert Language here&gt; for Dummies&#8221; books,
@@ -87,13 +91,169 @@ we start with the &#8220;Goodbye World&#8221; program.</p>
 </ol>
 <p>and press enter.</p>
 </div>
+<div class="section" id="notes-on-the-syntax">
+<h2>Notes on the syntax<a class="headerlink" href="#notes-on-the-syntax" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="intendation-for-organising-blocks-of-codes">
+<h3>Intendation for organising blocks of codes<a class="headerlink" href="#intendation-for-organising-blocks-of-codes" title="Permalink to this headline">¶</a></h3>
+<p>Codes of blocks are, unlike other programming languages like C++
+not organized with parantheses but with indentation. I.e. it looks
+like the following:</p>
+<div class="highlight-python"><pre>Code outside Block
+
+&lt;statement&gt; &lt;identifier(s)&gt; :
+    Code in block 1
+    Code in block 1
+    ...
+    &lt;statement2&gt; &lt;id&gt; :
+        Code in block 2
+        Code in block 2
+        ...
+
+    Code in block 1
+    Code in block 1
+
+    &lt;statement3 &lt;id3&gt; :
+        Code in block 3
+
+    Code in block 1
+
+Code outside Block</pre>
+</div>
+<p>This sounds for many confusing at the beginning (including myself),
+but actually it is not.
+After writing some code (with a good editor!) one get&#8217;s
+used to this very quickly.
+Try it yourself: After a week or even a month
+writing code in Python, go back to Matlab or C.</p>
+<p>The benefit of this is, that the code is much more readible,
+and a good programmer makes indentation nevertheless.
+It&#8217;s also helpful for debugging: If you make an indentation error
+the interpreter knows where it happend, if you forget an <strong>end</strong> or
+an <strong>}</strong> the compiler often points you to a line number anywere in the code.</p>
+<p><strong>Important note:</strong> You can choose the type of indentation as you wish.
+One, two, three, four,... 2011 whitespaces, or tabulators. <strong>But</strong> you should
+never mix whitespaces with tabulators! This will result in an error.</p>
+</div>
+<div class="section" id="the-semicolon">
+<h3>The semicolon<a class="headerlink" href="#the-semicolon" title="Permalink to this headline">¶</a></h3>
+<p>Generally you don&#8217;t need a semicolon, and often you don&#8217;t use it.
+It&#8217;s usage is for putting more than one statment in a line.For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="mi">1</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="mi">2</span><span class="o">+</span><span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="identifiers">
+<h3>Identifiers<a class="headerlink" href="#identifiers" title="Permalink to this headline">¶</a></h3>
+<p>Identifier naming follows these rules in Python:</p>
+<ul class="simple">
+<li>An identifier starts with a letter (lower- or uppercase) or an underscore (_)</li>
+<li>The rest of the identifier can consist of digits (0-9), letters</li>
+<li>(lower- or uppercase), and underscores.</li>
+</ul>
+<p>for example</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">_bla</span>
+<span class="n">no</span>
+<span class="n">bla_bla_2</span>
+</pre></div>
+</div>
+<p>would be valid,</p>
+<div class="highlight-python"><pre>2gether
+one space
+a-b</pre>
+</div>
+<p>are non valid identifiers.</p>
+</div>
+</div>
+<div class="section" id="assignment-of-variables">
+<h2>Assignment of variables<a class="headerlink" href="#assignment-of-variables" title="Permalink to this headline">¶</a></h2>
+<p>To assign a value to an identifier, we write <tt class="docutils literal"><span class="pre">=</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>There is no need to tell Python the data type, because the
+interpreter does this for you.</p>
+<p>One can also simply change the content:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+<p>Don&#8217;t worry, Python handle the garbage collection for you.</p>
+<p>Like in quite all common programming languges, the value which has to
+be assigned to is on the left site, this means the statement</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>does <em>first</em> add one to x and then overwrite x with the new value:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span>
+<span class="go">4</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="some-basic-datatpypes">
 <h2>Some basic datatpypes<a class="headerlink" href="#some-basic-datatpypes" title="Permalink to this headline">¶</a></h2>
 <p>If you need more information on that topic
-look in the Python documentation <a class="footnote-reference" href="#id2" id="id1">[1]</a>.</p>
+look in the Python documentation <a class="footnote-reference" href="#id5" id="id1">[1]</a>.</p>
 <p><strong>Remark for Sage users</strong> Sage uses it&#8217;s own
 integers or reals. Lookup the documentation
 if you need further information.</p>
+<div class="section" id="boolean-values">
+<h3>Boolean values<a class="headerlink" href="#boolean-values" title="Permalink to this headline">¶</a></h3>
+<p>In Python the following values are considered as false:</p>
+<ul class="simple">
+<li><tt class="xref docutils literal"><span class="pre">None</span></tt></li>
+<li><tt class="xref docutils literal"><span class="pre">False</span></tt></li>
+<li>Zero of every numeric type, i.e. <tt class="docutils literal"><span class="pre">0</span></tt>,``0L``,``0.0``,``0j`` etc.</li>
+<li>Empty containers like <tt class="docutils literal"><span class="pre">''</span></tt>, <tt class="docutils literal"><span class="pre">()</span></tt>, <tt class="docutils literal"><span class="pre">[]</span></tt></li>
+<li>instances of user-defined classes,
+if the class defines a <tt class="docutils literal"><span class="pre">__nonzero__()</span></tt> or <tt class="docutils literal"><span class="pre">__len__()</span></tt> method,
+when that method returns the integer zero or <tt class="docutils literal"><span class="pre">bool</span></tt> value``False``.</li>
+</ul>
+<p>All others are true.</p>
+<div class="section" id="boolean-operations">
+<h4>Boolean operations<a class="headerlink" href="#boolean-operations" title="Permalink to this headline">¶</a></h4>
+<p>These are the Boolean operations, ordered by ascending priority:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="28%" />
+<col width="72%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Operation</th>
+<th class="head">Result</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><tt class="docutils literal"><span class="pre">x</span> <span class="pre">or</span> <span class="pre">y</span></tt></td>
+<td>if <em>x</em> is false, then <em>y</em>, else
+<em>x</em></td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">x</span> <span class="pre">and</span> <span class="pre">y</span></tt></td>
+<td>if <em>x</em> is false, then <em>x</em>, else
+<em>y</em></td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">not</span> <span class="pre">x</span></tt></td>
+<td>if <em>x</em> is false, then <tt class="xref docutils literal"><span class="pre">True</span></tt>,
+else <tt class="xref docutils literal"><span class="pre">False</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>The return truly means return! Examples:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="ow">and</span> <span class="mi">2</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="ow">or</span> <span class="mi">2</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="ow">not</span> <span class="mi">1</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="section" id="numbers">
 <h3>Numbers<a class="headerlink" href="#numbers" title="Permalink to this headline">¶</a></h3>
 <p>You can represent numbers in many ways:</p>
@@ -124,8 +284,8 @@ if you need further information.</p>
 <span class="nb">complex</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="section" id="basic-arithmetics">
-<h4>Basic arithmetics<a class="headerlink" href="#basic-arithmetics" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="arithmetics">
+<h4>Arithmetics<a class="headerlink" href="#arithmetics" title="Permalink to this headline">¶</a></h4>
 <p>Of course you can use your Python interpreter as a calculator.
 Simply call</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">python</span>
@@ -219,6 +379,17 @@ So taking negative numbers it works in the other direction:</p>
 <span class="go">8</span>
 </pre></div>
 </div>
+<p><strong>Note:</strong> In Python one has also the arithmetic assignemnt operators
+<tt class="docutils literal"><span class="pre">+=</span></tt>, <tt class="docutils literal"><span class="pre">-=</span></tt>, <tt class="docutils literal"><span class="pre">*=</span></tt>, <tt class="docutils literal"><span class="pre">/=</span></tt>, <tt class="docutils literal"><span class="pre">**=</span></tt>, <tt class="docutils literal"><span class="pre">//=</span></tt>, <tt class="docutils literal"><span class="pre">%=</span></tt>, which
+are shortcuts for performing an operation on the variable, and assign
+the new value to itself. But there is a little difference: While</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>creates a new variable that get the new value and deletes the old,
+while the <tt class="docutils literal"><span class="pre">+=</span></tt> operator does this <em>in place</em>, which means the
+changes are performed on the object itself. (See the Python pitfalls
+for more on this <a class="footnote-reference" href="#id6" id="id2">[2]</a>) This is done due to performance reasons.</p>
 <p>In Python one has also the well known bit operations from
 C or C++ which can be performed on integers.</p>
 <table border="1" class="docutils">
@@ -257,9 +428,292 @@ C or C++ which can be performed on integers.</p>
 </table>
 </div>
 </div>
+<div class="section" id="container-types">
+<h3>Container Types<a class="headerlink" href="#container-types" title="Permalink to this headline">¶</a></h3>
+<p>There are several container types in Python</p>
+<div class="section" id="lists">
+<h4>Lists<a class="headerlink" href="#lists" title="Permalink to this headline">¶</a></h4>
+<p>Lists are the most common container type in Python.
+To create a list simply write use the rectangular brackets <tt class="docutils literal"><span class="pre">[,]</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The value can be accessed via rectangular brackets again:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<p>Note that in Python, like in C, one starts with <tt class="docutils literal"><span class="pre">0</span></tt> to count.
+People who are familiar with Matlab will be happy to here that slicing
+is supported as well:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<span class="go">[1, 2]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span><span class="p">[:]</span>
+<span class="go">[1, 2, 3]</span>
+</pre></div>
+</div>
+<p>Note that <tt class="docutils literal"><span class="pre">[k:n]</span></tt> goes through the indices k to n-1.
+Negative indices are also allowed. -1 gives back the last element,
+-2 the element before the last element and so on:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+<p>One can also declare step sizes to go through the indices:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<span class="go">[1, 3]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span>
+<span class="go">[1, 3]</span>
+</pre></div>
+</div>
+<p>To go backwards through a list use as stepsize -1:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">[3, 2, 1]</span>
+</pre></div>
+</div>
+<p>Lists can also contain elements of various types:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">liste2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s">&quot;two&quot;</span><span class="p">,</span> <span class="n">liste</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">liste2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="go">[1, 2, 3]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">liste2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<p>The range function helps to create lists:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="go">[0, 1, 2, 3, 4]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="go">[1, 2, 3, 4]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">[1, 3]</span>
+</pre></div>
+</div>
+<p>One can also create lists from other containers like strings with the
+list function:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="s">&quot;abc&quot;</span><span class="p">)</span>
+<span class="go">[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]</span>
+</pre></div>
+</div>
+<p>There are several methods that can be used on lists:</p>
+<ul>
+<li><p class="first"><tt class="docutils literal"><span class="pre">append</span></tt> adds an item to a list:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span>
+<span class="go">[0, 1, 2, 3, 4]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span>
+<span class="go">[0, 1, 2, 3, 4, 5]</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">extend</span></tt> appends a complete list:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">liste2</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">liste2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span>
+<span class="go">[0, 1, 2, 3, 4, 5, 6, 7, 8, 6, 7, 8]</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">insert</span></tt> inserts an element at a given position:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span>
+<span class="go">[9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 6, 7, 8]</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">remove</span></tt> removes the first item from the list, whose value is given:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span>
+<span class="go">[0, 1, 2, 3, 4, 5, 6, 7, 8, 6, 7, 8]</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">pop</span></tt> removes the item at the given position:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span>
+<span class="go">[0, 1, 2, 3, 4, 5, 6, 6, 7, 8]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="go">6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span>
+<span class="go">[0, 1, 2, 3, 4, 5, 6, 7, 8]</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">index</span></tt> gives back the index of the first element with the value given:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span>
+<span class="go">[0, 1, 2, 3, 4, 5, 6, 7, 8]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">count</span></tt> returns the number how often the element appears in the list:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">reverse</span></tt> Reverse the elements in place:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span>
+<span class="go">[8, 8, 7, 6, 5, 4, 3, 2, 1, 0]</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">sort</span></tt> sort the content of the list in place:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span>
+<span class="go">[0, 1, 2, 3, 4, 5, 6, 7, 8, 8]</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="tuples">
+<h4>Tuples<a class="headerlink" href="#tuples" title="Permalink to this headline">¶</a></h4>
+<p>Tuples can be created via round brackets:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">coordinate</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>and they can be accessed like lists:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">coordinate</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coordinate</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">(1,)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coordinate</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<span class="go">(1, 2)</span>
+</pre></div>
+</div>
+<p>There is a tuple function too:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">tuple</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="go">(1, 2)</span>
+</pre></div>
+</div>
+<p>The main difference between tuples and lists, is that the former
+are immutable, that means once created you can&#8217;t change them on
+runtime
+anymore:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">coordinate</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n-Identifier">&lt;module&gt;</span>
+<span class="nc">TypeError</span>: <span class="n-Identifier">&#39;tuple&#39; object does not support item assignment</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dictionaries">
+<h4>Dictionaries<a class="headerlink" href="#dictionaries" title="Permalink to this headline">¶</a></h4>
+<p>Dictionaries are special containers that take ketwords for access.
+They are created with curly brackkets, and each keyword is attached
+to value with <tt class="docutils literal"><span class="pre">:</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">dic</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;one&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;two&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>one can it access now like a list, but with the keyword instead the position:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dic</span><span class="p">[</span><span class="s">&#39;one&#39;</span><span class="p">]</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<p>Dictionaries are not immutable:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dic</span><span class="p">[</span><span class="s">&#39;one&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dic</span><span class="p">[</span><span class="s">&#39;one&#39;</span><span class="p">]</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sets">
+<h4>Sets<a class="headerlink" href="#sets" title="Permalink to this headline">¶</a></h4>
+<p>There are also sets in Python. Like the real sets, they are not
+ordered, and every element is contained only once. They are created
+with the set function:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">menge</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Of course you can&#8217;t access an element since there is no ordering.
+But one can make tests on sets. We come to that right now.</p>
+</div>
+<div class="section" id="membership-test">
+<h4>Membership test<a class="headerlink" href="#membership-test" title="Permalink to this headline">¶</a></h4>
+<p>One can test the membership of elements within containers.</p>
+<ul>
+<li><p class="first"><tt class="docutils literal"><span class="pre">in</span></tt> tests if an element is in the container and returns True or False:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">5</span> <span class="ow">in</span> <span class="n">liste</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">4</span> <span class="ow">in</span> <span class="n">liste</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span>
+<span class="go">[0, 1, 2, 3, 4]</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">not</span> <span class="pre">in</span></tt> ... well make an educated guess.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="other-operations-on-containers">
+<h4>Other operations on containers<a class="headerlink" href="#other-operations-on-containers" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first"><tt class="docutils literal"><span class="pre">len</span></tt> returns the length of an container:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span>
+<span class="go">[0, 1, 2, 3, 4]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">liste</span><span class="p">)</span>
+<span class="go">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tupel</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">tupel</span><span class="p">)</span>
+<span class="go">4</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">min</span></tt>, <tt class="docutils literal"><span class="pre">max</span></tt> return the minimal or the maximal value of the container:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span>
+<span class="go">[0, 1, 2, 3, 4]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">max</span><span class="p">(</span><span class="n">liste</span><span class="p">)</span>
+<span class="go">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tupel</span>
+<span class="go">(0, 1, 2, 3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">min</span><span class="p">(</span><span class="n">tupel</span><span class="p">)</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<blockquote>
+Note thate the output depends on the order relation between the
+objects!</blockquote>
+<ul>
+<li><p class="first">The <tt class="docutils literal"><span class="pre">+</span></tt> operator can also be performed to concenate two lists
+(<strong>Note:</strong> <tt class="docutils literal"><span class="pre">set</span></tt> does not support this!):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span>
+<span class="go">[0, 1, 2, 3, 4]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span> <span class="o">+</span> <span class="n">liste</span>
+<span class="go">[0, 1, 2, 3, 4, 0, 1, 2, 3, 4]</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">The <tt class="docutils literal"><span class="pre">*</span></tt> operator makes copies of the same container and concenate
+them (<strong>Note:</strong> <tt class="docutils literal"><span class="pre">set</span></tt> does not support this!)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span>
+<span class="go">[0, 1, 2, 3, 4]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span><span class="o">*</span><span class="mi">2</span>
+<span class="go">[0, 1, 2, 3, 4, 0, 1, 2, 3, 4]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tupel</span>
+<span class="go">(0, 1, 2, 3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tupel</span><span class="o">*</span><span class="mi">2</span>
+<span class="go">(0, 1, 2, 3, 0, 1, 2, 3)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
 <div class="section" id="strings">
 <h3>Strings<a class="headerlink" href="#strings" title="Permalink to this headline">¶</a></h3>
-<p>There are several ways to create strings in Python:</p>
+<p>Strings are containers too, but they are quite special, so they get their
+own section here.
+There are several ways to create strings in Python:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">a</span> <span class="o">=</span> <span class="s">&#39;bla&#39;</span>
 <span class="n">b</span> <span class="o">=</span> <span class="s">&quot;bla&quot;</span>
 <span class="n">c</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;bla&quot;&quot;&quot;</span>
@@ -274,78 +728,248 @@ the string:</p>
 <span class="s">            You can believe me, there is no better one.&quot;&quot;&quot;</span>
 </pre></div>
 </div>
-<p>Of course strings are objects to so you can call class methods on them.
-Strings are immutable objects in Python, which means that you can&#8217;t
+<p>One can also create strings over more lines using the backslash:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="s">&quot;First </span><span class="se">\</span>
+<span class="gp">... </span><span class="s">Second&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">&#39;First Second&#39;</span>
+</pre></div>
+</div>
+<p>Note that writing two strings in one command leads to creating only
+one string:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="s">&quot;First&quot;</span> <span class="s">&quot; Second&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">&#39;First Second&#39;</span>
+</pre></div>
+</div>
+<p>Of course strings are objects to so you can call class methods on them.</p>
+<p>Note that Strings are immutable in Python, which means that you can&#8217;t
 alter it, after you you created it. Like everything this has benefits
 and drawbacks.</p>
+<p>Another important attribute of strings is that they are containers.
+You can access every element like a vector in Matlab:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="s">&quot;hat&quot;</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">&#39;h&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s">&quot;hat&quot;</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="go">&#39;t&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s">&quot;hat&quot;</span><span class="p">[</span><span class="mi">0</span><span class="p">:]</span>
+<span class="go">&#39;hat&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s">&quot;hat&quot;</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">&#39;h&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s">&quot;hat&quot;</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<span class="go">&#39;ha&#39;</span>
+</pre></div>
+</div>
+<p>This somehow logical, because every character is simply an object, in
+a list of characters, which form the string. People who are coming
+from the C world, will be familiar with this, because in C a string
+is also a list of chars.</p>
+<div class="section" id="special-types-of-strings-in-python">
+<h4>Special types of strings in Python<a class="headerlink" href="#special-types-of-strings-in-python" title="Permalink to this headline">¶</a></h4>
 <p>You can specify some types of strings in Python:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="s">r&quot;Here we use the reserved symbol %&quot;</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="s">r&quot;Newlines are made with \n&quot;</span>
 </pre></div>
 </div>
-<p>This makes a raw string, on which no</p>
-</div>
-</div>
-<div class="section" id="notes-on-the-syntax">
-<h2>Notes on the syntax<a class="headerlink" href="#notes-on-the-syntax" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="intendation-for-organising-blocks-of-codes">
-<h3>Intendation for organising blocks of codes<a class="headerlink" href="#intendation-for-organising-blocks-of-codes" title="Permalink to this headline">¶</a></h3>
-<p>Codes of blocks are, unlike other programming languages like C++
-not organized with parantheses but with indentation. I.e. it looks
-like the following:</p>
-<div class="highlight-python"><pre>Code outside Block
-
-&lt;statement&gt; &lt;identifier(s)&gt; :
-    Code in block 1
-    Code in block 1
-    ...
-    &lt;statement2&gt; &lt;id&gt; :
-        Code in block 2
-        Code in block 2
-        ...
-
-    Code in block 1
-    Code in block 1
-
-    &lt;statement3 &lt;id3&gt; :
-        Code in block 3
-
-    Code in block 1
-
-Code outside Block</pre>
-</div>
-<p>This sounds for many confusing at the beginning (including myself),
-but actually it is not.
-After writing some code (with a good editor!) one get&#8217;s
-used to this very quickly.
-Try it yourself: After a week or even a month
-writing code in Python, go back to Matlab or C.</p>
-<p>The benefit of this is, that the code is much more readible,
-and a good programmer makes indentation nevertheless.
-It&#8217;s also helpful for debugging: If you make an indentation error
-the interpreter knows where it happend, if you forget an <strong>end</strong> or
-an <strong>}</strong> the compiler often points you to a line number anywere in the code.</p>
-<p><strong>Important note:</strong> You can choose the type of indentation as you wish.
-One, two, three, four,... 2011 whitespaces, or tabulators. <strong>But</strong> you should
-never mix whitespaces with tabulators! This will result in an error.</p>
-</div>
-<div class="section" id="the-semicolon">
-<h3>The semicolon<a class="headerlink" href="#the-semicolon" title="Permalink to this headline">¶</a></h3>
-<p>Generally you don&#8217;t need a semicolon, and often you don&#8217;t use it.
-It&#8217;s usage is for putting more than one statment in a line.For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="mi">1</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="mi">2</span><span class="o">+</span><span class="mi">2</span>
+<p>This makes a raw string, on which no formating as applied.
+Capital R works also for this.</p>
+<p>We also can create unicode strings with utf8 support:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">kebap</span> <span class="o">=</span> <span class="s">&quot;Dürüm&quot;</span>
 </pre></div>
+</div>
+<p>This looks like the following in Python:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">kebap</span>
+<span class="go">&#39;D\xc3\xbcr\xc3\xbcm&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">kebap</span><span class="p">)</span>
+<span class="go">Dürüm</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="basic-manipulation-of-strings">
+<h4>Basic manipulation of strings<a class="headerlink" href="#basic-manipulation-of-strings" title="Permalink to this headline">¶</a></h4>
+<p>Two put two strings together one can use the + operator:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="s">&quot;First&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="s">&quot; Second&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">+</span><span class="n">b</span>
+<span class="go">&#39;First Second&#39;</span>
+</pre></div>
+</div>
+<p>Formating like in C is also allowed:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="s">&quot;First </span><span class="se">\n</span><span class="s">Second&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="go">First</span>
+<span class="go">Second</span>
+</pre></div>
+</div>
+<p>Note again the difference to the raw string:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="s">r&quot;First \n Second&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="go">First \n Second</span>
+</pre></div>
+</div>
+<p>We can also make replacement statements:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">breakfast_everyday</span> <span class="o">=</span> <span class="s">&quot;I had </span><span class="si">%(SPAM)s</span><span class="s"> pieces of spam, and </span><span class="si">%(EGGS)s</span><span class="s"> eggs for breakfast&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">todays_spam</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">todays_eggs</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">breakfast_today</span> <span class="o">=</span> <span class="n">breakfast</span> <span class="o">%</span> <span class="p">{</span><span class="s">&#39;SPAM&#39;</span><span class="p">:</span> <span class="n">todays_spam</span><span class="p">,</span> <span class="s">&#39;EGGS&#39;</span><span class="p">:</span> <span class="n">todays_eggs</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">breakfast_today</span><span class="p">)</span>
+<span class="go">I had 2 pieces of spam, and 3 eggs for breakfast</span>
+</pre></div>
+</div>
+<p>To use the <tt class="docutils literal"><span class="pre">%</span></tt> sign in a string you should use a raw string or
+simply write <tt class="docutils literal"><span class="pre">%%</span></tt> for example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%(NR)s</span><span class="s"> </span><span class="si">%%</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">{</span><span class="s">&#39;NR&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>else you would get an error!</p>
+<p>There are other possibilities to replace placeholders:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="s">&quot;There are {0} nuns in this castle!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="s">&quot;{1} plus {0} is {2}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+<span class="s">&quot;{ONE} plus 2 is 3&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ONE</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="s">&quot;{numbers[0]} plus {numbers[1]} is  {numbers[2]}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">numbers</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>For further information see the Python documentation on strings <a class="footnote-reference" href="#id7" id="id3">[3]</a></p>
 </div>
 </div>
 </div>
 <div class="section" id="the-print-statement">
 <h2>The print statement<a class="headerlink" href="#the-print-statement" title="Permalink to this headline">¶</a></h2>
-<p>We start here with some explainations of the print statement.</p>
-<p>We can print</p>
+<p>We used it already some times. Here we give further information.</p>
+<p>To print a simple string for example write:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="s">&quot;I&#39;m a string!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>or without braces:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="s">&quot;I&#39;m a string&quot;</span>
+</pre></div>
+</div>
+<p>(Why did I always write those stupid brackets, when I don&#8217;t have to?
+I come back later to that topic.)</p>
+<p>We can also print numbers or other datatypes:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In fact every class that holds a __str__, or __repr__ method can be printed.
+We will come back later to that in the section of :ref: class_ref .</p>
+<p>To print more than one thing you can use a comma (<tt class="docutils literal"><span class="pre">,</span></tt>)</p>
+<blockquote>
+print 1, &#8220;plus&#8221;, 2, &#8220;is&#8221;, 1+2</blockquote>
+<p>this gives back:</p>
+<div class="highlight-python"><pre>1 plus 2 is 3</pre>
+</div>
+<p>Note that here with use of the brackets we would get:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&quot;plus&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&quot;is&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">(1, &#39;plus&#39;, 2, &#39;is&#39;, 3)</span>
+</pre></div>
+</div>
+<p>To avoid newline, simply add a comma at the end of the statement:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&quot;plus&quot;</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="s">&quot;is&quot;</span><span class="p">,</span>
+<span class="k">print</span> <span class="mi">1</span><span class="o">+</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p><strong>Note:</strong> In Python 2.x <tt class="docutils literal"><span class="pre">print</span></tt> is a statement, in Python 3
+<tt class="docutils literal"><span class="pre">print</span></tt> is a function. This is one of the most discussed changes from
+Python 2 to Python 3 (see for example this famous thread on the Python
+mailinglist <a class="footnote-reference" href="#id8" id="id4">[4]</a> . In order to keep your Code compatible, you can
+import the print function with:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+</pre></div>
+</div>
+<p>In Python 3 the line</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>would be invalid. One has to use the brackets. This is the reason why
+I write here all print statements in brackets to make it easier to
+&#8220;port&#8221; this document to Python 3.x.</p>
+<p>With the print function the statement</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&quot;plus&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&quot;is&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>would now return</p>
+<div class="highlight-python"><pre>1 plus 2 is 3</pre>
+</div>
+<p>which was to be expected. The trick with the newline, also doesn&#8217;t
+work anymore. To get newline at the end you would have to write</p>
+<div class="highlight-python"><pre>print(1, end=" ")</pre>
+</div>
+</div>
+<div class="section" id="comparison-operators">
+<h2>Comparison operators<a class="headerlink" href="#comparison-operators" title="Permalink to this headline">¶</a></h2>
+<p>Here I shortly list the available comparison statments in Python.
+The syntax should be very familiar to C programmers.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="32%" />
+<col width="68%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Operation</th>
+<th class="head">Meaning</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><tt class="docutils literal"><span class="pre">&lt;</span></tt></td>
+<td>strictly less than</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">&lt;=</span></tt></td>
+<td>less than or equal</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">&gt;</span></tt></td>
+<td>strictly greater than</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">&gt;=</span></tt></td>
+<td>greater than or equal</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">==</span></tt></td>
+<td>equal</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">!=</span></tt></td>
+<td>not equal</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">is</span></tt></td>
+<td>object identity</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">is</span> <span class="pre">not</span></tt></td>
+<td>negated object identity</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Attention:</strong> A trap for beginners (including me) is, that the <tt class="docutils literal"><span class="pre">is</span></tt>
+statment, is different from the <tt class="docutils literal"><span class="pre">==</span></tt> operator. For example</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">x</span> <span class="ow">is</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>does work correctly, but</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">x</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">x</span> <span class="ow">is</span> <span class="mf">1.0</span>
+</pre></div>
+</div>
+<p>does not.</p>
 <p class="rubric">Links</p>
-<table class="docutils footnote" frame="void" id="id2" rules="none">
+<table class="docutils footnote" frame="void" id="id5" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://docs.python.org/library/stdtypes.html">http://docs.python.org/library/stdtypes.html</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="http://zephyrfalcon.org/labs/python_pitfalls.html">http://zephyrfalcon.org/labs/python_pitfalls.html</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><a class="reference external" href="http://docs.python.org/library/string.html">http://docs.python.org/library/string.html</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td><a class="reference external" href="http://mail.python.org/pipermail/python-list/2010-June/1248174.html">http://mail.python.org/pipermail/python-list/2010-June/1248174.html</a></td></tr>
 </tbody>
 </table>
 </div>
@@ -359,23 +983,43 @@ It&#8217;s usage is for putting more than one statment in a line.For example:</p
         <div class="sphinxsidebarwrapper">
             <h3><a href="index.html">Table Of Contents</a></h3>
             <ul>
-<li><a class="reference external" href="#">First steps in Python</a><ul>
+<li><a class="reference external" href="#">Python Basics</a><ul>
 <li><a class="reference external" href="#the-goodbye-world-program">The &#8220;Goodbye World&#8221; program.</a></li>
-<li><a class="reference external" href="#some-basic-datatpypes">Some basic datatpypes</a><ul>
-<li><a class="reference external" href="#numbers">Numbers</a><ul>
-<li><a class="reference external" href="#basic-arithmetics">Basic arithmetics</a></li>
-<li><a class="reference external" href="#more-on-mathematical-operations">More on mathematical operations</a></li>
-</ul>
-</li>
-<li><a class="reference external" href="#strings">Strings</a></li>
-</ul>
-</li>
 <li><a class="reference external" href="#notes-on-the-syntax">Notes on the syntax</a><ul>
 <li><a class="reference external" href="#intendation-for-organising-blocks-of-codes">Intendation for organising blocks of codes</a></li>
 <li><a class="reference external" href="#the-semicolon">The semicolon</a></li>
+<li><a class="reference external" href="#identifiers">Identifiers</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#assignment-of-variables">Assignment of variables</a></li>
+<li><a class="reference external" href="#some-basic-datatpypes">Some basic datatpypes</a><ul>
+<li><a class="reference external" href="#boolean-values">Boolean values</a><ul>
+<li><a class="reference external" href="#boolean-operations">Boolean operations</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#numbers">Numbers</a><ul>
+<li><a class="reference external" href="#arithmetics">Arithmetics</a></li>
+<li><a class="reference external" href="#more-on-mathematical-operations">More on mathematical operations</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#container-types">Container Types</a><ul>
+<li><a class="reference external" href="#lists">Lists</a></li>
+<li><a class="reference external" href="#tuples">Tuples</a></li>
+<li><a class="reference external" href="#dictionaries">Dictionaries</a></li>
+<li><a class="reference external" href="#sets">Sets</a></li>
+<li><a class="reference external" href="#membership-test">Membership test</a></li>
+<li><a class="reference external" href="#other-operations-on-containers">Other operations on containers</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#strings">Strings</a><ul>
+<li><a class="reference external" href="#special-types-of-strings-in-python">Special types of strings in Python</a></li>
+<li><a class="reference external" href="#basic-manipulation-of-strings">Basic manipulation of strings</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a class="reference external" href="#the-print-statement">The print statement</a></li>
+<li><a class="reference external" href="#comparison-operators">Comparison operators</a></li>
 </ul>
 </li>
 </ul>
@@ -383,6 +1027,9 @@ It&#8217;s usage is for putting more than one statment in a line.For example:</p
             <h4>Previous topic</h4>
             <p class="topless"><a href="Python.html"
                                   title="previous chapter">About Python</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="License.html"
+                                  title="next chapter">Licenses</a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
               <li><a href="_sources/Steps.txt"
@@ -411,6 +1058,9 @@ It&#8217;s usage is for putting more than one statment in a line.For example:</p
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="License.html" title="Licenses"
+             >next</a> |</li>
         <li class="right" >
           <a href="Python.html" title="About Python"
              >previous</a> |</li>

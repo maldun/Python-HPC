@@ -14,6 +14,7 @@ Contents:
    Introduction
    Python
    Steps
+   License
 
 Indices and tables
 ==================
