@@ -48,6 +48,8 @@ Notes on the syntax
 Intendation for organising blocks of codes
 """""""""""""""""""""""""""""""""""""""""""""
 
+.. _indention_ref:
+
 Codes of blocks are, unlike other programming languages like C++
 not organized with parantheses but with indentation. I.e. it looks
 like the following::
@@ -371,6 +373,9 @@ There are several container types in Python
 
 Lists
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. _list_ref:
+
 Lists are the most common container type in Python.
 To create a list simply write use the rectangular brackets ``[,]``::
 
@@ -561,6 +566,18 @@ with the set function::
 Of course you can't access an element since there is no ordering.
 But one can make tests on sets. We come to that right now.
 
+Iterators
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+With help of the ``xrange`` function one can create iterators,
+which are not real lists, but functions, which generates items
+when addressed.
+
+They can be addressed like normal lists::
+
+  xrange(3)[0]
+
+
 
 Membership test
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -624,6 +641,19 @@ Other operations on containers
     (0, 1, 2, 3)
     >>> tupel*2
     (0, 1, 2, 3, 0, 1, 2, 3)
+
+To be more precise: Those operations are performed on so called
+sequence types. These are containers, with have an ordered structure,
+which can be addressed via integers (like normal sequences)
+
+Those types are:
+* strings
+* unicode strings
+* lists
+* tuples
+* iterators
+
+For more information I refer here to the Python documentation again.
 
 Strings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

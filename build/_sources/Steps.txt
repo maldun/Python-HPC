@@ -124,6 +124,9 @@ would be valid,
 
 are non valid identifiers.
 
+**Python is case sensitive!** The identifiers ``a`` and ``A``
+are not the same!
+
 Assignment of variables
 ---------------------------------------------
 
