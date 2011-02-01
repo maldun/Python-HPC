@@ -107,3 +107,9 @@ We can use the ``range`` function (see the section about
 ``xrange`` instead of range, because ``xrange`` doesn't need allocate
 memory for a list. In Python 3, however, ``range`` returns an iterator
 and not a list, so this is obsolte there.
+
+See also the Python wiki [#]_ on this topic.
+
+.. rubric:: Links
+
+.. [#] http://wiki.python.org/moin/PythonSpeed/PerformanceTips
