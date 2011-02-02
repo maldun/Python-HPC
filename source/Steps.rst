@@ -573,19 +573,6 @@ with the set function::
 Of course you can't access an element since there is no ordering.
 But one can make tests on sets. We come to that right now.
 
-Iterators
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-With help of the ``xrange`` function one can create iterators,
-which are not real lists, but functions, which generates items
-when addressed.
-
-They can be addressed like normal lists::
-
-  xrange(3)[0]
-
-
-
 Membership test
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 One can test the membership of elements within containers.
@@ -787,6 +774,49 @@ There are other possibilities to replace placeholders::
   "{numbers[0]} plus {numbers[1]} is  {numbers[2]}".format(numbers=[1,2,3])
    
 For further information see the Python documentation on strings [#]_
+
+Iterators
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+An iterator is an object representing a stream of Data, and returns
+one element at the time. It is also possible to define infinite
+iterators.
+
+To create iterators one can use the ``iter`` function::
+
+  iterator = iter(range(3))
+
+There are several datatypes which support iterators. In fact
+every sequence type supports iterating (even strings).
+
+Every iterator must support a ``next`` function::
+
+  >>> iterator = iter(range(3))
+  >>> iterator.next()
+  0
+  >>> iterator.next()
+  1
+  >>> iterator.next()
+  2
+  >>> iterator.next()
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  StopIteration
+
+Iterators can be converted to lists or tuples::
+
+  >>> iterator = iter(range(3))
+  >>> list(iterator)
+  [0, 1, 2]
+  >>> iterator = iter(range(3))
+  >>> tuple(iterator)
+  (0, 1, 2)
+
+With help of the ``itertools`` module there are several other ways to
+create iterators.
+``itertools.count`` for example creates an infinte stream of
+integers. We come back to that later in :ref:`functional_programming_ref`
+
 
 The print statement
 ---------------------------------------------

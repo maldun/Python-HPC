@@ -142,7 +142,7 @@ how you can eventually reuse it. Sometimes ten minutes of thinking
 can save yourself ours of programming.</p>
 </div>
 <div class="section" id="object-oriented-programming-abstracts-away-your-problems">
-<h3>Object oriented programming abstracts away your problems<a class="headerlink" href="#object-oriented-programming-abstracts-away-your-problems" title="Permalink to this headline">¶</a></h3>
+<span id="oo-ref"></span><h3>Object oriented programming abstracts away your problems<a class="headerlink" href="#object-oriented-programming-abstracts-away-your-problems" title="Permalink to this headline">¶</a></h3>
 <p>If one is not familiar with the paradigm of object oriented programming change this!
 There are tons of books and websites on this topic.
 OO programming is not a trend of the last decades, it&#8217;s the way of abstract mathematics itself.
@@ -156,6 +156,19 @@ in the literal sense.</p>
 all the linesearch methods we implemented had to be integrated into one steepest descent algorithm.
 While my students needed ours to implement this in Matlab. I only needed one half in Python, because
 I simply subdivided the sub problems in classes, and had to write the framework algorithm only once.</p>
+</div>
+<div class="section" id="modularity-counts">
+<h3>Modularity counts<a class="headerlink" href="#modularity-counts" title="Permalink to this headline">¶</a></h3>
+<p>Keep the structure of your programs as modular as possible!
+<strong>Every function should only do exactly one job, and don&#8217;t use
+global variables</strong>. If you have to use global variables, then in
+90% of the cases something is wrong with your design of the code!
+Sounds annoying? I was annoyed by that too in my first programming
+course. But trust me it will help you a lot. At least if you want to
+reuse a piece of code, or even worse, someone else wants to use your
+code, you will run into troubles, if you don&#8217;t have a good
+organisation of your code. <strong>Remember:</strong>  If you have a lot of
+parameters, you can always store them in a container or a class.</p>
 </div>
 <div class="section" id="premature-optimisation-is-the-rule-of-all-evil">
 <h3>Premature optimisation is the rule of all evil!<a class="headerlink" href="#premature-optimisation-is-the-rule-of-all-evil" title="Permalink to this headline">¶</a></h3>
@@ -356,6 +369,7 @@ because I simply don&#8217;t want to do unessecary work.</p>
 <li><a class="reference external" href="#code-is-more-often-read-than-written">Code is more often read than written</a></li>
 <li><a class="reference external" href="#program-design-isn-t-a-waste-of-time">Program design isn&#8217;t a waste of time!</a></li>
 <li><a class="reference external" href="#object-oriented-programming-abstracts-away-your-problems">Object oriented programming abstracts away your problems</a></li>
+<li><a class="reference external" href="#modularity-counts">Modularity counts</a></li>
 <li><a class="reference external" href="#premature-optimisation-is-the-rule-of-all-evil">Premature optimisation is the rule of all evil!</a></li>
 <li><a class="reference external" href="#choice-of-the-right-tools">Choice of the right tools</a><ul>
 <li><a class="reference external" href="#don-t-use-notepad-as-your-editor">Don&#8217;t use Notepad as your editor!</a></li>

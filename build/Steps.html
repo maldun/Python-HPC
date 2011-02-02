@@ -133,6 +133,9 @@ an <strong>}</strong> the compiler often points you to a line number anywere in 
 <p><strong>Important note:</strong> You can choose the type of indentation as you wish.
 One, two, three, four,... 2011 whitespaces, or tabulators. <strong>But</strong> you should
 never mix whitespaces with tabulators! This will result in an error.</p>
+<p>Recommended by most  is to use 4
+space indentation (This convention is recomended even by the inventor
+of Python himself <a class="footnote-reference" href="#id6" id="id1">[1]</a>)</p>
 </div>
 <div class="section" id="the-semicolon">
 <h3>The semicolon<a class="headerlink" href="#the-semicolon" title="Permalink to this headline">¶</a></h3>
@@ -200,7 +203,7 @@ be assigned to is on the left site, this means the statement</p>
 <div class="section" id="some-basic-datatpypes">
 <h2>Some basic datatpypes<a class="headerlink" href="#some-basic-datatpypes" title="Permalink to this headline">¶</a></h2>
 <p>If you need more information on that topic
-look in the Python documentation <a class="footnote-reference" href="#id5" id="id1">[1]</a>.</p>
+look in the Python documentation <a class="footnote-reference" href="#id7" id="id2">[2]</a>.</p>
 <p><strong>Remark for Sage users</strong> Sage uses it&#8217;s own
 integers or reals. Lookup the documentation
 if you need further information.</p>
@@ -391,7 +394,7 @@ the new value to itself. But there is a little difference: While</p>
 <p>creates a new variable that get the new value and deletes the old,
 while the <tt class="docutils literal"><span class="pre">+=</span></tt> operator does this <em>in place</em>, which means the
 changes are performed on the object itself. (See the Python pitfalls
-for more on this <a class="footnote-reference" href="#id6" id="id2">[2]</a>) This is done due to performance reasons.</p>
+for more on this <a class="footnote-reference" href="#id8" id="id3">[3]</a>) This is done due to performance reasons.</p>
 <p>In Python one has also the well known bit operations from
 C or C++ which can be performed on integers.</p>
 <table border="1" class="docutils">
@@ -636,16 +639,6 @@ with the set function:</p>
 <p>Of course you can&#8217;t access an element since there is no ordering.
 But one can make tests on sets. We come to that right now.</p>
 </div>
-<div class="section" id="iterators">
-<h4>Iterators<a class="headerlink" href="#iterators" title="Permalink to this headline">¶</a></h4>
-<p>With help of the <tt class="docutils literal"><span class="pre">xrange</span></tt> function one can create iterators,
-which are not real lists, but functions, which generates items
-when addressed.</p>
-<p>They can be addressed like normal lists:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="nb">xrange</span><span class="p">(</span><span class="mi">3</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
 <div class="section" id="membership-test">
 <h4>Membership test<a class="headerlink" href="#membership-test" title="Permalink to this headline">¶</a></h4>
 <p>One can test the membership of elements within containers.</p>
@@ -850,8 +843,47 @@ simply write <tt class="docutils literal"><span class="pre">%%</span></tt> for e
 <span class="s">&quot;{numbers[0]} plus {numbers[1]} is  {numbers[2]}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">numbers</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>For further information see the Python documentation on strings <a class="footnote-reference" href="#id7" id="id3">[3]</a></p>
+<p>For further information see the Python documentation on strings <a class="footnote-reference" href="#id9" id="id4">[4]</a></p>
 </div>
+</div>
+<div class="section" id="iterators">
+<h3>Iterators<a class="headerlink" href="#iterators" title="Permalink to this headline">¶</a></h3>
+<p>An iterator is an object representing a stream of Data, and returns
+one element at the time. It is also possible to define infinite
+iterators.</p>
+<p>To create iterators one can use the <tt class="docutils literal"><span class="pre">iter</span></tt> function:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">iterator</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>There are several datatypes which support iterators. In fact
+every sequence type supports iterating (even strings).</p>
+<p>Every iterator must support a <tt class="docutils literal"><span class="pre">next</span></tt> function:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">iterator</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iterator</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iterator</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iterator</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iterator</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n-Identifier">&lt;module&gt;</span>
+<span class="nc">StopIteration</span>
+</pre></div>
+</div>
+<p>Iterators can be converted to lists or tuples:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">iterator</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">iterator</span><span class="p">)</span>
+<span class="go">[0, 1, 2]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iterator</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">tuple</span><span class="p">(</span><span class="n">iterator</span><span class="p">)</span>
+<span class="go">(0, 1, 2)</span>
+</pre></div>
+</div>
+<p>With help of the <tt class="docutils literal"><span class="pre">itertools</span></tt> module there are several other ways to
+create iterators.
+<tt class="docutils literal"><span class="pre">itertools.count</span></tt> for example creates an infinte stream of
+integers. We come back to that later in <a class="reference external" href="Program.html#functional-programming-ref"><em>Functional Programming tools in Python (or hooray for  )</em></a></p>
 </div>
 </div>
 <div class="section" id="the-print-statement">
@@ -892,7 +924,7 @@ print 1, &#8220;plus&#8221;, 2, &#8220;is&#8221;, 1+2</blockquote>
 <p><strong>Note:</strong> In Python 2.x <tt class="docutils literal"><span class="pre">print</span></tt> is a statement, in Python 3
 <tt class="docutils literal"><span class="pre">print</span></tt> is a function. This is one of the most discussed changes from
 Python 2 to Python 3 (see for example this famous thread on the Python
-mailinglist <a class="footnote-reference" href="#id8" id="id4">[4]</a> . In order to keep your Code compatible, you can
+mailinglist <a class="footnote-reference" href="#id10" id="id5">[5]</a> . In order to keep your Code compatible, you can
 import the print function with:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 </pre></div>
@@ -970,28 +1002,34 @@ statment, is different from the <tt class="docutils literal"><span class="pre">=
 </div>
 <p>does not.</p>
 <p class="rubric">Links</p>
-<table class="docutils footnote" frame="void" id="id5" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://docs.python.org/library/stdtypes.html">http://docs.python.org/library/stdtypes.html</a></td></tr>
-</tbody>
-</table>
 <table class="docutils footnote" frame="void" id="id6" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="http://zephyrfalcon.org/labs/python_pitfalls.html">http://zephyrfalcon.org/labs/python_pitfalls.html</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://www.python.org/dev/peps/pep-0008/">http://www.python.org/dev/peps/pep-0008/</a></td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="id7" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><a class="reference external" href="http://docs.python.org/library/string.html">http://docs.python.org/library/string.html</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="http://docs.python.org/library/stdtypes.html">http://docs.python.org/library/stdtypes.html</a></td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="id8" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td><a class="reference external" href="http://mail.python.org/pipermail/python-list/2010-June/1248174.html">http://mail.python.org/pipermail/python-list/2010-June/1248174.html</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><a class="reference external" href="http://zephyrfalcon.org/labs/python_pitfalls.html">http://zephyrfalcon.org/labs/python_pitfalls.html</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td><a class="reference external" href="http://docs.python.org/library/string.html">http://docs.python.org/library/string.html</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[5]</a></td><td><a class="reference external" href="http://mail.python.org/pipermail/python-list/2010-June/1248174.html">http://mail.python.org/pipermail/python-list/2010-June/1248174.html</a></td></tr>
 </tbody>
 </table>
 </div>
@@ -1029,7 +1067,6 @@ statment, is different from the <tt class="docutils literal"><span class="pre">=
 <li><a class="reference external" href="#tuples">Tuples</a></li>
 <li><a class="reference external" href="#dictionaries">Dictionaries</a></li>
 <li><a class="reference external" href="#sets">Sets</a></li>
-<li><a class="reference external" href="#iterators">Iterators</a></li>
 <li><a class="reference external" href="#membership-test">Membership test</a></li>
 <li><a class="reference external" href="#other-operations-on-containers">Other operations on containers</a></li>
 </ul>
@@ -1039,6 +1076,7 @@ statment, is different from the <tt class="docutils literal"><span class="pre">=
 <li><a class="reference external" href="#basic-manipulation-of-strings">Basic manipulation of strings</a></li>
 </ul>
 </li>
+<li><a class="reference external" href="#iterators">Iterators</a></li>
 </ul>
 </li>
 <li><a class="reference external" href="#the-print-statement">The print statement</a></li>

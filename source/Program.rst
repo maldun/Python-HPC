@@ -4,7 +4,7 @@ Programming in Python
 In this section I will give all tools for programming with
 Python. The sections are ordered by programming paradigms.
 If you are new to programming, the last paragraph of this section 
-contains an overview of the paradigms. ( :ref:`paradgm_ref` )
+contains an overview of the paradigms. ( :ref:`paradigm_ref` )
 
 Commenting in Python
 -------------------------------------------
@@ -165,23 +165,24 @@ The ``break`` and ``continue`` statements are borrowed from *C*.
   loop.
   Here a famous example from the official Python tutorial [#]_ ::
 
-  >>> for n in range(2, 10):
-  ...     for x in range(2, n):
-  ...         if n % x == 0:
-  ...             print n, 'equals', x, '*', n/x
-  ...             break
-  ...     else:
-  ...         # loop fell through without finding a factor
-  ...         print n, 'is a prime number'
-  ...
-  2 is a prime number
-  3 is a prime number
-  4 equals 2 * 2
-  5 is a prime number
-  6 equals 2 * 3
-  7 is a prime number
-  8 equals 2 * 4
-  9 equals 3 * 3
+    >>> for n in range(2, 10):
+    ...     for x in range(2, n):
+    ...         if n % x == 0:
+    ...             print n, 'equals', x, '*', n/x
+    ...             break
+    ...     else:
+    ...         # loop fell through without finding a factor
+    ...         print n, 'is a prime number'
+    ...
+    2 is a prime number
+    3 is a prime number
+    4 equals 2 * 2
+    5 is a prime number
+    6 equals 2 * 3
+    7 is a prime number
+    8 equals 2 * 4
+    9 equals 3 * 3
+
 
 The ``pass`` statement
 """""""""""""""""""""""""""""""""""""""""""
@@ -208,12 +209,15 @@ We simply start with a classical example, and give explaination later on.
 
 The factorial would be implemented in Python that way::
 
-  def my_factorial(n):
+  def my_factorial(n, pochhammer = None):
       """ Your documentation comes here"""
       
+      if pochhammer is None: # Check if evaluate Pochhammer Symbol
+          a = n
+
       k = 1
-      for i in xrange(1,n+1):
-          k *= i
+      for i in xrange(n):
+          k *= a - i
 
       return k # Give back the result
 
@@ -299,12 +303,12 @@ Default values and keyword arguments
 
 Python allows to define functions with default values::
 
-  >>> def answering(name, mission, answer="I dont know"):
-  ...     print("What's your name?")
+  >>> def answering(name, mission, answer="I don't know"):
+  ...     print("What iss your name?")
   ...     print(name)
-  ...     print("What's your mission?")
+  ...     print("What iss your mission?")
   ...     print(mission)
-  ...     if answer == "I dont know":
+  ...     if answer == "I don't know":
   ...         print(answer + " Ahhhhhhhhhh!")
   ...     else:
   ...         print(answer)
@@ -323,6 +327,113 @@ Python allows to define functions with default values::
   The search for the holy grail
   Blue
   You may pass
+
+You can also call them with keyword arguments::
+
+  >>> answering("Lancelot", "The search for the holy grail", answer = "Blue")
+  What's your name?
+  Lancelot
+  What's your mission?
+  The search for the holy grail
+  Blue
+  You may pass
+
+This can be quite useful. For example you want to define a function,
+with several options::
+
+  def f(x,y, offset_x = 0, offset_y = 0):
+      return 2*x + 2*y + offset_x - offset_y
+
+Now we can call the offset_y variable directly, without setting a
+value for offset_x::
+
+   >>> f(0,0,1)
+   1
+   >>> f(0,0,offset_y = 1)
+   -1  
+
+**Important**: A non keyword argument cannot follow a keyword argument::
+
+  >>> f(offset_x = 1,0)
+    File "<stdin>", line 1
+  SyntaxError: non-keyword arg after keyword arg
+
+This also applies for the definition of the function::
+
+  >>> def g(y = 1,x):
+  ...     return x + y
+  ... 
+    File "<stdin>", line 1
+  SyntaxError: non-default argument follows default argument
+
+Calls with lists and dictionaries
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+A function be called with arbitrary many arguments using the
+``*`` symbol::
+
+  >>> def sum_up(offset = 0, *summands):
+  ...     k = offset
+  ...     for x in summands:
+  ...         k += x
+  ...     return k
+  ... 
+  >>> sum_up(1)
+  1
+  >>> sum_up(1,2)
+  3
+  >>> sum_up(1,2,3)
+  6
+  >>> sum_up(1,2,3,4)
+  10
+
+What happens here? Python wraps all additional arguments into a tuple,
+which is identified with the keywords after the ``*``. Very often
+as convention ``*args`` is used.
+
+One also can use different types of keywords, and surpass them as
+dictionary. Here again an example from the Python documentation::
+
+   def cheeseshop(kind, *arguments, **keywords):
+       print "-- Do you have any", kind, "?"
+       print "-- I'm sorry, we're all out of", kind
+       for arg in arguments:
+           print arg
+       print "-" * 40
+       keys = sorted(keywords.keys())
+       for kw in keys:
+           print kw, ":", keywords[kw]
+
+It could be called like this::
+
+   cheeseshop("Limburger", "It's very runny, sir.",
+              "It's really very, VERY runny, sir.",
+              shopkeeper='Michael Palin',
+              client="John Cleese",
+              sketch="Cheese Shop Sketch")
+
+and of course it would print::
+
+   -- Do you have any Limburger ?
+   -- I'm sorry, we're all out of Limburger
+   It's very runny, sir.
+   It's really very, VERY runny, sir.
+   ----------------------------------------
+   client : John Cleese
+   shopkeeper : Michael Palin
+   sketch : Cheese Shop Sketch
+
+Be aware that ``**name`` has to come after ``*name`` (if there is one).
+
+**Remark** The ``*`` operator can be used to unpack contents of a list
+and give them to a function as well::
+
+  >>> def f(x,y):
+  ...     return x+y
+  ... 
+  >>> liste = [1,2]
+  >>> f(*liste)
+  3
 
 Docstrings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -344,6 +455,162 @@ docstrings for creating documentation of your code, or tools for
 automatic testing, which read take the docstring as input.
 
 .. _paradigm_ref:
+
+
+Other ways to define functions
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+There are also some other ways to define functions in Python.
+One would to be write them in one line, and seperate the different
+operations with a semicolon::
+
+  >>> def f(x): y = 2*x; return y
+  ... 
+  >>> f(2)
+  4
+
+Another way is the :math:`\lambda` statement::
+
+  f = lambda x: 2*x
+
+One key difference is, that :math:`lambda` has no return statement,
+and it can contain only one expression.
+
+But lambda can take more than one variable::
+
+  lambda x,y: x + y
+
+**Note:** In older versions of Python 2 lambda can unpack tuples::
+
+  lambda (x,y): x + y
+
+is valid in older versions of Python 2, but not in Python 2.6!
+In Python 2.6 or above one has to write
+::
+  
+  lambda xy_tuple: xy_tuple[0] + xy_tuple[1]
+
+or
+::
+
+  lambda x,y: x + y
+
+instead. 
+
+The :math:`\lambda` statement is confusing many people.
+Guido Van Rossum himself wanted to remove the :math:`\lambda`
+statement from Python 3, but didn't succeed to find a good replacement
+[#]_ . As one of it's biggest fans I can only say: Hooray for
+:math:`\lambda` !
+
+The reason for the strange naming is that in the early times of
+Python, many *Lisp* programmers wanted some functional features 
+from *Lisp*, and one of the was :math:`lambda` .
+But it's true origin comes from the :math:`\lambda` calculus [#]_ .
+
+.. _functional_programming_ref:
+
+Functional Programming tools in Python (or hooray for :math:`\lambda` )
+------------------------------------------------------------------------
+
+In some sense I'm relaively new to functional programming myself,
+in somse sense not, since I use it hidden in some mathemtaical 
+languages like Mathematica or Matlab.
+
+Functional programming can be a very powerful tool, and I show here
+some of the key features for functional programming in Python.
+I follow the `Functional Howto in Python <http://docs.python.org/howto/functional.html/>`_ .
+
+Iterators again
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+``pass``
+
+Objects and classes
+------------------------------------------------------------------------
+
+Classes are the basis of every OO language, and Python is no exception.
+
+Definition of classes and basic properties
+"""""""""""""""""""""""""""""""""""""""""""""
+
+Classes look quite similar to functions::
+
+  class class_name:
+      <statement1>
+      <statement2>
+      .
+      .
+      .
+
+We use here complex numbers as an example::
+
+  class my_complex:
+      """ Complex numbers as example"""
+      nr_instances = 0 # This belongs to the whole class
+
+      def __init__(self,re,im):
+          """The init method serves as constructor"""
+          
+          self.re = re
+          self.im = im
+
+          my_complex.nr_instances += 1
+
+      def abs(self):
+          """Calculates the absolute value"""
+          return self.re**2 + self.im**2
+
+What do we have here. First let's look into the ``__init__`` method,
+which is the constructor of an object. The first element is the object
+itself. Every function (method) of the class takes itself as first
+input parameter. The name ``self`` is only a convention, one can use 
+every other identifier. **Important**: ``self`` has to be the first
+argument in every class method, even when it is not needed!
+
+So what does our constructor here:
+
+* First the object gets it real and imaginary part, simply
+  by setting this class member. 
+  In Python the object can be created simply by::
+
+    >>> a = my_complex(2,3)
+  
+  As seen in the constructor we simply added a new class member to
+  the object, and in fact, one can always add new class members as 
+  he/she wishes::
+  
+    >>> a.new = 1
+    >>> a.new
+    1
+  
+* The last statement simply adds one to the counter, which counts
+  the number of instances. We defined it in the beginning of the class
+  before the ``__init__`` function. This counter belongs to the whole class,
+  that's the reason why we had to call it with
+  ``my_complex.nr_instances``.
+  And indeed the counter is global for our class::
+
+    >>> a.nr_instances
+    1
+    >>> b = my_complex(3,4)
+    >>> a.nr_instances
+    2
+    >>> b.nr_instances
+    2
+
+  
+The next thing we defined is a class method, in this case the
+(squared) absolute value. After creating an instance, we can call
+it simply like that::
+
+  >>> a.abs()
+  13 
+    
+Huh what happened to the ``self``? The answer is Python takes the self
+argument as default, so you don't have to type it anymore.
+
+
 
 Some words on programming paradigms
 -------------------------------------------
@@ -383,6 +650,8 @@ In short:
    because all operations are independent anyway, than within a for
    loop where the compiler/interpreter doesn't know if there are operations  
    which could be possible connected.
+   There are other benefits (see for example the functional
+   programming HOWTO in Python [#]_ . 
 
 * *Object oriented programming* is (dear computer scientists, don't
    send me hatemail) more a way to organize your data, and program
@@ -425,17 +694,17 @@ than
   x = range(10)
   
   for i in x:
-    x[i] = f(x[i])
+      x[i] = f(x[i])
 
 
-and it's more intuitive and easier to write
+but it's more intuitive and easier to write
 ::
 
   def f(x): return 2*x
   x = range(10)
   
-  for i in range(0,10,2):
-    x[i] = f(x[i])
+  for i in range(0,10,2): 
+      x[i] = f(x[i)])
   
 than  
 ::
@@ -449,5 +718,8 @@ than
 
 .. [#] http://wiki.python.org/moin/PythonSpeed/PerformanceTips
 .. [#] http://docs.python.org/tutorial/controlflow.html
+.. [#] http://mail.python.org/pipermail/python-dev/2006-February/060415.html
+.. [#] http://en.wikipedia.org/wiki/Lambda_calculus
 .. [#] http://en.wikipedia.org/wiki/Programming_paradigm
 .. [#] http://www.gigamonkeys.com/book/
+.. [#] http://docs.python.org/howto/functional.html

@@ -47,44 +47,61 @@
             
   <div class="section" id="programming-in-python">
 <h1>Programming in Python<a class="headerlink" href="#programming-in-python" title="Permalink to this headline">¶</a></h1>
+<p>In this section I will give all tools for programming with
+Python. The sections are ordered by programming paradigms.
+If you are new to programming, the last paragraph of this section
+contains an overview of the paradigms. ( <a class="reference internal" href="#paradigm-ref"><em>Other ways to define functions</em></a> )</p>
+<div class="section" id="commenting-in-python">
+<h2>Commenting in Python<a class="headerlink" href="#commenting-in-python" title="Permalink to this headline">¶</a></h2>
+<p>To comment out lines of codes use <tt class="docutils literal"><span class="pre">#</span></tt>.</p>
+<p>Examples:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># I&#39;m a comment</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span> <span class="c"># do some stuff</span>
+
+<span class="c"># bla</span>
+<span class="c"># bla</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="go-with-the-control-flow">
-<h2>Go with the control flow<a class="headerlink" href="#go-with-the-control-flow" title="Permalink to this headline">¶</a></h2>
+<span id="control-flow-ref"></span><h2>Go with the control flow<a class="headerlink" href="#go-with-the-control-flow" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="the-if-statement">
 <h3>The <tt class="docutils literal"><span class="pre">if</span></tt> statement<a class="headerlink" href="#the-if-statement" title="Permalink to this headline">¶</a></h3>
 <p>The <tt class="docutils literal"><span class="pre">if</span></tt> statement in Python is quite the way one would
 expect from other languages.
-As mentioned in the section <em class="xref">indention_ref</em> the <tt class="docutils literal"><span class="pre">if</span></tt> statement
+As mentioned in the section <a class="reference external" href="Steps.html#indention-ref"><em>Intendation for organising blocks of codes</em></a> the <tt class="docutils literal"><span class="pre">if</span></tt> statement
 has the following structure:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">if</span> <span class="n">condition_is_true</span><span class="p">:</span>
-  <span class="n">do_something</span>
+    <span class="n">do_something</span>
 </pre></div>
 </div>
 <p>Note the intendention!</p>
 <p>There is also an <tt class="docutils literal"><span class="pre">else</span></tt> statement in Python:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">if</span> <span class="n">condition_is_true</span><span class="p">:</span>
-  <span class="n">do_something</span>
+    <span class="n">do_something</span>
 <span class="k">else</span><span class="p">:</span>
-  <span class="n">do_something_else</span>
+    <span class="n">do_something_else</span>
 </pre></div>
 </div>
 <p>Note that for the <tt class="docutils literal"><span class="pre">else</span></tt> statement the intendention rule applies
 too!</p>
 <p>There is also an <tt class="docutils literal"><span class="pre">elif</span></tt> clause short for else/if:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">if</span> <span class="n">condition_is_true</span><span class="p">:</span>
-  <span class="n">do_something</span>
+    <span class="n">do_something</span>
 <span class="k">elif</span> <span class="n">another_condition_is_true</span><span class="p">:</span>
-  <span class="n">do_something_different</span>
+    <span class="n">do_something_different</span>
 <span class="k">else</span><span class="p">:</span>
-  <span class="n">do_something_else</span>
+    <span class="n">do_something_else</span>
 </pre></div>
 </div>
 <p>Here for example we determine the sign of a value:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-  <span class="n">sign</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">sign</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="k">elif</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-  <span class="n">sign</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">sign</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
 <span class="k">else</span><span class="p">:</span>
-  <span class="n">sign</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">sign</span> <span class="o">=</span> <span class="mi">0</span>
 </pre></div>
 </div>
 </div>
@@ -92,24 +109,25 @@ too!</p>
 <h3><tt class="docutils literal"><span class="pre">while</span></tt> loops<a class="headerlink" href="#while-loops" title="Permalink to this headline">¶</a></h3>
 <p><tt class="docutils literal"><span class="pre">while</span></tt> loops are also like expected:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">while</span> <span class="n">condition_is_true</span><span class="p">:</span>
-  <span class="n">do_something</span>
+    <span class="n">do_something</span>
 </pre></div>
 </div>
 <p>In Python while loops know alos an <tt class="docutils literal"><span class="pre">else</span></tt> statement.
 It is executed when the condition is violated:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">while</span> <span class="n">condition_is_true</span><span class="p">:</span>
-  <span class="n">do_something</span>
+    <span class="n">do_something</span>
 <span class="k">else</span><span class="p">:</span>
-  <span class="n">do_something</span>
+    <span class="n">do_something</span>
 </pre></div>
 </div>
 <p>Here an example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="k">while</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
-  <span class="k">print</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-  <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+    <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
 <span class="k">else</span><span class="p">:</span>
-  <span class="k">print</span><span class="p">(</span><span class="s">&quot;Start&quot;</span><span class="p">)</span>
+    <span class="c"># if k &gt;= 10 we come into the else clause</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Start&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>the output of this snippet is:</p>
@@ -135,37 +153,616 @@ because in contrast to other programming languages
 or numbers, like in C.</p>
 <p>A <tt class="docutils literal"><span class="pre">for</span></tt> loop looks like this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">:</span>
-  <span class="n">do_something_with_x</span>
+    <span class="n">do_something_with_x</span>
 </pre></div>
 </div>
 <p>We can use the <tt class="docutils literal"><span class="pre">range</span></tt> function (see the section about
 <a class="reference external" href="Steps.html#list-ref"><em>Lists</em></a> ) to create a <em>norma;</em> <tt class="docutils literal"><span class="pre">for</span></tt> loop:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-  <span class="n">do_something_with_x</span>
+    <span class="n">do_something_with_x</span>
 </pre></div>
 </div>
 <p>The <tt class="docutils literal"><span class="pre">for</span></tt> loop knows also an <tt class="docutils literal"><span class="pre">else</span></tt> statement. It is executed when
 <tt class="docutils literal"><span class="pre">for</span></tt> reaches the end of the list/sequence.</p>
 <p>Analogous to our <tt class="docutils literal"><span class="pre">while</span></tt> example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
-  <span class="k">print</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
-  <span class="k">print</span><span class="p">(</span><span class="s">&quot;Start&quot;</span><span class="p">)</span>
+    <span class="c"># When end of list is reached...</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Start&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>Remark:</strong> To get out more performance of your Python code use
 <tt class="docutils literal"><span class="pre">xrange</span></tt> instead of range, because <tt class="docutils literal"><span class="pre">xrange</span></tt> doesn&#8217;t need allocate
 memory for a list. In Python 3, however, <tt class="docutils literal"><span class="pre">range</span></tt> returns an iterator
 and not a list, so this is obsolete there.</p>
-<p>See also the Python wiki <a class="footnote-reference" href="#id2" id="id1">[1]</a> on this topic.</p>
+<p>See also the Python wiki <a class="footnote-reference" href="#id8" id="id1">[1]</a> on this topic.</p>
+</div>
+<div class="section" id="the-break-and-continue-statements">
+<h3>The <tt class="docutils literal"><span class="pre">break</span></tt> and <tt class="docutils literal"><span class="pre">continue</span></tt> statements<a class="headerlink" href="#the-break-and-continue-statements" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">break</span></tt> and <tt class="docutils literal"><span class="pre">continue</span></tt> statements are borrowed from <em>C</em>.</p>
+<ul>
+<li><p class="first"><tt class="docutils literal"><span class="pre">continue</span></tt> continues with the next iteration of the loop.
+For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">k</span> <span class="o">+=</span> <span class="n">i</span>
+<span class="gp">... </span>    <span class="k">continue</span> <span class="c"># Go on with next iteration</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="c"># The interpreter never reaches this line</span>
+<span class="gp">... </span><span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="c"># print result</span>
+<span class="gp">...</span>
+<span class="go">45</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">break</span></tt> breaks out of the smallest enclosing <tt class="docutils literal"><span class="pre">for</span></tt> or <tt class="docutils literal"><span class="pre">while</span></tt>
+loop.
+Here a famous example from the official Python tutorial <a class="footnote-reference" href="#id9" id="id2">[2]</a></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">print</span> <span class="n">n</span><span class="p">,</span> <span class="s">&#39;equals&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="s">&#39;*&#39;</span><span class="p">,</span> <span class="n">n</span><span class="o">/</span><span class="n">x</span>
+<span class="gp">... </span>            <span class="k">break</span>
+<span class="gp">... </span>    <span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="c"># loop fell through without finding a factor</span>
+<span class="gp">... </span>        <span class="k">print</span> <span class="n">n</span><span class="p">,</span> <span class="s">&#39;is a prime number&#39;</span>
+<span class="gp">...</span>
+<span class="go">2 is a prime number</span>
+<span class="go">3 is a prime number</span>
+<span class="go">4 equals 2 * 2</span>
+<span class="go">5 is a prime number</span>
+<span class="go">6 equals 2 * 3</span>
+<span class="go">7 is a prime number</span>
+<span class="go">8 equals 2 * 4</span>
+<span class="go">9 equals 3 * 3</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="the-pass-statement">
+<h3>The <tt class="docutils literal"><span class="pre">pass</span></tt> statement<a class="headerlink" href="#the-pass-statement" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">pass</span></tt> statement, in fact, does nothing.
+It can be used as a placeholder for functions,
+or classe which have to be implemented yet.</p>
+<p>For example the snippet</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>results in an endless loop, where nothing happens.</p>
+</div>
+</div>
+<div class="section" id="defininng-functions">
+<h2>Defininng functions<a class="headerlink" href="#defininng-functions" title="Permalink to this headline">¶</a></h2>
+<p>A function is declared with the <tt class="docutils literal"><span class="pre">def</span></tt> statement in normal Python
+manner.
+The statment has to be followed by an identifier
+We simply start with a classical example, and give explaination later on.</p>
+<p>The factorial would be implemented in Python that way:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">my_factorial</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">pochhammer</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Your documentation comes here&quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">pochhammer</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span> <span class="c"># Check if evaluate Pochhammer Symbol</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">n</span>
+
+    <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">k</span> <span class="o">*=</span> <span class="n">a</span> <span class="o">-</span> <span class="n">i</span>
+
+    <span class="k">return</span> <span class="n">k</span> <span class="c"># Give back the result</span>
+</pre></div>
+</div>
+<div class="section" id="the-return-statement">
+<h3>The <tt class="docutils literal"><span class="pre">return</span></tt> statement<a class="headerlink" href="#the-return-statement" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">return</span></tt> statement terminate the function and returns the value.
+To return more values simply use a comma:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+  <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">y</span>
+</pre></div>
+</div>
+<p>Python return them as a tuple:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">(4, 9)</span>
+</pre></div>
+</div>
+<p>If you dont want to store them in a
+tuple simple use more identifiers seperated by a comma:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="p">,</span><span class="n">c</span>  <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span>
+<span class="go">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span>
+<span class="go">9</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">return</span></tt> without an expression returns <tt class="xref docutils literal"><span class="pre">None</span></tt></p>
+</div>
+<div class="section" id="variables-inside-functions">
+<h3>Variables (inside functions)<a class="headerlink" href="#variables-inside-functions" title="Permalink to this headline">¶</a></h3>
+<p>Variables within a function are all local, except they are
+defined outside of the code block:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>      <span class="c"># declared outside of the function</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">f</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="n">a</span> <span class="o">=</span> <span class="mi">2</span>    <span class="c"># declared inside of the function</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c"># can be called within the function</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">()</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="c"># not defined outside of the function</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n-Identifier">&lt;module&gt;</span>
+<span class="nc">NameError</span>: <span class="n-Identifier">name &#39;a&#39; is not defined</span>
+<span class="go"> But you can&#39;t assign values</span>
+<span class="go">to a global variable within a function</span>
+</pre></div>
+</div>
+<p>But you can&#8217;t assign a global varaible a new value within a function:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">f</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">()</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<p>except you use the <tt class="docutils literal"><span class="pre">global</span></tt> statement:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">global</span> <span class="n">Bad</span>    <span class="c"># Declare identifier as global</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Bad</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">f</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="k">global</span> <span class="n">Bad</span>  <span class="c"># Tell the function Bad is global</span>
+<span class="gp">... </span>    <span class="n">Bad</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">Bad</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Bad</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">()</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Bad</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+<p>but I would avoid this as much as possible...</p>
+</div>
+<div class="section" id="default-values-and-keyword-arguments">
+<h3>Default values and keyword arguments<a class="headerlink" href="#default-values-and-keyword-arguments" title="Permalink to this headline">¶</a></h3>
+<p>Python allows to define functions with default values:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">answering</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">mission</span><span class="p">,</span> <span class="n">answer</span><span class="o">=</span><span class="s">&quot;I don&#39;t know&quot;</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="s">&quot;What iss your name?&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="s">&quot;What iss your mission?&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">mission</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">if</span> <span class="n">answer</span> <span class="o">==</span> <span class="s">&quot;I don&#39;t know&quot;</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="n">answer</span> <span class="o">+</span> <span class="s">&quot; Ahhhhhhhhhh!&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="n">answer</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s">&quot;You may pass&quot;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">answering</span><span class="p">(</span><span class="s">&quot;Gallahad&quot;</span><span class="p">,</span> <span class="s">&quot;The search for the holy grail&quot;</span><span class="p">)</span>
+<span class="go">What&#39;s your name?</span>
+<span class="go">Gallahad</span>
+<span class="go">What&#39;s your mission?</span>
+<span class="go">The search for the holy grail</span>
+<span class="go">I dont know Ahhhhhhhhhh!</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">answering</span><span class="p">(</span><span class="s">&quot;Lancelot&quot;</span><span class="p">,</span> <span class="s">&quot;The search for the holy grail&quot;</span><span class="p">,</span> <span class="s">&quot;Blue&quot;</span><span class="p">)</span>
+<span class="go">What&#39;s your name?</span>
+<span class="go">Lancelot</span>
+<span class="go">What&#39;s your mission?</span>
+<span class="go">The search for the holy grail</span>
+<span class="go">Blue</span>
+<span class="go">You may pass</span>
+</pre></div>
+</div>
+<p>You can also call them with keyword arguments:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">answering</span><span class="p">(</span><span class="s">&quot;Lancelot&quot;</span><span class="p">,</span> <span class="s">&quot;The search for the holy grail&quot;</span><span class="p">,</span> <span class="n">answer</span> <span class="o">=</span> <span class="s">&quot;Blue&quot;</span><span class="p">)</span>
+<span class="go">What&#39;s your name?</span>
+<span class="go">Lancelot</span>
+<span class="go">What&#39;s your mission?</span>
+<span class="go">The search for the holy grail</span>
+<span class="go">Blue</span>
+<span class="go">You may pass</span>
+</pre></div>
+</div>
+<p>This can be quite useful. For example you want to define a function,
+with several options:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">offset_x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">offset_y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="n">offset_x</span> <span class="o">-</span> <span class="n">offset_y</span>
+</pre></div>
+</div>
+<p>Now we can call the offset_y variable directly, without setting a
+value for offset_x:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">offset_y</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">-1</span>
+</pre></div>
+</div>
+<p><strong>Important</strong>: A non keyword argument cannot follow a keyword argument:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">(</span><span class="n">offset_x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>
+<span class="nc">SyntaxError</span>: <span class="n-Identifier">non-keyword arg after keyword arg</span>
+</pre></div>
+</div>
+<p>This also applies for the definition of the function:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+<span class="gp">...</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>
+<span class="nc">SyntaxError</span>: <span class="n-Identifier">non-default argument follows default argument</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="calls-with-lists-and-dictionaries">
+<h3>Calls with lists and dictionaries<a class="headerlink" href="#calls-with-lists-and-dictionaries" title="Permalink to this headline">¶</a></h3>
+<p>A function be called with arbitrary many arguments using the
+<tt class="docutils literal"><span class="pre">*</span></tt> symbol:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">sum_up</span><span class="p">(</span><span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="o">*</span><span class="n">summands</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">k</span> <span class="o">=</span> <span class="n">offset</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">summands</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">k</span> <span class="o">+=</span> <span class="n">x</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">k</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sum_up</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sum_up</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sum_up</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sum_up</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="go">10</span>
+</pre></div>
+</div>
+<p>What happens here? Python wraps all additional arguments into a tuple,
+which is identified with the keywords after the <tt class="docutils literal"><span class="pre">*</span></tt>. Very often
+as convention <tt class="docutils literal"><span class="pre">*args</span></tt> is used.</p>
+<p>One also can use different types of keywords, and surpass them as
+dictionary. Here again an example from the Python documentation:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">cheeseshop</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="o">*</span><span class="n">arguments</span><span class="p">,</span> <span class="o">**</span><span class="n">keywords</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">&quot;-- Do you have any&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="s">&quot;?&quot;</span>
+    <span class="k">print</span> <span class="s">&quot;-- I&#39;m sorry, we&#39;re all out of&quot;</span><span class="p">,</span> <span class="n">kind</span>
+    <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">arguments</span><span class="p">:</span>
+        <span class="k">print</span> <span class="n">arg</span>
+    <span class="k">print</span> <span class="s">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">40</span>
+    <span class="n">keys</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">keywords</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">kw</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+        <span class="k">print</span> <span class="n">kw</span><span class="p">,</span> <span class="s">&quot;:&quot;</span><span class="p">,</span> <span class="n">keywords</span><span class="p">[</span><span class="n">kw</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>It could be called like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cheeseshop</span><span class="p">(</span><span class="s">&quot;Limburger&quot;</span><span class="p">,</span> <span class="s">&quot;It&#39;s very runny, sir.&quot;</span><span class="p">,</span>
+           <span class="s">&quot;It&#39;s really very, VERY runny, sir.&quot;</span><span class="p">,</span>
+           <span class="n">shopkeeper</span><span class="o">=</span><span class="s">&#39;Michael Palin&#39;</span><span class="p">,</span>
+           <span class="n">client</span><span class="o">=</span><span class="s">&quot;John Cleese&quot;</span><span class="p">,</span>
+           <span class="n">sketch</span><span class="o">=</span><span class="s">&quot;Cheese Shop Sketch&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>and of course it would print:</p>
+<div class="highlight-python"><pre>-- Do you have any Limburger ?
+-- I'm sorry, we're all out of Limburger
+It's very runny, sir.
+It's really very, VERY runny, sir.
+----------------------------------------
+client : John Cleese
+shopkeeper : Michael Palin
+sketch : Cheese Shop Sketch</pre>
+</div>
+<p>Be aware that <tt class="docutils literal"><span class="pre">**name</span></tt> has to come after <tt class="docutils literal"><span class="pre">*name</span></tt> (if there is one).</p>
+<p><strong>Remark</strong> The <tt class="docutils literal"><span class="pre">*</span></tt> operator can be used to unpack contents of a list
+and give them to a function as well:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">liste</span><span class="p">)</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="docstrings">
+<h3>Docstrings<a class="headerlink" href="#docstrings" title="Permalink to this headline">¶</a></h3>
+<p>Docstrings are optional, and come right after the definition of the
+function. A docstring is simply a string. Here is an example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">doubling</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="gp">... </span>  <span class="sd">&quot;&quot;&quot;I&#39;m doubling stuff!</span>
+<span class="gp">... </span><span class="sd">     Yes it&#39;s true!&quot;&quot;&quot;</span>
+<span class="gp">... </span>  <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">doubling</span><span class="o">.</span><span class="n">__doc__</span>
+<span class="go">I&#39;m doubling stuff!</span>
+<span class="go">     Yes it&#39;s true!</span>
+</pre></div>
+</div>
+<p>There are many powerful tools like Sphinx, where you can use your
+docstrings for creating documentation of your code, or tools for
+automatic testing, which read take the docstring as input.</p>
+</div>
+<div class="section" id="other-ways-to-define-functions">
+<span id="paradigm-ref"></span><h3>Other ways to define functions<a class="headerlink" href="#other-ways-to-define-functions" title="Permalink to this headline">¶</a></h3>
+<p>There are also some other ways to define functions in Python.
+One would to be write them in one line, and seperate the different
+operations with a semicolon:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">;</span> <span class="k">return</span> <span class="n">y</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">4</span>
+</pre></div>
+</div>
+<p>Another way is the <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> statement:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span>
+</pre></div>
+</div>
+<p>One key difference is, that <img class="math" src="_images/math/76ea0d7ef49fd52804f6d2259d9dface43e0d503.png" alt="lambda"/> has no return statement,
+and it can contain only one expression.</p>
+<p>But lambda can take more than one variable:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+</pre></div>
+</div>
+<p><strong>Note:</strong> In older versions of Python 2 lambda can unpack tuples:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">lambda</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+</pre></div>
+</div>
+<p>is valid in older versions of Python 2, but not in Python 2.6!
+In Python 2.6 or above one has to write</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">lambda</span> <span class="n">xy_tuple</span><span class="p">:</span> <span class="n">xy_tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">xy_tuple</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="section" id="or">
+<h4>or<a class="headerlink" href="#or" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+lambda x,y: x + y</blockquote>
+<p>instead.</p>
+<p>The <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> statement is confusing many people.
+Guido Van Rossum himself wanted to remove the <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/>
+statement from Python 3, but didn&#8217;t succeed to find a good replacement
+<a class="footnote-reference" href="#id10" id="id3">[3]</a> . As one of it&#8217;s biggest fans I can only say: Hooray for
+<img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> !</p>
+<p>The reason for the strange naming is that in the early times of
+Python, many <em>Lisp</em> programmers wanted some functional features
+from <em>Lisp</em>, and one of the was <img class="math" src="_images/math/76ea0d7ef49fd52804f6d2259d9dface43e0d503.png" alt="lambda"/> .
+But it&#8217;s true origin comes from the <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> calculus <a class="footnote-reference" href="#id11" id="id4">[4]</a> .</p>
+</div>
+</div>
+</div>
+<div class="section" id="functional-programming-tools-in-python-or-hooray-for">
+<span id="functional-programming-ref"></span><h2>Functional Programming tools in Python (or hooray for <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> )<a class="headerlink" href="#functional-programming-tools-in-python-or-hooray-for" title="Permalink to this headline">¶</a></h2>
+<p>In some sense I&#8217;m relaively new to functional programming myself,
+in somse sense not, since I use it hidden in some mathemtaical
+languages like Mathematica or Matlab.</p>
+<p>Functional programming can be a very powerful tool, and I show here
+some of the key features for functional programming in Python.
+I follow the <a class="reference external" href="http://docs.python.org/howto/functional.html/">Functional Howto in Python</a> .</p>
+<div class="section" id="iterators-again">
+<h3>Iterators again<a class="headerlink" href="#iterators-again" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">pass</span></tt></p>
+</div>
+</div>
+<div class="section" id="objects-and-classes">
+<h2>Objects and classes<a class="headerlink" href="#objects-and-classes" title="Permalink to this headline">¶</a></h2>
+<p>Classes are the basis of every OO language, and Python is no exception.</p>
+<div class="section" id="definition-of-classes-and-basic-properties">
+<h3>Definition of classes and basic properties<a class="headerlink" href="#definition-of-classes-and-basic-properties" title="Permalink to this headline">¶</a></h3>
+<p>Classes look quite similar to functions:</p>
+<div class="highlight-python"><pre>class class_name:
+    &lt;statement1&gt;
+    &lt;statement2&gt;
+    .
+    .
+    .</pre>
+</div>
+<p>We use here complex numbers as an example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">my_complex</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Complex numbers as example&quot;&quot;&quot;</span>
+    <span class="n">nr_instances</span> <span class="o">=</span> <span class="mi">0</span> <span class="c"># This belongs to the whole class</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">re</span><span class="p">,</span><span class="n">im</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The init method serves as constructor&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">re</span> <span class="o">=</span> <span class="n">re</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">=</span> <span class="n">im</span>
+
+        <span class="n">my_complex</span><span class="o">.</span><span class="n">nr_instances</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">abs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculates the absolute value&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">re</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>What do we have here. First let&#8217;s look into the <tt class="docutils literal"><span class="pre">__init__</span></tt> method,
+which is the constructor of an object. The first element is the object
+itself. Every function (method) of the class takes itself as first
+input parameter. The name <tt class="docutils literal"><span class="pre">self</span></tt> is only a convention, one can use
+every other identifier. <strong>Important</strong>: <tt class="docutils literal"><span class="pre">self</span></tt> has to be the first
+argument in every class method, even when it is not needed!</p>
+<p>So what does our constructor here:</p>
+<ul>
+<li><p class="first">First the object gets it real and imaginary part, simply
+by setting this class member.
+In Python the object can be created simply by:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">my_complex</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As seen in the constructor we simply added a new class member to
+the object, and in fact, one can always add new class members as
+he/she wishes:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">new</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">new</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">The last statement simply adds one to the counter, which counts
+the number of instances. We defined it in the beginning of the class
+before the <tt class="docutils literal"><span class="pre">__init__</span></tt> function. This counter belongs to the whole class,
+that&#8217;s the reason why we had to call it with
+<tt class="docutils literal"><span class="pre">my_complex.nr_instances</span></tt>.
+And indeed the counter is global for our class:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">nr_instances</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">my_complex</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">nr_instances</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="o">.</span><span class="n">nr_instances</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>The next thing we defined is a class method, in this case the
+(squared) absolute value. After creating an instance, we can call
+it simply like that:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
+<span class="go">13</span>
+</pre></div>
+</div>
+<p>Huh what happened to the <tt class="docutils literal"><span class="pre">self</span></tt>? The answer is Python takes the self
+argument as default, so you don&#8217;t have to type it anymore.</p>
+</div>
+</div>
+<div class="section" id="some-words-on-programming-paradigms">
+<h2>Some words on programming paradigms<a class="headerlink" href="#some-words-on-programming-paradigms" title="Permalink to this headline">¶</a></h2>
+<p>There are several programming paradigms, and the
+most common in modern programming languages are</p>
+<ul class="simple">
+<li>Imperative programming</li>
+<li>Functional programming</li>
+<li>Object oriented programming</li>
+</ul>
+<p>Look at for exmaple at Wikipedia for an short
+overwiev on that topic <a class="footnote-reference" href="#id12" id="id5">[5]</a>, or a good programming book
+of your choice, If you want to go deeper into that topic.</p>
+<p>In short:</p>
+<ul>
+<li><p class="first">In <em>imperative programming</em> you define sequences of
+commands the computer should perform, with help of loops,
+control statements, and functions. The program has <em>states</em>
+which determine, what the program does, and which action to
+perform. This is a quite natural approach to programming, because
+a human works also that way, for example: state &#8220;hunger&#8221; -&gt; get
+food). Classical examples for such languages are <em>Fortran</em> (the
+first high level language) or <em>C</em>.</p>
+</li>
+<li><dl class="first docutils">
+<dt><em>Functional programming</em> is a little bit more artifical,</dt>
+<dd><p class="first last">but often a more elegant
+approach for programming. In functional programming you define
+functions and let them operate on objects, lists, or call them
+recursivly. An example would be the <em>Lisp</em> family, which was
+also the first one. (It&#8217;s worthwile to look at <em>Lisp</em> not only
+to customize your Emacs. A good reading tip would be: Practical
+Common Lisp <a class="footnote-reference" href="#id13" id="id6">[6]</a> ) One important benefit of functional programming
+is, that is easier to parallize. For example it&#8217;s easier for the
+compiler/interpreter to decide, when you operate with a function on a list,
+because all operations are independent anyway, than within a for
+loop where the compiler/interpreter doesn&#8217;t know if there are operations
+which could be possible connected.
+There are other benefits (see for example the functional
+programming HOWTO in Python <a class="footnote-reference" href="#id14" id="id7">[7]</a> .</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em>Object oriented programming</em> is (dear computer scientists, don&#8217;t</dt>
+<dd><p class="first last">send me hatemail) more a way to organize your data, and program
+than a real paradigm, and in fact you can program OO even in <em>C</em>
+with the help of structs. I already wrote a little about
+that (see <a class="reference external" href="Introduction.html#oo-ref"><em>Object oriented programming abstracts away your problems</em></a> ), and at least for everyone who does
+abstraction in a regular  basis this is a very intuitive concept.
+(And in fact every human does! )
+OO programming means to collect things, that share specific
+attributes in certain classes. And every Object that shares
+those features belongs to that class. A real world example
+would be wheels: There are big wheels, small wheels, wheels
+for snow etc. but they all share common properties that makes
+them wheels (For example they are all round,
+and break in a regular basis).</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>The good news are, that in Python you are able to work with
+all three at least to some extend. (Python is more imperativ
+than funcional). That means Python is a multi paradigm language.</p>
+<p>Even if some say that one of the three is the true answer, I
+personally think that all three have their benefits and drawbacks,
+and thats the reason I prefer multiparadigm languages like Python, because
+sometimes it is easier and more intuitive to program a functionality
+in one certain way, while it&#8217;s not so easy in the others.</p>
+<p>For example I think it&#8217;s easier and more elegant to write</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span>
+<span class="n">x</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>than</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span>
+<span class="n">x</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+    <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>but it&#8217;s more intuitive and easier to write</p>
+<div class="highlight-python"><pre>def f(x): return 2*x
+x = range(10)
+
+for i in range(0,10,2):
+    x[i] = f(x[i)])</pre>
+</div>
+<p>than</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span>
+<span class="n">x</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
 <p class="rubric">Links</p>
-<table class="docutils footnote" frame="void" id="id2" rules="none">
+<table class="docutils footnote" frame="void" id="id8" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://wiki.python.org/moin/PythonSpeed/PerformanceTips">http://wiki.python.org/moin/PythonSpeed/PerformanceTips</a></td></tr>
 </tbody>
 </table>
-</div>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="http://docs.python.org/tutorial/controlflow.html">http://docs.python.org/tutorial/controlflow.html</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><a class="reference external" href="http://mail.python.org/pipermail/python-dev/2006-February/060415.html">http://mail.python.org/pipermail/python-dev/2006-February/060415.html</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Lambda_calculus">http://en.wikipedia.org/wiki/Lambda_calculus</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[5]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Programming_paradigm">http://en.wikipedia.org/wiki/Programming_paradigm</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id13" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id6">[6]</a></td><td><a class="reference external" href="http://www.gigamonkeys.com/book/">http://www.gigamonkeys.com/book/</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id14" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id7">[7]</a></td><td><a class="reference external" href="http://docs.python.org/howto/functional.html">http://docs.python.org/howto/functional.html</a></td></tr>
+</tbody>
+</table>
 </div>
 </div>
 
@@ -178,12 +775,36 @@ and not a list, so this is obsolete there.</p>
             <h3><a href="index.html">Table Of Contents</a></h3>
             <ul>
 <li><a class="reference external" href="#">Programming in Python</a><ul>
+<li><a class="reference external" href="#commenting-in-python">Commenting in Python</a></li>
 <li><a class="reference external" href="#go-with-the-control-flow">Go with the control flow</a><ul>
 <li><a class="reference external" href="#the-if-statement">The <tt class="docutils literal"><span class="pre">if</span></tt> statement</a></li>
 <li><a class="reference external" href="#while-loops"><tt class="docutils literal"><span class="pre">while</span></tt> loops</a></li>
 <li><a class="reference external" href="#for-loops"><tt class="docutils literal"><span class="pre">for</span></tt> loops</a></li>
+<li><a class="reference external" href="#the-break-and-continue-statements">The <tt class="docutils literal"><span class="pre">break</span></tt> and <tt class="docutils literal"><span class="pre">continue</span></tt> statements</a></li>
+<li><a class="reference external" href="#the-pass-statement">The <tt class="docutils literal"><span class="pre">pass</span></tt> statement</a></li>
 </ul>
 </li>
+<li><a class="reference external" href="#defininng-functions">Defininng functions</a><ul>
+<li><a class="reference external" href="#the-return-statement">The <tt class="docutils literal"><span class="pre">return</span></tt> statement</a></li>
+<li><a class="reference external" href="#variables-inside-functions">Variables (inside functions)</a></li>
+<li><a class="reference external" href="#default-values-and-keyword-arguments">Default values and keyword arguments</a></li>
+<li><a class="reference external" href="#calls-with-lists-and-dictionaries">Calls with lists and dictionaries</a></li>
+<li><a class="reference external" href="#docstrings">Docstrings</a></li>
+<li><a class="reference external" href="#other-ways-to-define-functions">Other ways to define functions</a><ul>
+<li><a class="reference external" href="#or">or</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference external" href="#functional-programming-tools-in-python-or-hooray-for">Functional Programming tools in Python (or hooray for <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> )</a><ul>
+<li><a class="reference external" href="#iterators-again">Iterators again</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#objects-and-classes">Objects and classes</a><ul>
+<li><a class="reference external" href="#definition-of-classes-and-basic-properties">Definition of classes and basic properties</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#some-words-on-programming-paradigms">Some words on programming paradigms</a></li>
 </ul>
 </li>
 </ul>

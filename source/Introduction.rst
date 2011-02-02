@@ -115,6 +115,8 @@ but at least take your time to think about the implementation, and
 how you can eventually reuse it. Sometimes ten minutes of thinking
 can save yourself ours of programming.
 
+.. _OO_ref: 
+
 Object oriented programming abstracts away your problems
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 If one is not familiar with the paradigm of object oriented programming change this!
@@ -132,6 +134,20 @@ This semester I gave also an excercise in the optimisation course, where
 all the linesearch methods we implemented had to be integrated into one steepest descent algorithm.
 While my students needed ours to implement this in Matlab. I only needed one half in Python, because
 I simply subdivided the sub problems in classes, and had to write the framework algorithm only once. 
+
+Modularity counts
+"""""""""""""""""""""""""""""""""""""""""""""""""
+Keep the structure of your programs as modular as possible!
+**Every function should only do exactly one job, and don't use 
+global variables**. If you have to use global variables, then in
+90% of the cases something is wrong with your design of the code!
+Sounds annoying? I was annoyed by that too in my first programming 
+course. But trust me it will help you a lot. At least if you want to
+reuse a piece of code, or even worse, someone else wants to use your 
+code, you will run into troubles, if you don't have a good
+organisation of your code. **Remember:**  If you have a lot of 
+parameters, you can always store them in a container or a class.
+
 
 Premature optimisation is the rule of all evil!
 """""""""""""""""""""""""""""""""""""""""""""""""
