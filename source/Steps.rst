@@ -92,6 +92,10 @@ an **}** the compiler often points you to a line number anywere in the code.
 **Important note:** You can choose the type of indentation as you wish.
 One, two, three, four,... 2011 whitespaces, or tabulators. **But** you should
 never mix whitespaces with tabulators! This will result in an error.
+
+Recommended by most  is to use 4
+space indentation (This convention is recomended even by the inventor
+of Python himself [#]_)
      
 The semicolon
 """"""""""""""""""""""""""""""""""""""""""""""""
@@ -901,6 +905,7 @@ does not.
 
 .. rubric:: Links
 
+.. [#] http://www.python.org/dev/peps/pep-0008/
 .. [#] http://docs.python.org/library/stdtypes.html
 .. [#] http://zephyrfalcon.org/labs/python_pitfalls.html
 .. [#] http://docs.python.org/library/string.html
