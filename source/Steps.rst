@@ -815,7 +815,7 @@ Iterators can be converted to lists or tuples::
 With help of the ``itertools`` module there are several other ways to
 create iterators.
 ``itertools.count`` for example creates an infinte stream of
-integers. We come back to that later in :ref:`functional_programming_ref`
+integers. 
 
 
 The print statement

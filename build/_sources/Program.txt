@@ -491,6 +491,7 @@ In Python 2.6 or above one has to write
   lambda xy_tuple: xy_tuple[0] + xy_tuple[1]
 
 or
+
 ::
 
   lambda x,y: x + y
@@ -609,6 +610,8 @@ it simply like that::
     
 Huh what happened to the ``self``? The answer is Python takes the self
 argument as default, so you don't have to type it anymore.
+
+
 
 
 
