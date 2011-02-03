@@ -149,7 +149,8 @@ It is executed when the condition is violated:</p>
 <h3><tt class="docutils literal"><span class="pre">for</span></tt> loops<a class="headerlink" href="#for-loops" title="Permalink to this headline">¶</a></h3>
 <p>For loops are a little bit different in Python,
 because in contrast to other programming languages
-<tt class="docutils literal"><span class="pre">for</span></tt> iterates through a sequence/list, and not only to integers
+<tt class="docutils literal"><span class="pre">for</span></tt> iterates through an iterator or an type which supports
+iterating, and not only to integers
 or numbers, like in C.</p>
 <p>A <tt class="docutils literal"><span class="pre">for</span></tt> loop looks like this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">:</span>
@@ -175,8 +176,8 @@ or numbers, like in C.</p>
 <p><strong>Remark:</strong> To get out more performance of your Python code use
 <tt class="docutils literal"><span class="pre">xrange</span></tt> instead of range, because <tt class="docutils literal"><span class="pre">xrange</span></tt> doesn&#8217;t need allocate
 memory for a list. In Python 3, however, <tt class="docutils literal"><span class="pre">range</span></tt> returns an iterator
-and not a list, so this is obsolete there.</p>
-<p>See also the Python wiki <a class="footnote-reference" href="#id8" id="id1">[1]</a> on this topic.</p>
+and not a list, so this is obsolete then.</p>
+<p>See also the Python wiki <a class="footnote-reference" href="#id10" id="id1">[1]</a> on this topic.</p>
 </div>
 <div class="section" id="the-break-and-continue-statements">
 <h3>The <tt class="docutils literal"><span class="pre">break</span></tt> and <tt class="docutils literal"><span class="pre">continue</span></tt> statements<a class="headerlink" href="#the-break-and-continue-statements" title="Permalink to this headline">¶</a></h3>
@@ -198,7 +199,7 @@ For example:</p>
 </li>
 <li><p class="first"><tt class="docutils literal"><span class="pre">break</span></tt> breaks out of the smallest enclosing <tt class="docutils literal"><span class="pre">for</span></tt> or <tt class="docutils literal"><span class="pre">while</span></tt>
 loop.
-Here a famous example from the official Python tutorial <a class="footnote-reference" href="#id9" id="id2">[2]</a></p>
+Here a famous example from the official Python tutorial <a class="footnote-reference" href="#id11" id="id2">[2]</a></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -497,6 +498,8 @@ operations with a semicolon:</p>
 </div>
 <p>One key difference is, that <img class="math" src="_images/math/76ea0d7ef49fd52804f6d2259d9dface43e0d503.png" alt="lambda"/> has no return statement,
 and it can contain only one expression.</p>
+<p>In fact lambda returns a function, and is only syntactic sugar,
+but it often is very handy.</p>
 <p>But lambda can take more than one variable:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
 </pre></div>
@@ -518,12 +521,35 @@ In Python 2.6 or above one has to write</p>
 <p>The <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> statement is confusing many people.
 Guido Van Rossum himself wanted to remove the <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/>
 statement from Python 3, but didn&#8217;t succeed to find a good replacement
-<a class="footnote-reference" href="#id10" id="id3">[3]</a> . As one of it&#8217;s biggest fans I can only say: Hooray for
+<a class="footnote-reference" href="#id12" id="id3">[3]</a> . As one of it&#8217;s biggest fans I can only say: Hooray for
 <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> !</p>
 <p>The reason for the strange naming is that in the early times of
 Python, many <em>Lisp</em> programmers wanted some functional features
-from <em>Lisp</em>, and one of the was <img class="math" src="_images/math/76ea0d7ef49fd52804f6d2259d9dface43e0d503.png" alt="lambda"/> .
-But it&#8217;s true origin comes from the <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> calculus <a class="footnote-reference" href="#id11" id="id4">[4]</a> .</p>
+from <em>Lisp</em>, and one of the was <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> .
+But it&#8217;s true origin comes from the <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> calculus <a class="footnote-reference" href="#id13" id="id4">[4]</a> .</p>
+<p>I prefer lambda for some reasons, especially that I can use it inline.
+But I wouldn&#8217;t recommend to use <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> every time, sometimes the
+use of the lambda statement is not good readable.</p>
+<p>One may argue that using <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> too often creates unreadable code.
+But on the other hand, it has the benefit, that the actual action is
+written right there where it is excecuted, and that can be used to
+avoid unnecessary comments, especially if you defined the action
+several lines before.</p>
+<p>In my work I often have to deal with several mathematical operations.
+And yes, I prefer it to write:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">4</span>
+</pre></div>
+</div>
+<p>over</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">square_x_mlt_y_to_pwr_3_add_z_to_pwr_4</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">4</span>
+</pre></div>
+</div>
+<p>Of course one can also use shorter names like <tt class="docutils literal"><span class="pre">help_func1</span></tt>, or
+<tt class="docutils literal"><span class="pre">help_func2</span></tt> .. and forget which one does what... but you also can
+overwrite it again, and again.... and break something in an other part
+of your code.</p>
+<p>Just my 2 cents.</p>
 </div>
 </div>
 <div class="section" id="functional-programming-tools-in-python-or-hooray-for">
@@ -533,10 +559,142 @@ in somse sense not, since I use it hidden in some mathemtaical
 languages like Mathematica or Matlab.</p>
 <p>Functional programming can be a very powerful tool, and I show here
 some of the key features for functional programming in Python.
-I follow the <a class="reference external" href="http://docs.python.org/howto/functional.html/">Functional Howto in Python</a> .</p>
-<div class="section" id="iterators-again">
-<h3>Iterators again<a class="headerlink" href="#iterators-again" title="Permalink to this headline">¶</a></h3>
-<p><tt class="docutils literal"><span class="pre">pass</span></tt></p>
+I follow here the programming guide for functional programming in
+Python <a class="footnote-reference" href="#id14" id="id5">[5]</a>. For more advanced techniques and more founded
+Background on that topic I refer
+to the <em>Python Functional Programming HOWTO</em> <a class="footnote-reference" href="#id15" id="id6">[6]</a></p>
+<div class="section" id="the-map-function">
+<h3>The <tt class="docutils literal"><span class="pre">map</span></tt> function<a class="headerlink" href="#the-map-function" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">map</span> <span class="pre">function</span></tt> takes any number on iterables and a function, and
+apply the function on the iterables. That means:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nb">map</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">iter1</span><span class="p">,</span> <span class="n">iter2</span><span class="p">,</span><span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>returns</p>
+<div class="highlight-python"><pre>[f(iter1[0],iter2[0],..), f(iter1[1],iter2[1],...)...]</pre>
+</div>
+<p>For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">liste</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">map</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">liste</span><span class="p">)</span>
+<span class="go">[0, 2, 4]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span> <span class="k">return</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">map</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">liste</span><span class="p">,</span><span class="n">liste</span><span class="p">)</span>
+<span class="go">[0, 1, 4]</span>
+</pre></div>
+</div>
+<p>This can be very useful for vectorized operations.
+Here again the lambda statement comes in handy:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="n">liste</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>returns again</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-reduce-function">
+<h3>The <tt class="docutils literal"><span class="pre">reduce</span></tt> function<a class="headerlink" href="#the-reduce-function" title="Permalink to this headline">¶</a></h3>
+<p>Reuce takes as input a list, a function and as optional value an
+initial value. Reduce do now the following: It takes the first
+elements of the list, and apply the function to it, than it applies
+the function to the result and the next element in the list, and again
+and again... and returns an value. If an initial value is given
+this is taken as the first value. This menas now in expressions that</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nb">reduce</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">liste</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>is evaluated as</p>
+<blockquote>
+..f(f(f(liste[0],liste[1]),liste[2]),liste[3])..</blockquote>
+<p>or</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd>reduce (f,liste,init)</dd>
+</dl>
+<p>to</p>
+<div class="highlight-python"><pre>..f(f(f(init,liste[0]).liste[1]),liste[2])..</pre>
+</div>
+<p>Let&#8217;s calculate the factorial <img class="math" src="_images/math/c824ea490ff073932a1c17d8ce0b9a4215f90d95.png" alt="10!"/></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nb">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>or the doubled factorial:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nb">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Note</strong> In Python 3 reduce was moved to the <tt class="docutils literal"><span class="pre">functools</span></tt> module.
+It can be backimported via:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="nb">reduce</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-filter-function">
+<h3>The <tt class="docutils literal"><span class="pre">filter</span></tt> function<a class="headerlink" href="#the-filter-function" title="Permalink to this headline">¶</a></h3>
+<p>An important tool to select elements from a list is the filter
+function. <tt class="docutils literal"><span class="pre">filter</span></tt> takes a function and a list and returns, the list
+of elements for which the function returned true:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">Is_even</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+  <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+
+<span class="nb">filter</span><span class="p">(</span><span class="n">Is_even</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>returns now:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="generators">
+<h3>Generators<a class="headerlink" href="#generators" title="Permalink to this headline">¶</a></h3>
+<p>Generators are like functions, but they give back a sequence of data
+instead of a single output. They can be used to write iterators.</p>
+<p>To create an generator, simply write a function with the <tt class="docutils literal"><span class="pre">def</span></tt>
+statement,
+but instead of using <tt class="docutils literal"><span class="pre">return</span></tt> use <tt class="docutils literal"><span class="pre">yield</span></tt>.</p>
+<p>For example</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">generate_even</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="k">yield</span> <span class="mi">2</span><span class="o">*</span><span class="n">n</span>
+</pre></div>
+</div>
+<p>gives back an iterator witch contains all even numbers.</p>
+<p>If we now create an iterator we can do all things which we know:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">iterator</span> <span class="o">=</span> <span class="n">generate_even</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">iterator</span><span class="p">)</span>
+<span class="go">[0, 2, 4, 6, 8]</span>
+</pre></div>
+</div>
+<p>One key difference between generators and functions is, that
+while in a function call, all local variables are created once
+and are destroyed after <tt class="docutils literal"><span class="pre">return</span></tt> was called. The varaibles
+in an generator stay. You can call <tt class="docutils literal"><span class="pre">return</span></tt> within an generator
+as well, but without output, and after it is called the generator
+cannot produce further output.</p>
+</div>
+<div class="section" id="list-comprehensions">
+<h3>List Comprehensions<a class="headerlink" href="#list-comprehensions" title="Permalink to this headline">¶</a></h3>
+<p>List comprehensions are often a good alternative to <tt class="docutils literal"><span class="pre">map</span></tt>,
+<tt class="docutils literal"><span class="pre">filter</span></tt> and <tt class="docutils literal"><span class="pre">lambda</span></tt>. A list comprehension consists of an
+expression followed by an <tt class="docutils literal"><span class="pre">for</span></tt> clause, which are followed by
+zero or more <tt class="docutils literal"><span class="pre">for</span></tt> and/or <tt class="docutils literal"><span class="pre">if</span></tt> clauses. The whole thing is
+surrounded by rectangular brackets.</p>
+<p>Examples:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vector</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">vector</span><span class="p">]</span>
+<span class="go">[0, 6, 12, 18, 24]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">vector</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">]</span>
+<span class="go">[8, 12, 16]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vector1</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vector2</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">[x*y for x in vector1 for y in vector2] # Goes through all combinations</span>
+<span class="go">[0, 0, 0, 0, 2, 4, 0, 4, 8]</span>
+</pre></div>
+</div>
+<p>List comprehensions can also be applied to much more complex
+expressions, and nested functions.</p>
 </div>
 </div>
 <div class="section" id="objects-and-classes">
@@ -620,6 +778,164 @@ it simply like that:</p>
 <p>Huh what happened to the <tt class="docutils literal"><span class="pre">self</span></tt>? The answer is Python takes the self
 argument as default, so you don&#8217;t have to type it anymore.</p>
 </div>
+<div class="section" id="deriving-classes-from-other-classes-and-overloading-of-methods">
+<h3>Deriving classes from other classes and overloading of methods<a class="headerlink" href="#deriving-classes-from-other-classes-and-overloading-of-methods" title="Permalink to this headline">¶</a></h3>
+<p>This is rather easy in Python. To tell the interpreter from which
+class he should derive the new class, simple put it into round
+brackets. To to overload a certain function simply add it again.</p>
+<p>Let&#8217;s go back to our complex number example. It annoys us, that
+the absolute value is squared, but we don&#8217;t want a new constructor.
+So we simply derive The old complex class, and overload the absolute
+value:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">my_new_complex</span><span class="p">(</span><span class="n">my_complex</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">abs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Calculates the absolute value&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">re</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
+</pre></div>
+</div>
+<p>What does Python internally? After it checked
+which functions are already defined in the new class
+it adds all members from the old.
+With that logic one also can inherit from multiple base classes.
+After checking what&#8217;s in the new class, it looks what is in the first
+class given, then in the second, and so on.
+Consider the for example in the class</p>
+<div class="highlight-python"><pre>new_class(base1,base2,base3)
+    pass</pre>
+</div>
+<p>the priority order for looking up new methods is new_class-&gt; base1 -&gt;
+base2 -&gt; base3 and not new_class -&gt; base3 -&gt; base2 -&gt; base1.</p>
+</div>
+<div class="section" id="operator-overloading">
+<h3>Operator overloading<a class="headerlink" href="#operator-overloading" title="Permalink to this headline">¶</a></h3>
+<p>In my opinion one of the most powerful features in OO languages, and
+the reason why I think Java isn&#8217;t worth to look at it.</p>
+<p>Especially in mathematics one wants to define new algebras or objects
+with algebraic operations, to make programs more readable and
+algorithms reusable.</p>
+<p>In order to overload operators in Python classes one has only to
+add the right methods. Now let&#8217;s add +, * operations to our complex number
+class:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">my_nice_complex</span><span class="p">(</span><span class="n">my_new_complex</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">my_nice_complex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">re</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">re</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">im</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">my_nice_complex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">re</span><span class="o">*</span><span class="n">other</span><span class="o">.</span><span class="n">re</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">*</span><span class="n">other</span><span class="o">.</span><span class="n">im</span><span class="p">,</span>
+                               <span class="bp">self</span><span class="o">.</span><span class="n">re</span><span class="o">*</span><span class="n">other</span><span class="o">.</span><span class="n">im</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">*</span><span class="n">other</span><span class="o">.</span><span class="n">re</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">__add__</span></tt> and <tt class="docutils literal"><span class="pre">__mul__</span></tt> functions return new objects of
+the complex class. The good thing is we can use the normal <tt class="docutils literal"><span class="pre">+</span></tt>
+and <tt class="docutils literal"><span class="pre">*</span></tt> operators:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">my_nice_complex</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">my_nice_complex</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">re</span>
+<span class="go">8</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">im</span>
+<span class="go">11</span>
+</pre></div>
+</div>
+<p>One can also add additional features like a string representation,
+that <tt class="docutils literal"><span class="pre">print</span></tt> is able to return. Lets add a <tt class="docutils literal"><span class="pre">__repr__</span></tt> method to
+the class:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">my_nice_complex</span><span class="p">(</span><span class="n">my_new_complex</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">my_nice_complex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">re</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">re</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">im</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">my_nice_complex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">re</span><span class="o">*</span><span class="n">other</span><span class="o">.</span><span class="n">re</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">*</span><span class="n">other</span><span class="o">.</span><span class="n">im</span><span class="p">,</span>
+                               <span class="bp">self</span><span class="o">.</span><span class="n">re</span><span class="o">*</span><span class="n">other</span><span class="o">.</span><span class="n">im</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="o">*</span><span class="n">other</span><span class="o">.</span><span class="n">re</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&quot;{0} + {1}i&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">re</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">im</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we can print our complex class:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">my_nice_complex</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="go">3 + 4i</span>
+</pre></div>
+</div>
+<p>There is a whole bunch of features that can be added to a class.
+I refer here to the Python reference manual for a complete list <a class="footnote-reference" href="#id16" id="id7">[7]</a>,
+because listing them all here would be too long.</p>
+</div>
+</div>
+<div class="section" id="exceptions">
+<h2>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h2>
+<p>What is an exception? An exception is a special
+object (yes exceptions are objects too!) which
+to tell the interpreter that something happended, which
+shouldn&#8217;t have (or sometimes it is expected), then
+the interpreter tells you that it caught an exception.
+Of course it is possible to tell the interpreter what to
+do when an exception arises. This allows many advanced possibilites
+for the programmer.</p>
+<p>Python has many builtin exceptions like out of range exceptions
+division by zero exceptions and so on.</p>
+<p>Exceptions are a powerful tool in programming languages to
+find errors, and provide a safe workflow. Exceptions can also
+be used for control flow. In fact handling exceptions can yield
+better performance, than many <tt class="docutils literal"><span class="pre">if</span></tt> statements, because the
+interpreter checks <em>many</em> <tt class="docutils literal"><span class="pre">if</span></tt> s but only has to wait for <em>one</em>
+exception.</p>
+<div class="section" id="handling-exceptions">
+<h3>Handling exceptions<a class="headerlink" href="#handling-exceptions" title="Permalink to this headline">¶</a></h3>
+<p>To catch exceptions us the <tt class="docutils literal"><span class="pre">try</span></tt> and <tt class="docutils literal"><span class="pre">except</span></tt>
+statements:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">try</span><span class="p">:</span>
+    <span class="mi">1</span><span class="o">/</span><span class="mi">0</span>
+<span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;I don`t think so, Tim.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>What happens here? The try statement excecutes the following
+codeblock. If an exception of the type ZeroDivisionError arises
+it executes the code block after the except statement.
+Of course one can handle sever different exception types.
+Only add more except statments:</p>
+<div class="highlight-python"><pre>try:
+    do_something
+except exception_type1:
+    do_that
+except exception_type2, and_exception_type3:
+    do_this
+.
+.
+.</pre>
+</div>
+<p>With help of the <tt class="docutils literal"><span class="pre">raise</span></tt> can also force the program to throw
+exceptions. For example</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;spam&#39;</span><span class="p">,</span><span class="s">&#39;eggs&#39;</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n-Identifier">&lt;module&gt;</span>
+<span class="nc">Exception</span>: <span class="n-Identifier">(&#39;spam&#39;, &#39;eggs&#39;)</span>
+</pre></div>
+</div>
+<p>This is important to throw the correct exceptions of certain types,
+with user defined error messages. This makes debugging a lot easier!</p>
+<p>There is another possibility in Python: So called clean up actions,
+which have to executed at all costs (for example cleaning up allocated
+memory). Those can be specified via the <tt class="docutils literal"><span class="pre">finally</span></tt> statement:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">raise</span> <span class="ne">KeyboardInterrupt</span>
+<span class="gp">... </span><span class="k">finally</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="s">&quot;I don`t think so, Tim.&quot;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">I don`t think so, Tim.</span>
+<span class="nc">KeyboardInterrupt</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="creating-new-exceptions">
+<h3>Creating new exceptions<a class="headerlink" href="#creating-new-exceptions" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">pass</span></tt></p>
+</div>
 </div>
 <div class="section" id="some-words-on-programming-paradigms">
 <h2>Some words on programming paradigms<a class="headerlink" href="#some-words-on-programming-paradigms" title="Permalink to this headline">¶</a></h2>
@@ -631,7 +947,7 @@ most common in modern programming languages are</p>
 <li>Object oriented programming</li>
 </ul>
 <p>Look at for exmaple at Wikipedia for an short
-overwiev on that topic <a class="footnote-reference" href="#id12" id="id5">[5]</a>, or a good programming book
+overwiev on that topic <a class="footnote-reference" href="#id17" id="id8">[8]</a>, or a good programming book
 of your choice, If you want to go deeper into that topic.</p>
 <p>In short:</p>
 <ul>
@@ -652,14 +968,13 @@ functions and let them operate on objects, lists, or call them
 recursivly. An example would be the <em>Lisp</em> family, which was
 also the first one. (It&#8217;s worthwile to look at <em>Lisp</em> not only
 to customize your Emacs. A good reading tip would be: Practical
-Common Lisp <a class="footnote-reference" href="#id13" id="id6">[6]</a> ) One important benefit of functional programming
+Common Lisp <a class="footnote-reference" href="#id18" id="id9">[9]</a> ) One important benefit of functional programming
 is, that is easier to parallize. For example it&#8217;s easier for the
 compiler/interpreter to decide, when you operate with a function on a list,
 because all operations are independent anyway, than within a for
 loop where the compiler/interpreter doesn&#8217;t know if there are operations
-which could be possible connected.
-There are other benefits (see for example the functional
-programming HOWTO in Python <a class="footnote-reference" href="#id14" id="id7">[7]</a> .</p>
+which could be possible connected. Other benefits are listed in
+the <em>Python Functional Programming Howto</em>.</p>
 </dd>
 </dl>
 </li>
@@ -720,46 +1035,58 @@ for i in range(0,10,2):
 </pre></div>
 </div>
 <p class="rubric">Links</p>
-<table class="docutils footnote" frame="void" id="id8" rules="none">
+<table class="docutils footnote" frame="void" id="id10" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://wiki.python.org/moin/PythonSpeed/PerformanceTips">http://wiki.python.org/moin/PythonSpeed/PerformanceTips</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id9" rules="none">
+<table class="docutils footnote" frame="void" id="id11" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="http://docs.python.org/tutorial/controlflow.html">http://docs.python.org/tutorial/controlflow.html</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id10" rules="none">
+<table class="docutils footnote" frame="void" id="id12" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><a class="reference external" href="http://mail.python.org/pipermail/python-dev/2006-February/060415.html">http://mail.python.org/pipermail/python-dev/2006-February/060415.html</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id11" rules="none">
+<table class="docutils footnote" frame="void" id="id13" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Lambda_calculus">http://en.wikipedia.org/wiki/Lambda_calculus</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id12" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id5">[5]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Programming_paradigm">http://en.wikipedia.org/wiki/Programming_paradigm</a></td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id13" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id6">[6]</a></td><td><a class="reference external" href="http://www.gigamonkeys.com/book/">http://www.gigamonkeys.com/book/</a></td></tr>
-</tbody>
-</table>
 <table class="docutils footnote" frame="void" id="id14" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id7">[7]</a></td><td><a class="reference external" href="http://docs.python.org/howto/functional.html">http://docs.python.org/howto/functional.html</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id5">[5]</a></td><td><a class="reference external" href="http://programming-guides.com/python/functional-programming">http://programming-guides.com/python/functional-programming</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id15" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id6">[6]</a></td><td><a class="reference external" href="http://docs.python.org/howto/functional.html">http://docs.python.org/howto/functional.html</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id16" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id7">[7]</a></td><td><a class="reference external" href="http://docs.python.org/reference/datamodel.html#special-method-names">http://docs.python.org/reference/datamodel.html#special-method-names</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id17" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id8">[8]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Programming_paradigm">http://en.wikipedia.org/wiki/Programming_paradigm</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id18" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id9">[9]</a></td><td><a class="reference external" href="http://www.gigamonkeys.com/book/">http://www.gigamonkeys.com/book/</a></td></tr>
 </tbody>
 </table>
 </div>
@@ -793,11 +1120,22 @@ for i in range(0,10,2):
 </ul>
 </li>
 <li><a class="reference external" href="#functional-programming-tools-in-python-or-hooray-for">Functional Programming tools in Python (or hooray for <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> )</a><ul>
-<li><a class="reference external" href="#iterators-again">Iterators again</a></li>
+<li><a class="reference external" href="#the-map-function">The <tt class="docutils literal"><span class="pre">map</span></tt> function</a></li>
+<li><a class="reference external" href="#the-reduce-function">The <tt class="docutils literal"><span class="pre">reduce</span></tt> function</a></li>
+<li><a class="reference external" href="#the-filter-function">The <tt class="docutils literal"><span class="pre">filter</span></tt> function</a></li>
+<li><a class="reference external" href="#generators">Generators</a></li>
+<li><a class="reference external" href="#list-comprehensions">List Comprehensions</a></li>
 </ul>
 </li>
 <li><a class="reference external" href="#objects-and-classes">Objects and classes</a><ul>
 <li><a class="reference external" href="#definition-of-classes-and-basic-properties">Definition of classes and basic properties</a></li>
+<li><a class="reference external" href="#deriving-classes-from-other-classes-and-overloading-of-methods">Deriving classes from other classes and overloading of methods</a></li>
+<li><a class="reference external" href="#operator-overloading">Operator overloading</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#exceptions">Exceptions</a><ul>
+<li><a class="reference external" href="#handling-exceptions">Handling exceptions</a></li>
+<li><a class="reference external" href="#creating-new-exceptions">Creating new exceptions</a></li>
 </ul>
 </li>
 <li><a class="reference external" href="#some-words-on-programming-paradigms">Some words on programming paradigms</a></li>

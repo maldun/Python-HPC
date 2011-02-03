@@ -907,7 +907,7 @@ Exceptions are a powerful tool in programming languages to
 find errors, and provide a safe workflow. Exceptions can also
 be used for control flow. In fact handling exceptions can yield
 better performance, than many ``if`` statements, because the
-interpreter checks *many* ``if``s but only has to wait for *one*
+interpreter checks *many* ``if`` s but only has to wait for *one*
 exception.
 
 Handling exceptions

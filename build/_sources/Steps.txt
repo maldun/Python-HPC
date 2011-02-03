@@ -649,6 +649,16 @@ Those types are:
 
 For more information I refer here to the Python documentation again.
 
+For all non-german speakers who wonder why I took liste and not list:
+*Liste* means *list* in German, as *tupel* means *tuple* . The benefit
+of german names is that they are not reserved, because ``list`` is a
+function in Python, and one has to delete the list afterwards::
+
+  del list
+ 
+Since the german expressions are not that different, I hope people will
+understand anyway. 
+
 Strings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Strings are containers too, but they are quite special, so they get their
@@ -815,7 +825,7 @@ Iterators can be converted to lists or tuples::
 With help of the ``itertools`` module there are several other ways to
 create iterators.
 ``itertools.count`` for example creates an infinte stream of
-integers. We come back to that later in :ref:`functional_programming_ref`
+integers. 
 
 
 The print statement

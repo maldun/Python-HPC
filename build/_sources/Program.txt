@@ -111,7 +111,8 @@ the output of this snippet is::
 
 For loops are a little bit different in Python,
 because in contrast to other programming languages
-``for`` iterates through a sequence/list, and not only to integers
+``for`` iterates through an iterator or an type which supports
+iterating, and not only to integers
 or numbers, like in C.
 
 A ``for`` loop looks like this::
@@ -139,7 +140,7 @@ Analogous to our ``while`` example::
 **Remark:** To get out more performance of your Python code use
 ``xrange`` instead of range, because ``xrange`` doesn't need allocate
 memory for a list. In Python 3, however, ``range`` returns an iterator
-and not a list, so this is obsolete there.
+and not a list, so this is obsolete then.
 
 See also the Python wiki [#]_ on this topic.
 
@@ -476,6 +477,9 @@ Another way is the :math:`\lambda` statement::
 One key difference is, that :math:`lambda` has no return statement,
 and it can contain only one expression.
 
+In fact lambda returns a function, and is only syntactic sugar,
+but it often is very handy.
+
 But lambda can take more than one variable::
 
   lambda x,y: x + y
@@ -506,8 +510,37 @@ statement from Python 3, but didn't succeed to find a good replacement
 
 The reason for the strange naming is that in the early times of
 Python, many *Lisp* programmers wanted some functional features 
-from *Lisp*, and one of the was :math:`lambda` .
+from *Lisp*, and one of the was :math:`\lambda` .
 But it's true origin comes from the :math:`\lambda` calculus [#]_ .
+
+I prefer lambda for some reasons, especially that I can use it inline.
+But I wouldn't recommend to use :math:`\lambda` every time, sometimes the
+use of the lambda statement is not good readable.
+
+One may argue that using :math:`\lambda` too often creates unreadable code. 
+But on the other hand, it has the benefit, that the actual action is
+written right there where it is excecuted, and that can be used to
+avoid unnecessary comments, especially if you defined the action
+several lines before.
+
+In my work I often have to deal with several mathematical operations.
+And yes, I prefer it to write::
+
+  lambda x,y,z: x**2*y**3 + z**4
+
+over
+::
+  
+  def square_x_mlt_y_to_pwr_3_add_z_to_pwr_4(x,y,z):
+      return x**2*y**3 + z**4
+
+Of course one can also use shorter names like ``help_func1``, or
+``help_func2`` .. and forget which one does what... but you also can
+overwrite it again, and again.... and break something in an other part
+of your code.
+
+Just my 2 cents.
+
 
 .. _functional_programming_ref:
 
@@ -520,12 +553,161 @@ languages like Mathematica or Matlab.
 
 Functional programming can be a very powerful tool, and I show here
 some of the key features for functional programming in Python.
-I follow the `Functional Howto in Python <http://docs.python.org/howto/functional.html/>`_ .
+I follow here the programming guide for functional programming in
+Python [#]_. For more advanced techniques and more founded
+Background on that topic I refer
+to the *Python Functional Programming HOWTO* [#]_
 
-Iterators again
+
+The ``map`` function
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-``pass``
+The ``map function`` takes any number on iterables and a function, and
+apply the function on the iterables. That means::
+
+  map(f, iter1, iter2,...)
+
+returns
+::
+  
+  [f(iter1[0],iter2[0],..), f(iter1[1],iter2[1],...)...]
+
+For example::
+
+  >>> liste = range(3)
+  >>> def f(x): return 2*x
+  ... 
+  >>> map(f,liste)
+  [0, 2, 4]
+  >>> def g(x,y): return x*y
+  ... 
+  >>> map(g,liste,liste)
+  [0, 1, 4]
+
+This can be very useful for vectorized operations.
+Here again the lambda statement comes in handy::
+
+  map(lambda x: 2*x, liste)
+
+returns again
+::
+
+  [0, 2, 4]
+
+The ``reduce`` function
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+Reuce takes as input a list, a function and as optional value an
+initial value. Reduce do now the following: It takes the first
+elements of the list, and apply the function to it, than it applies
+the function to the result and the next element in the list, and again
+and again... and returns an value. If an initial value is given
+this is taken as the first value. This menas now in expressions that
+::
+  
+  reduce(f, liste)
+
+is evaluated as
+
+  ..f(f(f(liste[0],liste[1]),liste[2]),liste[3])..
+
+or 
+
+::
+   reduce (f,liste,init)
+
+to
+
+::
+
+  ..f(f(f(init,liste[0]).liste[1]),liste[2])..
+
+Let's calculate the factorial :math:`10!` ::
+
+  reduce(lambda x,y: x,y, range(1,10))
+
+or the doubled factorial::
+
+  reduce(lambda x,y: x,y, range(1,10),2)
+
+**Note** In Python 3 reduce was moved to the ``functools`` module.
+It can be backimported via::
+
+  from functools import reduce
+
+The ``filter`` function
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+An important tool to select elements from a list is the filter
+function. ``filter`` takes a function and a list and returns, the list
+of elements for which the function returned true::
+
+  def Is_even(x):
+    return (x % 2) == 0
+
+  filter(Is_even,range(10))
+
+returns now::
+
+  [0, 2, 4, 6, 8]
+
+Generators
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+Generators are like functions, but they give back a sequence of data
+instead of a single output. They can be used to write iterators.
+
+To create an generator, simply write a function with the ``def``
+statement,
+but instead of using ``return`` use ``yield``.
+
+For example
+::
+
+  def generate_even(N):
+      for n in range(N):
+          yield 2*n 
+
+gives back an iterator witch contains all even numbers.
+
+If we now create an iterator we can do all things which we know::
+
+  >>> iterator = generate_even(5)
+  >>> list(iterator)
+  [0, 2, 4, 6, 8]
+
+One key difference between generators and functions is, that
+while in a function call, all local variables are created once
+and are destroyed after ``return`` was called. The varaibles
+in an generator stay. You can call ``return`` within an generator
+as well, but without output, and after it is called the generator 
+cannot produce further output.
+
+
+List Comprehensions
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+List comprehensions are often a good alternative to ``map``,
+``filter`` and ``lambda``. A list comprehension consists of an
+expression followed by an ``for`` clause, which are followed by
+zero or more ``for`` and/or ``if`` clauses. The whole thing is
+surrounded by rectangular brackets.
+
+Examples::
+
+  >>> vector = range(0,10,2)
+  >>> [3*x for x in vector]
+  [0, 6, 12, 18, 24]
+  >>> [2*x for x in vector if x > 3]
+  [8, 12, 16]
+  >>> vector1 = range(3)
+  >>> vector2 = range(0,6,2)
+  [x*y for x in vector1 for y in vector2] # Goes through all combinations
+  [0, 0, 0, 0, 2, 4, 0, 4, 8]
+
+List comprehensions can also be applied to much more complex
+expressions, and nested functions.
+
 
 Objects and classes
 ------------------------------------------------------------------------
@@ -611,8 +793,180 @@ it simply like that::
 Huh what happened to the ``self``? The answer is Python takes the self
 argument as default, so you don't have to type it anymore.
 
+Deriving classes from other classes and overloading of methods
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+This is rather easy in Python. To tell the interpreter from which
+class he should derive the new class, simple put it into round
+brackets. To to overload a certain function simply add it again.
+
+Let's go back to our complex number example. It annoys us, that
+the absolute value is squared, but we don't want a new constructor.
+So we simply derive The old complex class, and overload the absolute
+value::
+
+  class my_new_complex(my_complex):
+
+      def abs(self):
+          """Calculates the absolute value"""
+          return (self.re**2 + self.im**2)**0.5
+
+What does Python internally? After it checked
+which functions are already defined in the new class
+it adds all members from the old.
+With that logic one also can inherit from multiple base classes.
+After checking what's in the new class, it looks what is in the first
+class given, then in the second, and so on. 
+Consider the for example in the class
+::
+
+  new_class(base1,base2,base3)
+      pass
+
+the priority order for looking up new methods is new_class-> base1 ->
+base2 -> base3 and not new_class -> base3 -> base2 -> base1.
+
+Operator overloading
+""""""""""""""""""""""""""""""""""""""""""""
+
+In my opinion one of the most powerful features in OO languages, and
+the reason why I think Java isn't worth to look at it.
+
+Especially in mathematics one wants to define new algebras or objects
+with algebraic operations, to make programs more readable and 
+algorithms reusable.
+
+In order to overload operators in Python classes one has only to
+add the right methods. Now let's add +, * operations to our complex number
+class::
+
+  class my_nice_complex(my_new_complex):
+
+      def __add__(self,other):
+          return my_nice_complex(self.re + other.re,self.im + other.im)
+
+      def __mul__(self,other):
+          return my_nice_complex(self.re*other.re - self.im*other.im,
+                                 self.re*other.im + self.im*other.re) 
 
 
+The ``__add__`` and ``__mul__`` functions return new objects of
+the complex class. The good thing is we can use the normal ``+``
+and ``*`` operators::
+
+  >>> a = my_nice_complex(3,4)
+  >>> b = my_nice_complex(5,7)
+  >>> c = a + b 
+  >>> c.re
+  8
+  >>> c.im
+  11 
+
+One can also add additional features like a string representation,
+that ``print`` is able to return. Lets add a ``__repr__`` method to
+the class::
+
+  class my_nice_complex(my_new_complex):
+
+      def __add__(self,other):
+          return my_nice_complex(self.re + other.re,self.im + other.im)
+    
+      def __mul__(self,other):
+          return my_nice_complex(self.re*other.re - self.im*other.im,
+                                 self.re*other.im + self.im*other.re) 
+    
+      def __repr__(self):
+          return "{0} + {1}i".format(self.re,self.im)
+
+Now we can print our complex class::
+
+  >>> a = my_nice_complex(3,4)
+  >>> print(a)
+  3 + 4i
+
+There is a whole bunch of features that can be added to a class.
+I refer here to the Python reference manual for a complete list [#]_,
+because listing them all here would be too long.
+
+Exceptions
+-------------------------------------------
+
+What is an exception? An exception is a special
+object (yes exceptions are objects too!) which 
+to tell the interpreter that something happended, which
+shouldn't have (or sometimes it is expected), then 
+the interpreter tells you that it caught an exception.
+Of course it is possible to tell the interpreter what to
+do when an exception arises. This allows many advanced possibilites
+for the programmer.
+
+Python has many builtin exceptions like out of range exceptions
+division by zero exceptions and so on. 
+
+Exceptions are a powerful tool in programming languages to
+find errors, and provide a safe workflow. Exceptions can also
+be used for control flow. In fact handling exceptions can yield
+better performance, than many ``if`` statements, because the
+interpreter checks *many* ``if`` s but only has to wait for *one*
+exception.
+
+Handling exceptions
+"""""""""""""""""""""""""""""""""""""""""""""
+To catch exceptions us the ``try`` and ``except``
+statements::
+
+  try:
+      1/0
+  except ZeroDivisionError:
+      print("I don`t think so, Tim.")
+
+
+What happens here? The try statement excecutes the following
+codeblock. If an exception of the type ZeroDivisionError arises
+it executes the code block after the except statement.
+Of course one can handle sever different exception types.
+Only add more except statments::
+
+  try:
+      do_something
+  except exception_type1:
+      do_that
+  except exception_type2, and_exception_type3:
+      do_this
+  .
+  .
+  .
+
+With help of the ``raise`` can also force the program to throw
+exceptions. For example
+::
+
+  >>> raise Exception('spam','eggs')
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  Exception: ('spam', 'eggs')
+
+This is important to throw the correct exceptions of certain types,
+with user defined error messages. This makes debugging a lot easier!
+
+There is another possibility in Python: So called clean up actions,
+which have to executed at all costs (for example cleaning up allocated
+memory). Those can be specified via the ``finally`` statement::
+
+  >>> try:
+  ...     raise KeyboardInterrupt
+  ... finally:
+  ...     print("I don`t think so, Tim.")
+  ...
+  I don`t think so, Tim.
+  Traceback (most recent call last):
+    File "<stdin>", line 2, in <module>
+  KeyboardInterrupt
+
+Creating new exceptions
+"""""""""""""""""""""""""""""""""""""""""""""
+
+``pass``
 
 
 Some words on programming paradigms
@@ -652,9 +1006,9 @@ In short:
    compiler/interpreter to decide, when you operate with a function on a list,
    because all operations are independent anyway, than within a for
    loop where the compiler/interpreter doesn't know if there are operations  
-   which could be possible connected.
-   There are other benefits (see for example the functional
-   programming HOWTO in Python [#]_ . 
+   which could be possible connected. Other benefits are listed in
+   the *Python Functional Programming Howto*.
+   
 
 * *Object oriented programming* is (dear computer scientists, don't
    send me hatemail) more a way to organize your data, and program
@@ -723,6 +1077,10 @@ than
 .. [#] http://docs.python.org/tutorial/controlflow.html
 .. [#] http://mail.python.org/pipermail/python-dev/2006-February/060415.html
 .. [#] http://en.wikipedia.org/wiki/Lambda_calculus
+.. [#] http://programming-guides.com/python/functional-programming
+.. [#] http://docs.python.org/howto/functional.html
+.. [#] http://docs.python.org/reference/datamodel.html#special-method-names
 .. [#] http://en.wikipedia.org/wiki/Programming_paradigm
 .. [#] http://www.gigamonkeys.com/book/
-.. [#] http://docs.python.org/howto/functional.html
+
+
