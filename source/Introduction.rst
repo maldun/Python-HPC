@@ -31,8 +31,11 @@ I have to admit that I'm a beginner too, and would be happy about
 feedback on this document. I plan to extend it frequently with tricks
 I learned and collected on various newsgroups. I don't know If this is
 a good guide, but I hope potential readers have the same fun reading,
-I had writing.
+I had writing. 
 
+And please don't take they sidehits I make too seriously.  (And don't send hatemail on some Java comments!)
+People have different opinions and experiences, either with food, cars or programming languages. I only tend to say it more
+directly what I feel than other people do. =)
 
 I distribute this under an open license so people can share it
 freely. (See Section :ref:`license_ref` )

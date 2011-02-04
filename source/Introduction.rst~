@@ -27,13 +27,39 @@ The Python version used here is Python 2.6. since most of the current packages a
 But I try to make them compatible with the new version so that this document don't get outdated soon.
 
 This document is aimed towards mathematicians who want learn Python in a quick way to use it.
+I have to admit that I'm a beginner too, and would be happy about
+feedback on this document. I plan to extend it frequently with tricks
+I learned and collected on various newsgroups. I don't know If this is
+a good guide, but I hope potential readers have the same fun reading,
+I had writing.
+
+
+I distribute this under an open license so people can share it
+freely. (See Section :ref:`license_ref` )
 
 Stefan Reiterer, 
 Graz Austria 
 2011
 
-The Zen of Python.
-------------------------------------------------------------
+
+Experiences I want to share with programming beginners
+-------------------------------------------------------------------------------------
+
+My professors in the basic programming and informatics lectures were all software devolopers, and often cursed programmers from scientific areas,
+because of their complicated and often weird codes. I didn't understand their words that time, but since I'm working with libraries like
+BLAS, LAPACK, ATLAS etc. I started to understand...  
+
+It's true that the processes of software engeneering for "normal" applications and scientific computation are two different areas, but I realised in the recent
+years that many people from the latter area seem to simply ignore **nearly all** basic concepts of software design and coding, and I don't know why.
+Maybe it's ignorance, because many think they don't need that much programming again, or because they are simply lazy. Another reason could be 
+that they are too deep into it, and think everyone else think the same way. Perhaps it has historical reasons, like in the case of BLAS,
+or it's me because of my friends and education I have a different viewpoint on  that things.
+
+Neverteless I want to use this section to give some important lectures to people, who aren't deep into programming, 
+I learnt during the last 13 years since I'm started "programming" Visual Basic with 13.
+
+The Zen of Python don't apply only to Python
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 If you type into your Python Interpretor the line
 ::
@@ -64,24 +90,10 @@ You will get this:
 #. *If the implementation is easy to explain, it may be a good idea.*
 #. *Namespaces are one honking great idea -- let's do more of those!*
 
-This is the philosophy of python and can argue about some the points, e.g. point 13., but some words are really true, especially the statements of simpleness.
-Simply keep this rules in mind.
-
-Experiences I want to share with programming beginners
--------------------------------------------------------------------------------------
-
-My professors in the basic programming and informatics lectures were all software devolopers, and often cursed programmers from scientific areas,
-because of their complicated and often weird codes. I didn't understand their words that time, but since I'm working with libraries like
-BLAS, LAPACK, ATLAS etc. I started to understand...  
-
-It's true that the processes of software engeneering for "normal" applications and scientific computation are two different areas, but I realised in the recent
-years that many people from the latter area seem to simply ignore **nearly all** basic concepts of software design and coding, and I don't know why.
-Maybe it's ignorance, because many think they don't need that much programming again, or because they are simply lazy. Another reason could be 
-that they are too deep into it, and think everyone else think the same way. Perhaps it has historical reasons, like in the case of BLAS,
-or it's me because of my friends and education I have a different viewpoint on  that things.
-
-Neverteless I want to use this section to give some important lectures to people, who aren't deep into programming, 
-I learnt during the last 13 years since I'm started "programming" Visual Basic with 13.
+This is the philosophy of python and can argue about some the points,
+e.g. point 13., but I can say without bad feeling, that **every**
+programmer should especially keep in mind the points 1-7, which apply in every
+language you will use!
 
 Code is more often read than written
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -103,6 +115,8 @@ but at least take your time to think about the implementation, and
 how you can eventually reuse it. Sometimes ten minutes of thinking
 can save yourself ours of programming.
 
+.. _OO_ref: 
+
 Object oriented programming abstracts away your problems
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 If one is not familiar with the paradigm of object oriented programming change this!
@@ -121,6 +135,20 @@ all the linesearch methods we implemented had to be integrated into one steepest
 While my students needed ours to implement this in Matlab. I only needed one half in Python, because
 I simply subdivided the sub problems in classes, and had to write the framework algorithm only once. 
 
+Modularity counts
+"""""""""""""""""""""""""""""""""""""""""""""""""
+Keep the structure of your programs as modular as possible!
+**Every function should only do exactly one job, and don't use 
+global variables**. If you have to use global variables, then in
+90% of the cases something is wrong with your design of the code!
+Sounds annoying? I was annoyed by that too in my first programming 
+course. But trust me it will help you a lot. At least if you want to
+reuse a piece of code, or even worse, someone else wants to use your 
+code, you will run into troubles, if you don't have a good
+organisation of your code. **Remember:**  If you have a lot of 
+parameters, you can always store them in a container or a class.
+
+
 Premature optimisation is the rule of all evil!
 """""""""""""""""""""""""""""""""""""""""""""""""
 This often cited quote of Donald E. Knuth [#]_ is true in it's very deep essence. In an everage program
@@ -129,22 +157,50 @@ other 97% and wonder why their program isn't getting quicker. The only gain you 
 of unreadible code. I remember that I implemented an "optimized" for loop some time ago, and the only gain were
 3 ms of more speed. And later when I looked on that function I had no Idea what I did that time... 
 
+Choice of the right tools
+"""""""""""""""""""""""""""""""
+Since I descend a family of craftsmans, this was taught me very early. You don't want to use
+a siedgehammer for hitting a tiny nail into a wall, and you don't want to use small axe to cut down a tree.   
+(Well I know people who do...). And this applies for programming as well. You don"t want to write a parser in Fortran,
+and you don't want to write a program for symbolic manipulation in Java. (I personally would never implement *anything* 
+mathematical in Java, because it lacks some aspects like operator overloading and efficiency, but that's only a biased opinion.) 
+The right choice of used languages
+and tools, can heavily affect the time you need, and also your success of your projects. It often helps to
+ask colleagues, teachers and Google to find the right tool. I list
+some of the tools I use here. Keep always in mind that the choice of
+your tools, depends also on your personal skills, and
+preferences. Something that a colleague of yours like, could possible
+a nuissance for yourself.
+
+Don't use Notepad as your editor!
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+A good editor is not expensive (often even free), and saves you a
+whole lot of work! Good editors are for example Emacs [#]_, VIM [#]_.
+A good List of editors can be found on Wikipedia. [#]_
+
 Use version control
-"""""""""""""""""""""""""""""""""""""""""""""""""""
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Many, many people simply don't know there are very nice
 tools to keep record of your changes, and make it possible
-to redo the changes like Git [#]_, Mercurial [#]_ (which is written in Python),
+to redo the changes. Most common are Git [#]_, Mercurial [#]_ (which is written in Python),
 or SVN [#]_. 
 
+Use debugging tools
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Very good debugging tools are for example Valgrind [#]_, GDB [#]_,
+and many, many more... [#]_ 
+
 Use Linux
-"""""""""""""""""""""""""""""""
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 This is of course only a personal recommondation. But Linux is in my opinion better
 suited as development enviroment, because most things you need for programming are native, or
 already integrated, and even the standard editors know syntax highlighting of the most programming
 languages. Even C# is well integrated in Linux nowadays, and many useful programming tools are simply not
 available in Windows (including many of the things we use here).
 You don't even need to install a whole Linux distribution. Recently there was a huge development of free
-Virtual Machines, or projects like Wubi [#]_
+Virtual Machines like Virtual Box [#]_, or projects like Wubi [#]_. And thanks to Distributions like
+Ubuntu [#]_  and it's many derivatives (I use Kubuntu), or open SUSE [#]_ using Linux is nowadays possible for
+normal humans too.
 
 Not everything from Extreme Programming is that bad
 """"""""""""""""""""""""""""""""""""""""""""""""""""
@@ -188,9 +244,19 @@ because I simply don't want to do unessecary work.
 .. rubric:: Links
 
 .. [#] http://en.wikiquote.org/wiki/Donald_Knuth
+.. [#] http://www.gnu.org/software/emacs/
+.. [#] http://www.vim.org/
+.. [#] http://en.wikipedia.org/wiki/List_of_text_editors
 .. [#] http://git-scm.com/
 .. [#] http://mercurial.selenic.com/
-.. [#] http://en.wikipedia.org/wiki/Apache_Subversion
+.. [#] http://subversion.apache.org/
+.. [#] http://valgrind.org/
+.. [#] http://www.gnu.org/software/gdb/
+.. [#] http://en.wikipedia.org/wiki/Debugger
+.. [#] http://www.virtualbox.org/
+.. [#] http://www.ubuntu.com/desktop/get-ubuntu/windows-installer
+.. [#] http://www.ubuntu.com/
+.. [#] http://www.opensuse.org/de/
 .. [#] http://www.extremeprogramming.org/
 
   
