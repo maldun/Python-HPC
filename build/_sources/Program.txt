@@ -651,6 +651,8 @@ returns now::
 
   [0, 2, 4, 6, 8]
 
+.. _generators_ref:
+
 Generators
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -683,6 +685,42 @@ in an generator stay. You can call ``return`` within an generator
 as well, but without output, and after it is called the generator 
 cannot produce further output.
 
+As an example we write a little program which factors an integer
+number with help of functional tools::
+
+  from __future__ import print_function
+  
+  def find_factors(num):
+  
+    # we take advantage of the fact that (i +1)**2 = i**2 + 2*i +1
+    i, sqi = 1, 1
+    while sqi <= num+1:
+        sqi += 2*i + 1
+        i += 1  
+        k = 0
+        while not num % i:
+            num /= i
+            k += 1
+    yield i,k
+
+  def print_factors(num_fac):
+      if num_fac[1] > 1:
+          print(str(num_fac[0]) + "**" + str(num_fac[1]),end = " ")
+      else:
+          print(num_fac[0],end=" ")
+  
+  def factorise(num):
+       
+      factor_list = list(find_factors(num))
+      def get_power(pair): return pair[1]
+      factor_list = filter(get_power, factor_list)
+      if factor_list:
+         print(num, end=" ")
+         map(print_factors, factor_list)
+         print("")
+      else:
+          print("PRIME")
+
 
 List Comprehensions
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -702,8 +740,12 @@ Examples::
   [8, 12, 16]
   >>> vector1 = range(3)
   >>> vector2 = range(0,6,2)
-  [x*y for x in vector1 for y in vector2] # Goes through all combinations
+  >>> [x*y for x in vector1 for y in vector2] # Goes through all combinations
   [0, 0, 0, 0, 2, 4, 0, 4, 8]
+  >>> [vector1[i]*vector2[i] for i in range(len(vector1))] # mimic map
+  [0, 2, 8]
+  >>> map(lambda x,y: x*y,vector1,vector2) #equivalent statement
+  [0, 2, 8]
 
 List comprehensions can also be applied to much more complex
 expressions, and nested functions.
@@ -963,10 +1005,202 @@ memory). Those can be specified via the ``finally`` statement::
     File "<stdin>", line 2, in <module>
   KeyboardInterrupt
 
+Here a more advanced example for exception handling: Let's remember our prime
+factor example from the :ref:`generators_ref` section. We want that the
+function should only handle integers, so we check this with help of
+exceptions::
+
+  from __future__ import print_function
+  
+  def find_factors(num):
+  
+    # we take advantage of the fact that (i +1)**2 = i**2 + 2*i +1
+    i, sqi = 1, 1
+    while sqi <= num+1:
+        sqi += 2*i + 1
+        i += 1  
+        k = 0
+        while not num % i:
+            num /= i
+            k += 1
+
+        yield i,k
+
+  def print_factors(num_fac):
+      if num_fac[1] > 1:
+          print(str(num_fac[0]) + "**" + str(num_fac[1]),end = " ")
+      else:
+          print(num_fac[0],end=" ")
+  
+  def factorise(value):
+      try:                             #check if num is an integer
+          num = int(value)             #with exceptions
+          if num != float(value):     
+              raise ValueError
+      except (ValueError, TypeError):
+          raise ValueError("Can only factorise an integer")
+    
+      factor_list = list(find_factors(num))
+      def get_power(pair): return pair[1]
+      factor_list = filter(get_power, factor_list)
+      if factor_list:
+         print(num, end=" ")
+         map(print_factors, factor_list)
+         print("")
+      else:
+          print("PRIME")
+       
+
+Compare this to the last programming example of this page [#]_ , which is
+an imperative solution.
+
+For further information on Exceptions see the Python documentation [#]_
+
 Creating new exceptions
 """""""""""""""""""""""""""""""""""""""""""""
 
-``pass``
+Since Exceptions are classes too, they can be simply created by
+deriving them from the ``Exception`` base class::
+
+  class ToolTimeException(Exception):
+      def __init__(self, stupid_comment):
+          self.stupid_comment
+
+      def __str__(self):
+          print("\n" + self.stupid_comment +  "\nI don't think so, Tim")
+          
+
+Then you can normally raise it::
+
+  >>> raise ToolTimeException("And if you're painting Al's mom, you can \
+  ... get it done in a matter of years." )
+  Traceback (most recent call last):
+    File "<stdin>", line 2, in <module>
+  __main__.ToolTimeException
+  And if you're painting Al's mom, you can get it done in a matter of years.
+  I don't think so, Tim
+
+
+
+Modules and Packages
+--------------------------------------------
+
+Of course no one wants to type everything into the interpreter all the
+time, but safe the programs into files and execute them by calling a
+function. We learn how to do this in Python.
+
+
+Modules
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+We alredy dealt indirectly with modules. Modules are several
+functions, classes etc. stored in a file with a ``.py`` suffix,
+like we did in the *Goodbye World* example.
+
+For example lets write a a file with some functions in it::
+
+  def square(x):
+      return x**2
+
+  def cube(x):
+      return x**3
+
+Now save them in a file. Let's say ``powers.py``.
+
+Now you can import it into Python with the ``import`` statement::
+
+  import powers
+
+From that on, you can call at's functions::
+
+  >>> powers.square(3)
+  9
+
+We called the square function like a class member, and in fact a
+module is a *class*.
+
+If one don't want to import a part of a module directly, one
+can use the ``from...import`` statement::
+
+  from powers import cube
+
+Now cube can be called directly::
+
+  >>> cube(3)
+  27
+
+This is also a great benefit over Matlab: You can do as many functions
+as you want into one file. 
+
+Packages
+""""""""""""""""""""""""""""""""""""""""""""
+
+To construct trees of modules we can organise them in packages.
+To make a package do the following:
+Save all modules that should belong to the package into a directory
+with the name of the package. Then add an (most times empty) file
+named ``__init__.py`` to the folder. For example we want our power
+module into an math_stuff package which also holds an module for 
+roots of several powers. First we make a directory ``math_stuff``
+
+So we write that module::
+
+  def sqrt(x):
+      return x**0.5
+
+  def curt(x):
+      return x**(1./3.)
+
+and save it to a file ``roots.py`` in the ``math_stuff`` directory.
+Then we create an empty file ``__init__.py`` in that folder.
+
+**Important** make sure to be in the right working directory!
+There are several possiblities to do that:
+
+* ``cd`` to your directory in a shell and call Python there. Then the
+  current directory is also your working directory.
+* In Python, you can achieve that by using the ``chdir`` function from
+  the ``os`` module::
+
+    >>> from os import chdir
+    >>> chdir("/the/folder/math_stuff_is_in/")  
+  
+* In IPython or Sage simply use the command cd in the 
+  interpreter.
+
+Now you can normally import the powers module by::
+
+  >>> import math_stuff.powers
+
+and call it's functions::
+
+  >>> math_stuff.powers.square(4)
+  16
+
+To build subpackages one only has to create a subfolder with
+the name of the subpackage and put an ``__init__.py`` file into
+a that subfolder, and so on.
+
+There are several more things one can do, for example 
+make it possible to import the complete namespace with ``*``::
+
+  >>> from os import *
+
+Now you can use every function and submodule of the ``os`` package,
+without typing ``os.whatever``. I personally don't recommand that
+because of two reasons:
+
+* If you load to much modules, which have quite similar functions
+  (for example every math packages has it's ``sin`` function, then you
+  can run into troubles.
+* It yields better performance. The more functions and modules are
+  loaded the more load has the interpreter to deal with. 
+
+I recommend personally to import explicitly with ``from ... import``
+only the functions you actually need. 
+
+For further information see the Python documention [#]_. 
+
 
 
 Some words on programming paradigms
@@ -1080,6 +1314,9 @@ than
 .. [#] http://programming-guides.com/python/functional-programming
 .. [#] http://docs.python.org/howto/functional.html
 .. [#] http://docs.python.org/reference/datamodel.html#special-method-names
+.. [#] http://pleac.sourceforge.net/pleac_python/numbers.html
+.. [#] http://docs.python.org/tutorial/errors.html
+.. [#] http://docs.python.org/tutorial/modules.html
 .. [#] http://en.wikipedia.org/wiki/Programming_paradigm
 .. [#] http://www.gigamonkeys.com/book/
 

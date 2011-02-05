@@ -177,7 +177,7 @@ or numbers, like in C.</p>
 <tt class="docutils literal"><span class="pre">xrange</span></tt> instead of range, because <tt class="docutils literal"><span class="pre">xrange</span></tt> doesn&#8217;t need allocate
 memory for a list. In Python 3, however, <tt class="docutils literal"><span class="pre">range</span></tt> returns an iterator
 and not a list, so this is obsolete then.</p>
-<p>See also the Python wiki <a class="footnote-reference" href="#id10" id="id1">[1]</a> on this topic.</p>
+<p>See also the Python wiki <a class="footnote-reference" href="#id13" id="id1">[1]</a> on this topic.</p>
 </div>
 <div class="section" id="the-break-and-continue-statements">
 <h3>The <tt class="docutils literal"><span class="pre">break</span></tt> and <tt class="docutils literal"><span class="pre">continue</span></tt> statements<a class="headerlink" href="#the-break-and-continue-statements" title="Permalink to this headline">¶</a></h3>
@@ -199,7 +199,7 @@ For example:</p>
 </li>
 <li><p class="first"><tt class="docutils literal"><span class="pre">break</span></tt> breaks out of the smallest enclosing <tt class="docutils literal"><span class="pre">for</span></tt> or <tt class="docutils literal"><span class="pre">while</span></tt>
 loop.
-Here a famous example from the official Python tutorial <a class="footnote-reference" href="#id11" id="id2">[2]</a></p>
+Here a famous example from the official Python tutorial <a class="footnote-reference" href="#id14" id="id2">[2]</a></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -521,12 +521,12 @@ In Python 2.6 or above one has to write</p>
 <p>The <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> statement is confusing many people.
 Guido Van Rossum himself wanted to remove the <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/>
 statement from Python 3, but didn&#8217;t succeed to find a good replacement
-<a class="footnote-reference" href="#id12" id="id3">[3]</a> . As one of it&#8217;s biggest fans I can only say: Hooray for
+<a class="footnote-reference" href="#id15" id="id3">[3]</a> . As one of it&#8217;s biggest fans I can only say: Hooray for
 <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> !</p>
 <p>The reason for the strange naming is that in the early times of
 Python, many <em>Lisp</em> programmers wanted some functional features
 from <em>Lisp</em>, and one of the was <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> .
-But it&#8217;s true origin comes from the <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> calculus <a class="footnote-reference" href="#id13" id="id4">[4]</a> .</p>
+But it&#8217;s true origin comes from the <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> calculus <a class="footnote-reference" href="#id16" id="id4">[4]</a> .</p>
 <p>I prefer lambda for some reasons, especially that I can use it inline.
 But I wouldn&#8217;t recommend to use <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> every time, sometimes the
 use of the lambda statement is not good readable.</p>
@@ -560,9 +560,9 @@ languages like Mathematica or Matlab.</p>
 <p>Functional programming can be a very powerful tool, and I show here
 some of the key features for functional programming in Python.
 I follow here the programming guide for functional programming in
-Python <a class="footnote-reference" href="#id14" id="id5">[5]</a>. For more advanced techniques and more founded
+Python <a class="footnote-reference" href="#id17" id="id5">[5]</a>. For more advanced techniques and more founded
 Background on that topic I refer
-to the <em>Python Functional Programming HOWTO</em> <a class="footnote-reference" href="#id15" id="id6">[6]</a></p>
+to the <em>Python Functional Programming HOWTO</em> <a class="footnote-reference" href="#id18" id="id6">[6]</a></p>
 <div class="section" id="the-map-function">
 <h3>The <tt class="docutils literal"><span class="pre">map</span></tt> function<a class="headerlink" href="#the-map-function" title="Permalink to this headline">¶</a></h3>
 <p>The <tt class="docutils literal"><span class="pre">map</span> <span class="pre">function</span></tt> takes any number on iterables and a function, and
@@ -648,7 +648,7 @@ of elements for which the function returned true:</p>
 </div>
 </div>
 <div class="section" id="generators">
-<h3>Generators<a class="headerlink" href="#generators" title="Permalink to this headline">¶</a></h3>
+<span id="generators-ref"></span><h3>Generators<a class="headerlink" href="#generators" title="Permalink to this headline">¶</a></h3>
 <p>Generators are like functions, but they give back a sequence of data
 instead of a single output. They can be used to write iterators.</p>
 <p>To create an generator, simply write a function with the <tt class="docutils literal"><span class="pre">def</span></tt>
@@ -673,6 +673,42 @@ and are destroyed after <tt class="docutils literal"><span class="pre">return</s
 in an generator stay. You can call <tt class="docutils literal"><span class="pre">return</span></tt> within an generator
 as well, but without output, and after it is called the generator
 cannot produce further output.</p>
+<p>As an example we write a little program which factors an integer
+number with help of functional tools:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+<span class="k">def</span> <span class="nf">find_factors</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+
+  <span class="c"># we take advantage of the fact that (i +1)**2 = i**2 + 2*i +1</span>
+  <span class="n">i</span><span class="p">,</span> <span class="n">sqi</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+  <span class="k">while</span> <span class="n">sqi</span> <span class="o">&lt;=</span> <span class="n">num</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span>
+      <span class="n">sqi</span> <span class="o">+=</span> <span class="mi">2</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+      <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+      <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="k">while</span> <span class="ow">not</span> <span class="n">num</span> <span class="o">%</span> <span class="n">i</span><span class="p">:</span>
+          <span class="n">num</span> <span class="o">/=</span> <span class="n">i</span>
+          <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+  <span class="k">yield</span> <span class="n">i</span><span class="p">,</span><span class="n">k</span>
+
+<span class="k">def</span> <span class="nf">print_factors</span><span class="p">(</span><span class="n">num_fac</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">num_fac</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">num_fac</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s">&quot;**&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num_fac</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span><span class="n">end</span> <span class="o">=</span> <span class="s">&quot; &quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">num_fac</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">factorise</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+
+    <span class="n">factor_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">find_factors</span><span class="p">(</span><span class="n">num</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">get_power</span><span class="p">(</span><span class="n">pair</span><span class="p">):</span> <span class="k">return</span> <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">factor_list</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="n">get_power</span><span class="p">,</span> <span class="n">factor_list</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">factor_list</span><span class="p">:</span>
+       <span class="k">print</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">)</span>
+       <span class="nb">map</span><span class="p">(</span><span class="n">print_factors</span><span class="p">,</span> <span class="n">factor_list</span><span class="p">)</span>
+       <span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;PRIME&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="list-comprehensions">
 <h3>List Comprehensions<a class="headerlink" href="#list-comprehensions" title="Permalink to this headline">¶</a></h3>
@@ -689,8 +725,12 @@ surrounded by rectangular brackets.</p>
 <span class="go">[8, 12, 16]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">vector1</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">vector2</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="go">[x*y for x in vector1 for y in vector2] # Goes through all combinations</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">x</span><span class="o">*</span><span class="n">y</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">vector1</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">vector2</span><span class="p">]</span> <span class="c"># Goes through all combinations</span>
 <span class="go">[0, 0, 0, 0, 2, 4, 0, 4, 8]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">vector1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">vector2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vector1</span><span class="p">))]</span> <span class="c"># mimic map</span>
+<span class="go">[0, 2, 8]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">,</span><span class="n">vector1</span><span class="p">,</span><span class="n">vector2</span><span class="p">)</span> <span class="c">#equivalent statement</span>
+<span class="go">[0, 2, 8]</span>
 </pre></div>
 </div>
 <p>List comprehensions can also be applied to much more complex
@@ -862,7 +902,7 @@ the class:</p>
 </pre></div>
 </div>
 <p>There is a whole bunch of features that can be added to a class.
-I refer here to the Python reference manual for a complete list <a class="footnote-reference" href="#id16" id="id7">[7]</a>,
+I refer here to the Python reference manual for a complete list <a class="footnote-reference" href="#id19" id="id7">[7]</a>,
 because listing them all here would be too long.</p>
 </div>
 </div>
@@ -931,10 +971,187 @@ memory). Those can be specified via the <tt class="docutils literal"><span class
 <span class="nc">KeyboardInterrupt</span>
 </pre></div>
 </div>
+<p>Here a more advanced example for exception handling: Let&#8217;s remember our prime
+factor example from the <a class="reference internal" href="#generators-ref"><em>Generators</em></a> section. We want that the
+function should only handle integers, so we check this with help of
+exceptions:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+<span class="k">def</span> <span class="nf">find_factors</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+
+  <span class="c"># we take advantage of the fact that (i +1)**2 = i**2 + 2*i +1</span>
+  <span class="n">i</span><span class="p">,</span> <span class="n">sqi</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+  <span class="k">while</span> <span class="n">sqi</span> <span class="o">&lt;=</span> <span class="n">num</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span>
+      <span class="n">sqi</span> <span class="o">+=</span> <span class="mi">2</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+      <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+      <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="k">while</span> <span class="ow">not</span> <span class="n">num</span> <span class="o">%</span> <span class="n">i</span><span class="p">:</span>
+          <span class="n">num</span> <span class="o">/=</span> <span class="n">i</span>
+          <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+
+      <span class="k">yield</span> <span class="n">i</span><span class="p">,</span><span class="n">k</span>
+
+<span class="k">def</span> <span class="nf">print_factors</span><span class="p">(</span><span class="n">num_fac</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">num_fac</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">num_fac</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s">&quot;**&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num_fac</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span><span class="n">end</span> <span class="o">=</span> <span class="s">&quot; &quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">num_fac</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">factorise</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>                             <span class="c">#check if num is an integer</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>             <span class="c">#with exceptions</span>
+        <span class="k">if</span> <span class="n">num</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Can only factorise an integer&quot;</span><span class="p">)</span>
+
+    <span class="n">factor_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">find_factors</span><span class="p">(</span><span class="n">num</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">get_power</span><span class="p">(</span><span class="n">pair</span><span class="p">):</span> <span class="k">return</span> <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">factor_list</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="n">get_power</span><span class="p">,</span> <span class="n">factor_list</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">factor_list</span><span class="p">:</span>
+       <span class="k">print</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">)</span>
+       <span class="nb">map</span><span class="p">(</span><span class="n">print_factors</span><span class="p">,</span> <span class="n">factor_list</span><span class="p">)</span>
+       <span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;PRIME&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Compare this to the last programming example of this page <a class="footnote-reference" href="#id20" id="id8">[8]</a> , which is
+an imperative solution.</p>
+<p>For further information on Exceptions see the Python documentation <a class="footnote-reference" href="#id21" id="id9">[9]</a></p>
 </div>
 <div class="section" id="creating-new-exceptions">
 <h3>Creating new exceptions<a class="headerlink" href="#creating-new-exceptions" title="Permalink to this headline">¶</a></h3>
-<p><tt class="docutils literal"><span class="pre">pass</span></tt></p>
+<p>Since Exceptions are classes too, they can be simply created by
+deriving them from the <tt class="docutils literal"><span class="pre">Exception</span></tt> base class:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">ToolTimeException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stupid_comment</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stupid_comment</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">stupid_comment</span> <span class="o">+</span>  <span class="s">&quot;</span><span class="se">\n</span><span class="s">I don&#39;t think so, Tim&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then you can normally raise it:</p>
+<div class="highlight-python"><pre>&gt;&gt;&gt; raise ToolTimeException("And if you're painting Al's mom, you can \
+... get it done in a matter of years." )
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 2, in &lt;module&gt;
+__main__.ToolTimeException
+And if you're painting Al's mom, you can get it done in a matter of years.
+I don't think so, Tim</pre>
+</div>
+</div>
+</div>
+<div class="section" id="modules-and-packages">
+<h2>Modules and Packages<a class="headerlink" href="#modules-and-packages" title="Permalink to this headline">¶</a></h2>
+<p>Of course no one wants to type everything into the interpreter all the
+time, but safe the programs into files and execute them by calling a
+function. We learn how to do this in Python.</p>
+<div class="section" id="modules">
+<h3>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h3>
+<p>We alredy dealt indirectly with modules. Modules are several
+functions, classes etc. stored in a file with a <tt class="docutils literal"><span class="pre">.py</span></tt> suffix,
+like we did in the <em>Goodbye World</em> example.</p>
+<p>For example lets write a a file with some functions in it:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="k">def</span> <span class="nf">cube</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span>
+</pre></div>
+</div>
+<p>Now save them in a file. Let&#8217;s say <tt class="docutils literal"><span class="pre">powers.py</span></tt>.</p>
+<p>Now you can import it into Python with the <tt class="docutils literal"><span class="pre">import</span></tt> statement:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">powers</span>
+</pre></div>
+</div>
+<p>From that on, you can call at&#8217;s functions:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">powers</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">9</span>
+</pre></div>
+</div>
+<p>We called the square function like a class member, and in fact a
+module is a <em>class</em>.</p>
+<p>If one don&#8217;t want to import a part of a module directly, one
+can use the <tt class="docutils literal"><span class="pre">from...import</span></tt> statement:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">powers</span> <span class="kn">import</span> <span class="n">cube</span>
+</pre></div>
+</div>
+<p>Now cube can be called directly:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">cube</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">27</span>
+</pre></div>
+</div>
+<p>This is also a great benefit over Matlab: You can do as many functions
+as you want into one file.</p>
+</div>
+<div class="section" id="packages">
+<h3>Packages<a class="headerlink" href="#packages" title="Permalink to this headline">¶</a></h3>
+<p>To construct trees of modules we can organise them in packages.
+To make a package do the following:
+Save all modules that should belong to the package into a directory
+with the name of the package. Then add an (most times empty) file
+named <tt class="docutils literal"><span class="pre">__init__.py</span></tt> to the folder. For example we want our power
+module into an math_stuff package which also holds an module for
+roots of several powers. First we make a directory <tt class="docutils literal"><span class="pre">math_stuff</span></tt></p>
+<p>So we write that module:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mf">0.5</span>
+
+<span class="k">def</span> <span class="nf">curt</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="mf">3.</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>and save it to a file <tt class="docutils literal"><span class="pre">roots.py</span></tt> in the <tt class="docutils literal"><span class="pre">math_stuff</span></tt> directory.
+Then we create an empty file <tt class="docutils literal"><span class="pre">__init__.py</span></tt> in that folder.</p>
+<p><strong>Important</strong> make sure to be in the right working directory!
+There are several possiblities to do that:</p>
+<ul>
+<li><p class="first"><tt class="docutils literal"><span class="pre">cd</span></tt> to your directory in a shell and call Python there. Then the
+current directory is also your working directory.</p>
+</li>
+<li><p class="first">In Python, you can achieve that by using the <tt class="docutils literal"><span class="pre">chdir</span></tt> function from
+the <tt class="docutils literal"><span class="pre">os</span></tt> module:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">chdir</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">chdir</span><span class="p">(</span><span class="s">&quot;/the/folder/math_stuff_is_in/&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">In IPython or Sage simply use the command cd in the
+interpreter.</p>
+</li>
+</ul>
+<p>Now you can normally import the powers module by:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">math_stuff.powers</span>
+</pre></div>
+</div>
+<p>and call it&#8217;s functions:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">math_stuff</span><span class="o">.</span><span class="n">powers</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="go">16</span>
+</pre></div>
+</div>
+<p>To build subpackages one only has to create a subfolder with
+the name of the subpackage and put an <tt class="docutils literal"><span class="pre">__init__.py</span></tt> file into
+a that subfolder, and so on.</p>
+<p>There are several more things one can do, for example
+make it possible to import the complete namespace with <tt class="docutils literal"><span class="pre">*</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p>Now you can use every function and submodule of the <tt class="docutils literal"><span class="pre">os</span></tt> package,
+without typing <tt class="docutils literal"><span class="pre">os.whatever</span></tt>. I personally don&#8217;t recommand that
+because of two reasons:</p>
+<ul class="simple">
+<li>If you load to much modules, which have quite similar functions
+(for example every math packages has it&#8217;s <tt class="docutils literal"><span class="pre">sin</span></tt> function, then you
+can run into troubles.</li>
+<li>It yields better performance. The more functions and modules are
+loaded the more load has the interpreter to deal with.</li>
+</ul>
+<p>I recommend personally to import explicitly with <tt class="docutils literal"><span class="pre">from</span> <span class="pre">...</span> <span class="pre">import</span></tt>
+only the functions you actually need.</p>
+<p>For further information see the Python documention <a class="footnote-reference" href="#id22" id="id10">[10]</a>.</p>
 </div>
 </div>
 <div class="section" id="some-words-on-programming-paradigms">
@@ -947,7 +1164,7 @@ most common in modern programming languages are</p>
 <li>Object oriented programming</li>
 </ul>
 <p>Look at for exmaple at Wikipedia for an short
-overwiev on that topic <a class="footnote-reference" href="#id17" id="id8">[8]</a>, or a good programming book
+overwiev on that topic <a class="footnote-reference" href="#id23" id="id11">[11]</a>, or a good programming book
 of your choice, If you want to go deeper into that topic.</p>
 <p>In short:</p>
 <ul>
@@ -968,7 +1185,7 @@ functions and let them operate on objects, lists, or call them
 recursivly. An example would be the <em>Lisp</em> family, which was
 also the first one. (It&#8217;s worthwile to look at <em>Lisp</em> not only
 to customize your Emacs. A good reading tip would be: Practical
-Common Lisp <a class="footnote-reference" href="#id18" id="id9">[9]</a> ) One important benefit of functional programming
+Common Lisp <a class="footnote-reference" href="#id24" id="id12">[12]</a> ) One important benefit of functional programming
 is, that is easier to parallize. For example it&#8217;s easier for the
 compiler/interpreter to decide, when you operate with a function on a list,
 because all operations are independent anyway, than within a for
@@ -1035,58 +1252,76 @@ for i in range(0,10,2):
 </pre></div>
 </div>
 <p class="rubric">Links</p>
-<table class="docutils footnote" frame="void" id="id10" rules="none">
+<table class="docutils footnote" frame="void" id="id13" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://wiki.python.org/moin/PythonSpeed/PerformanceTips">http://wiki.python.org/moin/PythonSpeed/PerformanceTips</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id11" rules="none">
+<table class="docutils footnote" frame="void" id="id14" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="http://docs.python.org/tutorial/controlflow.html">http://docs.python.org/tutorial/controlflow.html</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id12" rules="none">
+<table class="docutils footnote" frame="void" id="id15" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><a class="reference external" href="http://mail.python.org/pipermail/python-dev/2006-February/060415.html">http://mail.python.org/pipermail/python-dev/2006-February/060415.html</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id13" rules="none">
+<table class="docutils footnote" frame="void" id="id16" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Lambda_calculus">http://en.wikipedia.org/wiki/Lambda_calculus</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id14" rules="none">
+<table class="docutils footnote" frame="void" id="id17" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id5">[5]</a></td><td><a class="reference external" href="http://programming-guides.com/python/functional-programming">http://programming-guides.com/python/functional-programming</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id15" rules="none">
+<table class="docutils footnote" frame="void" id="id18" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id6">[6]</a></td><td><a class="reference external" href="http://docs.python.org/howto/functional.html">http://docs.python.org/howto/functional.html</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id16" rules="none">
+<table class="docutils footnote" frame="void" id="id19" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id7">[7]</a></td><td><a class="reference external" href="http://docs.python.org/reference/datamodel.html#special-method-names">http://docs.python.org/reference/datamodel.html#special-method-names</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id17" rules="none">
+<table class="docutils footnote" frame="void" id="id20" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id8">[8]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Programming_paradigm">http://en.wikipedia.org/wiki/Programming_paradigm</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id8">[8]</a></td><td><a class="reference external" href="http://pleac.sourceforge.net/pleac_python/numbers.html">http://pleac.sourceforge.net/pleac_python/numbers.html</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id18" rules="none">
+<table class="docutils footnote" frame="void" id="id21" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id9">[9]</a></td><td><a class="reference external" href="http://www.gigamonkeys.com/book/">http://www.gigamonkeys.com/book/</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id9">[9]</a></td><td><a class="reference external" href="http://docs.python.org/tutorial/errors.html">http://docs.python.org/tutorial/errors.html</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id22" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id10">[10]</a></td><td><a class="reference external" href="http://docs.python.org/tutorial/modules.html">http://docs.python.org/tutorial/modules.html</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id23" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id11">[11]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Programming_paradigm">http://en.wikipedia.org/wiki/Programming_paradigm</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id24" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id12">[12]</a></td><td><a class="reference external" href="http://www.gigamonkeys.com/book/">http://www.gigamonkeys.com/book/</a></td></tr>
 </tbody>
 </table>
 </div>
@@ -1136,6 +1371,11 @@ for i in range(0,10,2):
 <li><a class="reference external" href="#exceptions">Exceptions</a><ul>
 <li><a class="reference external" href="#handling-exceptions">Handling exceptions</a></li>
 <li><a class="reference external" href="#creating-new-exceptions">Creating new exceptions</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#modules-and-packages">Modules and Packages</a><ul>
+<li><a class="reference external" href="#modules">Modules</a></li>
+<li><a class="reference external" href="#packages">Packages</a></li>
 </ul>
 </li>
 <li><a class="reference external" href="#some-words-on-programming-paradigms">Some words on programming paradigms</a></li>
