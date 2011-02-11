@@ -678,7 +678,9 @@ number with help of functional tools:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="k">def</span> <span class="nf">find_factors</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
-
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Find prime factors of a number iterativly</span>
+<span class="sd">  &quot;&quot;&quot;</span>
   <span class="c"># we take advantage of the fact that (i +1)**2 = i**2 + 2*i +1</span>
   <span class="n">i</span><span class="p">,</span> <span class="n">sqi</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
   <span class="k">while</span> <span class="n">sqi</span> <span class="o">&lt;=</span> <span class="n">num</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span>
@@ -688,7 +690,8 @@ number with help of functional tools:</p>
       <span class="k">while</span> <span class="ow">not</span> <span class="n">num</span> <span class="o">%</span> <span class="n">i</span><span class="p">:</span>
           <span class="n">num</span> <span class="o">/=</span> <span class="n">i</span>
           <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
-  <span class="k">yield</span> <span class="n">i</span><span class="p">,</span><span class="n">k</span>
+
+      <span class="k">yield</span> <span class="n">i</span><span class="p">,</span><span class="n">k</span>
 
 <span class="k">def</span> <span class="nf">print_factors</span><span class="p">(</span><span class="n">num_fac</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">num_fac</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
@@ -697,16 +700,20 @@ number with help of functional tools:</p>
         <span class="k">print</span><span class="p">(</span><span class="n">num_fac</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">factorise</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Find prime factors and print them</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">factor_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">find_factors</span><span class="p">(</span><span class="n">num</span><span class="p">))</span>
     <span class="k">def</span> <span class="nf">get_power</span><span class="p">(</span><span class="n">pair</span><span class="p">):</span> <span class="k">return</span> <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">factor_list</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="n">get_power</span><span class="p">,</span> <span class="n">factor_list</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">factor_list</span><span class="p">:</span>
-       <span class="k">print</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">)</span>
-       <span class="nb">map</span><span class="p">(</span><span class="n">print_factors</span><span class="p">,</span> <span class="n">factor_list</span><span class="p">)</span>
-       <span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">factor_list</span><span class="p">)</span> <span class="ow">is</span> <span class="mi">1</span> <span class="ow">and</span> <span class="p">(</span><span class="n">factor_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="mi">1</span><span class="p">:</span>
         <span class="k">print</span><span class="p">(</span><span class="s">&quot;PRIME&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">)</span>
+        <span class="nb">map</span><span class="p">(</span><span class="n">print_factors</span><span class="p">,</span> <span class="n">factor_list</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -978,6 +985,9 @@ exceptions:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="k">def</span> <span class="nf">find_factors</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Find prime factors of a number iterativly</span>
+<span class="sd">  &quot;&quot;&quot;</span>
 
   <span class="c"># we take advantage of the fact that (i +1)**2 = i**2 + 2*i +1</span>
   <span class="n">i</span><span class="p">,</span> <span class="n">sqi</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
@@ -998,6 +1008,10 @@ exceptions:</p>
         <span class="k">print</span><span class="p">(</span><span class="n">num_fac</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">factorise</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Find prime factors and print them</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">try</span><span class="p">:</span>                             <span class="c">#check if num is an integer</span>
         <span class="n">num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>             <span class="c">#with exceptions</span>
         <span class="k">if</span> <span class="n">num</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
@@ -1008,12 +1022,13 @@ exceptions:</p>
     <span class="n">factor_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">find_factors</span><span class="p">(</span><span class="n">num</span><span class="p">))</span>
     <span class="k">def</span> <span class="nf">get_power</span><span class="p">(</span><span class="n">pair</span><span class="p">):</span> <span class="k">return</span> <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">factor_list</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="n">get_power</span><span class="p">,</span> <span class="n">factor_list</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">factor_list</span><span class="p">:</span>
-       <span class="k">print</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">)</span>
-       <span class="nb">map</span><span class="p">(</span><span class="n">print_factors</span><span class="p">,</span> <span class="n">factor_list</span><span class="p">)</span>
-       <span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">factor_list</span><span class="p">)</span> <span class="ow">is</span> <span class="mi">1</span> <span class="ow">and</span> <span class="p">(</span><span class="n">factor_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="mi">1</span><span class="p">:</span>
         <span class="k">print</span><span class="p">(</span><span class="s">&quot;PRIME&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">)</span>
+        <span class="nb">map</span><span class="p">(</span><span class="n">print_factors</span><span class="p">,</span> <span class="n">factor_list</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Compare this to the last programming example of this page <a class="footnote-reference" href="#id20" id="id8">[8]</a> , which is
