@@ -1043,14 +1043,13 @@ exceptions::
       factor_list = list(find_factors(num))
       def get_power(pair): return pair[1]
       factor_list = filter(get_power, factor_list)
-      if factor_list:
-         print(num, end=" ")
-         map(print_factors, factor_list)
-         print("")
-      else:
+      if len(factor_list) is 1 and (factor_list[0])[0] is 1:
           print("PRIME")
-       
-
+      else:   
+          print(num, end=" ")
+          map(print_factors, factor_list)
+          print("")
+        
 Compare this to the last programming example of this page [#]_ , which is
 an imperative solution.
 
