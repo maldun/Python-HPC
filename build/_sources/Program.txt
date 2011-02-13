@@ -200,7 +200,7 @@ For example the snippet
 
 results in an endless loop, where nothing happens.  
 
-Defininng functions
+Defining functions
 --------------------------------------------------
 
 A function is declared with the ``def`` statement in normal Python
