@@ -691,7 +691,9 @@ number with help of functional tools::
   from __future__ import print_function
   
   def find_factors(num):
-  
+    """
+    Find prime factors of a number iterativly
+    """
     # we take advantage of the fact that (i +1)**2 = i**2 + 2*i +1
     i, sqi = 1, 1
     while sqi <= num+1:
@@ -701,7 +703,8 @@ number with help of functional tools::
         while not num % i:
             num /= i
             k += 1
-    yield i,k
+        
+        yield i,k
 
   def print_factors(num_fac):
       if num_fac[1] > 1:
@@ -710,16 +713,20 @@ number with help of functional tools::
           print(num_fac[0],end=" ")
   
   def factorise(num):
-       
+      """
+      Find prime factors and print them
+      """
+ 
       factor_list = list(find_factors(num))
       def get_power(pair): return pair[1]
       factor_list = filter(get_power, factor_list)
-      if factor_list:
-         print(num, end=" ")
-         map(print_factors, factor_list)
-         print("")
-      else:
+      
+      if len(factor_list) is 1 and (factor_list[0])[0] is 1:
           print("PRIME")
+      else:   
+          print(num, end=" ")
+          map(print_factors, factor_list)
+          print("")
 
 
 List Comprehensions
@@ -868,6 +875,8 @@ Consider the for example in the class
 the priority order for looking up new methods is new_class-> base1 ->
 base2 -> base3 and not new_class -> base3 -> base2 -> base1.
 
+.. _overload_ref: 
+
 Operator overloading
 """"""""""""""""""""""""""""""""""""""""""""
 
@@ -1013,7 +1022,10 @@ exceptions::
   from __future__ import print_function
   
   def find_factors(num):
-  
+    """
+    Find prime factors of a number iterativly
+    """
+
     # we take advantage of the fact that (i +1)**2 = i**2 + 2*i +1
     i, sqi = 1, 1
     while sqi <= num+1:
@@ -1033,6 +1045,10 @@ exceptions::
           print(num_fac[0],end=" ")
   
   def factorise(value):
+      """
+      Find prime factors and print them
+      """
+
       try:                             #check if num is an integer
           num = int(value)             #with exceptions
           if num != float(value):     
@@ -1043,14 +1059,14 @@ exceptions::
       factor_list = list(find_factors(num))
       def get_power(pair): return pair[1]
       factor_list = filter(get_power, factor_list)
-      if factor_list:
-         print(num, end=" ")
-         map(print_factors, factor_list)
-         print("")
-      else:
+      
+      if len(factor_list) is 1 and (factor_list[0])[0] is 1:
           print("PRIME")
-       
-
+      else:   
+          print(num, end=" ")
+          map(print_factors, factor_list)
+          print("")
+        
 Compare this to the last programming example of this page [#]_ , which is
 an imperative solution.
 

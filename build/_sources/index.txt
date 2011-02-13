@@ -15,6 +15,7 @@ Contents:
    Python
    Steps
    Program
+   Scientific
    License
 
 Indices and tables

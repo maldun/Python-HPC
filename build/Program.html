@@ -20,7 +20,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="hpc v1.0 documentation" href="index.html" />
-    <link rel="next" title="Licenses" href="License.html" />
+    <link rel="next" title="Scientific tools in Python" href="Scientific.html" />
     <link rel="prev" title="Python Basics" href="Steps.html" /> 
   </head>
   <body>
@@ -31,7 +31,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="License.html" title="Licenses"
+          <a href="Scientific.html" title="Scientific tools in Python"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="Steps.html" title="Python Basics"
@@ -678,7 +678,9 @@ number with help of functional tools:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="k">def</span> <span class="nf">find_factors</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
-
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Find prime factors of a number iterativly</span>
+<span class="sd">  &quot;&quot;&quot;</span>
   <span class="c"># we take advantage of the fact that (i +1)**2 = i**2 + 2*i +1</span>
   <span class="n">i</span><span class="p">,</span> <span class="n">sqi</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
   <span class="k">while</span> <span class="n">sqi</span> <span class="o">&lt;=</span> <span class="n">num</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span>
@@ -688,7 +690,8 @@ number with help of functional tools:</p>
       <span class="k">while</span> <span class="ow">not</span> <span class="n">num</span> <span class="o">%</span> <span class="n">i</span><span class="p">:</span>
           <span class="n">num</span> <span class="o">/=</span> <span class="n">i</span>
           <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
-  <span class="k">yield</span> <span class="n">i</span><span class="p">,</span><span class="n">k</span>
+
+      <span class="k">yield</span> <span class="n">i</span><span class="p">,</span><span class="n">k</span>
 
 <span class="k">def</span> <span class="nf">print_factors</span><span class="p">(</span><span class="n">num_fac</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">num_fac</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
@@ -697,16 +700,20 @@ number with help of functional tools:</p>
         <span class="k">print</span><span class="p">(</span><span class="n">num_fac</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">factorise</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Find prime factors and print them</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">factor_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">find_factors</span><span class="p">(</span><span class="n">num</span><span class="p">))</span>
     <span class="k">def</span> <span class="nf">get_power</span><span class="p">(</span><span class="n">pair</span><span class="p">):</span> <span class="k">return</span> <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">factor_list</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="n">get_power</span><span class="p">,</span> <span class="n">factor_list</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">factor_list</span><span class="p">:</span>
-       <span class="k">print</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">)</span>
-       <span class="nb">map</span><span class="p">(</span><span class="n">print_factors</span><span class="p">,</span> <span class="n">factor_list</span><span class="p">)</span>
-       <span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">factor_list</span><span class="p">)</span> <span class="ow">is</span> <span class="mi">1</span> <span class="ow">and</span> <span class="p">(</span><span class="n">factor_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="mi">1</span><span class="p">:</span>
         <span class="k">print</span><span class="p">(</span><span class="s">&quot;PRIME&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">)</span>
+        <span class="nb">map</span><span class="p">(</span><span class="n">print_factors</span><span class="p">,</span> <span class="n">factor_list</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -848,7 +855,7 @@ Consider the for example in the class</p>
 base2 -&gt; base3 and not new_class -&gt; base3 -&gt; base2 -&gt; base1.</p>
 </div>
 <div class="section" id="operator-overloading">
-<h3>Operator overloading<a class="headerlink" href="#operator-overloading" title="Permalink to this headline">¶</a></h3>
+<span id="overload-ref"></span><h3>Operator overloading<a class="headerlink" href="#operator-overloading" title="Permalink to this headline">¶</a></h3>
 <p>In my opinion one of the most powerful features in OO languages, and
 the reason why I think Java isn&#8217;t worth to look at it.</p>
 <p>Especially in mathematics one wants to define new algebras or objects
@@ -978,6 +985,9 @@ exceptions:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="k">def</span> <span class="nf">find_factors</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Find prime factors of a number iterativly</span>
+<span class="sd">  &quot;&quot;&quot;</span>
 
   <span class="c"># we take advantage of the fact that (i +1)**2 = i**2 + 2*i +1</span>
   <span class="n">i</span><span class="p">,</span> <span class="n">sqi</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
@@ -998,6 +1008,10 @@ exceptions:</p>
         <span class="k">print</span><span class="p">(</span><span class="n">num_fac</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">factorise</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Find prime factors and print them</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">try</span><span class="p">:</span>                             <span class="c">#check if num is an integer</span>
         <span class="n">num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>             <span class="c">#with exceptions</span>
         <span class="k">if</span> <span class="n">num</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
@@ -1008,12 +1022,13 @@ exceptions:</p>
     <span class="n">factor_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">find_factors</span><span class="p">(</span><span class="n">num</span><span class="p">))</span>
     <span class="k">def</span> <span class="nf">get_power</span><span class="p">(</span><span class="n">pair</span><span class="p">):</span> <span class="k">return</span> <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">factor_list</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="n">get_power</span><span class="p">,</span> <span class="n">factor_list</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">factor_list</span><span class="p">:</span>
-       <span class="k">print</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">)</span>
-       <span class="nb">map</span><span class="p">(</span><span class="n">print_factors</span><span class="p">,</span> <span class="n">factor_list</span><span class="p">)</span>
-       <span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">factor_list</span><span class="p">)</span> <span class="ow">is</span> <span class="mi">1</span> <span class="ow">and</span> <span class="p">(</span><span class="n">factor_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="mi">1</span><span class="p">:</span>
         <span class="k">print</span><span class="p">(</span><span class="s">&quot;PRIME&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">)</span>
+        <span class="nb">map</span><span class="p">(</span><span class="n">print_factors</span><span class="p">,</span> <span class="n">factor_list</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Compare this to the last programming example of this page <a class="footnote-reference" href="#id20" id="id8">[8]</a> , which is
@@ -1387,8 +1402,8 @@ for i in range(0,10,2):
             <p class="topless"><a href="Steps.html"
                                   title="previous chapter">Python Basics</a></p>
             <h4>Next topic</h4>
-            <p class="topless"><a href="License.html"
-                                  title="next chapter">Licenses</a></p>
+            <p class="topless"><a href="Scientific.html"
+                                  title="next chapter">Scientific tools in Python</a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
               <li><a href="_sources/Program.txt"
@@ -1418,7 +1433,7 @@ for i in range(0,10,2):
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="License.html" title="Licenses"
+          <a href="Scientific.html" title="Scientific tools in Python"
              >next</a> |</li>
         <li class="right" >
           <a href="Steps.html" title="Python Basics"
