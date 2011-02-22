@@ -16,11 +16,19 @@ In the last five years there was a huge development of mathematical tools
 and libraries for Python. Actually it seems that there is no particular reason for 
 this one could see it as a phenomen, or as a trend. But in the meantime the currently
 available Python projects reached now dimension that make them vaiable alternatives 
-for the "classical" mathematical languages like Matlab or MAthematica.
+for the "classical" mathematical languages like Matlab or Mathematica.
 
-Also there are now some very useful tools for code optimization available like *Cython*,
+Also there are now some very useful tools for code optimisation available like *Cython*,
 that makes it possible to compile your Python Code to *C* and make it up to 1000x faster,
 than normal Python code. 
+
+There are several versions of Python interpreters. The interpreter I
+refer here as Python is *CPython*, the first interpreter. The CPython interpreter is written,
+as the name says, in C. The reason for this choice is, that many
+numerical tools are using C bindings, and Cython also works currently
+only on CPython. There are also several other 
+Python Interpreters like Jython (written in Java), PyPy (written in
+Python), or IronPython (written in C#) available. 
 
 Why Python?
 -----------------------------
@@ -28,9 +36,10 @@ Why Python?
 * Intuitive Syntax
 * Simple
 * An easy to learn language.
-* Object orientated.
+* Object oriented.
+* Multi paradigm (OO, imperative functional)
 * Fast (if used with brains).
-* Rapidly developing.
+* Rapid development.
 * A common language, so you will find answers to your problem.
 * Many nice tools which makes your life easier (like Sphinx, which I use to write this report)
 
@@ -40,6 +49,14 @@ Get Python
 The programs and packages used here are all open source, so they can be obtained freely.
 Most Linux distributions already ship Python, because many scripts are written in Python.
 See also the *Python* project page for further information [#]_ . 
+
+For using Python I personally recommend Linux or a virtual machine
+with Linux, because it's much easier to install and handle (for my taste).
+But there is currently a .Net Python under development named
+IronPython [#]_.
+Not all packages from classical CPython are currently working on IronPython
+(including NumPy), but there exists IronClad [#]_ which should make it 
+possible to use these CPython modules in IronPython.
 
 An easy way to obtain Python is to install *Sagemath* [#]_, which contains many useful packages extensions
 and packages for mathematics.
@@ -60,6 +77,8 @@ build it from source because then many optimisation options are applied)
 
 .. [#] http://python-history.blogspot.com/2009/01/brief-timeline-of-python.html
 .. [#] http://www.python.org/
+.. [#] http://ironpython.net/
+.. [#] http://code.google.com/p/ironclad/
 .. [#] http://www.sagemath.org/
 .. [#] http://www.femhub.org
 .. [#] http://code.google.com/p/computational-sage/

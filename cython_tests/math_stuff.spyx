@@ -1,0 +1,8 @@
+#clib m 
+
+cdef extern from "math.h":
+    double c_sin "sin"(double)
+
+def sin(double x):
+    return c_sin(x)
+

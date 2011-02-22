@@ -1,24 +1,119 @@
 \select@language {english}
 \contentsline {chapter}{\numberline {1}Introduction and personal thoughts}{3}{chapter.1}
 \contentsline {section}{\numberline {1.1}Foreword}{3}{section.1.1}
-\contentsline {section}{\numberline {1.2}The Zen of Python.}{3}{section.1.2}
-\contentsline {section}{\numberline {1.3}Experiences I want to share with programming beginners}{4}{section.1.3}
-\contentsline {subsection}{\numberline {1.3.1}Code is more often read than written}{4}{subsection.1.3.1}
-\contentsline {subsection}{\numberline {1.3.2}Program design isn't a waste of time!}{5}{subsection.1.3.2}
-\contentsline {subsection}{\numberline {1.3.3}Object oriented programming abstracts away your problems}{5}{subsection.1.3.3}
-\contentsline {subsection}{\numberline {1.3.4}Premature optimisation is the rule of all evil!}{5}{subsection.1.3.4}
-\contentsline {subsection}{\numberline {1.3.5}Use version control}{5}{subsection.1.3.5}
-\contentsline {subsection}{\numberline {1.3.6}Use Linux}{5}{subsection.1.3.6}
-\contentsline {subsection}{\numberline {1.3.7}Not everything from Extreme Programming is that bad}{6}{subsection.1.3.7}
-\contentsline {subsection}{\numberline {1.3.8}Examples say more than thousend words!}{6}{subsection.1.3.8}
-\contentsline {subsection}{\numberline {1.3.9}If your programs aren't understandable nobody will use them}{6}{subsection.1.3.9}
-\contentsline {subsection}{\numberline {1.3.10}Use your brain!}{6}{subsection.1.3.10}
-\contentsline {paragraph}{Links}{6}{paragraph*.2}
-\contentsline {chapter}{\numberline {2}About Python}{7}{chapter.2}
-\contentsline {section}{\numberline {2.1}What is Python}{7}{section.2.1}
-\contentsline {section}{\numberline {2.2}Why Python?}{7}{section.2.2}
-\contentsline {section}{\numberline {2.3}Get Python}{7}{section.2.3}
-\contentsline {paragraph}{Links}{8}{paragraph*.3}
-\contentsline {chapter}{\numberline {3}How to use Python}{9}{chapter.3}
-\contentsline {section}{\numberline {3.1}The ``Goodbye World'' program.}{9}{section.3.1}
-\contentsline {chapter}{\numberline {4}Indices and tables}{11}{chapter.4}
+\contentsline {section}{\numberline {1.2}Experiences I want to share with programming beginners}{3}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}The Zen of Python don't apply only to Python}{4}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}Code is more often read than written}{5}{subsection.1.2.2}
+\contentsline {subsection}{\numberline {1.2.3}Program design isn't a waste of time!}{5}{subsection.1.2.3}
+\contentsline {subsection}{\numberline {1.2.4}Object oriented programming abstracts away your problems}{5}{subsection.1.2.4}
+\contentsline {subsection}{\numberline {1.2.5}Modularity counts}{5}{subsection.1.2.5}
+\contentsline {subsection}{\numberline {1.2.6}Premature optimisation is the rule of all evil!}{5}{subsection.1.2.6}
+\contentsline {subsection}{\numberline {1.2.7}Choice of the right tools}{6}{subsection.1.2.7}
+\contentsline {subsubsection}{Don't use Notepad as your editor!}{6}{subsubsection*.2}
+\contentsline {subsubsection}{Use version control}{6}{subsubsection*.3}
+\contentsline {subsubsection}{Use debugging tools}{6}{subsubsection*.4}
+\contentsline {subsubsection}{Use Linux}{6}{subsubsection*.5}
+\contentsline {subsection}{\numberline {1.2.8}Not everything from Extreme Programming is that bad}{7}{subsection.1.2.8}
+\contentsline {subsection}{\numberline {1.2.9}Examples say more than thousend words!}{7}{subsection.1.2.9}
+\contentsline {subsection}{\numberline {1.2.10}If your programs aren't understandable nobody will use them}{7}{subsection.1.2.10}
+\contentsline {subsection}{\numberline {1.2.11}Use your brain!}{7}{subsection.1.2.11}
+\contentsline {paragraph}{Links}{7}{paragraph*.6}
+\contentsline {chapter}{\numberline {2}About Python}{9}{chapter.2}
+\contentsline {section}{\numberline {2.1}What is Python}{9}{section.2.1}
+\contentsline {section}{\numberline {2.2}Why Python?}{9}{section.2.2}
+\contentsline {section}{\numberline {2.3}Get Python}{9}{section.2.3}
+\contentsline {paragraph}{Links}{10}{paragraph*.7}
+\contentsline {chapter}{\numberline {3}Python Basics}{11}{chapter.3}
+\contentsline {section}{\numberline {3.1}The ``Goodbye World'' program.}{11}{section.3.1}
+\contentsline {section}{\numberline {3.2}Notes on the syntax}{12}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Intendation for organising blocks of codes}{12}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}The semicolon}{12}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Identifiers}{12}{subsection.3.2.3}
+\contentsline {section}{\numberline {3.3}Assignment of variables}{13}{section.3.3}
+\contentsline {section}{\numberline {3.4}Some basic datatpypes}{14}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Boolean values}{14}{subsection.3.4.1}
+\contentsline {subsubsection}{Boolean operations}{14}{subsubsection*.8}
+\contentsline {subsection}{\numberline {3.4.2}Numbers}{14}{subsection.3.4.2}
+\contentsline {subsubsection}{Arithmetics}{15}{subsubsection*.9}
+\contentsline {subsubsection}{More on mathematical operations}{16}{subsubsection*.10}
+\contentsline {subsection}{\numberline {3.4.3}Container Types}{16}{subsection.3.4.3}
+\contentsline {subsubsection}{Lists}{16}{subsubsection*.11}
+\contentsline {subsubsection}{Tuples}{19}{subsubsection*.12}
+\contentsline {subsubsection}{Dictionaries}{19}{subsubsection*.13}
+\contentsline {subsubsection}{Sets}{20}{subsubsection*.14}
+\contentsline {subsubsection}{Membership test}{20}{subsubsection*.15}
+\contentsline {subsubsection}{Other operations on containers}{20}{subsubsection*.16}
+\contentsline {subsection}{\numberline {3.4.4}Strings}{21}{subsection.3.4.4}
+\contentsline {subsubsection}{Special types of strings in Python}{22}{subsubsection*.17}
+\contentsline {subsubsection}{Basic manipulation of strings}{22}{subsubsection*.18}
+\contentsline {subsection}{\numberline {3.4.5}Iterators}{23}{subsection.3.4.5}
+\contentsline {section}{\numberline {3.5}The print statement}{24}{section.3.5}
+\contentsline {section}{\numberline {3.6}Comparison operators}{25}{section.3.6}
+\contentsline {paragraph}{Links}{26}{paragraph*.19}
+\contentsline {chapter}{\numberline {4}Programming in Python}{27}{chapter.4}
+\contentsline {section}{\numberline {4.1}Commenting in Python}{27}{section.4.1}
+\contentsline {section}{\numberline {4.2}Go with the control flow}{27}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}The \texttt {if} statement}{27}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}\texttt {while} loops}{28}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}\texttt {for} loops}{29}{subsection.4.2.3}
+\contentsline {subsection}{\numberline {4.2.4}The \texttt {break} and \texttt {continue} statements}{29}{subsection.4.2.4}
+\contentsline {subsection}{\numberline {4.2.5}The \texttt {pass} statement}{30}{subsection.4.2.5}
+\contentsline {section}{\numberline {4.3}Defining functions}{30}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}The \texttt {return} statement}{30}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Variables (inside functions)}{31}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.3}Default values and keyword arguments}{32}{subsection.4.3.3}
+\contentsline {subsection}{\numberline {4.3.4}Calls with lists and dictionaries}{33}{subsection.4.3.4}
+\contentsline {subsection}{\numberline {4.3.5}Docstrings}{34}{subsection.4.3.5}
+\contentsline {subsection}{\numberline {4.3.6}Other ways to define functions}{34}{subsection.4.3.6}
+\contentsline {section}{\numberline {4.4}Functional Programming tools in Python (or hooray for $\lambda $ )}{36}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}The \texttt {map} function}{36}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {4.4.2}The \texttt {reduce} function}{37}{subsection.4.4.2}
+\contentsline {subsection}{\numberline {4.4.3}The \texttt {filter} function}{37}{subsection.4.4.3}
+\contentsline {subsection}{\numberline {4.4.4}Generators}{37}{subsection.4.4.4}
+\contentsline {subsection}{\numberline {4.4.5}List Comprehensions}{39}{subsection.4.4.5}
+\contentsline {section}{\numberline {4.5}Objects and classes}{39}{section.4.5}
+\contentsline {subsection}{\numberline {4.5.1}Definition of classes and basic properties}{39}{subsection.4.5.1}
+\contentsline {subsection}{\numberline {4.5.2}Deriving classes from other classes and overloading of methods}{40}{subsection.4.5.2}
+\contentsline {subsection}{\numberline {4.5.3}Operator overloading}{41}{subsection.4.5.3}
+\contentsline {section}{\numberline {4.6}Exceptions}{42}{section.4.6}
+\contentsline {subsection}{\numberline {4.6.1}Handling exceptions}{42}{subsection.4.6.1}
+\contentsline {subsection}{\numberline {4.6.2}Creating new exceptions}{44}{subsection.4.6.2}
+\contentsline {section}{\numberline {4.7}Modules and Packages}{44}{section.4.7}
+\contentsline {subsection}{\numberline {4.7.1}Modules}{44}{subsection.4.7.1}
+\contentsline {subsection}{\numberline {4.7.2}Packages}{45}{subsection.4.7.2}
+\contentsline {section}{\numberline {4.8}Some words on programming paradigms}{46}{section.4.8}
+\contentsline {paragraph}{Links}{47}{paragraph*.20}
+\contentsline {chapter}{\numberline {5}Scientific tools in Python}{49}{chapter.5}
+\contentsline {section}{\numberline {5.1}NumPy}{49}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}How to load Numpy}{49}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}Numpy arrays}{49}{subsection.5.1.2}
+\contentsline {subsubsection}{Array Creation}{49}{subsubsection*.21}
+\contentsline {subsection}{\numberline {5.1.3}Artithmetics with NumPy arrays}{51}{subsection.5.1.3}
+\contentsline {subsection}{\numberline {5.1.4}Applying functions elementwise}{51}{subsection.5.1.4}
+\contentsline {section}{\numberline {5.2}SciPy}{52}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Linear Algebra}{52}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}Sparse Linear Algebra}{52}{subsection.5.2.2}
+\contentsline {subsubsection}{LIL (List of Lists)}{52}{subsubsection*.22}
+\contentsline {subsubsection}{CSC (Compressed Sparse Column) matrix}{53}{subsubsection*.23}
+\contentsline {subsubsection}{...and more}{54}{subsubsection*.24}
+\contentsline {subsubsection}{The LinearOperator class and iterative solvers}{54}{subsubsection*.25}
+\contentsline {section}{\numberline {5.3}Weave}{55}{section.5.3}
+\contentsline {paragraph}{Links}{57}{paragraph*.26}
+\contentsline {chapter}{\numberline {6}Cython}{59}{chapter.6}
+\contentsline {section}{\numberline {6.1}How to compile your Cython Code}{59}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}Sage}{59}{subsection.6.1.1}
+\contentsline {subsection}{\numberline {6.1.2}Setup files}{60}{subsection.6.1.2}
+\contentsline {section}{\numberline {6.2}How to use Cython}{61}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}The \emph {cdef} statment}{61}{subsection.6.2.1}
+\contentsline {subsubsection}{Type declaration}{61}{subsubsection*.27}
+\contentsline {subsubsection}{Declaring functions}{63}{subsubsection*.28}
+\contentsline {subsubsection}{\texttt {cdef} classes}{64}{subsubsection*.29}
+\contentsline {subsection}{\numberline {6.2.2}Calling extern C functions}{65}{subsection.6.2.2}
+\contentsline {subsection}{\numberline {6.2.3}\texttt {cimport} and .pxd files}{66}{subsection.6.2.3}
+\contentsline {subsection}{\numberline {6.2.4}Profiling}{67}{subsection.6.2.4}
+\contentsline {paragraph}{Links}{67}{paragraph*.30}
+\contentsline {chapter}{\numberline {7}MPI4Py}{69}{chapter.7}
+\contentsline {paragraph}{Links}{70}{paragraph*.31}
+\contentsline {chapter}{\numberline {8}Licenses}{71}{chapter.8}
+\contentsline {section}{\numberline {8.1}License}{71}{section.8.1}
+\contentsline {chapter}{\numberline {9}Indices and tables}{79}{chapter.9}

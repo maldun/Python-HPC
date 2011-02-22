@@ -29,6 +29,18 @@ Thats all!
 or ::
 
     sage -python goodbye_world.py
+    
+Alternatively you can do this directly in the interpreter.
+#. Open a shell
+#. Type::
+  
+  python
+  
+#. Write::
+  
+  >>> print("Goodbye World")
+
+and press enter. 
 
 Basic datatpypes 
 ---------------------------------------------
@@ -63,8 +75,13 @@ which is thousand, or complex numbers::
   1 + 3j
   
 
-Basic arithmetics
+Strings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+Basic arithmetics
+---------------------------------------------------------------
 
 Of course you can use your Python interpreter as a calculator.
 Simply call 

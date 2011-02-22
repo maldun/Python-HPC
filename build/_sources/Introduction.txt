@@ -4,6 +4,8 @@
 Introduction and personal thoughts 
 =======================================
 
+If you want to start with Python right ahead  follow go directly to ::ref::`basics_ref`
+
 Foreword
 -----------------------------------------------------------------------------------------
 
@@ -38,7 +40,8 @@ People have different opinions and experiences, either with food, cars or progra
 directly what I feel than other people do. =)
 
 I distribute this under an open license so people can share it
-freely. (See Section :ref:`license_ref` )
+freely. (See Section :ref:`license_ref`). You are allowed to use and
+copy contents as you wish.
 
 Stefan Reiterer, 
 Graz Austria 

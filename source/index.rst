@@ -16,6 +16,9 @@ Contents:
    Steps
    Program
    Scientific
+   Cython
+   MPI4Py
+   Example
    License
 
 Indices and tables

@@ -1,0 +1,597 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Cython &mdash; hpc v1.0 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '#',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="hpc v1.0 documentation" href="index.html" />
+    <link rel="next" title="MPI4Py" href="MPI4Py.html" />
+    <link rel="prev" title="Scientific tools in Python" href="Scientific.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="MPI4Py.html" title="MPI4Py"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Scientific.html" title="Scientific tools in Python"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">hpc v1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="cython">
+<h1>Cython<a class="headerlink" href="#cython" title="Permalink to this headline">¶</a></h1>
+<p>Well Cython isn&#8217;t a part of Python, it is a different language, but
+very similar to Python, and in fact it is almost to 90% compatible.
+(It is stated that Cython is a superset of Python, but it&#8217;s currently
+under development so there are some features which are not supported yet!)</p>
+<p>It first started with the Pyrex project, which allowed to compile
+Python to C. The idea was to allow the user to declare C variables and
+call C functions within Cython, and make it possible for the C
+compiler
+to compile the Python like code to fast C code.</p>
+<p>Cython has bindings for NumPy, mpi4py and other Python modules to
+support scientific computation.</p>
+<p>Currently Cython only works on the CPython implementation, but there
+are efforts to get it working in IronPython on .Net as well.</p>
+<p>I will here give a short tutorial on Cython and demonstrate on an
+example how to speed up your NumPy code.</p>
+<p><strong>Important Note</strong> I assume that you are using Linux as operating
+system. If you use Windows or an other OS look up the Cython
+documentation for specific details! <a class="footnote-reference" href="#id5" id="id1">[1]</a></p>
+<div class="section" id="how-to-compile-your-cython-code">
+<h2>How to compile your Cython Code<a class="headerlink" href="#how-to-compile-your-cython-code" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="sage">
+<h3>Sage<a class="headerlink" href="#sage" title="Permalink to this headline">¶</a></h3>
+<p>This is the easiest way. Either write your Cython
+code in a <em>.spyx</em> (Sage Pyrex) file, or in the notebook, with the
+magic function <tt class="docutils literal"><span class="pre">%cython</span></tt>.</p>
+<p>To use a <em>.spyx</em> file simply load it into Sage with the <tt class="docutils literal"><span class="pre">load</span></tt>
+command:</p>
+<div class="highlight-python"><pre>load my_cython_file.spyx</pre>
+</div>
+<p>For example I write a short code snippet for an self made
+scalar product:</p>
+<div class="highlight-python"><pre>def my_dot(x,y):
+
+    if x.size != y.size
+        raise ValueError("Dimension Mismatch")
+
+    result = 0
+
+    for i in range(x.size):
+        result += x[i]*y[i]
+
+    return result</pre>
+</div>
+<p>I save this in the file my_dot.spyx. Now I call Sage, and cd to the
+directory I saved the file. Now simply call Sage, and type:</p>
+<div class="highlight-python"><pre>sage: load my_dot.spyx
+Compiling ./my_dot.spyx...</pre>
+</div>
+<p>Now the function can be called directly like a normal Python
+function:</p>
+<div class="highlight-python"><pre>sage: from numpy import array
+sage: x = array([1,2,3.])
+sage: y = array([1,0,5])
+sage: my_dot(x,y)
+16.0</pre>
+</div>
+<p>A different way would be in the notebook. Simply write in an
+empty notebook cell:</p>
+<div class="highlight-python"><pre>%cython
+def my_dot(x,y):
+
+    if x.size != y.size:
+        raise ValueError("Dimension Mismatch")
+
+    result = 0
+
+    for i in range(x.size):
+        result += x[i]*y[i]
+
+    return result</pre>
+</div>
+<p>Now if you evalute it, the function will be compiled, and you can call
+it normally.</p>
+</div>
+<div class="section" id="setup-files">
+<h3>Setup files<a class="headerlink" href="#setup-files" title="Permalink to this headline">¶</a></h3>
+<p>The direct approach in Python would be to write a setup file.
+First write your code and save it to a <em>.pyx</em> file. I use the
+same code as before and write it to <em>my_dot.pyx</em>.</p>
+<p>Now we use disutils and write a setup.py file, which works similar
+to a make file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
+<span class="kn">from</span> <span class="nn">distutils.extension</span> <span class="kn">import</span> <span class="n">Extension</span>
+<span class="kn">from</span> <span class="nn">Cython.Distutils</span> <span class="kn">import</span> <span class="n">build_ext</span>
+
+<span class="n">setup</span><span class="p">(</span>
+    <span class="n">cmdclass</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;build_ext&#39;</span><span class="p">:</span> <span class="n">build_ext</span><span class="p">},</span>
+    <span class="n">ext_modules</span> <span class="o">=</span> <span class="p">[</span><span class="n">Extension</span><span class="p">(</span><span class="s">&quot;my_dot&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s">&quot;my_dot.pyx&quot;</span><span class="p">])]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Save this as setup.py in the directory where your code file lies.</p>
+<p>Now cd to your working directory where the code and setup file is
+saved and call it with:</p>
+<div class="highlight-python"><pre>python setup.py -build_ext --inplace</pre>
+</div>
+<p>Then the <em>.pyx</em> files will be compiled.
+Now you can call it normally in Python (after changing to the working
+directory):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">my_dot</span> <span class="kn">import</span> <span class="n">my_dot</span>
+</pre></div>
+</div>
+<p>To compile more files, simply put more extensions to the ext_modules
+list. I created for example a further file with the name <em>test.pyx</em></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
+<span class="kn">from</span> <span class="nn">distutils.extension</span> <span class="kn">import</span> <span class="n">Extension</span>
+<span class="kn">from</span> <span class="nn">Cython.Distutils</span> <span class="kn">import</span> <span class="n">build_ext</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="n">setup</span><span class="p">(</span>
+    <span class="n">cmdclass</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;build_ext&#39;</span><span class="p">:</span> <span class="n">build_ext</span><span class="p">},</span>
+    <span class="n">ext_modules</span> <span class="o">=</span> <span class="p">[</span><span class="n">Extension</span><span class="p">(</span><span class="s">&quot;my_dot&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s">&quot;my_dot.pyx&quot;</span><span class="p">]),</span>
+                   <span class="n">Extension</span><span class="p">(</span><span class="s">&quot;test&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s">&quot;test.pyx&quot;</span><span class="p">])]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Important:</strong> If you import numpy as C library you have to add
+<tt class="docutils literal"><span class="pre">include_dirs=[numpy.get_include()])</span></tt> to the extension. In our
+example this would look like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
+<span class="kn">from</span> <span class="nn">distutils.extension</span> <span class="kn">import</span> <span class="n">Extension</span>
+<span class="kn">from</span> <span class="nn">Cython.Distutils</span> <span class="kn">import</span> <span class="n">build_ext</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="n">setup</span><span class="p">(</span>
+    <span class="n">cmdclass</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;build_ext&#39;</span><span class="p">:</span> <span class="n">build_ext</span><span class="p">},</span>
+    <span class="n">ext_modules</span> <span class="o">=</span> <span class="p">[</span><span class="n">Extension</span><span class="p">(</span><span class="s">&quot;my_dot&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s">&quot;my_dot.pyx&quot;</span><span class="p">],</span><span class="n">include_dirs</span><span class="o">=</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">get_include</span><span class="p">()])]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>I state this here, because it is not well documented in
+the Cython docu, and I had to search it for long in Cython Mailing
+list. How to import modules as C libraries will we see later.</p>
+</div>
+</div>
+<div class="section" id="how-to-use-cython">
+<h2>How to use Cython<a class="headerlink" href="#how-to-use-cython" title="Permalink to this headline">¶</a></h2>
+<p>Here we look at the advanced syntax in Cython, and other features in Python.</p>
+<div class="section" id="the-cdef-statment">
+<h3>The <cite>cdef</cite> statment<a class="headerlink" href="#the-cdef-statment" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="type-declaration">
+<h4>Type declaration<a class="headerlink" href="#type-declaration" title="Permalink to this headline">¶</a></h4>
+<p><tt class="docutils literal"><span class="pre">cdef</span></tt> is used for C type declaration, and defining C functions.
+This can be very useful for speeding up your Python programs.</p>
+<p>Let&#8217;s look at our scalar product again:</p>
+<div class="highlight-python"><pre>def my_dot(x,y):
+
+    if x.size != y.size
+        raise ValueError("Dimension Mismatch")
+
+    result = 0
+
+    for i in range(x.size):
+        result += x[i]*y[i]
+
+    return result</pre>
+</div>
+<p>The counter variables cost a lot of efficiency because the program has
+to check first, what it recieves, because in Python <tt class="docutils literal"><span class="pre">i</span></tt> could be
+every type of object. To overcome this we tell Cython to take a normal
+C integer:</p>
+<div class="highlight-python"><pre>def my_dot(x,y):
+
+  if x.size != y.size
+      raise ValueError("Dimension Mismatch")
+
+  cdef double result = 0
+
+  cdef int i
+
+  for i in range(x.size):
+      result += x[i]*y[i]
+
+  return result</pre>
+</div>
+<p>Now you can compile and use it. Let&#8217;s measure the difference:</p>
+<div class="highlight-python"><pre>sage: x = randn(10**6)
+sage: y = randn(10**6)
+sage: %timeit my_dot(x,y)
+5 loops, best of 3: 1.1 s per loop
+sage: load my_dot.spyx
+Compiling ./my_dot.spyx...
+sage: %timeit my_dot(x,y)
+5 loops, best of 3: 653 ms per loop</pre>
+</div>
+<p>We this was already twice as fast as the old version.
+(I used a Pentium Dual Core with 1.8
+GHz, and 2 GB Ram). This is not that much, but more is possible!</p>
+<p>The next step would be to tell the function which data types to use:</p>
+<div class="highlight-python"><pre>cimport numpy as cnumpy
+
+ctypedef cnumpy.float64_t reals #typedef_for easier reedding
+
+def my_dot(cnumpy.ndarray[reals,ndim=1] x,
+              cnumpy.ndarray[reals,ndim=1] y):
+
+    if x.size != y.size:
+        raise ValueError("Dimension Mismatch")
+
+    cdef double result = 0
+
+    cdef int i
+
+    for i in range(x.size):
+        result += x[i]*y[i]
+
+    return result</pre>
+</div>
+<p>In the first line we used the <tt class="docutils literal"><span class="pre">cimport</span></tt> statement to load the C version
+of NumPy. (I explain cimport later)
+Then we used the <tt class="docutils literal"><span class="pre">ctypedef</span></tt> statment to declare the float64 (double)
+datatype as reals, so that we have to type less (like the typedef
+statement in C).</p>
+<p>The main difference in this example is that we told Cython that the
+input should be to NumPy arrays. This avoids unecessary overhead. Now
+we make the timing again:</p>
+<div class="highlight-python"><pre>sage: load my_dot.spyx
+Compiling ./my_dot.spyx...
+sage: %timeit my_dot(x,y)
+125 loops, best of 3: 3.54 ms per loop</pre>
+</div>
+<p>This was now about 300x faster than the original version.</p>
+<p>The drawback is that the Cython function only take numpy arrays:</p>
+<div class="highlight-python"><pre>sage: x = range(5)
+sage: y = randn(5)
+sage: my_dot(x,y)
+...
+TypeError: Argument 'x' has incorrect type (expected numpy.ndarray, got list)</pre>
+</div>
+</div>
+<div class="section" id="declaring-functions">
+<h4>Declaring functions<a class="headerlink" href="#declaring-functions" title="Permalink to this headline">¶</a></h4>
+<p>The <tt class="docutils literal"><span class="pre">cdef</span></tt> statement can also be used for defining functions. A
+function that is defined by a <tt class="docutils literal"><span class="pre">cdef</span></tt> statment doesn&#8217;t appear in the
+namespace of the Python interpreter and can only be called within
+other functions.</p>
+<p>For example let&#8217;s define a <tt class="docutils literal"><span class="pre">cdef</span></tt> function
+<tt class="docutils literal"><span class="pre">f</span></tt>:</p>
+<div class="highlight-python"><pre>cdef double f(double x):
+    return x**2 - x</pre>
+</div>
+<p>If yould try now to call it Python won&#8217;t find it:</p>
+<div class="highlight-python"><pre>NameError: name 'f' is not defined</pre>
+</div>
+<p>But you can call it within an other function defined in a <em>.pyx</em></p>
+<div class="highlight-python"><pre>def call_f(double x):
+    return f(x)</pre>
+</div>
+<p>Another possibility would be the cpdef statement:</p>
+<div class="highlight-python"><pre>cdef double f(double x):
+    return x**2 - x</pre>
+</div>
+<p>This function can now be called both ways.</p>
+<p><strong>Note:</strong> If you don&#8217;t declare it, <tt class="docutils literal"><span class="pre">cdef</span></tt> functions can&#8217;t handly
+exceptions right. For example</p>
+<div class="highlight-python"><pre>cdef double f(double x):
+
+    if x == 0:
+        raise ValueError("Division by Zero!")
+
+    return x**(-2) - x</pre>
+</div>
+<p>would not raise a Python exception. To do this use the except
+statement:</p>
+<div class="highlight-python"><pre>cdef double f(double x) except *:
+
+    if x == 0:
+        raise ValueError("Division by Zero!")
+
+    return x**(-2) - x</pre>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">*</span></tt> means that the function should propagate arbitrary
+exceptions. To be more specific you can also handle specific output:</p>
+<div class="highlight-python"><pre>cdef double f(double x) except? 0:
+
+  if x == 0:
+      raise ValueError("Division by Zero!")
+
+  return x**(-2) - x</pre>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">?</span></tt> here means that <tt class="docutils literal"><span class="pre">0</span></tt> is accepted as output too (or else you
+would recieve an error if <tt class="docutils literal"><span class="pre">0</span></tt> is returned)</p>
+</div>
+<div class="section" id="cdef-classes">
+<h4><tt class="docutils literal"><span class="pre">cdef</span></tt> classes<a class="headerlink" href="#cdef-classes" title="Permalink to this headline">¶</a></h4>
+<p>Classes can also be defined with <tt class="docutils literal"><span class="pre">cdef</span></tt> also. Let&#8217;s take the example
+from the Cython documentation (see <a class="footnote-reference" href="#id6" id="id2">[2]</a>):</p>
+<div class="highlight-python"><pre>cdef class Function:
+    cpdef double evaluate(self, double x) except *:
+        return 0</pre>
+</div>
+<p>A <tt class="docutils literal"><span class="pre">cdef</span></tt> class is also called Extension Type.</p>
+<p>This class can be derived like a normal Python class:</p>
+<div class="highlight-python"><pre>cdef class SinOfSquareFunction(Function):
+    cpdef double evaluate(self, double x) except *:
+        return sin(x**2)</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">cdef</span></tt> classes are very limited in comparison to Python classes,
+because C don&#8217;t know classes, but only structs. (Since Cython 0.13 it
+is possible to wrap C++ classes. See the Cython documentation for
+further details <a class="footnote-reference" href="#id7" id="id3">[3]</a>)</p>
+<p>We can use this new class like a new datatype.
+See again an example from the Cython documentation:</p>
+<div class="highlight-python"><pre>def integrate(Function f, double a, double b, int N):
+    cdef int i
+    cdef double s, dx
+    if f is None:
+        raise ValueError("f cannot be None")
+    s = 0
+    dx = (b-a)/N
+    for i in range(N):
+        s += f.evaluate(a+i*dx)
+    return s * dx
+
+print(integrate(SinOfSquareFunction(), 0, 1, 10000))</pre>
+</div>
+</div>
+</div>
+<div class="section" id="calling-extern-c-functions">
+<h3>Calling extern C functions<a class="headerlink" href="#calling-extern-c-functions" title="Permalink to this headline">¶</a></h3>
+<p>In Cython it is possible to call functions from other C programs
+defined in a header file. For example we want to wrap the sinus from
+the math.h in a Python function. Then we would write for example in a
+<em>.pyx</em> file:</p>
+<div class="highlight-python"><pre>cdef extern from "math.h":
+  double sin(double)
+
+def c_sin(double x):
+    return sin(x)</pre>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">cdef</span> <span class="pre">extern</span></tt> statement help us to call <tt class="docutils literal"><span class="pre">sin</span></tt> from C.
+The <tt class="docutils literal"><span class="pre">c_sin</span></tt> function only serves as a wrapper for us, because we
+can&#8217;t call a <tt class="docutils literal"><span class="pre">cdef</span></tt> function directly. If you want to call your
+Python function with sin, you can rename the extern C function with
+a custom made identifier:</p>
+<div class="highlight-python"><pre>cdef extern from "math.h":
+    double c_sin "sin"(double)
+
+def sin(double x):
+    return c_sin(x)</pre>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">c_sin</span></tt> is the name of the <tt class="docutils literal"><span class="pre">cdef</span></tt> function.</p>
+<p>If you want to compile this file, you have to tell your compiler which
+libraries you linked, because they are not linked automatically! In
+this case it is the math library with abbreviation &#8220;m&#8221;. You have to
+specify this in your setup file (I saved the sinus to <em>math_stuff.pyx</em>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
+<span class="kn">from</span> <span class="nn">distutils.extension</span> <span class="kn">import</span> <span class="n">Extension</span>
+<span class="kn">from</span> <span class="nn">Cython.Distutils</span> <span class="kn">import</span> <span class="n">build_ext</span>
+
+<span class="n">setup</span><span class="p">(</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Math Stuff&quot;</span><span class="p">,</span>
+    <span class="n">cmdclass</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;build_ext&#39;</span><span class="p">:</span> <span class="n">build_ext</span><span class="p">},</span>
+    <span class="n">ext_modules</span> <span class="o">=</span> <span class="p">[</span><span class="n">Extension</span><span class="p">(</span><span class="s">&quot;math_stuff&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s">&quot;math_stuff.pyx&quot;</span><span class="p">],</span><span class="n">libraries</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;m&quot;</span><span class="p">])]</span>
+    <span class="c">#m for compiler flag -lm (math library)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>If you use Sage you have to specify this directly in the <em>.spyx</em> file
+with:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#clib m</span>
+</pre></div>
+</div>
+<p>in our example this would look like this:</p>
+<div class="highlight-python"><pre>#clib m
+
+cdef extern from "math.h":
+    double c_sin "sin"(double)
+
+def sin(double x):
+    return c_sin(x)</pre>
+</div>
+<p>Another example: Let&#8217;s link the scalar product from the BLAS
+library:</p>
+<div class="highlight-python"><pre>cimport numpy
+
+ctypedef numpy.float64_t reals #typedef_for easier reedding
+
+cdef extern from "cblas.h":
+    double ddot "cblas_ddot"(int N, double *X, int incX,double *Y, int incY)
+
+def blas_dot(numpy.ndarray[reals,ndim = 1] x, numpy.ndarray[reals,ndim = 1] y):
+    return ddot(x.shape[0],&lt;reals*&gt;x.data,x.strides[0] // sizeof(reals), &lt;reals*&gt;y.data,y.strides[0] // sizeof(reals))</pre>
+</div>
+<p>The blas implementation gives only a small improvement here (which is
+not completely unexpected, because the algorithm is rather simple):</p>
+<div class="highlight-python"><pre>sage: x = randn(10**6)
+sage: y = randn(10**6)
+sage: %timeit my_dot(x,y)
+125 loops, best of 3: 3.55 ms per loop
+sage: %timeit blas_dot(x,y)
+125 loops, best of 3: 3.05 ms per loop</pre>
+</div>
+</div>
+<div class="section" id="cimport-and-pxd-files">
+<h3><tt class="docutils literal"><span class="pre">cimport</span></tt> and .pxd files<a class="headerlink" href="#cimport-and-pxd-files" title="Permalink to this headline">¶</a></h3>
+<p><em>.pxd</em> are like <em>.h</em> files in C. They can be used for sharing external
+C declarations, or functions that are suited for inlining by the C compiler.</p>
+<p>Functions that are declared inline in <em>.pxd</em> files can be imported with the
+<tt class="docutils literal"><span class="pre">cimport</span></tt> statement.</p>
+<p>For example let&#8217;s add a function which calculates the square root of
+a number to the <em>math_stuff.pyx</em> from earlier, where the operation
+itelf is called as inline function from C. We write the inline
+function to the file <em>math_stuff.pxd</em>:</p>
+<div class="highlight-python"><pre>cdef inline double inl_sqrt(double x):
+    return x**(0.5)</pre>
+</div>
+<p>We can now load this function from a <em>.pyx</em> file:</p>
+<div class="highlight-python"><pre>def sqrt(double x):
+    return inl_sqrt(x)</pre>
+</div>
+<p>You can also save the extern definition of the BLAS scalar product to
+a <em>.pxd</em> file and can <tt class="docutils literal"><span class="pre">cimport</span></tt> it from there.</p>
+<p>Here the <em>blas.pxd</em> file:</p>
+<div class="highlight-python"><pre>cdef extern from "cblas.h":
+    double ddot "cblas_ddot"(int N, double *X, int incX,double *Y, int incY)</pre>
+</div>
+<p>and here the addition to the math_stuff.pyx:</p>
+<div class="highlight-python"><pre>cimport numpy
+
+from blas cimport ddot
+ctypedef numpy.float64_t reals #typedef_for easier reedding
+
+cpdef dot(numpy.ndarray[reals,ndim = 1] x, numpy.ndarray[reals,ndim = 1] y):
+    return ddot(x.shape[0],&lt;reals*&gt;x.data,x.strides[0] // sizeof(reals), &lt;reals*&gt;y.data,y.strides[0] // sizeof(reals))</pre>
+</div>
+<p>What is also possible is to declare prototypes in a <em>.pxd</em> file like
+in a C header, which can be linked more efficiently.</p>
+<p>For example let&#8217;s make a prototype of a function and a class:</p>
+<div class="highlight-python"><pre>cpdef dot(numpy.ndarray[reals,ndim = 1] x, numpy.ndarray[reals,ndim = 1] y)
+
+cdef class Function:
+    cpdef double evaluate(self, double x)</pre>
+</div>
+</div>
+<div class="section" id="profiling">
+<h3>Profiling<a class="headerlink" href="#profiling" title="Permalink to this headline">¶</a></h3>
+<p>Profiling is a way to analyse and optimize your Cython programs.
+I only give the reference to a tutorial in the Cython documentation
+here  <a class="footnote-reference" href="#id8" id="id4">[4]</a></p>
+<p class="rubric">Links</p>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://docs.cython.org/index.html">http://docs.cython.org/index.html</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="http://docs.cython.org/src/tutorial/cdef_classes.html">http://docs.cython.org/src/tutorial/cdef_classes.html</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><a class="reference external" href="http://docs.cython.org/src/userguide/wrapping_CPlusPlus.html">http://docs.cython.org/src/userguide/wrapping_CPlusPlus.html</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td><a class="reference external" href="http://docs.cython.org/src/tutorial/profiling_tutorial.html">http://docs.cython.org/src/tutorial/profiling_tutorial.html</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="#">Cython</a><ul>
+<li><a class="reference external" href="#how-to-compile-your-cython-code">How to compile your Cython Code</a><ul>
+<li><a class="reference external" href="#sage">Sage</a></li>
+<li><a class="reference external" href="#setup-files">Setup files</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#how-to-use-cython">How to use Cython</a><ul>
+<li><a class="reference external" href="#the-cdef-statment">The <cite>cdef</cite> statment</a><ul>
+<li><a class="reference external" href="#type-declaration">Type declaration</a></li>
+<li><a class="reference external" href="#declaring-functions">Declaring functions</a></li>
+<li><a class="reference external" href="#cdef-classes"><tt class="docutils literal"><span class="pre">cdef</span></tt> classes</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#calling-extern-c-functions">Calling extern C functions</a></li>
+<li><a class="reference external" href="#cimport-and-pxd-files"><tt class="docutils literal"><span class="pre">cimport</span></tt> and .pxd files</a></li>
+<li><a class="reference external" href="#profiling">Profiling</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="Scientific.html"
+                                  title="previous chapter">Scientific tools in Python</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="MPI4Py.html"
+                                  title="next chapter">MPI4Py</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/Cython.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="MPI4Py.html" title="MPI4Py"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Scientific.html" title="Scientific tools in Python"
+             >previous</a> |</li>
+        <li><a href="index.html">hpc v1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2011, Stefan Reiterer.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+    </div>
+  </body>
+</html>
