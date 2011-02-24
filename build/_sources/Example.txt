@@ -153,6 +153,7 @@ and define the derived Python class in the *.pyx* file, or ``cimport``
 the function to a Python file with the new matrix class defined.
 
 
+
 .. rubric:: Links
 
 .. [#] http://en.wikipedia.org/wiki/Band_matrix 

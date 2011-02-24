@@ -18,6 +18,7 @@ Contents:
    Scientific
    Cython
    MPI4Py
+   PyCUDA
    Example
    License
 

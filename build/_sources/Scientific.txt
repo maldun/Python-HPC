@@ -410,6 +410,10 @@ This is not very fast::
   Interpreter your C++ code as string, and then let compile it. Here
   an implementation of the band-matrix vector multiplication with weave::
 
+  from numpy import array, zeros
+  from scipy.weave import converters
+  from scipy import weave
+
   def band_matvec_inline(A,u):
 
       result = zeros(u.shape[0],dtype=u.dtype)
