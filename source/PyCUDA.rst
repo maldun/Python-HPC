@@ -285,5 +285,5 @@ Every thread is working on one device.
 .. [#] http://mathema.tician.de/software/pycuda
 .. [#] http://trac.sagemath.org/sage_trac/ticket/10010
 .. [#] http://documen.tician.de/pycuda/
-.. [#] wikilink
+.. [#] http://wiki.tiker.net/PyCuda
 

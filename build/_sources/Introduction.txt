@@ -4,7 +4,7 @@
 Introduction and personal thoughts 
 =======================================
 
-If you want to start with Python right ahead  follow go directly to ::ref::`basics_ref`
+If you want to start with Python right ahead  follow go directly to :ref:`basics_ref`
 
 Foreword
 -----------------------------------------------------------------------------------------
@@ -12,13 +12,14 @@ Foreword
 This short documentation was written by me for the High Performance Computing Seminar
 in the winter semester 2010/11 of Prof. G. Haase at the University Graz Austria.
 
-Actually to learn Sphinx and to make it possible for other to get a quick and dirty reference
-for working with Python in mathematics and scientific computing I started to write this tech report.
+In order to learn Sphinx and to make it possible for others to get a
+quick start with Python in mathematics and scientific computing I started to write this tech report.
 
 I started with Python last summer, after a short introduction to the *Sage* mathematics software. One could
 say it was love at first sight. I was implementing some test code with krylov methods in Matlab and Octave that
-time, and was annoyed by the lack of object oriented features like abstracting and capsuling. I had the problem, that
-every time I implement a new numerical scheme I have to rewrite the code of my optimisations algorithms, or at least have 
+time, and was annoyed by the lack of object oriented features like
+abstracting and capsuling (and no: I don't count structs as objects!). I had the problem, that
+every time I implement a new numerical scheme I had to rewrite the code of my optimisations algorithms, or at least have 
 to alter it, so that every time I need to retest the new implemtation, which costs time and nerves. And since I'm a
 lazy person I didn't want to do that. 
 
@@ -43,6 +44,9 @@ I distribute this under an open license so people can share it
 freely. (See Section :ref:`license_ref`). You are allowed to use and
 copy contents as you wish.
 
+I would like to thank Stefan Fürtinger and Andreas Niederl for giving
+me advice and feedback, which I really needed to write this document.
+
 Stefan Reiterer, 
 Graz Austria 
 2011
@@ -62,7 +66,7 @@ that they are too deep into it, and think everyone else think the same way. Perh
 or it's me because of my friends and education I have a different viewpoint on  that things.
 
 Neverteless I want to use this section to give some important lectures to people, who aren't deep into programming, 
-I learnt during the last 13 years since I'm started "programming" Visual Basic with 13.
+I learnt during the last 13 years since I'm started "programming" Visual Basic with the age of 13.
 
 The Zen of Python don't apply only to Python
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -96,7 +100,7 @@ You will get this:
 #. *If the implementation is easy to explain, it may be a good idea.*
 #. *Namespaces are one honking great idea -- let's do more of those!*
 
-This is the philosophy of python and can argue about some the points,
+This is the philosophy of Python and can argue about some the points,
 e.g. point 13., but I can say without bad feeling, that **every**
 programmer should especially keep in mind the points 1-7, which apply in every
 language you will use!
@@ -155,7 +159,7 @@ organisation of your code. **Remember:**  If you have a lot of
 parameters, you can always store them in a container or a class.
 
 
-Premature optimisation is the rule of all evil!
+Premature optimisation is the root of all evil!
 """""""""""""""""""""""""""""""""""""""""""""""""
 This often cited quote of Donald E. Knuth [#]_ is true in it's very deep essence. In an everage program
 there are about only 3% of critical code. But many programmers invest their time to optimise the
@@ -166,7 +170,7 @@ of unreadible code. I remember that I implemented an "optimized" for loop some t
 Choice of the right tools
 """""""""""""""""""""""""""""""
 Since I descend a family of craftsmans, this was taught me very early. You don't want to use
-a siedgehammer for hitting a tiny nail into a wall, and you don't want to use small axe to cut down a tree.   
+a sledgehammer for hitting a tiny nail into a wall, and you don't want to use small axe to cut down a tree.   
 (Well I know people who do...). And this applies for programming as well. You don"t want to write a parser in Fortran,
 and you don't want to write a program for symbolic manipulation in Java. (I personally would never implement *anything* 
 mathematical in Java, because it lacks some aspects like operator overloading and efficiency, but that's only a biased opinion.) 
@@ -181,7 +185,8 @@ a nuissance for yourself.
 Don't use Notepad as your editor!
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 A good editor is not expensive (often even free), and saves you a
-whole lot of work! Good editors are for example Emacs [#]_, VIM [#]_.
+whole lot of work! Good editors are for example Emacs [#]_,
+(to get your Emacs working with Python I recommend this link [#]_)  VIM [#]_.
 A good List of editors can be found on Wikipedia. [#]_
 
 Use version control
@@ -195,6 +200,7 @@ Use debugging tools
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Very good debugging tools are for example Valgrind [#]_, GDB [#]_,
 and many, many more... [#]_ 
+Python is shipped with it's own debugger [#]_.
 
 Use Linux
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -206,7 +212,8 @@ available in Windows (including many of the things we use here).
 You don't even need to install a whole Linux distribution. Recently there was a huge development of free
 Virtual Machines like Virtual Box [#]_, or projects like Wubi [#]_. And thanks to Distributions like
 Ubuntu [#]_  and it's many derivatives (I use Kubuntu), or open SUSE [#]_ using Linux is nowadays possible for
-normal humans too.
+normal humans too. **Note:** Be aware that I assume in that guide,
+that you are using Linux!
 
 Not everything from Extreme Programming is that bad
 """"""""""""""""""""""""""""""""""""""""""""""""""""
@@ -234,7 +241,6 @@ If your programs aren't understandable nobody will use them
 ...including yourself.
 
 
- 
 Use your brain! 
 """"""""""""""""""""""""""""""""
 Implicitely used in all points above, this is the most fundamental thing.  
@@ -251,6 +257,7 @@ because I simply don't want to do unessecary work.
 
 .. [#] http://en.wikiquote.org/wiki/Donald_Knuth
 .. [#] http://www.gnu.org/software/emacs/
+.. [#] http://hide1713.wordpress.com/2009/01/30/setup-perfect-python-environment-in-emacs/
 .. [#] http://www.vim.org/
 .. [#] http://en.wikipedia.org/wiki/List_of_text_editors
 .. [#] http://git-scm.com/
@@ -259,6 +266,7 @@ because I simply don't want to do unessecary work.
 .. [#] http://valgrind.org/
 .. [#] http://www.gnu.org/software/gdb/
 .. [#] http://en.wikipedia.org/wiki/Debugger
+.. [#] http://docs.python.org/library/pdb.html
 .. [#] http://www.virtualbox.org/
 .. [#] http://www.ubuntu.com/desktop/get-ubuntu/windows-installer
 .. [#] http://www.ubuntu.com/
