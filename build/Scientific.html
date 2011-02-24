@@ -429,49 +429,49 @@ sage: N = 2**14
 sage: B = 2**6
 sage: A = rand(B,N).astype(datatype)
 sage: %timeit band_matvec_py(A,u)
-5 loops, best of 3: 3.48 s per loop
-
-The reason for this is that array access is quite costly
+5 loops, best of 3: 3.48 s per loop</pre>
+</div>
+<p>The reason for this is that array access is quite costly
 in Python. A possibility to make that better would be to write
 C++ code inline with the Weave module. To do that give the Python
 Interpreter your C++ code as string, and then let compile it. Here
-an implementation of the band-matrix vector multiplication with weave::
+an implementation of the band-matrix vector multiplication with weave:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">zeros</span>
+<span class="kn">from</span> <span class="nn">scipy.weave</span> <span class="kn">import</span> <span class="n">converters</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">weave</span>
 
-from numpy import array, zeros
-from scipy.weave import converters
-from scipy import weave
+<span class="k">def</span> <span class="nf">band_matvec_inline</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">u</span><span class="p">):</span>
 
-def band_matvec_inline(A,u):
+    <span class="n">result</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">dtype</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
 
-    result = zeros(u.shape[0],dtype=u.dtype)
+    <span class="n">N</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-    N = A.shape[1]
-    B = A.shape[0]
+    <span class="n">code</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">    for(int i=0; i &lt; N;i++)</span>
+<span class="s">    {</span>
+<span class="s">      result(i) = A(0,i)*u(i);</span>
+<span class="s">    }</span>
+<span class="s">    for(int j=1;j &lt; B;j++)</span>
+<span class="s">    {</span>
 
-    code = """
-    for(int i=0; i &lt; N;i++)
-    {
-      result(i) = A(0,i)*u(i);
-    }
-    for(int j=1;j &lt; B;j++)
-    {
+<span class="s">        for(int i=0; i &lt; (N-j);i++)</span>
+<span class="s">        {</span>
+<span class="s">          if((i+j &lt; N))</span>
+<span class="s">          {</span>
+<span class="s">            result(i) += A(j,i)*u(j+i);</span>
+<span class="s">            result(i+j) += A(j,i)*u(i);</span>
+<span class="s">          }</span>
 
-        for(int i=0; i &lt; (N-j);i++)
-        {
-          if((i+j &lt; N))
-          {
-            result(i) += A(j,i)*u(j+i);
-            result(i+j) += A(j,i)*u(i);
-          }
+<span class="s">        }</span>
 
-        }
+<span class="s">    }</span>
+<span class="s">    &quot;&quot;&quot;</span>
 
-    }
-    """
-
-    weave.inline(code,['u', 'A', 'result', 'N', 'B'],
-               type_converters=converters.blitz)
-    return result</pre>
+    <span class="n">weave</span><span class="o">.</span><span class="n">inline</span><span class="p">(</span><span class="n">code</span><span class="p">,[</span><span class="s">&#39;u&#39;</span><span class="p">,</span> <span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;result&#39;</span><span class="p">,</span> <span class="s">&#39;N&#39;</span><span class="p">,</span> <span class="s">&#39;B&#39;</span><span class="p">],</span>
+               <span class="n">type_converters</span><span class="o">=</span><span class="n">converters</span><span class="o">.</span><span class="n">blitz</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
 </div>
 <p>As it can be seen the syntax is not that different from Numpy. The
 reason for this is, that Weave uses here the Blitz library for

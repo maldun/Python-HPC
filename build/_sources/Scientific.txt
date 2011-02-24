@@ -405,11 +405,11 @@ This is not very fast::
   sage: %timeit band_matvec_py(A,u)
   5 loops, best of 3: 3.48 s per loop
 
-  The reason for this is that array access is quite costly
-  in Python. A possibility to make that better would be to write 
-  C++ code inline with the Weave module. To do that give the Python
-  Interpreter your C++ code as string, and then let compile it. Here
-  an implementation of the band-matrix vector multiplication with weave::
+The reason for this is that array access is quite costly
+in Python. A possibility to make that better would be to write 
+C++ code inline with the Weave module. To do that give the Python
+Interpreter your C++ code as string, and then let compile it. Here
+an implementation of the band-matrix vector multiplication with weave::
 
   from numpy import array, zeros
   from scipy.weave import converters

@@ -60,7 +60,9 @@ Information I refer to the documentation <a class="footnote-reference" href="#id
 <h2>Initialize PyCUDA<a class="headerlink" href="#initialize-pycuda" title="Permalink to this headline">¶</a></h2>
 <p>There are two ways to initialize the PyCUDA driver. The first one is
 to use the autoinit module:</p>
-<p>import pycuda.autoinit</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pycuda.autoinit</span>
+</pre></div>
+</div>
 <p>This makes the first device ready for use. Another possibility
 is to manually initialize the device and create a context on this
 device to use it:</p>
@@ -78,7 +80,7 @@ device to use it:</p>
 </div>
 <p>This is useful if you are working on different devices. I will give
 a more detailed example combined with MPI4Py lateron.
-(See ::ref::<cite>mpi_and_pycuda_ref</cite>)</p>
+(See <a class="reference internal" href="#mpi-and-pycuda-ref"><em>Using MPI4Py and PyCUDA together</em></a>)</p>
 </div>
 <div class="section" id="get-your-cuda-code-working-in-python">
 <h2>Get your CUDA code working in Python<a class="headerlink" href="#get-your-cuda-code-working-in-python" title="Permalink to this headline">¶</a></h2>
@@ -337,7 +339,7 @@ Every thread is working on one device.</p>
 <table class="docutils footnote" frame="void" id="id10" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id5">[5]</a></td><td>wikilink</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id5">[5]</a></td><td><a class="reference external" href="http://wiki.tiker.net/PyCuda">http://wiki.tiker.net/PyCuda</a></td></tr>
 </tbody>
 </table>
 </div>
