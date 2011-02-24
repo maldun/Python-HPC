@@ -1,0 +1,411 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Python+CUDA = PyCUDA &mdash; hpc v1.0 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '#',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="hpc v1.0 documentation" href="index.html" />
+    <link rel="next" title="An Example: Band-matrix vector multiplication" href="Example.html" />
+    <link rel="prev" title="MPI4Py" href="MPI4Py.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Example.html" title="An Example: Band-matrix vector multiplication"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="MPI4Py.html" title="MPI4Py"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">hpc v1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="python-cuda-pycuda">
+<h1>Python+CUDA = PyCUDA<a class="headerlink" href="#python-cuda-pycuda" title="Permalink to this headline">¶</a></h1>
+<p>PyCUDA is a Python Interface for CUDA <a class="footnote-reference" href="#id6" id="id1">[1]</a>. It is currently in Alpha
+Version, and was developed by Andreas Klöckner <a class="footnote-reference" href="#id7" id="id2">[2]</a></p>
+<p>To use PyCUDA you have to install CUDA on your machine</p>
+<dl class="docutils">
+<dt><strong>Note:</strong> For using PyCUDA in Sage or FEMHub I created a PyCUDA</dt>
+<dd>package <a class="footnote-reference" href="#id8" id="id3">[3]</a>.</dd>
+</dl>
+<p>I will give here a short introduction how to use it. For more detailed
+Information I refer to the documentation <a class="footnote-reference" href="#id9" id="id4">[4]</a> or the Wiki <a class="footnote-reference" href="#id10" id="id5">[5]</a>.</p>
+<div class="section" id="initialize-pycuda">
+<h2>Initialize PyCUDA<a class="headerlink" href="#initialize-pycuda" title="Permalink to this headline">¶</a></h2>
+<p>There are two ways to initialize the PyCUDA driver. The first one is
+to use the autoinit module:</p>
+<p>import pycuda.autoinit</p>
+<p>This makes the first device ready for use. Another possibility
+is to manually initialize the device and create a context on this
+device to use it:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pycuda.driver</span> <span class="kn">as</span> <span class="nn">cuda</span>
+<span class="n">cuda</span><span class="o">.</span><span class="n">init</span><span class="p">()</span> <span class="c">#init pycuda driver</span>
+<span class="n">current_dev</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">Device</span><span class="p">(</span><span class="n">device_nr</span><span class="p">)</span> <span class="c">#device we are working on</span>
+<span class="n">ctx</span> <span class="o">=</span> <span class="n">current_dev</span><span class="o">.</span><span class="n">make_context</span><span class="p">()</span> <span class="c">#make a working context</span>
+<span class="n">ctx</span><span class="o">.</span><span class="n">push</span><span class="p">()</span> <span class="c">#let context make the lead</span>
+
+<span class="c">#Code</span>
+
+<span class="n">ctx</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span> <span class="c">#deactivate again</span>
+<span class="n">ctx</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span> <span class="c">#delete it</span>
+</pre></div>
+</div>
+<p>This is useful if you are working on different devices. I will give
+a more detailed example combined with MPI4Py lateron.
+(See ::ref::<cite>mpi_and_pycuda_ref</cite>)</p>
+</div>
+<div class="section" id="get-your-cuda-code-working-in-python">
+<h2>Get your CUDA code working in Python<a class="headerlink" href="#get-your-cuda-code-working-in-python" title="Permalink to this headline">¶</a></h2>
+<p>Similar to ::ref::<cite>weave_ref</cite> we can write CUDA code as string in
+Python and then compile it with the NVCC. Here a short example:</p>
+<p>First we initialize the driver, and import the needed modules:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pycuda.driver</span> <span class="kn">as</span> <span class="nn">cuda</span>
+<span class="kn">import</span> <span class="nn">pycuda.autoinit</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">pycuda.compiler</span> <span class="kn">import</span> <span class="n">SourceModule</span>
+</pre></div>
+</div>
+<p>Then we write our Source code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">code</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">__global__ void double_array_new(float *b, float *a, int *info)</span>
+<span class="s">{</span>
+<span class="s">  int datalen = info[0];</span>
+
+<span class="s">  for(int idx = threadIdx.x; idx &lt; datalen; idx += blockDim.x)</span>
+<span class="s">  {</span>
+<span class="s">    b[idx] = a[idx]*2;</span>
+<span class="s">  }</span>
+<span class="s">}</span>
+<span class="s">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<p>And then write it to a source module:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">mod</span> <span class="o">=</span> <span class="n">SourceModule</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The NVCC will now compile this code snippet. Now we can load the new
+function to the Python namespace:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">func</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">get_function</span><span class="p">(</span><span class="s">&quot;double_array_new&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let&#8217;s create some arrays for the functions, and load them on the card:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">N</span> <span class="o">=</span> <span class="mi">128</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">info</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">N</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+<span class="n">a_gpu</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">mem_alloc</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">nbytes</span><span class="p">)</span>
+<span class="n">cuda</span><span class="o">.</span><span class="n">memcpy_htod</span><span class="p">(</span><span class="n">a_gpu</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+
+<span class="n">b_gpu</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">mem_alloc</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">nbytes</span><span class="p">)</span>
+<span class="n">cuda</span><span class="o">.</span><span class="n">memcpy_htod</span><span class="p">(</span><span class="n">b_gpu</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+
+<span class="n">info_gpu</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">mem_alloc</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">nbytes</span><span class="p">)</span>
+<span class="n">cuda</span><span class="o">.</span><span class="n">memcpy_htod</span><span class="p">(</span><span class="n">info_gpu</span><span class="p">,</span> <span class="n">info</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we can call the function:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">func</span><span class="p">(</span><span class="n">b_gpu</span><span class="p">,</span> <span class="n">a_gpu</span><span class="p">,</span><span class="n">info_gpu</span><span class="p">,</span> <span class="n">block</span> <span class="o">=</span> <span class="p">(</span><span class="mi">32</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">grid</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>Note:</strong> The keyword <tt class="docutils literal"><span class="pre">grid</span></tt> is optional. If no grid is assigned,
+it consists only of one block.</p>
+<p>Now get the data back to the host, and print it:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">a_doubled</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">cuda</span><span class="o">.</span><span class="n">memcpy_dtoh</span><span class="p">(</span><span class="n">a_doubled</span><span class="p">,</span> <span class="n">b_gpu</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">&quot;result:&quot;</span><span class="p">,</span> <span class="n">a_doubled</span>
+</pre></div>
+</div>
+<p><strong>Note:</strong> To free the memory on the card use the free method:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">a_gpu</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="n">b_gpu</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="n">info_gpu</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>PyCUDA has Garbage Collection, but it&#8217;s still under developement. I
+Therefore recommend it to free data after usage, just to be sure.</p>
+<p>To create a Texture reference, to bind data to a texture on the
+Graphic card. you have first to create one your source code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">code_snippet</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">texture&lt;float, 2&gt; MyTexture;</span>
+<span class="s">// Rest of Code</span>
+<span class="s">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<p>Then compile it:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">texture_mode</span> <span class="o">=</span> <span class="n">SourceModule</span><span class="p">(</span><span class="n">code_snippet</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>and get it:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">MyTexture</span> <span class="o">=</span> <span class="n">texture_mode</span><span class="o">.</span><span class="n">get_texref</span><span class="p">(</span><span class="s">&quot;MyTexture&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-gpuarray-class">
+<h2>The <tt class="docutils literal"><span class="pre">gpuarray</span></tt> class<a class="headerlink" href="#the-gpuarray-class" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">gpuarray</span></tt> class provides a high level interface for doing
+calculations with CUDA.
+First import the gpuarray class:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pycuda.driver</span> <span class="kn">as</span> <span class="nn">cuda</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pycuda.autoinit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pycuda</span> <span class="kn">import</span> <span class="n">gpuarray</span>
+</pre></div>
+</div>
+<p>Creation of gpuarrays is quite easy. One way is to create a NumPy
+array and convert it:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">randn</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">float32</span><span class="p">,</span> <span class="n">int32</span><span class="p">,</span> <span class="n">array</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">float32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_gpu</span> <span class="o">=</span> <span class="n">gpuarray</span><span class="o">.</span><span class="n">to_gpu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can print gpuarrays like you normally do:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span>
+<span class="go">array([-0.24655211,  0.00344609,  1.45805557,  0.22002029,  1.28438667])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_gpu</span>
+<span class="go">array([-0.24655211,  0.00344609,  1.45805557,  0.22002029,  1.28438667])</span>
+</pre></div>
+</div>
+<p>You can do normal calculations with the gpuarray:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="mi">2</span><span class="o">*</span><span class="n">x_gpu</span>
+<span class="go">array([-1.09917879,  0.56061697, -0.19573164, -4.29430866, -2.519032  ], dtype=float32)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_gpu</span> <span class="o">+</span> <span class="n">x_gpu</span>
+<span class="go">array([-1.09917879,  0.56061697, -0.19573164, -4.29430866, -2.519032  ], dtype=float32)</span>
+</pre></div>
+</div>
+<p>or check attributes like with normal arrays:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">x_gpu</span><span class="p">)</span>
+<span class="go">5</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">gpuarrays</span></tt> also support slicing:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x_gpu</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+<span class="go">array([-0.5495894 ,  0.28030849, -0.09786582], dtype=float32)</span>
+</pre></div>
+</div>
+<p>Unfortunatly they don&#8217;t support indexing (yet):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x_gpu</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="gp">...</span>
+<span class="go">ValueError: non-slice indexing not supported: 1</span>
+</pre></div>
+</div>
+<p>Be aware that a function which was created with a SourceModule, takes
+an instance of <tt class="docutils literal"><span class="pre">pycuda.driver.DeviceAllocation</span></tt> and not a gpuarray.
+But the content of the <tt class="docutils literal"><span class="pre">gpuarray</span></tt> is a <tt class="docutils literal"><span class="pre">DeviceAllocation</span></tt>. You can
+get it with the attribute <tt class="docutils literal"><span class="pre">gpudata</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x_gpu</span><span class="o">.</span><span class="n">gpudata</span>
+<span class="go">&lt;pycuda._driver.DeviceAllocation object at 0x8c0d454&gt;</span>
+</pre></div>
+</div>
+<p>Let&#8217;s for example call the function from the section before:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">y_gpu</span> <span class="o">=</span> <span class="n">gpuarray</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="n">float32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">int32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">info_gpu</span> <span class="o">=</span> <span class="n">gpuarray</span><span class="o">.</span><span class="n">to_gpu</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">func</span><span class="p">(</span><span class="n">y_gpu</span><span class="o">.</span><span class="n">gpudata</span><span class="p">,</span><span class="n">x_gpu</span><span class="o">.</span><span class="n">gpudata</span><span class="p">,</span><span class="n">info_gpu</span><span class="o">.</span><span class="n">gpudata</span><span class="p">,</span> <span class="n">block</span> <span class="o">=</span> <span class="p">(</span><span class="mi">32</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">grid</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_gpu</span>
+<span class="go">array([-1.09917879,  0.56061697, -0.19573164, -4.29430866, -2.519032  ], dtype=float32)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">2</span><span class="o">*</span><span class="n">x_gpu</span>
+<span class="go">array([-1.09917879,  0.56061697, -0.19573164, -4.29430866, -2.519032</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">gpuarrays</span></tt> can be bound to textures too:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x_gpu</span><span class="o">.</span><span class="n">bind_to_texref_ext</span><span class="p">(</span><span class="n">MyTexture</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-mpi4py-and-pycuda-together">
+<span id="mpi-and-pycuda-ref"></span><h2>Using MPI4Py and PyCUDA together<a class="headerlink" href="#using-mpi4py-and-pycuda-together" title="Permalink to this headline">¶</a></h2>
+<p>I give here a short example how to use this, to get PyCUDA
+working with MPI4Py. We initialize as many threads, as graphic
+cards available (in this case 4) and do something on that devices.
+Every thread is working on one device.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">mpi4py</span> <span class="kn">import</span> <span class="n">MPI</span>
+<span class="kn">import</span> <span class="nn">pycuda.driver</span> <span class="kn">as</span> <span class="nn">cuda</span>
+
+<span class="n">cuda</span><span class="o">.</span><span class="n">init</span><span class="p">()</span> <span class="c">#init pycuda driver</span>
+
+<span class="kn">from</span> <span class="nn">pycuda</span> <span class="kn">import</span> <span class="n">gpuarray</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">float32</span><span class="p">,</span> <span class="n">array</span>
+<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">randn</span> <span class="k">as</span> <span class="n">rand</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">comm</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span>
+<span class="n">rank</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">rank</span>
+<span class="n">root</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">nr_gpus</span> <span class="o">=</span> <span class="mi">4</span>
+
+<span class="n">sendbuf</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">20</span><span class="o">*</span><span class="n">nr_gpus</span>
+<span class="n">K</span> <span class="o">=</span> <span class="mi">1000</span>
+
+<span class="k">if</span> <span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">float32</span><span class="p">)</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">16</span>
+    <span class="k">print</span> <span class="s">&quot;x:&quot;</span><span class="p">,</span> <span class="n">x</span>
+
+    <span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+    <span class="n">sendbuf</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">nr_gpus</span><span class="p">,</span><span class="n">N</span><span class="o">/</span><span class="n">nr_gpus</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">rank</span> <span class="o">&gt;</span> <span class="n">nr_gpus</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;To few gpus!&quot;</span><span class="p">)</span>
+
+
+<span class="n">current_dev</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">Device</span><span class="p">(</span><span class="n">rank</span><span class="p">)</span> <span class="c">#device we are working on</span>
+<span class="n">ctx</span> <span class="o">=</span> <span class="n">current_dev</span><span class="o">.</span><span class="n">make_context</span><span class="p">()</span> <span class="c">#make a working context</span>
+<span class="n">ctx</span><span class="o">.</span><span class="n">push</span><span class="p">()</span> <span class="c">#let context make the lead</span>
+
+<span class="c">#recieve data and port it to gpu:</span>
+<span class="n">x_gpu_part</span> <span class="o">=</span> <span class="n">gpuarray</span><span class="o">.</span><span class="n">to_gpu</span><span class="p">(</span><span class="n">comm</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">sendbuf</span><span class="p">,</span><span class="n">root</span><span class="p">))</span>
+
+<span class="c">#do something...</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">K</span><span class="p">):</span>
+  <span class="n">x_gpu_part</span> <span class="o">=</span> <span class="mf">0.9</span><span class="o">*</span><span class="n">x_gpu_part</span>
+
+<span class="c">#get data back:</span>
+<span class="n">x_part</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_gpu_part</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+<span class="n">ctx</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span> <span class="c">#deactivate again</span>
+<span class="n">ctx</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span> <span class="c">#delete it</span>
+
+<span class="n">recvbuf</span><span class="o">=</span><span class="n">comm</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">x_part</span><span class="p">,</span><span class="n">root</span><span class="p">)</span> <span class="c">#recieve data</span>
+
+<span class="k">if</span> <span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">x_doubled</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="n">recvbuf</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+    <span class="n">t2</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">t1</span>
+
+    <span class="k">print</span> <span class="s">&quot;doubled x:&quot;</span><span class="p">,</span> <span class="n">x_doubled</span>
+    <span class="k">print</span> <span class="s">&quot;time nedded:&quot;</span><span class="p">,</span> <span class="n">t2</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span> <span class="s">&quot; ms &quot;</span>
+</pre></div>
+</div>
+<p class="rubric">Links</p>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://www.nvidia.com/object/cuda_home_new.html">http://www.nvidia.com/object/cuda_home_new.html</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="http://mathema.tician.de/software/pycuda">http://mathema.tician.de/software/pycuda</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><a class="reference external" href="http://trac.sagemath.org/sage_trac/ticket/10010">http://trac.sagemath.org/sage_trac/ticket/10010</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td><a class="reference external" href="http://documen.tician.de/pycuda/">http://documen.tician.de/pycuda/</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[5]</a></td><td>wikilink</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="#">Python+CUDA = PyCUDA</a><ul>
+<li><a class="reference external" href="#initialize-pycuda">Initialize PyCUDA</a></li>
+<li><a class="reference external" href="#get-your-cuda-code-working-in-python">Get your CUDA code working in Python</a></li>
+<li><a class="reference external" href="#the-gpuarray-class">The <tt class="docutils literal"><span class="pre">gpuarray</span></tt> class</a></li>
+<li><a class="reference external" href="#using-mpi4py-and-pycuda-together">Using MPI4Py and PyCUDA together</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="MPI4Py.html"
+                                  title="previous chapter">MPI4Py</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="Example.html"
+                                  title="next chapter">An Example: Band-matrix vector multiplication</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/PyCUDA.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Example.html" title="An Example: Band-matrix vector multiplication"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="MPI4Py.html" title="MPI4Py"
+             >previous</a> |</li>
+        <li><a href="index.html">hpc v1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2011, Stefan Reiterer.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+    </div>
+  </body>
+</html>

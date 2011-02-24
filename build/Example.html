@@ -21,7 +21,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="hpc v1.0 documentation" href="index.html" />
     <link rel="next" title="Licenses" href="License.html" />
-    <link rel="prev" title="MPI4Py" href="MPI4Py.html" /> 
+    <link rel="prev" title="Python+CUDA = PyCUDA" href="PyCUDA.html" /> 
   </head>
   <body>
     <div class="related">
@@ -34,7 +34,7 @@
           <a href="License.html" title="Licenses"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="MPI4Py.html" title="MPI4Py"
+          <a href="PyCUDA.html" title="Python+CUDA = PyCUDA"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">hpc v1.0 documentation</a> &raquo;</li> 
       </ul>
@@ -194,6 +194,169 @@ def band_matvec_c(cnumpy.ndarray[reals,ndim=2] A,cnumpy.ndarray[reals,ndim=1] u)
 <p>You can either import the band matrix base class to the <em>.pyx</em> file
 and define the derived Python class in the <em>.pyx</em> file, or <tt class="docutils literal"><span class="pre">cimport</span></tt>
 the function to a Python file with the new matrix class defined.</p>
+<p>A more advanced example is an implementation in PyCUDA:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pycuda.driver</span> <span class="kn">as</span> <span class="nn">cuda</span>
+<span class="kn">import</span> <span class="nn">pycuda.gpuarray</span> <span class="kn">as</span> <span class="nn">gpuarray</span>
+
+<span class="kn">import</span> <span class="nn">pycuda.autoinit</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">pycuda.compiler</span> <span class="kn">import</span> <span class="n">SourceModule</span>
+<span class="kn">from</span> <span class="nn">pycuda.driver</span> <span class="kn">import</span> <span class="n">matrix_to_texref</span>
+
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">zeros</span><span class="p">,</span> <span class="n">int32</span><span class="p">,</span> <span class="n">float32</span><span class="p">,</span> <span class="n">intp</span>
+</pre></div>
+</div>
+<div class="highlight-c"><div class="highlight"><pre><span class="n">sourceCodeTemplate</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="n">texture</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span> <span class="mi">2</span><span class="o">&gt;</span> <span class="n">matrixTexture</span><span class="p">;</span>
+
+<span class="n">__global__</span> <span class="kt">void</span> <span class="nf">gpu_band_matvec</span><span class="p">(</span> <span class="c1">//%(REALS)s *matrix,</span>
+                                 <span class="o">%</span><span class="p">(</span><span class="n">REALS</span><span class="p">)</span><span class="n">s</span> <span class="o">*</span><span class="n">vector</span><span class="p">,</span>
+                                 <span class="o">%</span><span class="p">(</span><span class="n">REALS</span><span class="p">)</span><span class="n">s</span> <span class="o">*</span><span class="n">result</span><span class="p">,</span>
+                                 <span class="kt">int</span> <span class="o">*</span><span class="n">info</span>
+                                 <span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// Infos about matrix dimension</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">dim</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">band_with</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+
+  <span class="c1">// Infos about Blocks</span>
+
+  <span class="c1">//unsigned int position = 0;</span>
+  <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">blockIdx</span><span class="p">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">blockDim</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+
+  <span class="n">__shared__</span> <span class="o">%</span><span class="p">(</span><span class="n">REALS</span><span class="p">)</span><span class="n">s</span> <span class="n">vector_help</span><span class="p">[</span><span class="o">%</span><span class="p">(</span><span class="n">DOUBLE_BLOCK_SIZE</span><span class="p">)</span><span class="n">s</span><span class="p">];</span>
+  <span class="o">%</span><span class="p">(</span><span class="n">REALS</span><span class="p">)</span><span class="n">s</span> <span class="n">result_helper</span><span class="p">;</span>
+
+  <span class="c1">//__syncthreads(); //Memory has to be loaded</span>
+
+  <span class="k">while</span><span class="p">(</span><span class="n">idx</span> <span class="o">&lt;</span> <span class="n">dim</span> <span class="o">+</span>  <span class="o">%</span><span class="p">(</span><span class="n">BLOCK_SIZE</span><span class="p">)</span><span class="n">s</span> <span class="o">*</span> <span class="o">%</span><span class="p">(</span><span class="n">NUMBER_BLOCKS</span><span class="p">)</span><span class="n">s</span><span class="p">)</span> <span class="c1">//While loop over all blocks</span>
+  <span class="p">{</span>
+
+      <span class="n">__syncthreads</span><span class="p">();</span> <span class="c1">//Memory has to be loaded</span>
+
+      <span class="k">if</span><span class="p">(</span><span class="n">idx</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">)</span>
+      <span class="p">{</span>
+      <span class="n">vector_help</span><span class="p">[</span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">vector</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
+
+
+      <span class="k">if</span><span class="p">(</span><span class="n">idx</span> <span class="o">+</span> <span class="o">%</span><span class="p">(</span><span class="n">BLOCK_SIZE</span><span class="p">)</span><span class="n">s</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">vector_help</span><span class="p">[</span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="o">+%</span><span class="p">(</span><span class="n">BLOCK_SIZE</span><span class="p">)</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span>  <span class="n">vector</span><span class="p">[</span><span class="n">idx</span><span class="o">+%</span><span class="p">(</span><span class="n">BLOCK_SIZE</span><span class="p">)</span><span class="n">s</span><span class="p">];</span>
+      <span class="p">}</span>
+      <span class="n">__syncthreads</span><span class="p">();</span> <span class="c1">//Memory has to be loaded</span>
+
+      <span class="n">result_helper</span> <span class="o">=</span> <span class="n">tex2D</span><span class="p">(</span><span class="n">matrixTexture</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span> <span class="o">*</span> <span class="n">vector_help</span><span class="p">[</span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">];</span>
+
+      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">band_with</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+      <span class="p">{</span>
+         <span class="n">result_helper</span> <span class="o">+=</span> <span class="n">tex2D</span><span class="p">(</span><span class="n">matrixTexture</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span><span class="o">*</span><span class="n">vector_help</span><span class="p">[</span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="o">+</span><span class="n">i</span><span class="p">];</span>
+
+      <span class="p">}</span>
+
+
+     <span class="n">__syncthreads</span><span class="p">();</span> <span class="c1">//Memory has to be loaded</span>
+
+     <span class="n">vector_help</span><span class="p">[</span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="o">%</span><span class="p">(</span><span class="n">BLOCK_SIZE</span><span class="p">)</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">vector_help</span><span class="p">[</span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">];</span>
+     <span class="p">}</span>
+
+     <span class="k">if</span><span class="p">((</span><span class="n">idx</span> <span class="o">-</span> <span class="o">%</span><span class="p">(</span><span class="n">BLOCK_SIZE</span><span class="p">)</span><span class="n">s</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">idx</span> <span class="o">-</span> <span class="o">%</span><span class="p">(</span><span class="n">BLOCK_SIZE</span><span class="p">)</span><span class="n">s</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">)</span>
+     <span class="p">{</span>
+       <span class="n">vector_help</span><span class="p">[</span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">vector</span><span class="p">[</span><span class="n">idx</span> <span class="o">-</span> <span class="o">%</span><span class="p">(</span><span class="n">BLOCK_SIZE</span><span class="p">)</span><span class="n">s</span><span class="p">];</span>
+     <span class="p">}</span>
+
+     <span class="n">__syncthreads</span><span class="p">();</span> <span class="c1">//Memory has to be loaded</span>
+
+     <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">band_with</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+     <span class="p">{</span>
+        <span class="k">if</span><span class="p">((</span><span class="n">idx</span> <span class="o">-</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">idx</span> <span class="o">-</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">))</span>
+        <span class="p">{</span>
+          <span class="n">result_helper</span> <span class="o">+=</span> <span class="n">tex2D</span><span class="p">(</span><span class="n">matrixTexture</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">idx</span> <span class="o">-</span> <span class="n">i</span><span class="p">)</span><span class="o">*</span><span class="n">vector_help</span><span class="p">[</span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="o">%</span><span class="p">(</span><span class="n">BLOCK_SIZE</span><span class="p">)</span><span class="n">s</span> <span class="o">-</span> <span class="n">i</span><span class="p">];</span>
+        <span class="p">}</span>
+     <span class="p">}</span>
+
+     <span class="k">if</span><span class="p">(</span><span class="n">idx</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">)</span>
+     <span class="p">{</span>
+       <span class="n">result</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">result_helper</span><span class="p">;</span>
+     <span class="p">}</span>
+
+
+    <span class="n">idx</span> <span class="o">+=</span> <span class="o">%</span><span class="p">(</span><span class="n">BLOCK_SIZE</span><span class="p">)</span><span class="n">s</span> <span class="o">*</span> <span class="o">%</span><span class="p">(</span><span class="n">NUMBER_BLOCKS</span><span class="p">)</span><span class="n">s</span><span class="p">;</span>
+
+   <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="s">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">REALS</span> <span class="o">=</span> <span class="s">&quot;float&quot;</span>
+<span class="n">BLOCK_SIZE</span> <span class="o">=</span> <span class="mi">256</span>
+<span class="n">NUMBER_BLOCKS</span> <span class="o">=</span> <span class="mi">8</span>
+
+<span class="n">sourceCode</span> <span class="o">=</span> <span class="n">sourceCodeTemplate</span> <span class="o">%</span> <span class="p">{</span>
+<span class="s">&#39;REALS&#39;</span><span class="p">:</span> <span class="n">REALS</span><span class="p">,</span>
+<span class="s">&#39;BLOCK_SIZE&#39;</span><span class="p">:</span> <span class="n">BLOCK_SIZE</span><span class="p">,</span>
+<span class="s">&#39;DOUBLE_BLOCK_SIZE&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">BLOCK_SIZE</span><span class="p">,</span>
+<span class="s">&#39;NUMBER_BLOCKS&#39;</span><span class="p">:</span> <span class="n">NUMBER_BLOCKS</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">matvec_module</span> <span class="o">=</span> <span class="n">SourceModule</span><span class="p">(</span><span class="n">sourceCode</span><span class="p">)</span>
+
+<span class="n">matvec_func</span> <span class="o">=</span> <span class="n">matvec_module</span><span class="o">.</span><span class="n">get_function</span><span class="p">(</span><span class="s">&quot;gpu_band_matvec&quot;</span><span class="p">)</span>
+<span class="n">matrixTexture</span> <span class="o">=</span> <span class="n">matvec_module</span><span class="o">.</span><span class="n">get_texref</span><span class="p">(</span><span class="s">&quot;matrixTexture&quot;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">band_matrix</span> <span class="kn">import</span> <span class="n">add_band_mat</span>
+
+<span class="k">class</span> <span class="nc">gpu_band_matrix</span><span class="p">:</span>
+  <span class="sd">&quot;&quot;&quot;variables for information about which matrix is</span>
+<span class="sd">     currently on the texture</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+
+  <span class="n">nr_matrices</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="n">active_matrix</span> <span class="o">=</span> <span class="mi">0</span>
+
+  <span class="sd">&quot;&quot;&quot;Takes a numpy array&quot;&quot;&quot;</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">data</span><span class="p">,</span><span class="n">set_right</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+
+      <span class="k">if</span> <span class="n">set_right</span><span class="p">:</span>
+          <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">B</span><span class="p">):</span>
+              <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">j</span><span class="p">:,</span><span class="n">N</span><span class="o">-</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+      <span class="c">#self.data = gpuarray.to_gpu(data)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">band_with</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">dtype</span>
+
+      <span class="n">info</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">int32</span><span class="p">)</span>
+
+      <span class="bp">self</span><span class="o">.</span><span class="n">gpu_info</span> <span class="o">=</span> <span class="n">gpuarray</span><span class="o">.</span><span class="n">to_gpu</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+
+      <span class="n">cuda</span><span class="o">.</span><span class="n">matrix_to_texref</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">matrixTexture</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s">&quot;F&quot;</span><span class="p">)</span>
+
+      <span class="n">gpu_band_matrix</span><span class="o">.</span><span class="n">nr_matrices</span> <span class="o">+=</span> <span class="mi">1</span>
+
+      <span class="bp">self</span><span class="o">.</span><span class="n">identity_nr</span> <span class="o">=</span> <span class="n">gpu_band_matrix</span><span class="o">.</span><span class="n">nr_matrices</span>
+      <span class="n">active_matrix</span> <span class="o">=</span> <span class="n">gpu_band_matrix</span><span class="o">.</span><span class="n">nr_matrices</span>
+
+  <span class="k">def</span> <span class="nf">matvec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x_gpu</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">x_gpu</span><span class="o">.</span><span class="n">size</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+          <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Dimension mismatch!&quot;</span><span class="p">)</span>
+
+      <span class="c">#self.data.bind_to_texref_ext(matrixTexture,channels = 2)</span>
+      <span class="c">#cuda.matrix_to_texref(self.cpu_data, matrixTexture, order=&quot;F&quot;)</span>
+
+      <span class="k">if</span> <span class="n">gpu_band_matrix</span><span class="o">.</span><span class="n">active_matrix</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">identity_nr</span><span class="p">:</span>
+          <span class="n">cuda</span><span class="o">.</span><span class="n">matrix_to_texref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">matrixTexture</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s">&quot;F&quot;</span><span class="p">)</span>
+          <span class="n">gpu_band_matrix</span><span class="o">.</span><span class="n">active_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">identity_nr</span>
+
+      <span class="n">y_gpu</span>  <span class="o">=</span> <span class="n">gpuarray</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">x_gpu</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">x_gpu</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+      <span class="n">matvec_func</span><span class="p">(</span><span class="n">intp</span><span class="p">(</span><span class="n">x_gpu</span><span class="o">.</span><span class="n">gpudata</span><span class="p">),</span><span class="n">intp</span><span class="p">(</span><span class="n">y_gpu</span><span class="o">.</span><span class="n">gpudata</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">gpu_info</span><span class="o">.</span><span class="n">gpudata</span><span class="p">,</span> <span class="n">block</span> <span class="o">=</span> <span class="p">(</span><span class="n">BLOCK_SIZE</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">grid</span><span class="o">=</span> <span class="p">(</span><span class="n">NUMBER_BLOCKS</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+      <span class="k">return</span> <span class="n">y_gpu</span>
+
+  <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">other</span><span class="p">):</span>
+      <span class="k">return</span> <span class="n">add_band_mat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">other</span><span class="p">)</span>
+</pre></div>
+</div>
 <p class="rubric">Links</p>
 <table class="docutils footnote" frame="void" id="id3" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
@@ -216,8 +379,8 @@ the function to a Python file with the new matrix class defined.</p>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <h4>Previous topic</h4>
-            <p class="topless"><a href="MPI4Py.html"
-                                  title="previous chapter">MPI4Py</a></p>
+            <p class="topless"><a href="PyCUDA.html"
+                                  title="previous chapter">Python+CUDA = PyCUDA</a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="License.html"
                                   title="next chapter">Licenses</a></p>
@@ -253,7 +416,7 @@ the function to a Python file with the new matrix class defined.</p>
           <a href="License.html" title="Licenses"
              >next</a> |</li>
         <li class="right" >
-          <a href="MPI4Py.html" title="MPI4Py"
+          <a href="PyCUDA.html" title="Python+CUDA = PyCUDA"
              >previous</a> |</li>
         <li><a href="index.html">hpc v1.0 documentation</a> &raquo;</li> 
       </ul>

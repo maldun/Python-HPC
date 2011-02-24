@@ -20,7 +20,8 @@
 \BOOKMARK [1][-]{section.4.5}{Objects and classes}{chapter.4}
 \BOOKMARK [1][-]{section.4.6}{Exceptions}{chapter.4}
 \BOOKMARK [1][-]{section.4.7}{Modules and Packages}{chapter.4}
-\BOOKMARK [1][-]{section.4.8}{Some words on programming paradigms}{chapter.4}
+\BOOKMARK [1][-]{section.4.8}{Reading and Writing external files}{chapter.4}
+\BOOKMARK [1][-]{section.4.9}{Some words on programming paradigms}{chapter.4}
 \BOOKMARK [0][-]{chapter.5}{Scientific tools in Python}{}
 \BOOKMARK [1][-]{section.5.1}{NumPy}{chapter.5}
 \BOOKMARK [1][-]{section.5.2}{SciPy}{chapter.5}
@@ -29,6 +30,12 @@
 \BOOKMARK [1][-]{section.6.1}{How to compile your Cython Code}{chapter.6}
 \BOOKMARK [1][-]{section.6.2}{How to use Cython}{chapter.6}
 \BOOKMARK [0][-]{chapter.7}{MPI4Py}{}
-\BOOKMARK [0][-]{chapter.8}{Licenses}{}
-\BOOKMARK [1][-]{section.8.1}{License}{chapter.8}
-\BOOKMARK [0][-]{chapter.9}{Indices and tables}{}
+\BOOKMARK [0][-]{chapter.8}{Python+CUDA = PyCUDA}{}
+\BOOKMARK [1][-]{section.8.1}{Initialize PyCUDA}{chapter.8}
+\BOOKMARK [1][-]{section.8.2}{Get your CUDA code working in Python}{chapter.8}
+\BOOKMARK [1][-]{section.8.3}{The gpuarray class}{chapter.8}
+\BOOKMARK [1][-]{section.8.4}{Using MPI4Py and PyCUDA together}{chapter.8}
+\BOOKMARK [0][-]{chapter.9}{An Example: Band-matrix vector multiplication}{}
+\BOOKMARK [0][-]{chapter.10}{Licenses}{}
+\BOOKMARK [1][-]{section.10.1}{License}{chapter.10}
+\BOOKMARK [0][-]{chapter.11}{Indices and tables}{}

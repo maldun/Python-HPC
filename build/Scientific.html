@@ -401,7 +401,7 @@ CG algorithm:</p>
 </div>
 </div>
 <div class="section" id="weave">
-<h2>Weave<a class="headerlink" href="#weave" title="Permalink to this headline">¶</a></h2>
+<span id="weave-ref"></span><h2>Weave<a class="headerlink" href="#weave" title="Permalink to this headline">¶</a></h2>
 <p>Weave is included in SciPy and a tool for writing inline C++ with
 weave for speedup your code. I give here a short example how to use
 Weave.</p>
@@ -473,6 +473,9 @@ def band_matvec_inline(A,u):
                type_converters=converters.blitz)
     return result</pre>
 </div>
+<p>As it can be seen the syntax is not that different from Numpy. The
+reason for this is, that Weave uses here the Blitz library for
+numerical computation, which has it&#8217;s own vector class.</p>
 <p>If you call this function the first time it will be compiled in
 runtime:</p>
 <div class="highlight-python"><pre>sage: band_matvec_inline(A,u)

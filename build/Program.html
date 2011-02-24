@@ -177,7 +177,7 @@ or numbers, like in C.</p>
 <tt class="docutils literal"><span class="pre">xrange</span></tt> instead of range, because <tt class="docutils literal"><span class="pre">xrange</span></tt> doesn&#8217;t need allocate
 memory for a list. In Python 3, however, <tt class="docutils literal"><span class="pre">range</span></tt> returns an iterator
 and not a list, so this is obsolete then.</p>
-<p>See also the Python wiki <a class="footnote-reference" href="#id13" id="id1">[1]</a> on this topic.</p>
+<p>See also the Python wiki <a class="footnote-reference" href="#id15" id="id1">[1]</a> on this topic.</p>
 </div>
 <div class="section" id="the-break-and-continue-statements">
 <h3>The <tt class="docutils literal"><span class="pre">break</span></tt> and <tt class="docutils literal"><span class="pre">continue</span></tt> statements<a class="headerlink" href="#the-break-and-continue-statements" title="Permalink to this headline">¶</a></h3>
@@ -199,7 +199,7 @@ For example:</p>
 </li>
 <li><p class="first"><tt class="docutils literal"><span class="pre">break</span></tt> breaks out of the smallest enclosing <tt class="docutils literal"><span class="pre">for</span></tt> or <tt class="docutils literal"><span class="pre">while</span></tt>
 loop.
-Here a famous example from the official Python tutorial <a class="footnote-reference" href="#id14" id="id2">[2]</a></p>
+Here a famous example from the official Python tutorial <a class="footnote-reference" href="#id16" id="id2">[2]</a></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -521,12 +521,12 @@ In Python 2.6 or above one has to write</p>
 <p>The <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> statement is confusing many people.
 Guido Van Rossum himself wanted to remove the <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/>
 statement from Python 3, but didn&#8217;t succeed to find a good replacement
-<a class="footnote-reference" href="#id15" id="id3">[3]</a> . As one of it&#8217;s biggest fans I can only say: Hooray for
+<a class="footnote-reference" href="#id17" id="id3">[3]</a> . As one of it&#8217;s biggest fans I can only say: Hooray for
 <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> !</p>
 <p>The reason for the strange naming is that in the early times of
 Python, many <em>Lisp</em> programmers wanted some functional features
 from <em>Lisp</em>, and one of the was <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> .
-But it&#8217;s true origin comes from the <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> calculus <a class="footnote-reference" href="#id16" id="id4">[4]</a> .</p>
+But it&#8217;s true origin comes from the <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> calculus <a class="footnote-reference" href="#id18" id="id4">[4]</a> .</p>
 <p>I prefer lambda for some reasons, especially that I can use it inline.
 But I wouldn&#8217;t recommend to use <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> every time, sometimes the
 use of the lambda statement is not good readable.</p>
@@ -560,9 +560,9 @@ languages like Mathematica or Matlab.</p>
 <p>Functional programming can be a very powerful tool, and I show here
 some of the key features for functional programming in Python.
 I follow here the programming guide for functional programming in
-Python <a class="footnote-reference" href="#id17" id="id5">[5]</a>. For more advanced techniques and more founded
+Python <a class="footnote-reference" href="#id19" id="id5">[5]</a>. For more advanced techniques and more founded
 Background on that topic I refer
-to the <em>Python Functional Programming HOWTO</em> <a class="footnote-reference" href="#id18" id="id6">[6]</a></p>
+to the <em>Python Functional Programming HOWTO</em> <a class="footnote-reference" href="#id20" id="id6">[6]</a></p>
 <div class="section" id="the-map-function">
 <h3>The <tt class="docutils literal"><span class="pre">map</span></tt> function<a class="headerlink" href="#the-map-function" title="Permalink to this headline">¶</a></h3>
 <p>The <tt class="docutils literal"><span class="pre">map</span> <span class="pre">function</span></tt> takes any number on iterables and a function, and
@@ -909,7 +909,7 @@ the class:</p>
 </pre></div>
 </div>
 <p>There is a whole bunch of features that can be added to a class.
-I refer here to the Python reference manual for a complete list <a class="footnote-reference" href="#id19" id="id7">[7]</a>,
+I refer here to the Python reference manual for a complete list <a class="footnote-reference" href="#id21" id="id7">[7]</a>,
 because listing them all here would be too long.</p>
 </div>
 </div>
@@ -1031,9 +1031,9 @@ exceptions:</p>
         <span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Compare this to the last programming example of this page <a class="footnote-reference" href="#id20" id="id8">[8]</a> , which is
+<p>Compare this to the last programming example of this page <a class="footnote-reference" href="#id22" id="id8">[8]</a> , which is
 an imperative solution.</p>
-<p>For further information on Exceptions see the Python documentation <a class="footnote-reference" href="#id21" id="id9">[9]</a></p>
+<p>For further information on Exceptions see the Python documentation <a class="footnote-reference" href="#id23" id="id9">[9]</a></p>
 </div>
 <div class="section" id="creating-new-exceptions">
 <h3>Creating new exceptions<a class="headerlink" href="#creating-new-exceptions" title="Permalink to this headline">¶</a></h3>
@@ -1166,7 +1166,158 @@ loaded the more load has the interpreter to deal with.</li>
 </ul>
 <p>I recommend personally to import explicitly with <tt class="docutils literal"><span class="pre">from</span> <span class="pre">...</span> <span class="pre">import</span></tt>
 only the functions you actually need.</p>
-<p>For further information see the Python documention <a class="footnote-reference" href="#id22" id="id10">[10]</a>.</p>
+<p>For further information see the Python documention <a class="footnote-reference" href="#id24" id="id10">[10]</a>.</p>
+</div>
+</div>
+<div class="section" id="reading-and-writing-external-files">
+<h2>Reading and Writing external files<a class="headerlink" href="#reading-and-writing-external-files" title="Permalink to this headline">¶</a></h2>
+<p>To read or writing external files you first have to open it. We
+do this with the open function: <tt class="docutils literal"><span class="pre">open(filename,mode)</span></tt>. The modes are
+<tt class="docutils literal"><span class="pre">'r'</span></tt> (<strong>r</strong> ead only), <tt class="docutils literal"><span class="pre">'w'</span></tt> (<strong>w</strong> rite only; a file with the same name will
+be deleted), <tt class="docutils literal"><span class="pre">'a'</span></tt> (<strong>a</strong> ppends data to the end of the file),
+<tt class="docutils literal"><span class="pre">'r+'</span></tt> (read and write). Default mode is <tt class="docutils literal"><span class="pre">'r'</span></tt>. Open returns a
+object of the type FileObject.</p>
+<p>You find more information at the Python documentation <a class="footnote-reference" href="#id25" id="id11">[11]</a>, <a class="footnote-reference" href="#id26" id="id12">[12]</a></p>
+<p>Examples: We write some text to a file, named test_file.txt and store
+it in the working directory, containing the following text:</p>
+<div class="highlight-python"><pre>I am a file. This is my first line
+Second line.
+Third line.</pre>
+</div>
+<p>Now let&#8217;s print it in Python:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;test_file.txt&quot;</span><span class="p">,</span><span class="s">&#39;r&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="go">&#39;I am a file. This is my first line\nSecond line.\nThird line.&#39;</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">read</span></tt> prints the content of the file till it reaches it&#8217;s end,
+and returns the content as string.
+You can also tell <tt class="docutils literal"><span class="pre">read</span></tt> to read a certain amount of bytes:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;test_file.txt&quot;</span><span class="p">,</span><span class="s">&#39;r&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="go">&#39;I am a file.&#39;</span>
+</pre></div>
+</div>
+<p>We can also read line for line:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;test_file.txt&quot;</span><span class="p">,</span><span class="s">&#39;r&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+<span class="go">&#39;I am a file. This is my first line\n&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+<span class="go">&#39;Second line.\n&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+<span class="go">&#39;Third line.&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+<span class="go">&#39;&#39;</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">readline</span></tt> prints the line till it finds <tt class="docutils literal"><span class="pre">\n</span></tt>.
+Note that we had to reopen the file, because the we reached the
+end of the file after the first read call. With help of the seek
+method:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;test_file.txt&quot;</span><span class="p">,</span><span class="s">&#39;r&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="go">&#39;I am a file.&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+<span class="go">12L</span>
+</pre></div>
+</div>
+<p>To set a different position we use the <tt class="docutils literal"><span class="pre">seek</span></tt> method. <tt class="docutils literal"><span class="pre">seek</span></tt> goes
+to number of bytes from the position which is set. As default <tt class="docutils literal"><span class="pre">seek</span></tt>
+uses <tt class="docutils literal"><span class="pre">0</span></tt> (beginning of file; is equivalent to
+<tt class="docutils literal"><span class="pre">os.SEEK_CUR</span></tt>). Other values are <tt class="docutils literal"><span class="pre">1</span></tt> (the current position;
+os.SEEK_CUR) or <tt class="docutils literal"><span class="pre">2</span></tt> (end of file; os.SEEK_END).</p>
+<p>For example let&#8217;s read the first line of the file, and jump to the
+next line:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+<span class="go">&#39;I am a file. This is my first line\n&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+<span class="go">&#39;Third line.&#39;</span>
+</pre></div>
+</div>
+<p>Alternativley we can use the system&#8217;s constants:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">SEEK_CUR</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+<span class="go">&#39;I am a file. This is my first line\n&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="n">SEEK_CUR</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+<span class="go">&#39;Third line.&#39;</span>
+</pre></div>
+</div>
+<p>The command <tt class="docutils literal"><span class="pre">readlines</span></tt> prints the lines from the
+file in a list:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+<span class="go">[&#39;I am a file. This is my first line\n&#39;, &#39;Second line.\n&#39;, &#39;Third line.&#39;]</span>
+</pre></div>
+</div>
+<p>To close the file again, use the close method:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span>
+<span class="go">&lt;closed file &#39;test_file.txt&#39;, mode &#39;r&#39; at 0xb7866b10&gt;</span>
+</pre></div>
+</div>
+<p>Now let&#8217;s add a new line to the file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;test_file.txt&quot;</span><span class="p">,</span><span class="s">&#39;a&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;This is the fourth line.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;test_file.txt&quot;</span><span class="p">,</span><span class="s">&#39;r&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="nb">file</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+<span class="go">I am a file. This is my first line</span>
+<span class="go">Second line.</span>
+<span class="go">Third line.</span>
+<span class="go">This is the fourth line.</span>
+</pre></div>
+</div>
+<p>We can also do that interactively:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;test_file.txt&quot;</span><span class="p">,</span><span class="s">&#39;r+&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;This is the fift line.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The file will only be changed on the disc if we close it
+or use the <tt class="docutils literal"><span class="pre">flush</span></tt> method:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Now we can read it again:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="nb">file</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+<span class="go">I am a file. This is my first line</span>
+<span class="go">Second line.</span>
+<span class="go">Third line.</span>
+<span class="go">This is the fourth line.</span>
+<span class="go">This is the fift line.</span>
+</pre></div>
+</div>
+<p>Oops we forgot an &#8216;h&#8217;. Let&#8217;s change this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;h line.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="nb">file</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+<span class="go">I am a file. This is my first line</span>
+<span class="go">Second line.</span>
+<span class="go">Third line.</span>
+<span class="go">This is the fourth line.</span>
+<span class="go">This is the fifth line.</span>
+</pre></div>
+</div>
+<p>The writelines command make it possible to add a list of strings:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">writelines</span><span class="p">([</span><span class="s">&quot;6th line</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="s">&quot;7th line</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="nb">file</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+<span class="go">I am a file. This is my first line</span>
+<span class="go">Second line.</span>
+<span class="go">Third line.</span>
+<span class="go">This is the fourth line.</span>
+<span class="go">This is the fifth line.</span>
+<span class="go">6th line</span>
+<span class="go">7th line</span>
+</pre></div>
 </div>
 </div>
 <div class="section" id="some-words-on-programming-paradigms">
@@ -1179,7 +1330,7 @@ most common in modern programming languages are</p>
 <li>Object oriented programming</li>
 </ul>
 <p>Look at for exmaple at Wikipedia for an short
-overwiev on that topic <a class="footnote-reference" href="#id23" id="id11">[11]</a>, or a good programming book
+overwiev on that topic <a class="footnote-reference" href="#id27" id="id13">[13]</a>, or a good programming book
 of your choice, If you want to go deeper into that topic.</p>
 <p>In short:</p>
 <ul>
@@ -1200,7 +1351,7 @@ functions and let them operate on objects, lists, or call them
 recursivly. An example would be the <em>Lisp</em> family, which was
 also the first one. (It&#8217;s worthwile to look at <em>Lisp</em> not only
 to customize your Emacs. A good reading tip would be: Practical
-Common Lisp <a class="footnote-reference" href="#id24" id="id12">[12]</a> ) One important benefit of functional programming
+Common Lisp <a class="footnote-reference" href="#id28" id="id14">[14]</a> ) One important benefit of functional programming
 is, that is easier to parallize. For example it&#8217;s easier for the
 compiler/interpreter to decide, when you operate with a function on a list,
 because all operations are independent anyway, than within a for
@@ -1267,76 +1418,88 @@ for i in range(0,10,2):
 </pre></div>
 </div>
 <p class="rubric">Links</p>
-<table class="docutils footnote" frame="void" id="id13" rules="none">
+<table class="docutils footnote" frame="void" id="id15" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://wiki.python.org/moin/PythonSpeed/PerformanceTips">http://wiki.python.org/moin/PythonSpeed/PerformanceTips</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id14" rules="none">
+<table class="docutils footnote" frame="void" id="id16" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="http://docs.python.org/tutorial/controlflow.html">http://docs.python.org/tutorial/controlflow.html</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id15" rules="none">
+<table class="docutils footnote" frame="void" id="id17" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><a class="reference external" href="http://mail.python.org/pipermail/python-dev/2006-February/060415.html">http://mail.python.org/pipermail/python-dev/2006-February/060415.html</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id16" rules="none">
+<table class="docutils footnote" frame="void" id="id18" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Lambda_calculus">http://en.wikipedia.org/wiki/Lambda_calculus</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id17" rules="none">
+<table class="docutils footnote" frame="void" id="id19" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id5">[5]</a></td><td><a class="reference external" href="http://programming-guides.com/python/functional-programming">http://programming-guides.com/python/functional-programming</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id18" rules="none">
+<table class="docutils footnote" frame="void" id="id20" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id6">[6]</a></td><td><a class="reference external" href="http://docs.python.org/howto/functional.html">http://docs.python.org/howto/functional.html</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id19" rules="none">
+<table class="docutils footnote" frame="void" id="id21" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id7">[7]</a></td><td><a class="reference external" href="http://docs.python.org/reference/datamodel.html#special-method-names">http://docs.python.org/reference/datamodel.html#special-method-names</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id20" rules="none">
+<table class="docutils footnote" frame="void" id="id22" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id8">[8]</a></td><td><a class="reference external" href="http://pleac.sourceforge.net/pleac_python/numbers.html">http://pleac.sourceforge.net/pleac_python/numbers.html</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id21" rules="none">
+<table class="docutils footnote" frame="void" id="id23" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id9">[9]</a></td><td><a class="reference external" href="http://docs.python.org/tutorial/errors.html">http://docs.python.org/tutorial/errors.html</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id22" rules="none">
+<table class="docutils footnote" frame="void" id="id24" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id10">[10]</a></td><td><a class="reference external" href="http://docs.python.org/tutorial/modules.html">http://docs.python.org/tutorial/modules.html</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id23" rules="none">
+<table class="docutils footnote" frame="void" id="id25" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id11">[11]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Programming_paradigm">http://en.wikipedia.org/wiki/Programming_paradigm</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id11">[11]</a></td><td><a class="reference external" href="http://docs.python.org/tutorial/inputoutput.html">http://docs.python.org/tutorial/inputoutput.html</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id24" rules="none">
+<table class="docutils footnote" frame="void" id="id26" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id12">[12]</a></td><td><a class="reference external" href="http://www.gigamonkeys.com/book/">http://www.gigamonkeys.com/book/</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id12">[12]</a></td><td><a class="reference external" href="http://docs.python.org/library/stdtypes.html#bltin-file-objects">http://docs.python.org/library/stdtypes.html#bltin-file-objects</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id27" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id13">[13]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Programming_paradigm">http://en.wikipedia.org/wiki/Programming_paradigm</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id28" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id14">[14]</a></td><td><a class="reference external" href="http://www.gigamonkeys.com/book/">http://www.gigamonkeys.com/book/</a></td></tr>
 </tbody>
 </table>
 </div>
@@ -1393,6 +1556,7 @@ for i in range(0,10,2):
 <li><a class="reference external" href="#packages">Packages</a></li>
 </ul>
 </li>
+<li><a class="reference external" href="#reading-and-writing-external-files">Reading and Writing external files</a></li>
 <li><a class="reference external" href="#some-words-on-programming-paradigms">Some words on programming paradigms</a></li>
 </ul>
 </li>

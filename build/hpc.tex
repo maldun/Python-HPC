@@ -10,7 +10,7 @@
 
 
 \title{hpc Documentation}
-\date{February 22, 2011}
+\date{February 24, 2011}
 \release{1.0}
 \author{Stefan Reiterer}
 \newcommand{\sphinxlogo}{}
@@ -115,6 +115,8 @@ Contents:
 
 \chapter{Introduction and personal thoughts}
 
+If you want to start with Python right ahead  follow go directly to ::ref::\emph{basics\_ref}
+
 
 \section{Foreword}
 
@@ -149,7 +151,8 @@ People have different opinions and experiences, either with food, cars or progra
 directly what I feel than other people do. =)
 
 I distribute this under an open license so people can share it
-freely. (See Section \hyperlink{license-ref}{\emph{Licenses}} )
+freely. (See Section \hyperlink{license-ref}{\emph{Licenses}}). You are allowed to use and
+copy contents as you wish.
 
 Stefan Reiterer,
 Graz Austria
@@ -472,11 +475,19 @@ In the last five years there was a huge development of mathematical tools
 and libraries for Python. Actually it seems that there is no particular reason for
 this one could see it as a phenomen, or as a trend. But in the meantime the currently
 available Python projects reached now dimension that make them vaiable alternatives
-for the ``classical'' mathematical languages like Matlab or MAthematica.
+for the ``classical'' mathematical languages like Matlab or Mathematica.
 
-Also there are now some very useful tools for code optimization available like \emph{Cython},
+Also there are now some very useful tools for code optimisation available like \emph{Cython},
 that makes it possible to compile your Python Code to \emph{C} and make it up to 1000x faster,
 than normal Python code.
+
+There are several versions of Python interpreters. The interpreter I
+refer here as Python is \emph{CPython}, the first interpreter. The CPython interpreter is written,
+as the name says, in C. The reason for this choice is, that many
+numerical tools are using C bindings, and Cython also works currently
+only on CPython. There are also several other
+Python Interpreters like Jython (written in Java), PyPy (written in
+Python), or IronPython (written in C\#) available.
 
 
 \section{Why Python?}
@@ -491,13 +502,16 @@ Simple
 An easy to learn language.
 
 \item {} 
-Object orientated.
+Object oriented.
+
+\item {} 
+Multi paradigm (OO, imperative functional)
 
 \item {} 
 Fast (if used with brains).
 
 \item {} 
-Rapidly developing.
+Rapid development.
 
 \item {} 
 A common language, so you will find answers to your problem.
@@ -515,6 +529,18 @@ Most Linux distributions already ship Python, because many scripts are written i
 See also the \emph{Python} project page for further information \footnote{
 \href{http://www.python.org/}{http://www.python.org/}
 } .
+
+For using Python I personally recommend Linux or a virtual machine
+with Linux, because it's much easier to install and handle (for my taste).
+But there is currently a .Net Python under development named
+IronPython \footnote{
+\href{http://ironpython.net/}{http://ironpython.net/}
+}.
+Not all packages from classical CPython are currently working on IronPython
+(including NumPy), but there exists IronClad \footnote{
+\href{http://code.google.com/p/ironclad/}{http://code.google.com/p/ironclad/}
+} which should make it
+possible to use these CPython modules in IronPython.
 
 An easy way to obtain Python is to install \emph{Sagemath} \footnote{
 \href{http://www.sagemath.org/}{http://www.sagemath.org/}
@@ -539,7 +565,7 @@ build it from source because then many optimisation options are applied)
 \resetcurrentobjects
 \hypertarget{--doc-Steps}{}
 
-\chapter{Python Basics}
+\hypertarget{basics-ref}{}\chapter{Python Basics}
 
 
 \section{The ``Goodbye World'' program.}
@@ -3228,6 +3254,195 @@ For further information see the Python documention \footnote{
 }.
 
 
+\section{Reading and Writing external files}
+
+To read or writing external files you first have to open it. We
+do this with the open function: \code{open(filename,mode)}. The modes are
+\code{'r'} (\textbf{r} ead only), \code{'w'} (\textbf{w} rite only; a file with the same name will
+be deleted), \code{'a'} (\textbf{a} ppends data to the end of the file),
+\code{'r+'} (read and write). Default mode is \code{'r'}. Open returns a
+object of the type FileObject.
+
+You find more information at the Python documentation \footnote{
+\href{http://docs.python.org/tutorial/inputoutput.html}{http://docs.python.org/tutorial/inputoutput.html}
+}, \footnote{
+\href{http://docs.python.org/library/stdtypes.html\#bltin-file-objects}{http://docs.python.org/library/stdtypes.html\#bltin-file-objects}
+}
+
+Examples: We write some text to a file, named test\_file.txt and store
+it in the working directory, containing the following text:
+
+\begin{Verbatim}[commandchars=@\[\]]
+I am a file. This is my first line
+Second line.
+Third line.
+\end{Verbatim}
+
+Now let's print it in Python:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file} \PYG{o}{=} \PYG{n+nb}{open}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{test\PYGZus{}file.txt}\PYG{l+s}{"}\PYG{p}{,}\PYG{l+s}{'}\PYG{l+s}{r}\PYG{l+s}{'}\PYG{p}{)}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{read}\PYG{p}{(}\PYG{p}{)}
+\PYG{g+go}{'I am a file. This is my first line\PYGZbs{}nSecond line.\PYGZbs{}nThird line.'}
+\end{Verbatim}
+
+\code{read} prints the content of the file till it reaches it's end,
+and returns the content as string.
+You can also tell \code{read} to read a certain amount of bytes:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file} \PYG{o}{=} \PYG{n+nb}{open}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{test\PYGZus{}file.txt}\PYG{l+s}{"}\PYG{p}{,}\PYG{l+s}{'}\PYG{l+s}{r}\PYG{l+s}{'}\PYG{p}{)}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{read}\PYG{p}{(}\PYG{l+m+mi}{12}\PYG{p}{)}
+\PYG{g+go}{'I am a file.'}
+\end{Verbatim}
+
+We can also read line for line:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file} \PYG{o}{=} \PYG{n+nb}{open}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{test\PYGZus{}file.txt}\PYG{l+s}{"}\PYG{p}{,}\PYG{l+s}{'}\PYG{l+s}{r}\PYG{l+s}{'}\PYG{p}{)}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{readline}\PYG{p}{(}\PYG{p}{)}
+\PYG{g+go}{'I am a file. This is my first line\PYGZbs{}n'}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{readline}\PYG{p}{(}\PYG{p}{)}
+\PYG{g+go}{'Second line.\PYGZbs{}n'}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{readline}\PYG{p}{(}\PYG{p}{)}
+\PYG{g+go}{'Third line.'}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{readline}\PYG{p}{(}\PYG{p}{)}
+\PYG{g+go}{''}
+\end{Verbatim}
+
+\code{readline} prints the line till it finds \code{\textbackslash{}n}.
+Note that we had to reopen the file, because the we reached the
+end of the file after the first read call. With help of the seek
+method:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file} \PYG{o}{=} \PYG{n+nb}{open}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{test\PYGZus{}file.txt}\PYG{l+s}{"}\PYG{p}{,}\PYG{l+s}{'}\PYG{l+s}{r}\PYG{l+s}{'}\PYG{p}{)}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{read}\PYG{p}{(}\PYG{l+m+mi}{12}\PYG{p}{)}
+\PYG{g+go}{'I am a file.'}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{tell}\PYG{p}{(}\PYG{p}{)}
+\PYG{g+go}{12L}
+\end{Verbatim}
+
+To set a different position we use the \code{seek} method. \code{seek} goes
+to number of bytes from the position which is set. As default \code{seek}
+uses \code{0} (beginning of file; is equivalent to
+\code{os.SEEK\_CUR}). Other values are \code{1} (the current position;
+os.SEEK\_CUR) or \code{2} (end of file; os.SEEK\_END).
+
+For example let's read the first line of the file, and jump to the
+next line:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{seek}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{)}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{readline}\PYG{p}{(}\PYG{p}{)}
+\PYG{g+go}{'I am a file. This is my first line\PYGZbs{}n'}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{seek}\PYG{p}{(}\PYG{l+m+mi}{13}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{readline}\PYG{p}{(}\PYG{p}{)}
+\PYG{g+go}{'Third line.'}
+\end{Verbatim}
+
+Alternativley we can use the system's constants:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{seek}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{)}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{k+kn}{from} \PYG{n+nn}{os} \PYG{k+kn}{import} \PYG{n}{SEEK\PYGZus{}CUR}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{readline}\PYG{p}{(}\PYG{p}{)}
+\PYG{g+go}{'I am a file. This is my first line\PYGZbs{}n'}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{seek}\PYG{p}{(}\PYG{l+m+mi}{13}\PYG{p}{,}\PYG{n}{SEEK\PYGZus{}CUR}\PYG{p}{)}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{readline}\PYG{p}{(}\PYG{p}{)}
+\PYG{g+go}{'Third line.'}
+\end{Verbatim}
+
+The command \code{readlines} prints the lines from the
+file in a list:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{seek}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{)}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{readlines}\PYG{p}{(}\PYG{p}{)}
+\PYG{g+go}{['I am a file. This is my first line\PYGZbs{}n', 'Second line.\PYGZbs{}n', 'Third line.']}
+\end{Verbatim}
+
+To close the file again, use the close method:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{close}\PYG{p}{(}\PYG{p}{)}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}
+\PYG{g+go}{\textless{}closed file 'test\PYGZus{}file.txt', mode 'r' at 0xb7866b10\textgreater{}}
+\end{Verbatim}
+
+Now let's add a new line to the file:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file} \PYG{o}{=} \PYG{n+nb}{open}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{test\PYGZus{}file.txt}\PYG{l+s}{"}\PYG{p}{,}\PYG{l+s}{'}\PYG{l+s}{a}\PYG{l+s}{'}\PYG{p}{)}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{write}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{This is the fourth line.}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{"}\PYG{p}{)}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{close}\PYG{p}{(}\PYG{p}{)}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file} \PYG{o}{=} \PYG{n+nb}{open}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{test\PYGZus{}file.txt}\PYG{l+s}{"}\PYG{p}{,}\PYG{l+s}{'}\PYG{l+s}{r}\PYG{l+s}{'}\PYG{p}{)}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{k}{print}\PYG{p}{(}\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{read}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}
+\PYG{g+go}{I am a file. This is my first line}
+\PYG{g+go}{Second line.}
+\PYG{g+go}{Third line.}
+\PYG{g+go}{This is the fourth line.}
+\end{Verbatim}
+
+We can also do that interactively:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file} \PYG{o}{=} \PYG{n+nb}{open}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{test\PYGZus{}file.txt}\PYG{l+s}{"}\PYG{p}{,}\PYG{l+s}{'}\PYG{l+s}{r+}\PYG{l+s}{'}\PYG{p}{)}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{seek}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{)}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{write}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{This is the fift line.}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{"}\PYG{p}{)}
+\end{Verbatim}
+
+The file will only be changed on the disc if we close it
+or use the \code{flush} method:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{flush}\PYG{p}{(}\PYG{p}{)}
+\end{Verbatim}
+
+Now we can read it again:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{seek}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{)}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{k}{print}\PYG{p}{(}\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{read}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}
+\PYG{g+go}{I am a file. This is my first line}
+\PYG{g+go}{Second line.}
+\PYG{g+go}{Third line.}
+\PYG{g+go}{This is the fourth line.}
+\PYG{g+go}{This is the fift line.}
+\end{Verbatim}
+
+Oops we forgot an `h'. Let's change this:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{seek}\PYG{p}{(}\PYG{o}{-}\PYG{l+m+mi}{7}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{)}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{write}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{h line.}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{"}\PYG{p}{)}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{flush}\PYG{p}{(}\PYG{p}{)}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{seek}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{)}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{k}{print}\PYG{p}{(}\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{read}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}
+\PYG{g+go}{I am a file. This is my first line}
+\PYG{g+go}{Second line.}
+\PYG{g+go}{Third line.}
+\PYG{g+go}{This is the fourth line.}
+\PYG{g+go}{This is the fifth line.}
+\end{Verbatim}
+
+The writelines command make it possible to add a list of strings:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{seek}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{)}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{writelines}\PYG{p}{(}\PYG{p}{[}\PYG{l+s}{"}\PYG{l+s}{6th line}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{"}\PYG{p}{,}\PYG{l+s}{"}\PYG{l+s}{7th line}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{"}\PYG{p}{]}\PYG{p}{)}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{seek}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{)}
+\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{k}{print}\PYG{p}{(}\PYG{n+nb}{file}\PYG{o}{.}\PYG{n}{read}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}
+\PYG{g+go}{I am a file. This is my first line}
+\PYG{g+go}{Second line.}
+\PYG{g+go}{Third line.}
+\PYG{g+go}{This is the fourth line.}
+\PYG{g+go}{This is the fifth line.}
+\PYG{g+go}{6th line}
+\PYG{g+go}{7th line}
+\end{Verbatim}
+
+
 \section{Some words on programming paradigms}
 
 There are several programming paradigms, and the
@@ -3790,7 +4005,7 @@ CG algorithm:
 For more information see again the SciPy reference \footnote{
 \href{http://docs.scipy.org/doc/scipy/reference/sparse.linalg.html}{http://docs.scipy.org/doc/scipy/reference/sparse.linalg.html}
 }
-
+\hypertarget{weave-ref}{}
 
 \section{Weave}
 
@@ -3834,6 +4049,10 @@ C++ code inline with the Weave module. To do that give the Python
 Interpreter your C++ code as string, and then let compile it. Here
 an implementation of the band-matrix vector multiplication with weave::
 
+from numpy import array, zeros
+from scipy.weave import converters
+from scipy import weave
+
 def band@_matvec@_inline(A,u):
 
     result = zeros(u.shape@PYGZlb[]0@PYGZrb[],dtype=u.dtype)
@@ -3866,6 +4085,10 @@ def band@_matvec@_inline(A,u):
                type@_converters=converters.blitz)
     return result
 \end{Verbatim}
+
+As it can be seen the syntax is not that different from Numpy. The
+reason for this is, that Weave uses here the Blitz library for
+numerical computation, which has it's own vector class.
 
 If you call this function the first time it will be compiled in
 runtime:
@@ -3951,62 +4174,62 @@ magic function \code{\%cython}.
 To use a \emph{.spyx} file simply load it into Sage with the \code{load}
 command:
 
-\begin{Verbatim}[commandchars=@\[\]]
-load my@_cython@_file.spyx
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{load} \PYG{n}{my\PYGZus{}cython\PYGZus{}file}\PYG{o}{.}\PYG{n}{spyx}
 \end{Verbatim}
 
 For example I write a short code snippet for an self made
-matrix vector product:
+scalar product:
 
-\begin{Verbatim}[commandchars=@\[\]]
-def my@_dot(x,y):
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{my\PYGZus{}dot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{p}{)}\PYG{p}{:}
 
-    if x.size != y.size
-        raise ValueError("Dimension Mismatch")
+    \PYG{k}{if} \PYG{n}{x}\PYG{o}{.}\PYG{n}{size} \PYG{o}{!=} \PYG{n}{y}\PYG{o}{.}\PYG{n}{size}
+        \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{Dimension Mismatch}\PYG{l+s}{"}\PYG{p}{)}
 
-    result = 0
+    \PYG{n}{result} \PYG{o}{=} \PYG{l+m+mf}{0}
 
-    for i in range(x.size):
-        result += x@PYGZlb[]i@PYGZrb[]*y@PYGZlb[]i@PYGZrb[]
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{x}\PYG{o}{.}\PYG{n}{size}\PYG{p}{)}\PYG{p}{:}
+        \PYG{n}{result} \PYG{o}{+}\PYG{o}{=} \PYG{n}{x}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{*}\PYG{n}{y}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}
 
-    return result
+    \PYG{k}{return} \PYG{n}{result}
 \end{Verbatim}
 
 I save this in the file my\_dot.spyx. Now I call Sage, and cd to the
 directory I saved the file. Now simply call Sage, and type:
 
-\begin{Verbatim}[commandchars=@\[\]]
-sage: load my@_dot.spyx
-Compiling ./my@_dot.spyx...
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{sage}\PYG{p}{:} \PYG{n}{load} \PYG{n}{my\PYGZus{}dot}\PYG{o}{.}\PYG{n}{spyx}
+\PYG{n}{Compiling} \PYG{o}{.}\PYG{o}{/}\PYG{n}{my\PYGZus{}dot}\PYG{o}{.}\PYG{n}{spyx}\PYG{o}{.}\PYG{o}{.}\PYG{o}{.}
 \end{Verbatim}
 
 Now the function can be called directly like a normal Python
 function:
 
-\begin{Verbatim}[commandchars=@\[\]]
-sage: from numpy import array
-sage: x = array(@PYGZlb[]1,2,3.@PYGZrb[])
-sage: y = array(@PYGZlb[]1,0,5@PYGZrb[])
-sage: my@_dot(x,y)
-16.0
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{sage}\PYG{p}{:} \PYG{k}{from} \PYG{n+nn}{numpy} \PYG{k}{import} \PYG{n}{array}
+\PYG{n}{sage}\PYG{p}{:} \PYG{n}{x} \PYG{o}{=} \PYG{n}{array}\PYG{p}{(}\PYG{p}{[}\PYG{l+m+mf}{1}\PYG{p}{,}\PYG{l+m+mf}{2}\PYG{p}{,}\PYG{l+m+mf}{3.}\PYG{p}{]}\PYG{p}{)}
+\PYG{n}{sage}\PYG{p}{:} \PYG{n}{y} \PYG{o}{=} \PYG{n}{array}\PYG{p}{(}\PYG{p}{[}\PYG{l+m+mf}{1}\PYG{p}{,}\PYG{l+m+mf}{0}\PYG{p}{,}\PYG{l+m+mf}{5}\PYG{p}{]}\PYG{p}{)}
+\PYG{n}{sage}\PYG{p}{:} \PYG{n}{my\PYGZus{}dot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{p}{)}
+\PYG{l+m+mf}{16.0}
 \end{Verbatim}
 
 A different way would be in the notebook. Simply write in an
 empty notebook cell:
 
-\begin{Verbatim}[commandchars=@\[\]]
-@%cython
-def my@_dot(x,y):
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{\%}\PYG{n}{cython}
+\PYG{k}{def} \PYG{n+nf}{my\PYGZus{}dot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{p}{)}\PYG{p}{:}
 
-    if x.size != y.size:
-        raise ValueError("Dimension Mismatch")
+    \PYG{k}{if} \PYG{n}{x}\PYG{o}{.}\PYG{n}{size} \PYG{o}{!=} \PYG{n}{y}\PYG{o}{.}\PYG{n}{size}\PYG{p}{:}
+        \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{Dimension Mismatch}\PYG{l+s}{"}\PYG{p}{)}
 
-    result = 0
+    \PYG{n}{result} \PYG{o}{=} \PYG{l+m+mf}{0}
 
-    for i in range(x.size):
-        result += x@PYGZlb[]i@PYGZrb[]*y@PYGZlb[]i@PYGZrb[]
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{x}\PYG{o}{.}\PYG{n}{size}\PYG{p}{)}\PYG{p}{:}
+        \PYG{n}{result} \PYG{o}{+}\PYG{o}{=} \PYG{n}{x}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{*}\PYG{n}{y}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}
 
-    return result
+    \PYG{k}{return} \PYG{n}{result}
 \end{Verbatim}
 
 Now if you evalute it, the function will be compiled, and you can call
@@ -4022,14 +4245,15 @@ same code as before and write it to \emph{my\_dot.pyx}.
 Now we use disutils and write a setup.py file, which works similar
 to a make file:
 
-\begin{Verbatim}[commandchars=@\[\]]
-from distutils.core import setup
-from distutils.extension import Extension
-from Cython.Distutils import build@_ext
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{from} \PYG{n+nn}{distutils.core} \PYG{k}{import} \PYG{n}{setup}
+\PYG{k}{from} \PYG{n+nn}{distutils.extension} \PYG{k}{import} \PYG{n}{Extension}
+\PYG{k}{from} \PYG{n+nn}{Cython.Distutils} \PYG{k}{import} \PYG{n}{build\PYGZus{}ext}
 
-setup(
-    cmdclass = {'build@_ext': build@_ext},
-    ext@_modules = @PYGZlb[]Extension("my@_dot", @PYGZlb[]"my@_dot.pyx"@PYGZrb[])@PYGZrb[]
+\PYG{n}{setup}\PYG{p}{(}
+    \PYG{n}{cmdclass} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{l+s}{'}\PYG{l+s}{build\PYGZus{}ext}\PYG{l+s}{'}\PYG{p}{:} \PYG{n}{build\PYGZus{}ext}\PYG{p}{\PYGZcb{}}\PYG{p}{,}
+    \PYG{n}{ext\PYGZus{}modules} \PYG{o}{=} \PYG{p}{[}\PYG{n}{Extension}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{my\PYGZus{}dot}\PYG{l+s}{"}\PYG{p}{,} \PYG{p}{[}\PYG{l+s}{"}\PYG{l+s}{my\PYGZus{}dot.pyx}\PYG{l+s}{"}\PYG{p}{]}\PYG{p}{)}\PYG{p}{]}
+\PYG{p}{)}
 \end{Verbatim}
 
 Save this as setup.py in the directory where your code file lies.
@@ -4037,8 +4261,8 @@ Save this as setup.py in the directory where your code file lies.
 Now cd to your working directory where the code and setup file is
 saved and call it with:
 
-\begin{Verbatim}[commandchars=@\[\]]
-python setup.py -build@_ext --inplace
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{python} \PYG{n}{setup}\PYG{o}{.}\PYG{n}{py} \PYG{o}{-}\PYG{n}{build\PYGZus{}ext} \PYG{o}{-}\PYG{o}{-}\PYG{n}{inplace}
 \end{Verbatim}
 
 Then the \emph{.pyx} files will be compiled.
@@ -4046,17 +4270,17 @@ Now you can call it normally in Python (after changing to the working
 directory):
 
 \begin{Verbatim}[commandchars=\\\{\}]
-\PYG{g+gp}{\textgreater{}\textgreater{}\textgreater{} }\PYG{k+kn}{from} \PYG{n+nn}{my\PYGZus{}dot} \PYG{k+kn}{import} \PYG{n}{my\PYGZus{}dot}
+\PYG{o}{\textgreater{}\textgreater{}}\PYG{o}{\textgreater{}} \PYG{k}{from} \PYG{n+nn}{my\PYGZus{}dot} \PYG{k}{import} \PYG{n}{my\PYGZus{}dot}
 \end{Verbatim}
 
 To compile more files, simply put more extensions to the ext\_modules
 list. I created for example a further file with the name \emph{test.pyx}
 
 \begin{Verbatim}[commandchars=\\\{\}]
-\PYG{k+kn}{from} \PYG{n+nn}{distutils.core} \PYG{k+kn}{import} \PYG{n}{setup}
-\PYG{k+kn}{from} \PYG{n+nn}{distutils.extension} \PYG{k+kn}{import} \PYG{n}{Extension}
-\PYG{k+kn}{from} \PYG{n+nn}{Cython.Distutils} \PYG{k+kn}{import} \PYG{n}{build\PYGZus{}ext}
-\PYG{k+kn}{import} \PYG{n+nn}{numpy}
+\PYG{k}{from} \PYG{n+nn}{distutils.core} \PYG{k}{import} \PYG{n}{setup}
+\PYG{k}{from} \PYG{n+nn}{distutils.extension} \PYG{k}{import} \PYG{n}{Extension}
+\PYG{k}{from} \PYG{n+nn}{Cython.Distutils} \PYG{k}{import} \PYG{n}{build\PYGZus{}ext}
+\PYG{k}{import} \PYG{n+nn}{numpy}
 
 \PYG{n}{setup}\PYG{p}{(}
     \PYG{n}{cmdclass} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{l+s}{'}\PYG{l+s}{build\PYGZus{}ext}\PYG{l+s}{'}\PYG{p}{:} \PYG{n}{build\PYGZus{}ext}\PYG{p}{\PYGZcb{}}\PYG{p}{,}
@@ -4070,14 +4294,15 @@ list. I created for example a further file with the name \emph{test.pyx}
 example this would look like this:
 
 \begin{Verbatim}[commandchars=\\\{\}]
-\PYG{k+kn}{from} \PYG{n+nn}{distutils.core} \PYG{k+kn}{import} \PYG{n}{setup}
-\PYG{k+kn}{from} \PYG{n+nn}{distutils.extension} \PYG{k+kn}{import} \PYG{n}{Extension}
-\PYG{k+kn}{from} \PYG{n+nn}{Cython.Distutils} \PYG{k+kn}{import} \PYG{n}{build\PYGZus{}ext}
-\PYG{k+kn}{import} \PYG{n+nn}{numpy}
+\PYG{k}{from} \PYG{n+nn}{distutils.core} \PYG{k}{import} \PYG{n}{setup}
+\PYG{k}{from} \PYG{n+nn}{distutils.extension} \PYG{k}{import} \PYG{n}{Extension}
+\PYG{k}{from} \PYG{n+nn}{Cython.Distutils} \PYG{k}{import} \PYG{n}{build\PYGZus{}ext}
+\PYG{k}{import} \PYG{n+nn}{numpy}
 
 \PYG{n}{setup}\PYG{p}{(}
     \PYG{n}{cmdclass} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{l+s}{'}\PYG{l+s}{build\PYGZus{}ext}\PYG{l+s}{'}\PYG{p}{:} \PYG{n}{build\PYGZus{}ext}\PYG{p}{\PYGZcb{}}\PYG{p}{,}
-    \PYG{n}{ext\PYGZus{}modules} \PYG{o}{=} \PYG{p}{[}\PYG{n}{Extension}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{my\PYGZus{}dot}\PYG{l+s}{"}\PYG{p}{,} \PYG{p}{[}\PYG{l+s}{"}\PYG{l+s}{my\PYGZus{}dot.pyx}\PYG{l+s}{"}\PYG{p}{]}\PYG{p}{,}\PYG{n}{include\PYGZus{}dirs}\PYG{o}{=}\PYG{p}{[}\PYG{n}{numpy}\PYG{o}{.}\PYG{n}{get\PYGZus{}include}\PYG{p}{(}\PYG{p}{)}\PYG{p}{]}\PYG{p}{)}\PYG{p}{]}
+    \PYG{n}{ext\PYGZus{}modules} \PYG{o}{=} \PYG{p}{[}\PYG{n}{Extension}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{my\PYGZus{}dot}\PYG{l+s}{"}\PYG{p}{,} \PYG{p}{[}\PYG{l+s}{"}\PYG{l+s}{my\PYGZus{}dot.pyx}\PYG{l+s}{"}\PYG{p}{]}\PYG{p}{,}
+    \PYG{n}{include\PYGZus{}dirs}\PYG{o}{=}\PYG{p}{[}\PYG{n}{numpy}\PYG{o}{.}\PYG{n}{get\PYGZus{}include}\PYG{p}{(}\PYG{p}{)}\PYG{p}{]}\PYG{p}{)}\PYG{p}{]}
 \PYG{p}{)}
 \end{Verbatim}
 
@@ -4101,18 +4326,18 @@ This can be very useful for speeding up your Python programs.
 
 Let's look at our scalar product again:
 
-\begin{Verbatim}[commandchars=@\[\]]
-def my@_dot(x,y):
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{my\PYGZus{}dot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{p}{)}\PYG{p}{:}
 
-    if x.size != y.size
-        raise ValueError("Dimension Mismatch")
+    \PYG{k}{if} \PYG{n}{x}\PYG{o}{.}\PYG{n}{size} \PYG{o}{!=} \PYG{n}{y}\PYG{o}{.}\PYG{n}{size}
+        \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{Dimension Mismatch}\PYG{l+s}{"}\PYG{p}{)}
 
-    result = 0
+    \PYG{n}{result} \PYG{o}{=} \PYG{l+m+mf}{0}
 
-    for i in range(x.size):
-        result += x@PYGZlb[]i@PYGZrb[]*y@PYGZlb[]i@PYGZrb[]
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{x}\PYG{o}{.}\PYG{n}{size}\PYG{p}{)}\PYG{p}{:}
+        \PYG{n}{result} \PYG{o}{+}\PYG{o}{=} \PYG{n}{x}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{*}\PYG{n}{y}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}
 
-    return result
+    \PYG{k}{return} \PYG{n}{result}
 \end{Verbatim}
 
 The counter variables cost a lot of efficiency because the program has
@@ -4120,33 +4345,33 @@ to check first, what it recieves, because in Python \code{i} could be
 every type of object. To overcome this we tell Cython to take a normal
 C integer:
 
-\begin{Verbatim}[commandchars=@\[\]]
-def my@_dot(x,y):
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{my\PYGZus{}dot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{p}{)}\PYG{p}{:}
 
-  if x.size != y.size
-      raise ValueError("Dimension Mismatch")
+  \PYG{k}{if} \PYG{n}{x}\PYG{o}{.}\PYG{n}{size} \PYG{o}{!=} \PYG{n}{y}\PYG{o}{.}\PYG{n}{size}
+      \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{Dimension Mismatch}\PYG{l+s}{"}\PYG{p}{)}
 
-  cdef double result = 0
+  \PYG{k}{cdef} \PYG{k+kt}{double} \PYG{n+nf}{result} \PYG{o}{=} \PYG{l+m+mf}{0}
 
-  cdef int i
+  \PYG{k}{cdef} \PYG{k+kt}{int} \PYG{n+nf}{i}
 
-  for i in range(x.size):
-      result += x@PYGZlb[]i@PYGZrb[]*y@PYGZlb[]i@PYGZrb[]
+  \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{x}\PYG{o}{.}\PYG{n}{size}\PYG{p}{)}\PYG{p}{:}
+      \PYG{n}{result} \PYG{o}{+}\PYG{o}{=} \PYG{n}{x}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{*}\PYG{n}{y}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}
 
-  return result
+  \PYG{k}{return} \PYG{n}{result}
 \end{Verbatim}
 
 Now you can compile and use it. Let's measure the difference:
 
-\begin{Verbatim}[commandchars=@\[\]]
-sage: x = randn(10**6)
-sage: y = randn(10**6)
-sage: @%timeit my@_dot(x,y)
-5 loops, best of 3: 1.1 s per loop
-sage: load my@_dot.spyx
-Compiling ./my@_dot.spyx...
-sage: @%timeit my@_dot(x,y)
-5 loops, best of 3: 653 ms per loop
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{sage}\PYG{p}{:} \PYG{n}{x} \PYG{o}{=} \PYG{n}{randn}\PYG{p}{(}\PYG{l+m+mf}{10}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mf}{6}\PYG{p}{)}
+\PYG{n}{sage}\PYG{p}{:} \PYG{n}{y} \PYG{o}{=} \PYG{n}{randn}\PYG{p}{(}\PYG{l+m+mf}{10}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mf}{6}\PYG{p}{)}
+\PYG{n}{sage}\PYG{p}{:} \PYG{o}{\%}\PYG{n}{timeit} \PYG{n}{my\PYGZus{}dot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{p}{)}
+\PYG{l+m+mf}{5} \PYG{n}{loops}\PYG{p}{,} \PYG{n}{best} \PYG{n}{of} \PYG{l+m+mf}{3}\PYG{p}{:} \PYG{l+m+mf}{1.1} \PYG{n}{s} \PYG{n}{per} \PYG{n}{loop}
+\PYG{n}{sage}\PYG{p}{:} \PYG{n}{load} \PYG{n}{my\PYGZus{}dot}\PYG{o}{.}\PYG{n}{spyx}
+\PYG{n}{Compiling} \PYG{o}{.}\PYG{o}{/}\PYG{n}{my\PYGZus{}dot}\PYG{o}{.}\PYG{n}{spyx}\PYG{o}{.}\PYG{o}{.}\PYG{o}{.}
+\PYG{n}{sage}\PYG{p}{:} \PYG{o}{\%}\PYG{n}{timeit} \PYG{n}{my\PYGZus{}dot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{p}{)}
+\PYG{l+m+mf}{5} \PYG{n}{loops}\PYG{p}{,} \PYG{n}{best} \PYG{n}{of} \PYG{l+m+mf}{3}\PYG{p}{:} \PYG{l+m+mf}{653} \PYG{n}{ms} \PYG{n}{per} \PYG{n}{loop}
 \end{Verbatim}
 
 We this was already twice as fast as the old version.
@@ -4155,25 +4380,25 @@ GHz, and 2 GB Ram). This is not that much, but more is possible!
 
 The next step would be to tell the function which data types to use:
 
-\begin{Verbatim}[commandchars=@\[\]]
-cimport numpy as cnumpy
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{cimport} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{cnumpy}
 
-ctypedef cnumpy.float64@_t reals @#typedef@_for easier reedding
+\PYG{k}{ctypedef} \PYG{n}{cnumpy}\PYG{o}{.}\PYG{n}{float64\PYGZus{}t} \PYG{n}{reals} \PYG{c}{\#typedef\PYGZus{}for easier reedding}
 
-def my@_dot(cnumpy.ndarray@PYGZlb[]reals,ndim=1@PYGZrb[] x,
-              cnumpy.ndarray@PYGZlb[]reals,ndim=1@PYGZrb[] y):
+\PYG{k}{def} \PYG{n+nf}{my\PYGZus{}dot}\PYG{p}{(}\PYG{n}{cnumpy}\PYG{o}{.}\PYG{n}{ndarray}\PYG{p}{[}\PYG{n}{reals}\PYG{p}{,}\PYG{n}{ndim}\PYG{o}{=}\PYG{l+m+mf}{1}\PYG{p}{]} \PYG{n}{x}\PYG{p}{,}
+              \PYG{n}{cnumpy}\PYG{o}{.}\PYG{n}{ndarray}\PYG{p}{[}\PYG{n}{reals}\PYG{p}{,}\PYG{n}{ndim}\PYG{o}{=}\PYG{l+m+mf}{1}\PYG{p}{]} \PYG{n}{y}\PYG{p}{)}\PYG{p}{:}
 
-    if x.size != y.size:
-        raise ValueError("Dimension Mismatch")
+    \PYG{k}{if} \PYG{n}{x}\PYG{o}{.}\PYG{n}{size} \PYG{o}{!=} \PYG{n}{y}\PYG{o}{.}\PYG{n}{size}\PYG{p}{:}
+        \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{Dimension Mismatch}\PYG{l+s}{"}\PYG{p}{)}
 
-    cdef double result = 0
+    \PYG{k}{cdef} \PYG{k+kt}{double} \PYG{n+nf}{result} \PYG{o}{=} \PYG{l+m+mf}{0}
 
-    cdef int i
+    \PYG{k}{cdef} \PYG{k+kt}{int} \PYG{n+nf}{i}
 
-    for i in range(x.size):
-        result += x@PYGZlb[]i@PYGZrb[]*y@PYGZlb[]i@PYGZrb[]
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{x}\PYG{o}{.}\PYG{n}{size}\PYG{p}{)}\PYG{p}{:}
+        \PYG{n}{result} \PYG{o}{+}\PYG{o}{=} \PYG{n}{x}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{*}\PYG{n}{y}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}
 
-    return result
+    \PYG{k}{return} \PYG{n}{result}
 \end{Verbatim}
 
 In the first line we used the \code{cimport} statement to load the C version
@@ -4186,23 +4411,23 @@ The main difference in this example is that we told Cython that the
 input should be to NumPy arrays. This avoids unecessary overhead. Now
 we make the timing again:
 
-\begin{Verbatim}[commandchars=@\[\]]
-sage: load my@_dot.spyx
-Compiling ./my@_dot.spyx...
-sage: @%timeit my@_dot(x,y)
-125 loops, best of 3: 3.54 ms per loop
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{sage}\PYG{p}{:} \PYG{n}{load} \PYG{n}{my\PYGZus{}dot}\PYG{o}{.}\PYG{n}{spyx}
+\PYG{n}{Compiling} \PYG{o}{.}\PYG{o}{/}\PYG{n}{my\PYGZus{}dot}\PYG{o}{.}\PYG{n}{spyx}\PYG{o}{.}\PYG{o}{.}\PYG{o}{.}
+\PYG{n}{sage}\PYG{p}{:} \PYG{o}{\%}\PYG{n}{timeit} \PYG{n}{my\PYGZus{}dot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{p}{)}
+\PYG{l+m+mf}{125} \PYG{n}{loops}\PYG{p}{,} \PYG{n}{best} \PYG{n}{of} \PYG{l+m+mf}{3}\PYG{p}{:} \PYG{l+m+mf}{3.54} \PYG{n}{ms} \PYG{n}{per} \PYG{n}{loop}
 \end{Verbatim}
 
 This was now about 300x faster than the original version.
 
 The drawback is that the Cython function only take numpy arrays:
 
-\begin{Verbatim}[commandchars=@\[\]]
-sage: x = range(5)
-sage: y = randn(5)
-sage: my@_dot(x,y)
-...
-TypeError: Argument 'x' has incorrect type (expected numpy.ndarray, got list)
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{sage}\PYG{p}{:} \PYG{n}{x} \PYG{o}{=} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mf}{5}\PYG{p}{)}
+\PYG{n}{sage}\PYG{p}{:} \PYG{n}{y} \PYG{o}{=} \PYG{n}{randn}\PYG{p}{(}\PYG{l+m+mf}{5}\PYG{p}{)}
+\PYG{n}{sage}\PYG{p}{:} \PYG{n}{my\PYGZus{}dot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{p}{)}
+\PYG{o}{.}\PYG{o}{.}\PYG{o}{.}
+\PYG{n+ne}{TypeError}\PYG{p}{:} \PYG{n}{Argument} \PYG{l+s}{'}\PYG{l+s}{x}\PYG{l+s}{'} \PYG{n}{has} \PYG{n}{incorrect} \PYG{n+nb}{type} \PYG{p}{(}\PYG{n}{expected} \PYG{n}{numpy}\PYG{o}{.}\PYG{n}{ndarray}\PYG{p}{,} \PYG{n}{got} \PYG{n+nb}{list}\PYG{p}{)}
 \end{Verbatim}
 
 
@@ -4216,29 +4441,29 @@ other functions.
 For example let's define a \code{cdef} function
 \code{f}:
 
-\begin{Verbatim}[commandchars=@\[\]]
-cdef double f(double x):
-    return x**2 - x
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{cdef} \PYG{k+kt}{double} \PYG{n+nf}{f}\PYG{p}{(}\PYG{n}{double} \PYG{n}{x}\PYG{p}{)}\PYG{p}{:}
+    \PYG{k}{return} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mf}{2} \PYG{o}{-} \PYG{n}{x}
 \end{Verbatim}
 
 If yould try now to call it Python won't find it:
 
-\begin{Verbatim}[commandchars=@\[\]]
-NameError: name 'f' is not defined
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+ne}{NameError}\PYG{p}{:} \PYG{n}{name} \PYG{l+s}{'}\PYG{l+s}{f}\PYG{l+s}{'} \PYG{o+ow}{is} \PYG{o+ow}{not} \PYG{n}{defined}
 \end{Verbatim}
 
 But you can call it within an other function defined in a \emph{.pyx}
 
-\begin{Verbatim}[commandchars=@\[\]]
-def call@_f(double x):
-    return f(x)
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{call\PYGZus{}f}\PYG{p}{(}\PYG{n}{double} \PYG{n}{x}\PYG{p}{)}\PYG{p}{:}
+    \PYG{k}{return} \PYG{n}{f}\PYG{p}{(}\PYG{n}{x}\PYG{p}{)}
 \end{Verbatim}
 
 Another possibility would be the cpdef statement:
 
-\begin{Verbatim}[commandchars=@\[\]]
-cdef double f(double x):
-    return x**2 - x
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{cdef} \PYG{k+kt}{double} \PYG{n+nf}{f}\PYG{p}{(}\PYG{n}{double} \PYG{n}{x}\PYG{p}{)}\PYG{p}{:}
+    \PYG{k}{return} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mf}{2} \PYG{o}{-} \PYG{n}{x}
 \end{Verbatim}
 
 This function can now be called both ways.
@@ -4246,37 +4471,37 @@ This function can now be called both ways.
 \textbf{Note:} If you don't declare it, \code{cdef} functions can't handly
 exceptions right. For example
 
-\begin{Verbatim}[commandchars=@\[\]]
-cdef double f(double x):
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{cdef} \PYG{k+kt}{double} \PYG{n+nf}{f}\PYG{p}{(}\PYG{n}{double} \PYG{n}{x}\PYG{p}{)}\PYG{p}{:}
 
-    if x == 0:
-        raise ValueError("Division by Zero!")
+    \PYG{k}{if} \PYG{n}{x} \PYG{o}{==} \PYG{l+m+mf}{0}\PYG{p}{:}
+        \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{Division by Zero!}\PYG{l+s}{"}\PYG{p}{)}
 
-    return x**(-2) - x
+    \PYG{k}{return} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{p}{(}\PYG{o}{-}\PYG{l+m+mf}{2}\PYG{p}{)} \PYG{o}{-} \PYG{n}{x}
 \end{Verbatim}
 
 would not raise a Python exception. To do this use the except
 statement:
 
-\begin{Verbatim}[commandchars=@\[\]]
-cdef double f(double x) except *:
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{cdef} \PYG{k+kt}{double} \PYG{n+nf}{f}\PYG{p}{(}\PYG{n}{double} \PYG{n}{x}\PYG{p}{)} \PYG{k}{except} \PYG{o}{*}\PYG{p}{:}
 
-    if x == 0:
-        raise ValueError("Division by Zero!")
+    \PYG{k}{if} \PYG{n}{x} \PYG{o}{==} \PYG{l+m+mf}{0}\PYG{p}{:}
+        \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{Division by Zero!}\PYG{l+s}{"}\PYG{p}{)}
 
-    return x**(-2) - x
+    \PYG{k}{return} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{p}{(}\PYG{o}{-}\PYG{l+m+mf}{2}\PYG{p}{)} \PYG{o}{-} \PYG{n}{x}
 \end{Verbatim}
 
 The \code{*} means that the function should propagate arbitrary
 exceptions. To be more specific you can also handle specific output:
 
-\begin{Verbatim}[commandchars=@\[\]]
-cdef double f(double x) except? 0:
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{cdef} \PYG{k+kt}{double} \PYG{n+nf}{f}\PYG{p}{(}\PYG{n}{double} \PYG{n}{x}\PYG{p}{)} \PYG{k}{except}\PYG{o}{?} \PYG{l+m+mf}{0}\PYG{p}{:}
 
-  if x == 0:
-      raise ValueError("Division by Zero!")
+  \PYG{k}{if} \PYG{n}{x} \PYG{o}{==} \PYG{l+m+mf}{0}\PYG{p}{:}
+      \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{Division by Zero!}\PYG{l+s}{"}\PYG{p}{)}
 
-  return x**(-2) - x
+  \PYG{k}{return} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{p}{(}\PYG{o}{-}\PYG{l+m+mf}{2}\PYG{p}{)} \PYG{o}{-} \PYG{n}{x}
 \end{Verbatim}
 
 The \code{?} here means that \code{0} is accepted as output too (or else you
@@ -4290,20 +4515,20 @@ from the Cython documentation (see \footnote{
 \href{http://docs.cython.org/src/tutorial/cdef\_classes.html}{http://docs.cython.org/src/tutorial/cdef\_classes.html}
 }):
 
-\begin{Verbatim}[commandchars=@\[\]]
-cdef class Function:
-    cpdef double evaluate(self, double x) except *:
-        return 0
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{cdef} \PYG{k}{class} \PYG{n+nf}{Function}\PYG{p}{:}
+    \PYG{k}{cpdef} \PYG{k+kt}{double} \PYG{n+nf}{evaluate}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{double} \PYG{n}{x}\PYG{p}{)} \PYG{k}{except} \PYG{o}{*}\PYG{p}{:}
+        \PYG{k}{return} \PYG{l+m+mf}{0}
 \end{Verbatim}
 
 A \code{cdef} class is also called Extension Type.
 
 This class can be derived like a normal Python class:
 
-\begin{Verbatim}[commandchars=@\[\]]
-cdef class SinOfSquareFunction(Function):
-    cpdef double evaluate(self, double x) except *:
-        return sin(x**2)
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{cdef} \PYG{k}{class} \PYG{n+nf}{SinOfSquareFunction}\PYG{p}{(}\PYG{n}{Function}\PYG{p}{)}\PYG{p}{:}
+    \PYG{k}{cpdef} \PYG{k+kt}{double} \PYG{n+nf}{evaluate}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{double} \PYG{n}{x}\PYG{p}{)} \PYG{k}{except} \PYG{o}{*}\PYG{p}{:}
+        \PYG{k}{return} \PYG{n}{sin}\PYG{p}{(}\PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mf}{2}\PYG{p}{)}
 \end{Verbatim}
 
 \code{cdef} classes are very limited in comparison to Python classes,
@@ -4316,19 +4541,19 @@ further details \footnote{
 We can use this new class like a new datatype.
 See again an example from the Cython documentation:
 
-\begin{Verbatim}[commandchars=@\[\]]
-def integrate(Function f, double a, double b, int N):
-    cdef int i
-    cdef double s, dx
-    if f is None:
-        raise ValueError("f cannot be None")
-    s = 0
-    dx = (b-a)/N
-    for i in range(N):
-        s += f.evaluate(a+i*dx)
-    return s * dx
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{integrate}\PYG{p}{(}\PYG{n}{Function} \PYG{n}{f}\PYG{p}{,} \PYG{n}{double} \PYG{n}{a}\PYG{p}{,} \PYG{n}{double} \PYG{n}{b}\PYG{p}{,} \PYG{n+nb}{int} \PYG{n}{N}\PYG{p}{)}\PYG{p}{:}
+    \PYG{k}{cdef} \PYG{k+kt}{int} \PYG{n+nf}{i}
+    \PYG{k}{cdef} \PYG{k+kt}{double} \PYG{n+nf}{s}\PYG{p}{,} \PYG{n+nf}{dx}
+    \PYG{k}{if} \PYG{n}{f} \PYG{o+ow}{is} \PYG{n+nb+bp}{None}\PYG{p}{:}
+        \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{f cannot be None}\PYG{l+s}{"}\PYG{p}{)}
+    \PYG{n}{s} \PYG{o}{=} \PYG{l+m+mf}{0}
+    \PYG{n}{dx} \PYG{o}{=} \PYG{p}{(}\PYG{n}{b}\PYG{o}{-}\PYG{n}{a}\PYG{p}{)}\PYG{o}{/}\PYG{n}{N}
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{N}\PYG{p}{)}\PYG{p}{:}
+        \PYG{n}{s} \PYG{o}{+}\PYG{o}{=} \PYG{n}{f}\PYG{o}{.}\PYG{n}{evaluate}\PYG{p}{(}\PYG{n}{a}\PYG{o}{+}\PYG{n}{i}\PYG{o}{*}\PYG{n}{dx}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n}{s} \PYG{o}{*} \PYG{n}{dx}
 
-print(integrate(SinOfSquareFunction(), 0, 1, 10000))
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{integrate}\PYG{p}{(}\PYG{n}{SinOfSquareFunction}\PYG{p}{(}\PYG{p}{)}\PYG{p}{,} \PYG{l+m+mf}{0}\PYG{p}{,} \PYG{l+m+mf}{1}\PYG{p}{,} \PYG{l+m+mf}{10000}\PYG{p}{)}\PYG{p}{)}
 \end{Verbatim}
 
 
@@ -4339,12 +4564,12 @@ defined in a header file. For example we want to wrap the sinus from
 the math.h in a Python function. Then we would write for example in a
 \emph{.pyx} file:
 
-\begin{Verbatim}[commandchars=@\[\]]
-cdef extern from "math.h":
-  double sin(double)
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{cdef} \PYG{k+kr}{extern} \PYG{k}{from} \PYG{l+s}{"}\PYG{l+s}{math.h}\PYG{l+s}{"}\PYG{p}{:}
+  \PYG{n}{double} \PYG{n}{sin}\PYG{p}{(}\PYG{n}{double}\PYG{p}{)}
 
-def c@_sin(double x):
-    return sin(x)
+\PYG{k}{def} \PYG{n+nf}{c\PYGZus{}sin}\PYG{p}{(}\PYG{n}{double} \PYG{n}{x}\PYG{p}{)}\PYG{p}{:}
+    \PYG{k}{return} \PYG{n}{sin}\PYG{p}{(}\PYG{n}{x}\PYG{p}{)}
 \end{Verbatim}
 
 The \code{cdef extern} statement help us to call \code{sin} from C.
@@ -4353,12 +4578,12 @@ can't call a \code{cdef} function directly. If you want to call your
 Python function with sin, you can rename the extern C function with
 a custom made identifier:
 
-\begin{Verbatim}[commandchars=@\[\]]
-cdef extern from "math.h":
-    double c@_sin "sin"(double)
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{cdef} \PYG{k+kr}{extern} \PYG{k}{from} \PYG{l+s}{"}\PYG{l+s}{math.h}\PYG{l+s}{"}\PYG{p}{:}
+    \PYG{n}{double} \PYG{n}{c\PYGZus{}sin} \PYG{l+s}{"}\PYG{l+s}{sin}\PYG{l+s}{"}\PYG{p}{(}\PYG{n}{double}\PYG{p}{)}
 
-def sin(double x):
-    return c@_sin(x)
+\PYG{k}{def} \PYG{n+nf}{sin}\PYG{p}{(}\PYG{n}{double} \PYG{n}{x}\PYG{p}{)}\PYG{p}{:}
+    \PYG{k}{return} \PYG{n}{c\PYGZus{}sin}\PYG{p}{(}\PYG{n}{x}\PYG{p}{)}
 \end{Verbatim}
 
 The \code{c\_sin} is the name of the \code{cdef} function.
@@ -4369,14 +4594,15 @@ this case it is the math library with abbreviation ``m''. You have to
 specify this in your setup file (I saved the sinus to \emph{math\_stuff.pyx}):
 
 \begin{Verbatim}[commandchars=\\\{\}]
-\PYG{k+kn}{from} \PYG{n+nn}{distutils.core} \PYG{k+kn}{import} \PYG{n}{setup}
-\PYG{k+kn}{from} \PYG{n+nn}{distutils.extension} \PYG{k+kn}{import} \PYG{n}{Extension}
-\PYG{k+kn}{from} \PYG{n+nn}{Cython.Distutils} \PYG{k+kn}{import} \PYG{n}{build\PYGZus{}ext}
+\PYG{k}{from} \PYG{n+nn}{distutils.core} \PYG{k}{import} \PYG{n}{setup}
+\PYG{k}{from} \PYG{n+nn}{distutils.extension} \PYG{k}{import} \PYG{n}{Extension}
+\PYG{k}{from} \PYG{n+nn}{Cython.Distutils} \PYG{k}{import} \PYG{n}{build\PYGZus{}ext}
 
 \PYG{n}{setup}\PYG{p}{(}
     \PYG{n}{name} \PYG{o}{=} \PYG{l+s}{"}\PYG{l+s}{Math Stuff}\PYG{l+s}{"}\PYG{p}{,}
     \PYG{n}{cmdclass} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{l+s}{'}\PYG{l+s}{build\PYGZus{}ext}\PYG{l+s}{'}\PYG{p}{:} \PYG{n}{build\PYGZus{}ext}\PYG{p}{\PYGZcb{}}\PYG{p}{,}
-    \PYG{n}{ext\PYGZus{}modules} \PYG{o}{=} \PYG{p}{[}\PYG{n}{Extension}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{math\PYGZus{}stuff}\PYG{l+s}{"}\PYG{p}{,} \PYG{p}{[}\PYG{l+s}{"}\PYG{l+s}{math\PYGZus{}stuff.pyx}\PYG{l+s}{"}\PYG{p}{]}\PYG{p}{,}\PYG{n}{libraries}\PYG{o}{=}\PYG{p}{[}\PYG{l+s}{"}\PYG{l+s}{m}\PYG{l+s}{"}\PYG{p}{]}\PYG{p}{)}\PYG{p}{]}
+    \PYG{n}{ext\PYGZus{}modules} \PYG{o}{=} \PYG{p}{[}\PYG{n}{Extension}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{math\PYGZus{}stuff}\PYG{l+s}{"}\PYG{p}{,} \PYG{p}{[}\PYG{l+s}{"}\PYG{l+s}{math\PYGZus{}stuff.pyx}\PYG{l+s}{"}\PYG{p}{]}\PYG{p}{,}
+                   \PYG{n}{libraries}\PYG{o}{=}\PYG{p}{[}\PYG{l+s}{"}\PYG{l+s}{m}\PYG{l+s}{"}\PYG{p}{]}\PYG{p}{)}\PYG{p}{]}
     \PYG{c}{\#m for compiler flag -lm (math library)}
 \PYG{p}{)}
 \end{Verbatim}
@@ -4390,41 +4616,41 @@ with:
 
 in our example this would look like this:
 
-\begin{Verbatim}[commandchars=@\[\]]
-@#clib m
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\#clib m}
 
-cdef extern from "math.h":
-    double c@_sin "sin"(double)
+\PYG{k}{cdef} \PYG{k+kr}{extern} \PYG{k}{from} \PYG{l+s}{"}\PYG{l+s}{math.h}\PYG{l+s}{"}\PYG{p}{:}
+    \PYG{n}{double} \PYG{n}{c\PYGZus{}sin} \PYG{l+s}{"}\PYG{l+s}{sin}\PYG{l+s}{"}\PYG{p}{(}\PYG{n}{double}\PYG{p}{)}
 
-def sin(double x):
-    return c@_sin(x)
+\PYG{k}{def} \PYG{n+nf}{sin}\PYG{p}{(}\PYG{n}{double} \PYG{n}{x}\PYG{p}{)}\PYG{p}{:}
+    \PYG{k}{return} \PYG{n}{c\PYGZus{}sin}\PYG{p}{(}\PYG{n}{x}\PYG{p}{)}
 \end{Verbatim}
 
 Another example: Let's link the scalar product from the BLAS
 library:
 
-\begin{Verbatim}[commandchars=@\[\]]
-cimport numpy
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{cimport} \PYG{n+nn}{numpy}
 
-ctypedef numpy.float64@_t reals @#typedef@_for easier reedding
+\PYG{k}{ctypedef} \PYG{n}{numpy}\PYG{o}{.}\PYG{n}{float64\PYGZus{}t} \PYG{n}{reals} \PYG{c}{\#typedef\PYGZus{}for easier reedding}
 
-cdef extern from "cblas.h":
-    double ddot "cblas@_ddot"(int N, double *X, int incX,double *Y, int incY)
+\PYG{k}{cdef} \PYG{k+kr}{extern} \PYG{k}{from} \PYG{l+s}{"}\PYG{l+s}{cblas.h}\PYG{l+s}{"}\PYG{p}{:}
+    \PYG{n}{double} \PYG{n}{ddot} \PYG{l+s}{"}\PYG{l+s}{cblas\PYGZus{}ddot}\PYG{l+s}{"}\PYG{p}{(}\PYG{n+nb}{int} \PYG{n}{N}\PYG{p}{,} \PYG{n}{double} \PYG{o}{*}\PYG{n}{X}\PYG{p}{,} \PYG{n+nb}{int} \PYG{n}{incX}\PYG{p}{,}\PYG{n}{double} \PYG{o}{*}\PYG{n}{Y}\PYG{p}{,} \PYG{n+nb}{int} \PYG{n}{incY}\PYG{p}{)}
 
-def blas@_dot(numpy.ndarray@PYGZlb[]reals,ndim = 1@PYGZrb[] x, numpy.ndarray@PYGZlb[]reals,ndim = 1@PYGZrb[] y):
-    return ddot(x.shape@PYGZlb[]0@PYGZrb[],@textless[]reals*@textgreater[]x.data,x.strides@PYGZlb[]0@PYGZrb[] // sizeof(reals), @textless[]reals*@textgreater[]y.data,y.strides@PYGZlb[]0@PYGZrb[] // sizeof(reals))
+\PYG{k}{def} \PYG{n+nf}{blas\PYGZus{}dot}\PYG{p}{(}\PYG{n}{numpy}\PYG{o}{.}\PYG{n}{ndarray}\PYG{p}{[}\PYG{n}{reals}\PYG{p}{,}\PYG{n}{ndim} \PYG{o}{=} \PYG{l+m+mf}{1}\PYG{p}{]} \PYG{n}{x}\PYG{p}{,} \PYG{n}{numpy}\PYG{o}{.}\PYG{n}{ndarray}\PYG{p}{[}\PYG{n}{reals}\PYG{p}{,}\PYG{n}{ndim} \PYG{o}{=} \PYG{l+m+mf}{1}\PYG{p}{]} \PYG{n}{y}\PYG{p}{)}\PYG{p}{:}
+    \PYG{k}{return} \PYG{n}{ddot}\PYG{p}{(}\PYG{n}{x}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mf}{0}\PYG{p}{]}\PYG{p}{,}\PYG{o}{\textless{}}\PYG{n}{reals}\PYG{o}{*}\PYG{o}{\textgreater{}}\PYG{n}{x}\PYG{o}{.}\PYG{n}{data}\PYG{p}{,}\PYG{n}{x}\PYG{o}{.}\PYG{n}{strides}\PYG{p}{[}\PYG{l+m+mf}{0}\PYG{p}{]} \PYG{o}{/}\PYG{o}{/} \PYG{n}{sizeof}\PYG{p}{(}\PYG{n}{reals}\PYG{p}{)}\PYG{p}{,} \PYG{o}{\textless{}}\PYG{n}{reals}\PYG{o}{*}\PYG{o}{\textgreater{}}\PYG{n}{y}\PYG{o}{.}\PYG{n}{data}\PYG{p}{,}\PYG{n}{y}\PYG{o}{.}\PYG{n}{strides}\PYG{p}{[}\PYG{l+m+mf}{0}\PYG{p}{]} \PYG{o}{/}\PYG{o}{/} \PYG{n}{sizeof}\PYG{p}{(}\PYG{n}{reals}\PYG{p}{)}\PYG{p}{)}
 \end{Verbatim}
 
 The blas implementation gives only a small improvement here (which is
 not completely unexpected, because the algorithm is rather simple):
 
-\begin{Verbatim}[commandchars=@\[\]]
-sage: x = randn(10**6)
-sage: y = randn(10**6)
-sage: @%timeit my@_dot(x,y)
-125 loops, best of 3: 3.55 ms per loop
-sage: @%timeit blas@_dot(x,y)
-125 loops, best of 3: 3.05 ms per loop
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{sage}\PYG{p}{:} \PYG{n}{x} \PYG{o}{=} \PYG{n}{randn}\PYG{p}{(}\PYG{l+m+mf}{10}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mf}{6}\PYG{p}{)}
+\PYG{n}{sage}\PYG{p}{:} \PYG{n}{y} \PYG{o}{=} \PYG{n}{randn}\PYG{p}{(}\PYG{l+m+mf}{10}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mf}{6}\PYG{p}{)}
+\PYG{n}{sage}\PYG{p}{:} \PYG{o}{\%}\PYG{n}{timeit} \PYG{n}{my\PYGZus{}dot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{p}{)}
+\PYG{l+m+mf}{125} \PYG{n}{loops}\PYG{p}{,} \PYG{n}{best} \PYG{n}{of} \PYG{l+m+mf}{3}\PYG{p}{:} \PYG{l+m+mf}{3.55} \PYG{n}{ms} \PYG{n}{per} \PYG{n}{loop}
+\PYG{n}{sage}\PYG{p}{:} \PYG{o}{\%}\PYG{n}{timeit} \PYG{n}{blas\PYGZus{}dot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{p}{)}
+\PYG{l+m+mf}{125} \PYG{n}{loops}\PYG{p}{,} \PYG{n}{best} \PYG{n}{of} \PYG{l+m+mf}{3}\PYG{p}{:} \PYG{l+m+mf}{3.05} \PYG{n}{ms} \PYG{n}{per} \PYG{n}{loop}
 \end{Verbatim}
 
 
@@ -4441,16 +4667,16 @@ a number to the \emph{math\_stuff.pyx} from earlier, where the operation
 itelf is called as inline function from C. We write the inline
 function to the file \emph{math\_stuff.pxd}:
 
-\begin{Verbatim}[commandchars=@\[\]]
-cdef inline double inl@_sqrt(double x):
-    return x**(0.5)
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{cdef} \PYG{k+kr}{inline} \PYG{k+kt}{double} \PYG{n+nf}{inl\PYGZus{}sqrt}\PYG{p}{(}\PYG{n}{double} \PYG{n}{x}\PYG{p}{)}\PYG{p}{:}
+    \PYG{k}{return} \PYG{n}{x}\PYG{o}{*}\PYG{o}{*}\PYG{p}{(}\PYG{l+m+mf}{0.5}\PYG{p}{)}
 \end{Verbatim}
 
 We can now load this function from a \emph{.pyx} file:
 
-\begin{Verbatim}[commandchars=@\[\]]
-def sqrt(double x):
-    return inl@_sqrt(x)
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{sqrt}\PYG{p}{(}\PYG{n}{double} \PYG{n}{x}\PYG{p}{)}\PYG{p}{:}
+    \PYG{k}{return} \PYG{n}{inl\PYGZus{}sqrt}\PYG{p}{(}\PYG{n}{x}\PYG{p}{)}
 \end{Verbatim}
 
 You can also save the extern definition of the BLAS scalar product to
@@ -4458,21 +4684,22 @@ a \emph{.pxd} file and can \code{cimport} it from there.
 
 Here the \emph{blas.pxd} file:
 
-\begin{Verbatim}[commandchars=@\[\]]
-cdef extern from "cblas.h":
-    double ddot "cblas@_ddot"(int N, double *X, int incX,double *Y, int incY)
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{cdef} \PYG{k+kr}{extern} \PYG{k}{from} \PYG{l+s}{"}\PYG{l+s}{cblas.h}\PYG{l+s}{"}\PYG{p}{:}
+    \PYG{n}{double} \PYG{n}{ddot} \PYG{l+s}{"}\PYG{l+s}{cblas\PYGZus{}ddot}\PYG{l+s}{"}\PYG{p}{(}\PYG{n+nb}{int} \PYG{n}{N}\PYG{p}{,} \PYG{n}{double} \PYG{o}{*}\PYG{n}{X}\PYG{p}{,} \PYG{n+nb}{int} \PYG{n}{incX}\PYG{p}{,}\PYG{n}{double} \PYG{o}{*}\PYG{n}{Y}\PYG{p}{,} \PYG{n+nb}{int} \PYG{n}{incY}\PYG{p}{)}
 \end{Verbatim}
 
 and here the addition to the math\_stuff.pyx:
 
-\begin{Verbatim}[commandchars=@\[\]]
-cimport numpy
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{cimport} \PYG{n+nn}{numpy}
 
-from blas cimport ddot
-ctypedef numpy.float64@_t reals @#typedef@_for easier reedding
+\PYG{k}{from} \PYG{n+nn}{blas} \PYG{k}{cimport} \PYG{n}{ddot}
+\PYG{k}{ctypedef} \PYG{n}{numpy}\PYG{o}{.}\PYG{n}{float64\PYGZus{}t} \PYG{n}{reals} \PYG{c}{\#typedef\PYGZus{}for easier reedding}
 
-cpdef dot(numpy.ndarray@PYGZlb[]reals,ndim = 1@PYGZrb[] x, numpy.ndarray@PYGZlb[]reals,ndim = 1@PYGZrb[] y):
-    return ddot(x.shape@PYGZlb[]0@PYGZrb[],@textless[]reals*@textgreater[]x.data,x.strides@PYGZlb[]0@PYGZrb[] // sizeof(reals), @textless[]reals*@textgreater[]y.data,y.strides@PYGZlb[]0@PYGZrb[] // sizeof(reals))
+\PYG{k}{cpdef} \PYG{n+nf}{dot}\PYG{p}{(}\PYG{n}{numpy}\PYG{o}{.}\PYG{n}{ndarray}\PYG{p}{[}\PYG{n}{reals}\PYG{p}{,}\PYG{n}{ndim} \PYG{o}{=} \PYG{l+m+mf}{1}\PYG{p}{]} \PYG{n}{x}\PYG{p}{,} \PYG{n}{numpy}\PYG{o}{.}\PYG{n}{ndarray}\PYG{p}{[}\PYG{n}{reals}\PYG{p}{,}\PYG{n}{ndim} \PYG{o}{=} \PYG{l+m+mf}{1}\PYG{p}{]} \PYG{n}{y}\PYG{p}{)}\PYG{p}{:}
+    \PYG{k}{return} \PYG{n}{ddot}\PYG{p}{(}\PYG{n}{x}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mf}{0}\PYG{p}{]}\PYG{p}{,}\PYG{o}{\textless{}}\PYG{n}{reals}\PYG{o}{*}\PYG{o}{\textgreater{}}\PYG{n}{x}\PYG{o}{.}\PYG{n}{data}\PYG{p}{,}\PYG{n}{x}\PYG{o}{.}\PYG{n}{strides}\PYG{p}{[}\PYG{l+m+mf}{0}\PYG{p}{]} \PYG{o}{/}\PYG{o}{/}
+    \PYG{n}{sizeof}\PYG{p}{(}\PYG{n}{reals}\PYG{p}{)}\PYG{p}{,} \PYG{o}{\textless{}}\PYG{n}{reals}\PYG{o}{*}\PYG{o}{\textgreater{}}\PYG{n}{y}\PYG{o}{.}\PYG{n}{data}\PYG{p}{,}\PYG{n}{y}\PYG{o}{.}\PYG{n}{strides}\PYG{p}{[}\PYG{l+m+mf}{0}\PYG{p}{]} \PYG{o}{/}\PYG{o}{/} \PYG{n}{sizeof}\PYG{p}{(}\PYG{n}{reals}\PYG{p}{)}\PYG{p}{)}
 \end{Verbatim}
 
 What is also possible is to declare prototypes in a \emph{.pxd} file like
@@ -4480,11 +4707,11 @@ in a C header, which can be linked more efficiently.
 
 For example let's make a prototype of a function and a class:
 
-\begin{Verbatim}[commandchars=@\[\]]
-cpdef dot(numpy.ndarray@PYGZlb[]reals,ndim = 1@PYGZrb[] x, numpy.ndarray@PYGZlb[]reals,ndim = 1@PYGZrb[] y)
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{cpdef} \PYG{n+nf}{dot}\PYG{p}{(}\PYG{n}{numpy}\PYG{o}{.}\PYG{n}{ndarray}\PYG{p}{[}\PYG{n}{reals}\PYG{p}{,}\PYG{n}{ndim} \PYG{o}{=} \PYG{l+m+mf}{1}\PYG{p}{]} \PYG{n}{x}\PYG{p}{,} \PYG{n}{numpy}\PYG{o}{.}\PYG{n}{ndarray}\PYG{p}{[}\PYG{n}{reals}\PYG{p}{,}\PYG{n}{ndim} \PYG{o}{=} \PYG{l+m+mf}{1}\PYG{p}{]} \PYG{n}{y}\PYG{p}{)}
 
-cdef class Function:
-    cpdef double evaluate(self, double x)
+\PYG{k}{cdef} \PYG{k}{class} \PYG{n+nf}{Function}\PYG{p}{:}
+    \PYG{k}{cpdef} \PYG{k+kt}{double} \PYG{n+nf}{evaluate}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{double} \PYG{n}{x}\PYG{p}{)}
 \end{Verbatim}
 
 
@@ -4510,7 +4737,7 @@ the official MPI4Py documentation \footnote{
 Let's start with the MPI Hello World program in Python:
 
 \begin{Verbatim}[commandchars=\\\{\}]
-\PYG{k+kn}{from} \PYG{n+nn}{mpi4py} \PYG{k+kn}{import} \PYG{n}{MPI}
+\PYG{k}{from} \PYG{n+nn}{mpi4py} \PYG{k}{import} \PYG{n}{MPI}
 \PYG{n}{comm} \PYG{o}{=} \PYG{n}{MPI}\PYG{o}{.}\PYG{n}{COMM\PYGZus{}WORLD}
 \PYG{k}{print}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{hello world}\PYG{l+s}{"}\PYG{p}{)}
 \PYG{k}{print}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{my rank is: }\PYG{l+s+si}{\%d}\PYG{l+s}{"}\PYG{o}{\%}\PYG{n}{comm}\PYG{o}{.}\PYG{n}{rank}\PYG{p}{)}
@@ -4546,16 +4773,16 @@ currently our main thread. Then we distribute it over all threads we
 called:
 
 \begin{Verbatim}[commandchars=\\\{\}]
-\PYG{k+kn}{from} \PYG{n+nn}{mpi4py} \PYG{k+kn}{import} \PYG{n}{MPI}
-\PYG{k+kn}{import} \PYG{n+nn}{numpy}
-\PYG{k+kn}{import} \PYG{n+nn}{time}
+\PYG{k}{from} \PYG{n+nn}{mpi4py} \PYG{k}{import} \PYG{n}{MPI}
+\PYG{k}{import} \PYG{n+nn}{numpy}
+\PYG{k}{import} \PYG{n+nn}{time}
 
 \PYG{n}{comm} \PYG{o}{=} \PYG{n}{MPI}\PYG{o}{.}\PYG{n}{COMM\PYGZus{}WORLD}
 \PYG{n}{rank} \PYG{o}{=} \PYG{n}{comm}\PYG{o}{.}\PYG{n}{rank}
 
 \PYG{n}{sendbuf}\PYG{o}{=}\PYG{p}{[}\PYG{p}{]}
-\PYG{n}{root}\PYG{o}{=}\PYG{l+m+mi}{0}
-\PYG{k}{if} \PYG{n}{rank}\PYG{o}{==}\PYG{l+m+mi}{0}\PYG{p}{:}
+\PYG{n}{root}\PYG{o}{=}\PYG{l+m+mf}{0}
+\PYG{k}{if} \PYG{n}{rank}\PYG{o}{==}\PYG{l+m+mf}{0}\PYG{p}{:}
     \PYG{n}{m}\PYG{o}{=}\PYG{n}{numpy}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{randn}\PYG{p}{(}\PYG{n}{comm}\PYG{o}{.}\PYG{n}{size}\PYG{p}{,}\PYG{n}{comm}\PYG{o}{.}\PYG{n}{size}\PYG{p}{)}
     \PYG{k}{print}\PYG{p}{(}\PYG{n}{m}\PYG{p}{)}
     \PYG{n}{sendbuf}\PYG{o}{=}\PYG{n}{m}
@@ -4566,14 +4793,14 @@ called:
 \PYG{k}{print}\PYG{p}{(}\PYG{n}{rank}\PYG{p}{,}\PYG{l+s}{"}\PYG{l+s}{I got this array:}\PYG{l+s}{"}\PYG{p}{)}
 \PYG{k}{print}\PYG{p}{(}\PYG{n}{rank}\PYG{p}{,}\PYG{n}{v}\PYG{p}{)}
 
-\PYG{n}{v}\PYG{o}{=}\PYG{n}{v}\PYG{o}{*}\PYG{l+m+mi}{2}
+\PYG{n}{v}\PYG{o}{=}\PYG{n}{v}\PYG{o}{*}\PYG{l+m+mf}{2}
 
 \PYG{n}{recvbuf}\PYG{o}{=}\PYG{n}{comm}\PYG{o}{.}\PYG{n}{gather}\PYG{p}{(}\PYG{n}{v}\PYG{p}{,}\PYG{n}{root}\PYG{p}{)}
 
-\PYG{k}{if} \PYG{n}{rank}\PYG{o}{==}\PYG{l+m+mi}{0}\PYG{p}{:}
+\PYG{k}{if} \PYG{n}{rank}\PYG{o}{==}\PYG{l+m+mf}{0}\PYG{p}{:}
   \PYG{n}{t2} \PYG{o}{=} \PYG{n}{time}\PYG{o}{.}\PYG{n}{time}\PYG{p}{(}\PYG{p}{)}
   \PYG{k}{print} \PYG{n}{numpy}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n}{recvbuf}\PYG{p}{)}
-  \PYG{k}{print} \PYG{l+s}{"}\PYG{l+s}{time:}\PYG{l+s}{"}\PYG{p}{,} \PYG{p}{(}\PYG{n}{t2}\PYG{o}{-}\PYG{n}{t1}\PYG{p}{)}\PYG{o}{*}\PYG{l+m+mi}{1000}\PYG{p}{,} \PYG{l+s}{"}\PYG{l+s}{ ms }\PYG{l+s}{"}
+  \PYG{k}{print} \PYG{l+s}{"}\PYG{l+s}{time:}\PYG{l+s}{"}\PYG{p}{,} \PYG{p}{(}\PYG{n}{t2}\PYG{o}{-}\PYG{n}{t1}\PYG{p}{)}\PYG{o}{*}\PYG{l+m+mf}{1000}\PYG{p}{,} \PYG{l+s}{"}\PYG{l+s}{ ms }\PYG{l+s}{"}
 \end{Verbatim}
 
 This snippet produces this output:
@@ -4603,6 +4830,682 @@ computing.  \footnote{
 If you need a corrected version, I posted one on Sage trac \footnote{
 \href{http://trac.sagemath.org/sage\_trac/attachment/ticket/10566/mpi4py.rst}{http://trac.sagemath.org/sage\_trac/attachment/ticket/10566/mpi4py.rst}
 }.
+\paragraph{Links}
+
+\resetcurrentobjects
+\hypertarget{--doc-PyCUDA}{}
+
+\chapter{Python+CUDA = PyCUDA}
+
+PyCUDA is a Python Interface for CUDA \footnote{
+\href{http://www.nvidia.com/object/cuda\_home\_new.html}{http://www.nvidia.com/object/cuda\_home\_new.html}
+}. It is currently in Alpha
+Version, and was developed by Andreas Klöckner \footnote{
+\href{http://mathema.tician.de/software/pycuda}{http://mathema.tician.de/software/pycuda}
+}
+
+To use PyCUDA you have to install CUDA on your machine
+\begin{description}
+\item[\textbf{Note:} For using PyCUDA in Sage or FEMHub I created a PyCUDA] \leavevmode
+package \footnote{
+\href{http://trac.sagemath.org/sage\_trac/ticket/10010}{http://trac.sagemath.org/sage\_trac/ticket/10010}
+}.
+
+\end{description}
+
+I will give here a short introduction how to use it. For more detailed
+Information I refer to the documentation \footnote{
+\href{http://documen.tician.de/pycuda/}{http://documen.tician.de/pycuda/}
+} or the Wiki \footnote{
+wikilink
+}.
+
+
+\section{Initialize PyCUDA}
+
+There are two ways to initialize the PyCUDA driver. The first one is
+to use the autoinit module:
+
+import pycuda.autoinit
+
+This makes the first device ready for use. Another possibility
+is to manually initialize the device and create a context on this
+device to use it:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{import} \PYG{n+nn}{pycuda.driver} \PYG{k}{as} \PYG{n+nn}{cuda}
+\PYG{n}{cuda}\PYG{o}{.}\PYG{n}{init}\PYG{p}{(}\PYG{p}{)} \PYG{c}{\#init pycuda driver}
+\PYG{n}{current\PYGZus{}dev} \PYG{o}{=} \PYG{n}{cuda}\PYG{o}{.}\PYG{n}{Device}\PYG{p}{(}\PYG{n}{device\PYGZus{}nr}\PYG{p}{)} \PYG{c}{\#device we are working on}
+\PYG{n}{ctx} \PYG{o}{=} \PYG{n}{current\PYGZus{}dev}\PYG{o}{.}\PYG{n}{make\PYGZus{}context}\PYG{p}{(}\PYG{p}{)} \PYG{c}{\#make a working context}
+\PYG{n}{ctx}\PYG{o}{.}\PYG{n}{push}\PYG{p}{(}\PYG{p}{)} \PYG{c}{\#let context make the lead}
+
+\PYG{c}{\#Code}
+
+\PYG{n}{ctx}\PYG{o}{.}\PYG{n}{pop}\PYG{p}{(}\PYG{p}{)} \PYG{c}{\#deactivate again}
+\PYG{n}{ctx}\PYG{o}{.}\PYG{n}{detach}\PYG{p}{(}\PYG{p}{)} \PYG{c}{\#delete it}
+\end{Verbatim}
+
+This is useful if you are working on different devices. I will give
+a more detailed example combined with MPI4Py lateron.
+(See ::ref::\emph{mpi\_and\_pycuda\_ref})
+
+
+\section{Get your CUDA code working in Python}
+
+Similar to ::ref::\emph{weave\_ref} we can write CUDA code as string in
+Python and then compile it with the NVCC. Here a short example:
+
+First we initialize the driver, and import the needed modules:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{import} \PYG{n+nn}{pycuda.driver} \PYG{k}{as} \PYG{n+nn}{cuda}
+\PYG{k}{import} \PYG{n+nn}{pycuda.autoinit}
+\PYG{k}{import} \PYG{n+nn}{numpy}
+\PYG{k}{from} \PYG{n+nn}{pycuda.compiler} \PYG{k}{import} \PYG{n}{SourceModule}
+\end{Verbatim}
+
+Then we write our Source code:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{code} \PYG{o}{=} \PYG{l+s}{"""}
+\PYG{l+s}{\PYGZus{}\PYGZus{}global\PYGZus{}\PYGZus{} void double\PYGZus{}array\PYGZus{}new(float *b, float *a, int *info)}
+\PYG{l+s}{\PYGZob{}}
+\PYG{l+s}{  int datalen = info[0];}
+
+\PYG{l+s}{  for(int idx = threadIdx.x; idx \textless{} datalen; idx += blockDim.x)}
+\PYG{l+s}{  \PYGZob{}}
+\PYG{l+s}{    b[idx] = a[idx]*2;}
+\PYG{l+s}{  \PYGZcb{}}
+\PYG{l+s}{\PYGZcb{}}
+\PYG{l+s}{"""}
+\end{Verbatim}
+
+And then write it to a source module:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{mod} \PYG{o}{=} \PYG{n}{SourceModule}\PYG{p}{(}\PYG{n}{code}\PYG{p}{)}
+\end{Verbatim}
+
+The NVCC will now compile this code snippet. Now we can load the new
+function to the Python namespace:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{func} \PYG{o}{=} \PYG{n}{mod}\PYG{o}{.}\PYG{n}{get\PYGZus{}function}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{double\PYGZus{}array\PYGZus{}new}\PYG{l+s}{"}\PYG{p}{)}
+\end{Verbatim}
+
+Let's create some arrays for the functions, and load them on the card:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{N} \PYG{o}{=} \PYG{l+m+mf}{128}
+
+\PYG{n}{a} \PYG{o}{=} \PYG{n}{numpy}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{N}\PYG{p}{)}\PYG{p}{)}\PYG{o}{.}\PYG{n}{astype}\PYG{p}{(}\PYG{n}{numpy}\PYG{o}{.}\PYG{n}{float32}\PYG{p}{)}
+\PYG{n}{info} \PYG{o}{=} \PYG{n}{numpy}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{p}{[}\PYG{n}{N}\PYG{p}{]}\PYG{p}{)}\PYG{o}{.}\PYG{n}{astype}\PYG{p}{(}\PYG{n}{numpy}\PYG{o}{.}\PYG{n}{int32}\PYG{p}{)}
+\PYG{n}{b} \PYG{o}{=} \PYG{n}{numpy}\PYG{o}{.}\PYG{n}{zeros\PYGZus{}like}\PYG{p}{(}\PYG{n}{a}\PYG{p}{)}
+
+\PYG{n}{a\PYGZus{}gpu} \PYG{o}{=} \PYG{n}{cuda}\PYG{o}{.}\PYG{n}{mem\PYGZus{}alloc}\PYG{p}{(}\PYG{n}{a}\PYG{o}{.}\PYG{n}{nbytes}\PYG{p}{)}
+\PYG{n}{cuda}\PYG{o}{.}\PYG{n}{memcpy\PYGZus{}htod}\PYG{p}{(}\PYG{n}{a\PYGZus{}gpu}\PYG{p}{,} \PYG{n}{a}\PYG{p}{)}
+
+\PYG{n}{b\PYGZus{}gpu} \PYG{o}{=} \PYG{n}{cuda}\PYG{o}{.}\PYG{n}{mem\PYGZus{}alloc}\PYG{p}{(}\PYG{n}{b}\PYG{o}{.}\PYG{n}{nbytes}\PYG{p}{)}
+\PYG{n}{cuda}\PYG{o}{.}\PYG{n}{memcpy\PYGZus{}htod}\PYG{p}{(}\PYG{n}{b\PYGZus{}gpu}\PYG{p}{,} \PYG{n}{b}\PYG{p}{)}
+
+\PYG{n}{info\PYGZus{}gpu} \PYG{o}{=} \PYG{n}{cuda}\PYG{o}{.}\PYG{n}{mem\PYGZus{}alloc}\PYG{p}{(}\PYG{n}{info}\PYG{o}{.}\PYG{n}{nbytes}\PYG{p}{)}
+\PYG{n}{cuda}\PYG{o}{.}\PYG{n}{memcpy\PYGZus{}htod}\PYG{p}{(}\PYG{n}{info\PYGZus{}gpu}\PYG{p}{,} \PYG{n}{info}\PYG{p}{)}
+\end{Verbatim}
+
+Now we can call the function:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{func}\PYG{p}{(}\PYG{n}{b\PYGZus{}gpu}\PYG{p}{,} \PYG{n}{a\PYGZus{}gpu}\PYG{p}{,}\PYG{n}{info\PYGZus{}gpu}\PYG{p}{,} \PYG{n}{block} \PYG{o}{=} \PYG{p}{(}\PYG{l+m+mf}{32}\PYG{p}{,}\PYG{l+m+mf}{1}\PYG{p}{,}\PYG{l+m+mf}{1}\PYG{p}{)}\PYG{p}{,} \PYG{n}{grid} \PYG{o}{=} \PYG{p}{(}\PYG{l+m+mf}{4}\PYG{p}{,}\PYG{l+m+mf}{1}\PYG{p}{)}\PYG{p}{)}
+\end{Verbatim}
+
+\textbf{Note:} The keyword \code{grid} is optional. If no grid is assigned,
+it consists only of one block.
+
+Now get the data back to the host, and print it:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{a\PYGZus{}doubled} \PYG{o}{=} \PYG{n}{numpy}\PYG{o}{.}\PYG{n}{empty\PYGZus{}like}\PYG{p}{(}\PYG{n}{a}\PYG{p}{)}
+\PYG{n}{cuda}\PYG{o}{.}\PYG{n}{memcpy\PYGZus{}dtoh}\PYG{p}{(}\PYG{n}{a\PYGZus{}doubled}\PYG{p}{,} \PYG{n}{b\PYGZus{}gpu}\PYG{p}{)}
+
+\PYG{k}{print} \PYG{l+s}{"}\PYG{l+s}{result:}\PYG{l+s}{"}\PYG{p}{,} \PYG{n}{a\PYGZus{}doubled}
+\end{Verbatim}
+
+\textbf{Note:} To free the memory on the card use the free method:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{a\PYGZus{}gpu}\PYG{o}{.}\PYG{n}{free}\PYG{p}{(}\PYG{p}{)}
+\PYG{n}{b\PYGZus{}gpu}\PYG{o}{.}\PYG{n}{free}\PYG{p}{(}\PYG{p}{)}
+\PYG{n}{info\PYGZus{}gpu}\PYG{o}{.}\PYG{n}{free}\PYG{p}{(}\PYG{p}{)}
+\end{Verbatim}
+
+PyCUDA has Garbage Collection, but it's still under developement. I
+Therefore recommend it to free data after usage, just to be sure.
+
+To create a Texture reference, to bind data to a texture on the
+Graphic card. you have first to create one your source code:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{code\PYGZus{}snippet} \PYG{o}{=} \PYG{l+s}{"""}
+\PYG{l+s}{texture\textless{}float, 2\textgreater{} MyTexture;}
+\PYG{l+s}{// Rest of Code}
+\PYG{l+s}{"""}
+\end{Verbatim}
+
+Then compile it:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{\textgreater{}\textgreater{}}\PYG{o}{\textgreater{}} \PYG{n}{texture\PYGZus{}mode} \PYG{o}{=} \PYG{n}{SourceModule}\PYG{p}{(}\PYG{n}{code\PYGZus{}snippet}\PYG{p}{)}
+\end{Verbatim}
+
+and get it:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{\textgreater{}\textgreater{}}\PYG{o}{\textgreater{}} \PYG{n}{MyTexture} \PYG{o}{=} \PYG{n}{texture\PYGZus{}mode}\PYG{o}{.}\PYG{n}{get\PYGZus{}texref}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{MyTexture}\PYG{l+s}{"}\PYG{p}{)}
+\end{Verbatim}
+
+
+\section{The \texttt{gpuarray} class}
+
+The \code{gpuarray} class provides a high level interface for doing
+calculations with CUDA.
+First import the gpuarray class:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{\textgreater{}\textgreater{}}\PYG{o}{\textgreater{}} \PYG{k}{import} \PYG{n+nn}{pycuda.driver} \PYG{k}{as} \PYG{n+nn}{cuda}
+\PYG{o}{\textgreater{}\textgreater{}}\PYG{o}{\textgreater{}} \PYG{k}{import} \PYG{n+nn}{pycuda.autoinit}
+\PYG{o}{\textgreater{}\textgreater{}}\PYG{o}{\textgreater{}} \PYG{k}{from} \PYG{n+nn}{pycuda} \PYG{k}{import} \PYG{n}{gpuarray}
+\end{Verbatim}
+
+Creation of gpuarrays is quite easy. One way is to create a NumPy
+array and convert it:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{\textgreater{}\textgreater{}}\PYG{o}{\textgreater{}} \PYG{k}{from} \PYG{n+nn}{numpy.random} \PYG{k}{import} \PYG{n}{randn}
+\PYG{o}{\textgreater{}\textgreater{}}\PYG{o}{\textgreater{}} \PYG{k}{from} \PYG{n+nn}{numpy} \PYG{k}{import} \PYG{n}{float32}\PYG{p}{,} \PYG{n}{int32}\PYG{p}{,} \PYG{n}{array}
+\PYG{o}{\textgreater{}\textgreater{}}\PYG{o}{\textgreater{}} \PYG{n}{x} \PYG{o}{=} \PYG{n}{randn}\PYG{p}{(}\PYG{l+m+mf}{5}\PYG{p}{)}\PYG{o}{.}\PYG{n}{astype}\PYG{p}{(}\PYG{n}{float32}\PYG{p}{)}
+\PYG{o}{\textgreater{}\textgreater{}}\PYG{o}{\textgreater{}} \PYG{n}{x\PYGZus{}gpu} \PYG{o}{=} \PYG{n}{gpuarray}\PYG{o}{.}\PYG{n}{to\PYGZus{}gpu}\PYG{p}{(}\PYG{n}{x}\PYG{p}{)}
+\end{Verbatim}
+
+You can print gpuarrays like you normally do:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{\textgreater{}\textgreater{}}\PYG{o}{\textgreater{}} \PYG{n}{x}
+\PYG{n}{array}\PYG{p}{(}\PYG{p}{[}\PYG{o}{-}\PYG{l+m+mf}{0.24655211}\PYG{p}{,}  \PYG{l+m+mf}{0.00344609}\PYG{p}{,}  \PYG{l+m+mf}{1.45805557}\PYG{p}{,}  \PYG{l+m+mf}{0.22002029}\PYG{p}{,}  \PYG{l+m+mf}{1.28438667}\PYG{p}{]}\PYG{p}{)}
+\PYG{o}{\textgreater{}\textgreater{}}\PYG{o}{\textgreater{}} \PYG{n}{x\PYGZus{}gpu}
+\PYG{n}{array}\PYG{p}{(}\PYG{p}{[}\PYG{o}{-}\PYG{l+m+mf}{0.24655211}\PYG{p}{,}  \PYG{l+m+mf}{0.00344609}\PYG{p}{,}  \PYG{l+m+mf}{1.45805557}\PYG{p}{,}  \PYG{l+m+mf}{0.22002029}\PYG{p}{,}  \PYG{l+m+mf}{1.28438667}\PYG{p}{]}\PYG{p}{)}
+\end{Verbatim}
+
+You can do normal calculations with the gpuarray:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{\textgreater{}\textgreater{}}\PYG{o}{\textgreater{}} \PYG{l+m+mf}{2}\PYG{o}{*}\PYG{n}{x\PYGZus{}gpu}
+\PYG{n}{array}\PYG{p}{(}\PYG{p}{[}\PYG{o}{-}\PYG{l+m+mf}{1.09917879}\PYG{p}{,}  \PYG{l+m+mf}{0.56061697}\PYG{p}{,} \PYG{o}{-}\PYG{l+m+mf}{0.19573164}\PYG{p}{,} \PYG{o}{-}\PYG{l+m+mf}{4.29430866}\PYG{p}{,} \PYG{o}{-}\PYG{l+m+mf}{2.519032}  \PYG{p}{]}\PYG{p}{,} \PYG{n}{dtype}\PYG{o}{=}\PYG{n}{float32}\PYG{p}{)}
+
+\PYG{o}{\textgreater{}\textgreater{}}\PYG{o}{\textgreater{}} \PYG{n}{x\PYGZus{}gpu} \PYG{o}{+} \PYG{n}{x\PYGZus{}gpu}
+\PYG{n}{array}\PYG{p}{(}\PYG{p}{[}\PYG{o}{-}\PYG{l+m+mf}{1.09917879}\PYG{p}{,}  \PYG{l+m+mf}{0.56061697}\PYG{p}{,} \PYG{o}{-}\PYG{l+m+mf}{0.19573164}\PYG{p}{,} \PYG{o}{-}\PYG{l+m+mf}{4.29430866}\PYG{p}{,} \PYG{o}{-}\PYG{l+m+mf}{2.519032}  \PYG{p}{]}\PYG{p}{,} \PYG{n}{dtype}\PYG{o}{=}\PYG{n}{float32}\PYG{p}{)}
+\end{Verbatim}
+
+or check attributes like with normal arrays:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{\textgreater{}\textgreater{}}\PYG{o}{\textgreater{}} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{x\PYGZus{}gpu}\PYG{p}{)}
+\PYG{l+m+mf}{5}
+\end{Verbatim}
+
+\code{gpuarrays} also support slicing:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{\textgreater{}\textgreater{}}\PYG{o}{\textgreater{}} \PYG{n}{x\PYGZus{}gpu}\PYG{p}{[}\PYG{l+m+mf}{0}\PYG{p}{:}\PYG{l+m+mf}{3}\PYG{p}{]}
+\PYG{n}{array}\PYG{p}{(}\PYG{p}{[}\PYG{o}{-}\PYG{l+m+mf}{0.5495894} \PYG{p}{,}  \PYG{l+m+mf}{0.28030849}\PYG{p}{,} \PYG{o}{-}\PYG{l+m+mf}{0.09786582}\PYG{p}{]}\PYG{p}{,} \PYG{n}{dtype}\PYG{o}{=}\PYG{n}{float32}\PYG{p}{)}
+\end{Verbatim}
+
+Unfortunatly they don't support indexing (yet):
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{\textgreater{}\textgreater{}}\PYG{o}{\textgreater{}} \PYG{n}{x\PYGZus{}gpu}\PYG{p}{[}\PYG{l+m+mf}{1}\PYG{p}{]}
+\PYG{o}{.}\PYG{o}{.}\PYG{o}{.}
+\PYG{n+ne}{ValueError}\PYG{p}{:} \PYG{n}{non}\PYG{o}{-}\PYG{n+nb}{slice} \PYG{n}{indexing} \PYG{o+ow}{not} \PYG{n}{supported}\PYG{p}{:} \PYG{l+m+mf}{1}
+\end{Verbatim}
+
+Be aware that a function which was created with a SourceModule, takes
+an instance of \code{pycuda.driver.DeviceAllocation} and not a gpuarray.
+But the content of the \code{gpuarray} is a \code{DeviceAllocation}. You can
+get it with the attribute \code{gpudata}:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{\textgreater{}\textgreater{}}\PYG{o}{\textgreater{}} \PYG{n}{x\PYGZus{}gpu}\PYG{o}{.}\PYG{n}{gpudata}
+\PYG{o}{\textless{}}\PYG{n}{pycuda}\PYG{o}{.}\PYG{n}{\PYGZus{}driver}\PYG{o}{.}\PYG{n}{DeviceAllocation} \PYG{n+nb}{object} \PYG{n}{at} \PYG{l+m+mf}{0}\PYG{n}{x8c0d454}\PYG{o}{\textgreater{}}
+\end{Verbatim}
+
+Let's for example call the function from the section before:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{\textgreater{}\textgreater{}}\PYG{o}{\textgreater{}} \PYG{n}{y\PYGZus{}gpu} \PYG{o}{=} \PYG{n}{gpuarray}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{l+m+mf}{5}\PYG{p}{,}\PYG{n}{float32}\PYG{p}{)}
+\PYG{o}{\textgreater{}\textgreater{}}\PYG{o}{\textgreater{}} \PYG{n}{info} \PYG{o}{=} \PYG{n}{array}\PYG{p}{(}\PYG{p}{[}\PYG{l+m+mf}{5}\PYG{p}{]}\PYG{p}{)}\PYG{o}{.}\PYG{n}{astype}\PYG{p}{(}\PYG{n}{int32}\PYG{p}{)}
+\PYG{o}{\textgreater{}\textgreater{}}\PYG{o}{\textgreater{}} \PYG{n}{info\PYGZus{}gpu} \PYG{o}{=} \PYG{n}{gpuarray}\PYG{o}{.}\PYG{n}{to\PYGZus{}gpu}\PYG{p}{(}\PYG{n}{info}\PYG{p}{)}
+\PYG{o}{\textgreater{}\textgreater{}}\PYG{o}{\textgreater{}} \PYG{n}{func}\PYG{p}{(}\PYG{n}{y\PYGZus{}gpu}\PYG{o}{.}\PYG{n}{gpudata}\PYG{p}{,}\PYG{n}{x\PYGZus{}gpu}\PYG{o}{.}\PYG{n}{gpudata}\PYG{p}{,}\PYG{n}{info\PYGZus{}gpu}\PYG{o}{.}\PYG{n}{gpudata}\PYG{p}{,} \PYG{n}{block} \PYG{o}{=} \PYG{p}{(}\PYG{l+m+mf}{32}\PYG{p}{,}\PYG{l+m+mf}{1}\PYG{p}{,}\PYG{l+m+mf}{1}\PYG{p}{)}\PYG{p}{,} \PYG{n}{grid} \PYG{o}{=} \PYG{p}{(}\PYG{l+m+mf}{4}\PYG{p}{,}\PYG{l+m+mf}{1}\PYG{p}{)}\PYG{p}{)}
+\PYG{o}{\textgreater{}\textgreater{}}\PYG{o}{\textgreater{}} \PYG{n}{y\PYGZus{}gpu}
+\PYG{n}{array}\PYG{p}{(}\PYG{p}{[}\PYG{o}{-}\PYG{l+m+mf}{1.09917879}\PYG{p}{,}  \PYG{l+m+mf}{0.56061697}\PYG{p}{,} \PYG{o}{-}\PYG{l+m+mf}{0.19573164}\PYG{p}{,} \PYG{o}{-}\PYG{l+m+mf}{4.29430866}\PYG{p}{,} \PYG{o}{-}\PYG{l+m+mf}{2.519032}  \PYG{p}{]}\PYG{p}{,} \PYG{n}{dtype}\PYG{o}{=}\PYG{n}{float32}\PYG{p}{)}
+\PYG{o}{\textgreater{}\textgreater{}}\PYG{o}{\textgreater{}} \PYG{l+m+mf}{2}\PYG{o}{*}\PYG{n}{x\PYGZus{}gpu}
+\PYG{n}{array}\PYG{p}{(}\PYG{p}{[}\PYG{o}{-}\PYG{l+m+mf}{1.09917879}\PYG{p}{,}  \PYG{l+m+mf}{0.56061697}\PYG{p}{,} \PYG{o}{-}\PYG{l+m+mf}{0.19573164}\PYG{p}{,} \PYG{o}{-}\PYG{l+m+mf}{4.29430866}\PYG{p}{,} \PYG{o}{-}\PYG{l+m+mf}{2.519032}
+\PYG{o}{\textgreater{}\textgreater{}}\PYG{o}{\textgreater{}} \PYG{p}{]}\PYG{p}{,} \PYG{n}{dtype}\PYG{o}{=}\PYG{n}{float32}\PYG{p}{)}
+\end{Verbatim}
+
+\code{gpuarrays} can be bound to textures too:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{\textgreater{}\textgreater{}}\PYG{o}{\textgreater{}} \PYG{n}{x\PYGZus{}gpu}\PYG{o}{.}\PYG{n}{bind\PYGZus{}to\PYGZus{}texref\PYGZus{}ext}\PYG{p}{(}\PYG{n}{MyTexture}\PYG{p}{)}
+\end{Verbatim}
+\hypertarget{mpi-and-pycuda-ref}{}
+
+\section{Using MPI4Py and PyCUDA together}
+
+I give here a short example how to use this, to get PyCUDA
+working with MPI4Py. We initialize as many threads, as graphic
+cards available (in this case 4) and do something on that devices.
+Every thread is working on one device.
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{from} \PYG{n+nn}{mpi4py} \PYG{k}{import} \PYG{n}{MPI}
+\PYG{k}{import} \PYG{n+nn}{pycuda.driver} \PYG{k}{as} \PYG{n+nn}{cuda}
+
+\PYG{n}{cuda}\PYG{o}{.}\PYG{n}{init}\PYG{p}{(}\PYG{p}{)} \PYG{c}{\#init pycuda driver}
+
+\PYG{k}{from} \PYG{n+nn}{pycuda} \PYG{k}{import} \PYG{n}{gpuarray}
+\PYG{k}{from} \PYG{n+nn}{numpy} \PYG{k}{import} \PYG{n}{float32}\PYG{p}{,} \PYG{n}{array}
+\PYG{k}{from} \PYG{n+nn}{numpy.random} \PYG{k}{import} \PYG{n}{randn} \PYG{k}{as} \PYG{n}{rand}
+\PYG{k}{import} \PYG{n+nn}{time}
+
+\PYG{n}{comm} \PYG{o}{=} \PYG{n}{MPI}\PYG{o}{.}\PYG{n}{COMM\PYGZus{}WORLD}
+\PYG{n}{rank} \PYG{o}{=} \PYG{n}{comm}\PYG{o}{.}\PYG{n}{rank}
+\PYG{n}{root} \PYG{o}{=} \PYG{l+m+mf}{0}
+
+\PYG{n}{nr\PYGZus{}gpus} \PYG{o}{=} \PYG{l+m+mf}{4}
+
+\PYG{n}{sendbuf} \PYG{o}{=} \PYG{p}{[}\PYG{p}{]}
+
+\PYG{n}{N} \PYG{o}{=} \PYG{l+m+mf}{2}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mf}{20}\PYG{o}{*}\PYG{n}{nr\PYGZus{}gpus}
+\PYG{n}{K} \PYG{o}{=} \PYG{l+m+mf}{1000}
+
+\PYG{k}{if} \PYG{n}{rank} \PYG{o}{==} \PYG{l+m+mf}{0}\PYG{p}{:}
+    \PYG{n}{x} \PYG{o}{=} \PYG{n}{rand}\PYG{p}{(}\PYG{n}{N}\PYG{p}{)}\PYG{o}{.}\PYG{n}{astype}\PYG{p}{(}\PYG{n}{float32}\PYG{p}{)}\PYG{o}{*}\PYG{l+m+mf}{10}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mf}{16}
+    \PYG{k}{print} \PYG{l+s}{"}\PYG{l+s}{x:}\PYG{l+s}{"}\PYG{p}{,} \PYG{n}{x}
+
+    \PYG{n}{t1} \PYG{o}{=} \PYG{n}{time}\PYG{o}{.}\PYG{n}{time}\PYG{p}{(}\PYG{p}{)}
+
+    \PYG{n}{sendbuf} \PYG{o}{=} \PYG{n}{x}\PYG{o}{.}\PYG{n}{reshape}\PYG{p}{(}\PYG{n}{nr\PYGZus{}gpus}\PYG{p}{,}\PYG{n}{N}\PYG{o}{/}\PYG{n}{nr\PYGZus{}gpus}\PYG{p}{)}
+
+\PYG{k}{if} \PYG{n}{rank} \PYG{o}{\textgreater{}} \PYG{n}{nr\PYGZus{}gpus}\PYG{o}{-}\PYG{l+m+mf}{1}\PYG{p}{:}
+    \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{To few gpus!}\PYG{l+s}{"}\PYG{p}{)}
+
+
+\PYG{n}{current\PYGZus{}dev} \PYG{o}{=} \PYG{n}{cuda}\PYG{o}{.}\PYG{n}{Device}\PYG{p}{(}\PYG{n}{rank}\PYG{p}{)} \PYG{c}{\#device we are working on}
+\PYG{n}{ctx} \PYG{o}{=} \PYG{n}{current\PYGZus{}dev}\PYG{o}{.}\PYG{n}{make\PYGZus{}context}\PYG{p}{(}\PYG{p}{)} \PYG{c}{\#make a working context}
+\PYG{n}{ctx}\PYG{o}{.}\PYG{n}{push}\PYG{p}{(}\PYG{p}{)} \PYG{c}{\#let context make the lead}
+
+\PYG{c}{\#recieve data and port it to gpu:}
+\PYG{n}{x\PYGZus{}gpu\PYGZus{}part} \PYG{o}{=} \PYG{n}{gpuarray}\PYG{o}{.}\PYG{n}{to\PYGZus{}gpu}\PYG{p}{(}\PYG{n}{comm}\PYG{o}{.}\PYG{n}{scatter}\PYG{p}{(}\PYG{n}{sendbuf}\PYG{p}{,}\PYG{n}{root}\PYG{p}{)}\PYG{p}{)}
+
+\PYG{c}{\#do something...}
+\PYG{k}{for} \PYG{n}{k} \PYG{o+ow}{in} \PYG{n+nb}{xrange}\PYG{p}{(}\PYG{n}{K}\PYG{p}{)}\PYG{p}{:}
+  \PYG{n}{x\PYGZus{}gpu\PYGZus{}part} \PYG{o}{=} \PYG{l+m+mf}{0.9}\PYG{o}{*}\PYG{n}{x\PYGZus{}gpu\PYGZus{}part}
+
+\PYG{c}{\#get data back:}
+\PYG{n}{x\PYGZus{}part} \PYG{o}{=} \PYG{p}{(}\PYG{n}{x\PYGZus{}gpu\PYGZus{}part}\PYG{p}{)}\PYG{o}{.}\PYG{n}{get}\PYG{p}{(}\PYG{p}{)}
+
+\PYG{n}{ctx}\PYG{o}{.}\PYG{n}{pop}\PYG{p}{(}\PYG{p}{)} \PYG{c}{\#deactivate again}
+\PYG{n}{ctx}\PYG{o}{.}\PYG{n}{detach}\PYG{p}{(}\PYG{p}{)} \PYG{c}{\#delete it}
+
+\PYG{n}{recvbuf}\PYG{o}{=}\PYG{n}{comm}\PYG{o}{.}\PYG{n}{gather}\PYG{p}{(}\PYG{n}{x\PYGZus{}part}\PYG{p}{,}\PYG{n}{root}\PYG{p}{)} \PYG{c}{\#recieve data}
+
+\PYG{k}{if} \PYG{n}{rank} \PYG{o}{==} \PYG{l+m+mf}{0}\PYG{p}{:}
+    \PYG{n}{x\PYGZus{}doubled} \PYG{o}{=} \PYG{n}{array}\PYG{p}{(}\PYG{n}{recvbuf}\PYG{p}{)}\PYG{o}{.}\PYG{n}{reshape}\PYG{p}{(}\PYG{n}{N}\PYG{p}{)}
+    \PYG{n}{t2} \PYG{o}{=} \PYG{n}{time}\PYG{o}{.}\PYG{n}{time}\PYG{p}{(}\PYG{p}{)}\PYG{o}{-}\PYG{n}{t1}
+
+    \PYG{k}{print} \PYG{l+s}{"}\PYG{l+s}{doubled x:}\PYG{l+s}{"}\PYG{p}{,} \PYG{n}{x\PYGZus{}doubled}
+    \PYG{k}{print} \PYG{l+s}{"}\PYG{l+s}{time nedded:}\PYG{l+s}{"}\PYG{p}{,} \PYG{n}{t2}\PYG{o}{*}\PYG{l+m+mf}{1000}\PYG{p}{,} \PYG{l+s}{"}\PYG{l+s}{ ms }\PYG{l+s}{"}
+\end{Verbatim}
+\paragraph{Links}
+
+\resetcurrentobjects
+\hypertarget{--doc-Example}{}
+
+\chapter{An Example: Band-matrix vector multiplication}
+
+We want to implement a band-matrix class for a symmetric band-matrix.
+The constructor  takes an array as input, which holds the matrix
+entries, of the lower part of the band matrix. See Wikipedia for
+an Idea \footnote{
+\href{http://en.wikipedia.org/wiki/Band\_matrix}{http://en.wikipedia.org/wiki/Band\_matrix}
+}, and the IBM ESSL for precise details \footnote{
+\href{http://publib.boulder.ibm.com/infocenter/clresctr/vxrx/index.jsp?topic=\%2Fcom.ibm.cluster.essl43.guideref.doc\%2Fam501\_upbsm.html}{http://publib.boulder.ibm.com/infocenter/clresctr/vxrx/index.jsp?topic=\%2Fcom.ibm.cluster.essl43.guideref.doc\%2Fam501\_upbsm.html}
+}.
+
+First we implement our class with several class methods, like
+addition, and a matvec method:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{add\PYGZus{}band\PYGZus{}mat}\PYG{p}{(}\PYG{n}{A}\PYG{p}{,}\PYG{n}{M}\PYG{p}{,}\PYG{n}{beta} \PYG{o}{=} \PYG{l+m+mf}{1}\PYG{p}{,}\PYG{n}{alpha} \PYG{o}{=} \PYG{l+m+mf}{1}\PYG{p}{)}\PYG{p}{:}
+    \PYG{p}{(}\PYG{n}{d1}\PYG{p}{,}\PYG{n}{d2}\PYG{p}{)} \PYG{o}{=} \PYG{n}{A}\PYG{o}{.}\PYG{n}{shape}
+    \PYG{p}{(}\PYG{n}{d3}\PYG{p}{,}\PYG{n}{d4}\PYG{p}{)} \PYG{o}{=} \PYG{n}{M}\PYG{o}{.}\PYG{n}{shape}
+
+    \PYG{n}{d1} \PYG{o}{=} \PYG{n}{A}\PYG{o}{.}\PYG{n}{band\PYGZus{}width}
+    \PYG{n}{d3} \PYG{o}{=} \PYG{n}{M}\PYG{o}{.}\PYG{n}{band\PYGZus{}width}
+
+    \PYG{k}{if} \PYG{n}{d2} \PYG{o}{!=} \PYG{n}{d4}\PYG{p}{:}
+        \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{From \PYGZus{}rational\PYGZus{}krylov\PYGZus{}trigo\PYGZus{}band:}\PYG{l+s+se}{\PYGZbs{}}
+\PYG{l+s}{                          Dimension Missmatch!}\PYG{l+s}{"}\PYG{p}{)}
+
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{d1} \PYG{o}{\textless{}} \PYG{n}{d3}\PYG{p}{)}\PYG{p}{:}
+        \PYG{n}{SYST} \PYG{o}{=} \PYG{n}{py\PYGZus{}band\PYGZus{}matrix}\PYG{p}{(}\PYG{n}{zeros}\PYG{p}{(}\PYG{p}{(}\PYG{n}{d3}\PYG{p}{,}\PYG{n}{d4}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}
+        \PYG{n}{SYST}\PYG{o}{.}\PYG{n}{data}\PYG{p}{[}\PYG{l+m+mf}{0}\PYG{p}{:}\PYG{n}{d1}\PYG{p}{,}\PYG{l+m+mf}{0}\PYG{p}{:}\PYG{n}{d2}\PYG{p}{]} \PYG{o}{=} \PYG{n}{beta}\PYG{o}{*}\PYG{n}{A}\PYG{o}{.}\PYG{n}{data}\PYG{p}{;}
+        \PYG{n}{SYST}\PYG{o}{.}\PYG{n}{data} \PYG{o}{=} \PYG{n}{alpha}\PYG{o}{*}\PYG{n}{M}\PYG{o}{.}\PYG{n}{data} \PYG{o}{+} \PYG{n}{SYST}\PYG{o}{.}\PYG{n}{data}\PYG{p}{;}
+    \PYG{k}{elif} \PYG{p}{(}\PYG{n}{d1} \PYG{o}{\textgreater{}} \PYG{n}{d3}\PYG{p}{)}\PYG{p}{:}
+        \PYG{n}{SYST} \PYG{o}{=} \PYG{n}{py\PYGZus{}band\PYGZus{}matrix}\PYG{p}{(}\PYG{n}{zeros}\PYG{p}{(}\PYG{p}{(}\PYG{n}{d1}\PYG{p}{,}\PYG{n}{d2}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}
+        \PYG{n}{SYST}\PYG{o}{.}\PYG{n}{data}\PYG{p}{[}\PYG{l+m+mf}{0}\PYG{p}{:}\PYG{n}{d3}\PYG{p}{,}\PYG{l+m+mf}{0}\PYG{p}{:}\PYG{n}{d4}\PYG{p}{]} \PYG{o}{=} \PYG{n}{alpha}\PYG{o}{*}\PYG{n}{M}\PYG{o}{.}\PYG{n}{data}\PYG{p}{;}
+        \PYG{n}{SYST}\PYG{o}{.}\PYG{n}{data} \PYG{o}{=} \PYG{n}{SYST}\PYG{o}{.}\PYG{n}{data} \PYG{o}{+} \PYG{n}{beta}\PYG{o}{*}\PYG{n}{A}\PYG{o}{.}\PYG{n}{data}\PYG{p}{;}
+    \PYG{k}{else}\PYG{p}{:}
+        \PYG{n}{SYST} \PYG{o}{=}  \PYG{n}{py\PYGZus{}band\PYGZus{}matrix}\PYG{p}{(}\PYG{n}{alpha}\PYG{o}{*}\PYG{n}{M}\PYG{o}{.}\PYG{n}{data} \PYG{o}{+} \PYG{n}{beta}\PYG{o}{*}\PYG{n}{A}\PYG{o}{.}\PYG{n}{data}\PYG{p}{)}\PYG{p}{;}
+
+    \PYG{k}{return} \PYG{n}{SYST}
+
+\PYG{k}{class} \PYG{n+nc}{band\PYGZus{}matrix}\PYG{p}{:}
+    \PYG{k}{def} \PYG{n+nf}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,}\PYG{n}{ab}\PYG{p}{)}\PYG{p}{:}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{shape} \PYG{o}{=} \PYG{p}{(}\PYG{n}{ab}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mf}{1}\PYG{p}{]}\PYG{p}{,}\PYG{n}{ab}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mf}{1}\PYG{p}{]}\PYG{p}{)}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{data} \PYG{o}{=} \PYG{n}{ab}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{band\PYGZus{}width} \PYG{o}{=} \PYG{n}{ab}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mf}{0}\PYG{p}{]}
+        \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{dtype} \PYG{o}{=} \PYG{n}{ab}\PYG{o}{.}\PYG{n}{dtype}
+
+    \PYG{k}{def} \PYG{n+nf}{matvec}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,}\PYG{n}{u}\PYG{p}{)}\PYG{p}{:}
+        \PYG{k}{pass}
+
+    \PYG{k}{def} \PYG{n+nf}{\PYGZus{}\PYGZus{}add\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,}\PYG{n}{other}\PYG{p}{)}\PYG{p}{:}
+        \PYG{k}{return} \PYG{n}{add\PYGZus{}band\PYGZus{}mat}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,}\PYG{n}{other}\PYG{p}{)}
+\end{Verbatim}
+
+First we implement our matrix vector multiplication in Python:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{band\PYGZus{}matvec\PYGZus{}py}\PYG{p}{(}\PYG{n}{A}\PYG{p}{,}\PYG{n}{u}\PYG{p}{)}\PYG{p}{:}
+
+    \PYG{n}{result} \PYG{o}{=} \PYG{n}{zeros}\PYG{p}{(}\PYG{n}{u}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mf}{0}\PYG{p}{]}\PYG{p}{,}\PYG{n}{dtype}\PYG{o}{=}\PYG{n}{u}\PYG{o}{.}\PYG{n}{dtype}\PYG{p}{)}
+
+
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{xrange}\PYG{p}{(}\PYG{n}{A}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mf}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{:}
+        \PYG{n}{result}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{n}{A}\PYG{p}{[}\PYG{l+m+mf}{0}\PYG{p}{,}\PYG{n}{i}\PYG{p}{]}\PYG{o}{*}\PYG{n}{u}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}
+
+    \PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{xrange}\PYG{p}{(}\PYG{l+m+mf}{1}\PYG{p}{,}\PYG{n}{A}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mf}{0}\PYG{p}{]}\PYG{p}{)}\PYG{p}{:}
+        \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{xrange}\PYG{p}{(}\PYG{n}{A}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mf}{1}\PYG{p}{]}\PYG{o}{-}\PYG{n}{j}\PYG{p}{)}\PYG{p}{:}
+            \PYG{n}{result}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{+}\PYG{o}{=} \PYG{n}{A}\PYG{p}{[}\PYG{n}{j}\PYG{p}{,}\PYG{n}{i}\PYG{p}{]}\PYG{o}{*}\PYG{n}{u}\PYG{p}{[}\PYG{n}{i}\PYG{o}{+}\PYG{n}{j}\PYG{p}{]}
+            \PYG{n}{result}\PYG{p}{[}\PYG{n}{i}\PYG{o}{+}\PYG{n}{j}\PYG{p}{]} \PYG{o}{+}\PYG{o}{=} \PYG{n}{A}\PYG{p}{[}\PYG{n}{j}\PYG{p}{,}\PYG{n}{i}\PYG{p}{]}\PYG{o}{*}\PYG{n}{u}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}
+
+    \PYG{k}{return} \PYG{n}{result}
+\end{Verbatim}
+
+Then we derive our Python base class with the Python matrix vector
+multiplication:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{class} \PYG{n+nc}{py\PYGZus{}band\PYGZus{}matrix}\PYG{p}{(}\PYG{n}{band\PYGZus{}matrix}\PYG{p}{)}\PYG{p}{:}
+    \PYG{k}{def} \PYG{n+nf}{matvec}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,}\PYG{n}{u}\PYG{p}{)}\PYG{p}{:}
+        \PYG{k}{if} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mf}{0}\PYG{p}{]} \PYG{o}{!=} \PYG{n}{u}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mf}{0}\PYG{p}{]}\PYG{p}{:}
+            \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{Dimension Missmatch!}\PYG{l+s}{"}\PYG{p}{)}
+
+        \PYG{k}{return} \PYG{n}{band\PYGZus{}matvec\PYGZus{}py}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{data}\PYG{p}{,}\PYG{n}{u}\PYG{p}{)}
+\end{Verbatim}
+
+But this is quite slow. We can alternativly implement this Inline with weave:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{from} \PYG{n+nn}{numpy} \PYG{k}{import} \PYG{n}{array}\PYG{p}{,} \PYG{n}{zeros}
+\PYG{k}{from} \PYG{n+nn}{scipy.weave} \PYG{k}{import} \PYG{n}{converters}
+\PYG{k}{from} \PYG{n+nn}{scipy} \PYG{k}{import} \PYG{n}{weave}
+
+\PYG{k}{def} \PYG{n+nf}{band\PYGZus{}matvec\PYGZus{}inline}\PYG{p}{(}\PYG{n}{A}\PYG{p}{,}\PYG{n}{u}\PYG{p}{)}\PYG{p}{:}
+
+    \PYG{n}{result} \PYG{o}{=} \PYG{n}{zeros}\PYG{p}{(}\PYG{n}{u}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mf}{0}\PYG{p}{]}\PYG{p}{,}\PYG{n}{dtype}\PYG{o}{=}\PYG{n}{u}\PYG{o}{.}\PYG{n}{dtype}\PYG{p}{)}
+
+    \PYG{n}{N} \PYG{o}{=} \PYG{n}{A}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mf}{1}\PYG{p}{]}
+    \PYG{n}{B} \PYG{o}{=} \PYG{n}{A}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mf}{0}\PYG{p}{]}
+
+    \PYG{n}{code} \PYG{o}{=} \PYG{l+s}{"""}
+\PYG{l+s}{    for(int i=0; i \textless{} N;i++)}
+\PYG{l+s}{    \PYGZob{}}
+\PYG{l+s}{      result(i) = A(0,i)*u(i);}
+\PYG{l+s}{    \PYGZcb{}}
+\PYG{l+s}{    for(int j=1;j \textless{} B;j++)}
+\PYG{l+s}{    \PYGZob{}}
+
+\PYG{l+s}{        for(int i=0; i \textless{} (N-j);i++)}
+\PYG{l+s}{        \PYGZob{}}
+\PYG{l+s}{          if((i+j \textless{} N))}
+\PYG{l+s}{          \PYGZob{}}
+\PYG{l+s}{            result(i) += A(j,i)*u(j+i);}
+\PYG{l+s}{            result(i+j) += A(j,i)*u(i);}
+\PYG{l+s}{          \PYGZcb{}}
+
+\PYG{l+s}{        \PYGZcb{}}
+
+\PYG{l+s}{    \PYGZcb{}}
+\PYG{l+s}{    }\PYG{l+s}{"""}
+
+    \PYG{n}{weave}\PYG{o}{.}\PYG{n}{inline}\PYG{p}{(}\PYG{n}{code}\PYG{p}{,}\PYG{p}{[}\PYG{l+s}{'}\PYG{l+s}{u}\PYG{l+s}{'}\PYG{p}{,} \PYG{l+s}{'}\PYG{l+s}{A}\PYG{l+s}{'}\PYG{p}{,} \PYG{l+s}{'}\PYG{l+s}{result}\PYG{l+s}{'}\PYG{p}{,} \PYG{l+s}{'}\PYG{l+s}{N}\PYG{l+s}{'}\PYG{p}{,} \PYG{l+s}{'}\PYG{l+s}{B}\PYG{l+s}{'}\PYG{p}{]}\PYG{p}{,}
+               \PYG{n}{type\PYGZus{}converters}\PYG{o}{=}\PYG{n}{converters}\PYG{o}{.}\PYG{n}{blitz}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n}{result}
+\end{Verbatim}
+
+and create a new band matrix class:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{class} \PYG{n+nc}{inline\PYGZus{}band\PYGZus{}matrix}\PYG{p}{(}\PYG{n}{band\PYGZus{}matrix}\PYG{p}{)}\PYG{p}{:}
+    \PYG{k}{def} \PYG{n+nf}{matvec}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,}\PYG{n}{u}\PYG{p}{)}\PYG{p}{:}
+        \PYG{k}{if} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mf}{0}\PYG{p}{]} \PYG{o}{!=} \PYG{n}{u}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mf}{0}\PYG{p}{]}\PYG{p}{:}
+            \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{Dimension Missmatch!}\PYG{l+s}{"}\PYG{p}{)}
+
+        \PYG{k}{return} \PYG{n}{band\PYGZus{}matvec\PYGZus{}inline}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{data}\PYG{p}{,}\PYG{n}{u}\PYG{p}{)}
+\end{Verbatim}
+
+or we implement the matrix vector product with Cython:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{cimport} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{cnumpy}
+\PYG{k}{ctypedef} \PYG{n}{cnumpy}\PYG{o}{.}\PYG{n}{float64\PYGZus{}t} \PYG{n}{reals} \PYG{c}{\#typedef\PYGZus{}for easier reedding}
+
+\PYG{k}{def} \PYG{n+nf}{band\PYGZus{}matvec\PYGZus{}c}\PYG{p}{(}\PYG{n}{cnumpy}\PYG{o}{.}\PYG{n}{ndarray}\PYG{p}{[}\PYG{n}{reals}\PYG{p}{,}\PYG{n}{ndim}\PYG{o}{=}\PYG{l+m+mf}{2}\PYG{p}{]} \PYG{n}{A}\PYG{p}{,}\PYG{n}{cnumpy}\PYG{o}{.}\PYG{n}{ndarray}\PYG{p}{[}\PYG{n}{reals}\PYG{p}{,}\PYG{n}{ndim}\PYG{o}{=}\PYG{l+m+mf}{1}\PYG{p}{]} \PYG{n}{u}\PYG{p}{)}\PYG{p}{:}
+    \PYG{k}{cdef} \PYG{k+kt}{Py\PYGZus{}ssize\PYGZus{}t} \PYG{n+nf}{i}\PYG{p}{,}\PYG{n+nf}{j}
+    \PYG{k}{cdef} \PYG{k+kt}{cnumpy}.\PYG{k+kt}{ndarray}[\PYG{n+nf}{reals}\PYG{p}{,}\PYG{n+nf}{ndim}\PYG{o}{=}\PYG{l+m+mf}{1}\PYG{p}{]} \PYG{n}{result} \PYG{o}{=} \PYG{n}{numpy}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{n}{A}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mf}{1}\PYG{p}{]}\PYG{p}{,}\PYG{n}{dtype}\PYG{o}{=}\PYG{n}{A}\PYG{o}{.}\PYG{n}{dtype}\PYG{p}{)}
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{xrange}\PYG{p}{(}\PYG{n}{A}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mf}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{:}
+        \PYG{n}{result}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{n}{A}\PYG{p}{[}\PYG{l+m+mf}{0}\PYG{p}{,}\PYG{n}{i}\PYG{p}{]}\PYG{o}{*}\PYG{n}{u}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}
+
+    \PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{xrange}\PYG{p}{(}\PYG{l+m+mf}{1}\PYG{p}{,}\PYG{n}{A}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mf}{0}\PYG{p}{]}\PYG{p}{)}\PYG{p}{:}
+        \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{xrange}\PYG{p}{(}\PYG{n}{A}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mf}{1}\PYG{p}{]}\PYG{o}{-}\PYG{n}{j}\PYG{p}{)}\PYG{p}{:}
+            \PYG{n}{result}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{n}{result}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{+} \PYG{n}{A}\PYG{p}{[}\PYG{n}{j}\PYG{p}{,}\PYG{n}{i}\PYG{p}{]}\PYG{o}{*}\PYG{n}{u}\PYG{p}{[}\PYG{n}{i}\PYG{o}{+}\PYG{n}{j}\PYG{p}{]}
+            \PYG{n}{result}\PYG{p}{[}\PYG{n}{i}\PYG{o}{+}\PYG{n}{j}\PYG{p}{]} \PYG{o}{=} \PYG{n}{result}\PYG{p}{[}\PYG{n}{i}\PYG{o}{+}\PYG{n}{j}\PYG{p}{]}\PYG{o}{+}\PYG{n}{A}\PYG{p}{[}\PYG{n}{j}\PYG{p}{,}\PYG{n}{i}\PYG{p}{]}\PYG{o}{*}\PYG{n}{u}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}
+
+    \PYG{k}{return} \PYG{n}{result}
+\end{Verbatim}
+
+and make the new band-matrix class analogously:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{class} \PYG{n+nc}{c\PYGZus{}band\PYGZus{}matrix}\PYG{p}{(}\PYG{n}{band\PYGZus{}matrix}\PYG{p}{)}\PYG{p}{:}
+   \PYG{k}{def} \PYG{n+nf}{matvec}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,}\PYG{n}{u}\PYG{p}{)}\PYG{p}{:}
+       \PYG{k}{if} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mf}{0}\PYG{p}{]} \PYG{o}{!=} \PYG{n}{u}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mf}{0}\PYG{p}{]}\PYG{p}{:}
+           \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{Dimension Missmatch!}\PYG{l+s}{"}\PYG{p}{)}
+
+       \PYG{k}{return} \PYG{n}{band\PYGZus{}matvec\PYGZus{}c}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{data}\PYG{p}{,}\PYG{n}{u}\PYG{p}{)}
+\end{Verbatim}
+
+You can either import the band matrix base class to the \emph{.pyx} file
+and define the derived Python class in the \emph{.pyx} file, or \code{cimport}
+the function to a Python file with the new matrix class defined.
+
+A more advanced example is an implementation in PyCUDA:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{import} \PYG{n+nn}{pycuda.driver} \PYG{k}{as} \PYG{n+nn}{cuda}
+\PYG{k}{import} \PYG{n+nn}{pycuda.gpuarray} \PYG{k}{as} \PYG{n+nn}{gpuarray}
+
+\PYG{k}{import} \PYG{n+nn}{pycuda.autoinit}
+\PYG{k}{import} \PYG{n+nn}{numpy}
+\PYG{k}{from} \PYG{n+nn}{pycuda.compiler} \PYG{k}{import} \PYG{n}{SourceModule}
+\PYG{k}{from} \PYG{n+nn}{pycuda.driver} \PYG{k}{import} \PYG{n}{matrix\PYGZus{}to\PYGZus{}texref}
+
+\PYG{k}{from} \PYG{n+nn}{numpy} \PYG{k}{import} \PYG{n}{array}\PYG{p}{,} \PYG{n}{zeros}\PYG{p}{,} \PYG{n}{int32}\PYG{p}{,} \PYG{n}{float32}\PYG{p}{,} \PYG{n}{intp}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{sourceCodeTemplate} \PYG{o}{=} \PYG{l+s}{"}\PYG{l+s}{"}\PYG{l+s}{"}
+\PYG{n}{texture}\PYG{o}{\textless{}}\PYG{k+kt}{float}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{o}{\textgreater{}} \PYG{n}{matrixTexture}\PYG{p}{;}
+
+\PYG{n}{\PYGZus{}\PYGZus{}global\PYGZus{}\PYGZus{}} \PYG{k+kt}{void} \PYG{n+nf}{gpu\PYGZus{}band\PYGZus{}matvec}\PYG{p}{(} \PYG{c+c1}{//\%(REALS)s *matrix,}
+                                 \PYG{o}{\%}\PYG{p}{(}\PYG{n}{REALS}\PYG{p}{)}\PYG{n}{s} \PYG{o}{*}\PYG{n}{vector}\PYG{p}{,}
+                                 \PYG{o}{\%}\PYG{p}{(}\PYG{n}{REALS}\PYG{p}{)}\PYG{n}{s} \PYG{o}{*}\PYG{n}{result}\PYG{p}{,}
+                                 \PYG{k+kt}{int} \PYG{o}{*}\PYG{n}{info}
+                                 \PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+  \PYG{c+c1}{// Infos about matrix dimension}
+  \PYG{k}{const} \PYG{k+kt}{int} \PYG{n}{dim} \PYG{o}{=} \PYG{n}{info}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{;}
+  \PYG{k}{const} \PYG{k+kt}{int} \PYG{n}{band\PYGZus{}with} \PYG{o}{=} \PYG{n}{info}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{;}
+
+  \PYG{c+c1}{// Infos about Blocks}
+
+  \PYG{c+c1}{//unsigned int position = 0;}
+  \PYG{k+kt}{int} \PYG{n}{idx} \PYG{o}{=} \PYG{n}{blockIdx}\PYG{p}{.}\PYG{n}{x} \PYG{o}{*} \PYG{n}{blockDim}\PYG{p}{.}\PYG{n}{x} \PYG{o}{+} \PYG{n}{threadIdx}\PYG{p}{.}\PYG{n}{x}\PYG{p}{;}
+
+  \PYG{n}{\PYGZus{}\PYGZus{}shared\PYGZus{}\PYGZus{}} \PYG{o}{\%}\PYG{p}{(}\PYG{n}{REALS}\PYG{p}{)}\PYG{n}{s} \PYG{n}{vector\PYGZus{}help}\PYG{p}{[}\PYG{o}{\%}\PYG{p}{(}\PYG{n}{DOUBLE\PYGZus{}BLOCK\PYGZus{}SIZE}\PYG{p}{)}\PYG{n}{s}\PYG{p}{]}\PYG{p}{;}
+  \PYG{o}{\%}\PYG{p}{(}\PYG{n}{REALS}\PYG{p}{)}\PYG{n}{s} \PYG{n}{result\PYGZus{}helper}\PYG{p}{;}
+
+  \PYG{c+c1}{//\PYGZus{}\PYGZus{}syncthreads(); //Memory has to be loaded}
+
+  \PYG{k}{while}\PYG{p}{(}\PYG{n}{idx} \PYG{o}{\textless{}} \PYG{n}{dim} \PYG{o}{+}  \PYG{o}{\%}\PYG{p}{(}\PYG{n}{BLOCK\PYGZus{}SIZE}\PYG{p}{)}\PYG{n}{s} \PYG{o}{*} \PYG{o}{\%}\PYG{p}{(}\PYG{n}{NUMBER\PYGZus{}BLOCKS}\PYG{p}{)}\PYG{n}{s}\PYG{p}{)} \PYG{c+c1}{//While loop over all blocks}
+  \PYG{p}{\PYGZob{}}
+
+      \PYG{n}{\PYGZus{}\PYGZus{}syncthreads}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;} \PYG{c+c1}{//Memory has to be loaded}
+
+      \PYG{k}{if}\PYG{p}{(}\PYG{n}{idx} \PYG{o}{\textless{}} \PYG{n}{dim}\PYG{p}{)}
+      \PYG{p}{\PYGZob{}}
+      \PYG{n}{vector\PYGZus{}help}\PYG{p}{[}\PYG{n}{threadIdx}\PYG{p}{.}\PYG{n}{x}\PYG{p}{]} \PYG{o}{=} \PYG{n}{vector}\PYG{p}{[}\PYG{n}{idx}\PYG{p}{]}\PYG{p}{;}
+
+
+      \PYG{k}{if}\PYG{p}{(}\PYG{n}{idx} \PYG{o}{+} \PYG{o}{\%}\PYG{p}{(}\PYG{n}{BLOCK\PYGZus{}SIZE}\PYG{p}{)}\PYG{n}{s} \PYG{o}{\textless{}} \PYG{n}{dim}\PYG{p}{)}
+      \PYG{p}{\PYGZob{}}
+        \PYG{n}{vector\PYGZus{}help}\PYG{p}{[}\PYG{n}{threadIdx}\PYG{p}{.}\PYG{n}{x}\PYG{o}{+}\PYG{o}{\%}\PYG{p}{(}\PYG{n}{BLOCK\PYGZus{}SIZE}\PYG{p}{)}\PYG{n}{s}\PYG{p}{]} \PYG{o}{=}  \PYG{n}{vector}\PYG{p}{[}\PYG{n}{idx}\PYG{o}{+}\PYG{o}{\%}\PYG{p}{(}\PYG{n}{BLOCK\PYGZus{}SIZE}\PYG{p}{)}\PYG{n}{s}\PYG{p}{]}\PYG{p}{;}
+      \PYG{p}{\PYGZcb{}}
+      \PYG{n}{\PYGZus{}\PYGZus{}syncthreads}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;} \PYG{c+c1}{//Memory has to be loaded}
+
+      \PYG{n}{result\PYGZus{}helper} \PYG{o}{=} \PYG{n}{tex2D}\PYG{p}{(}\PYG{n}{matrixTexture}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{idx}\PYG{p}{)} \PYG{o}{*} \PYG{n}{vector\PYGZus{}help}\PYG{p}{[}\PYG{n}{threadIdx}\PYG{p}{.}\PYG{n}{x}\PYG{p}{]}\PYG{p}{;}
+
+      \PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{1}\PYG{p}{;} \PYG{n}{i} \PYG{o}{\textless{}} \PYG{n}{band\PYGZus{}with}\PYG{p}{;} \PYG{n}{i}\PYG{o}{+}\PYG{o}{+}\PYG{p}{)}
+      \PYG{p}{\PYGZob{}}
+         \PYG{n}{result\PYGZus{}helper} \PYG{o}{+}\PYG{o}{=} \PYG{n}{tex2D}\PYG{p}{(}\PYG{n}{matrixTexture}\PYG{p}{,} \PYG{n}{i}\PYG{p}{,} \PYG{n}{idx}\PYG{p}{)}\PYG{o}{*}\PYG{n}{vector\PYGZus{}help}\PYG{p}{[}\PYG{n}{threadIdx}\PYG{p}{.}\PYG{n}{x}\PYG{o}{+}\PYG{n}{i}\PYG{p}{]}\PYG{p}{;}
+
+      \PYG{p}{\PYGZcb{}}
+
+
+     \PYG{n}{\PYGZus{}\PYGZus{}syncthreads}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;} \PYG{c+c1}{//Memory has to be loaded}
+
+     \PYG{n}{vector\PYGZus{}help}\PYG{p}{[}\PYG{n}{threadIdx}\PYG{p}{.}\PYG{n}{x} \PYG{o}{+} \PYG{o}{\%}\PYG{p}{(}\PYG{n}{BLOCK\PYGZus{}SIZE}\PYG{p}{)}\PYG{n}{s}\PYG{p}{]} \PYG{o}{=} \PYG{n}{vector\PYGZus{}help}\PYG{p}{[}\PYG{n}{threadIdx}\PYG{p}{.}\PYG{n}{x}\PYG{p}{]}\PYG{p}{;}
+     \PYG{p}{\PYGZcb{}}
+
+     \PYG{k}{if}\PYG{p}{(}\PYG{p}{(}\PYG{n}{idx} \PYG{o}{-} \PYG{o}{\%}\PYG{p}{(}\PYG{n}{BLOCK\PYGZus{}SIZE}\PYG{p}{)}\PYG{n}{s} \PYG{o}{\textgreater{}}\PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{)} \PYG{o}{\&}\PYG{o}{\&} \PYG{p}{(}\PYG{n}{idx} \PYG{o}{-} \PYG{o}{\%}\PYG{p}{(}\PYG{n}{BLOCK\PYGZus{}SIZE}\PYG{p}{)}\PYG{n}{s}\PYG{p}{)} \PYG{o}{\textless{}} \PYG{n}{dim}\PYG{p}{)}
+     \PYG{p}{\PYGZob{}}
+       \PYG{n}{vector\PYGZus{}help}\PYG{p}{[}\PYG{n}{threadIdx}\PYG{p}{.}\PYG{n}{x}\PYG{p}{]} \PYG{o}{=} \PYG{n}{vector}\PYG{p}{[}\PYG{n}{idx} \PYG{o}{-} \PYG{o}{\%}\PYG{p}{(}\PYG{n}{BLOCK\PYGZus{}SIZE}\PYG{p}{)}\PYG{n}{s}\PYG{p}{]}\PYG{p}{;}
+     \PYG{p}{\PYGZcb{}}
+
+     \PYG{n}{\PYGZus{}\PYGZus{}syncthreads}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;} \PYG{c+c1}{//Memory has to be loaded}
+
+     \PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{1}\PYG{p}{;} \PYG{n}{i} \PYG{o}{\textless{}} \PYG{n}{band\PYGZus{}with}\PYG{p}{;} \PYG{n}{i}\PYG{o}{+}\PYG{o}{+}\PYG{p}{)}
+     \PYG{p}{\PYGZob{}}
+        \PYG{k}{if}\PYG{p}{(}\PYG{p}{(}\PYG{n}{idx} \PYG{o}{-} \PYG{n}{i} \PYG{o}{\textgreater{}}\PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{)} \PYG{o}{\&}\PYG{o}{\&} \PYG{p}{(}\PYG{n}{idx} \PYG{o}{-} \PYG{n}{i} \PYG{o}{\textless{}} \PYG{n}{dim}\PYG{p}{)}\PYG{p}{)}
+        \PYG{p}{\PYGZob{}}
+          \PYG{n}{result\PYGZus{}helper} \PYG{o}{+}\PYG{o}{=} \PYG{n}{tex2D}\PYG{p}{(}\PYG{n}{matrixTexture}\PYG{p}{,} \PYG{n}{i}\PYG{p}{,} \PYG{n}{idx} \PYG{o}{-} \PYG{n}{i}\PYG{p}{)}\PYG{o}{*}\PYG{n}{vector\PYGZus{}help}\PYG{p}{[}\PYG{n}{threadIdx}\PYG{p}{.}\PYG{n}{x} \PYG{o}{+} \PYG{o}{\%}\PYG{p}{(}\PYG{n}{BLOCK\PYGZus{}SIZE}\PYG{p}{)}\PYG{n}{s} \PYG{o}{-} \PYG{n}{i}\PYG{p}{]}\PYG{p}{;}
+        \PYG{p}{\PYGZcb{}}
+     \PYG{p}{\PYGZcb{}}
+
+     \PYG{k}{if}\PYG{p}{(}\PYG{n}{idx} \PYG{o}{\textless{}} \PYG{n}{dim}\PYG{p}{)}
+     \PYG{p}{\PYGZob{}}
+       \PYG{n}{result}\PYG{p}{[}\PYG{n}{idx}\PYG{p}{]} \PYG{o}{=} \PYG{n}{result\PYGZus{}helper}\PYG{p}{;}
+     \PYG{p}{\PYGZcb{}}
+
+
+    \PYG{n}{idx} \PYG{o}{+}\PYG{o}{=} \PYG{o}{\%}\PYG{p}{(}\PYG{n}{BLOCK\PYGZus{}SIZE}\PYG{p}{)}\PYG{n}{s} \PYG{o}{*} \PYG{o}{\%}\PYG{p}{(}\PYG{n}{NUMBER\PYGZus{}BLOCKS}\PYG{p}{)}\PYG{n}{s}\PYG{p}{;}
+
+   \PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{l+s}{"}\PYG{l+s}{"}\PYG{l+s}{"}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{REALS} \PYG{o}{=} \PYG{l+s}{"}\PYG{l+s}{float}\PYG{l+s}{"}
+\PYG{n}{BLOCK\PYGZus{}SIZE} \PYG{o}{=} \PYG{l+m+mi}{256}
+\PYG{n}{NUMBER\PYGZus{}BLOCKS} \PYG{o}{=} \PYG{l+m+mi}{8}
+
+\PYG{n}{sourceCode} \PYG{o}{=} \PYG{n}{sourceCodeTemplate} \PYG{o}{\%} \PYG{p}{\PYGZob{}}
+\PYG{l+s}{'}\PYG{l+s}{REALS}\PYG{l+s}{'}\PYG{p}{:} \PYG{n}{REALS}\PYG{p}{,}
+\PYG{l+s}{'}\PYG{l+s}{BLOCK\PYGZus{}SIZE}\PYG{l+s}{'}\PYG{p}{:} \PYG{n}{BLOCK\PYGZus{}SIZE}\PYG{p}{,}
+\PYG{l+s}{'}\PYG{l+s}{DOUBLE\PYGZus{}BLOCK\PYGZus{}SIZE}\PYG{l+s}{'}\PYG{p}{:} \PYG{l+m+mi}{2}\PYG{o}{*}\PYG{n}{BLOCK\PYGZus{}SIZE}\PYG{p}{,}
+\PYG{l+s}{'}\PYG{l+s}{NUMBER\PYGZus{}BLOCKS}\PYG{l+s}{'}\PYG{p}{:} \PYG{n}{NUMBER\PYGZus{}BLOCKS}\PYG{p}{,}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{n}{matvec\PYGZus{}module} \PYG{o}{=} \PYG{n}{SourceModule}\PYG{p}{(}\PYG{n}{sourceCode}\PYG{p}{)}
+
+\PYG{n}{matvec\PYGZus{}func} \PYG{o}{=} \PYG{n}{matvec\PYGZus{}module}\PYG{o}{.}\PYG{n}{get\PYGZus{}function}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{gpu\PYGZus{}band\PYGZus{}matvec}\PYG{l+s}{"}\PYG{p}{)}
+\PYG{n}{matrixTexture} \PYG{o}{=} \PYG{n}{matvec\PYGZus{}module}\PYG{o}{.}\PYG{n}{get\PYGZus{}texref}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{matrixTexture}\PYG{l+s}{"}\PYG{p}{)}
+
+\PYG{k+kn}{from} \PYG{n+nn}{band\PYGZus{}matrix} \PYG{k+kn}{import} \PYG{n}{add\PYGZus{}band\PYGZus{}mat}
+
+\PYG{k}{class} \PYG{n+nc}{gpu\PYGZus{}band\PYGZus{}matrix}\PYG{p}{:}
+  \PYG{l+s+sd}{"""variables for information about which matrix is}
+\PYG{l+s+sd}{     currently on the texture}
+\PYG{l+s+sd}{  """}
+
+  \PYG{n}{nr\PYGZus{}matrices} \PYG{o}{=} \PYG{l+m+mi}{0}
+  \PYG{n}{active\PYGZus{}matrix} \PYG{o}{=} \PYG{l+m+mi}{0}
+
+  \PYG{l+s+sd}{"""Takes a numpy array"""}
+  \PYG{k}{def} \PYG{n+nf}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,}\PYG{n}{data}\PYG{p}{,}\PYG{n}{set\PYGZus{}right} \PYG{o}{=} \PYG{n+nb+bp}{False}\PYG{p}{)}\PYG{p}{:}
+      \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{data} \PYG{o}{=} \PYG{n}{data}
+
+      \PYG{k}{if} \PYG{n}{set\PYGZus{}right}\PYG{p}{:}
+          \PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{xrange}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{n}{B}\PYG{p}{)}\PYG{p}{:}
+              \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{data}\PYG{p}{[}\PYG{n}{j}\PYG{p}{:}\PYG{p}{,}\PYG{n}{N}\PYG{o}{-}\PYG{n}{j}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mi}{0}
+
+      \PYG{c}{\#self.data = gpuarray.to\PYGZus{}gpu(data)}
+      \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{shape} \PYG{o}{=} \PYG{p}{(}\PYG{n}{data}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{,}\PYG{n}{data}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}
+      \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{band\PYGZus{}with} \PYG{o}{=} \PYG{n}{data}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+      \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{dtype} \PYG{o}{=} \PYG{n}{data}\PYG{o}{.}\PYG{n}{dtype}
+
+      \PYG{n}{info} \PYG{o}{=} \PYG{n}{array}\PYG{p}{(}\PYG{p}{[}\PYG{n}{data}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{,}\PYG{n}{data}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{]}\PYG{p}{)}\PYG{o}{.}\PYG{n}{astype}\PYG{p}{(}\PYG{n}{int32}\PYG{p}{)}
+
+      \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{gpu\PYGZus{}info} \PYG{o}{=} \PYG{n}{gpuarray}\PYG{o}{.}\PYG{n}{to\PYGZus{}gpu}\PYG{p}{(}\PYG{n}{info}\PYG{p}{)}
+
+      \PYG{n}{cuda}\PYG{o}{.}\PYG{n}{matrix\PYGZus{}to\PYGZus{}texref}\PYG{p}{(}\PYG{n}{data}\PYG{p}{,} \PYG{n}{matrixTexture}\PYG{p}{,} \PYG{n}{order}\PYG{o}{=}\PYG{l+s}{"}\PYG{l+s}{F}\PYG{l+s}{"}\PYG{p}{)}
+
+      \PYG{n}{gpu\PYGZus{}band\PYGZus{}matrix}\PYG{o}{.}\PYG{n}{nr\PYGZus{}matrices} \PYG{o}{+}\PYG{o}{=} \PYG{l+m+mi}{1}
+
+      \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{identity\PYGZus{}nr} \PYG{o}{=} \PYG{n}{gpu\PYGZus{}band\PYGZus{}matrix}\PYG{o}{.}\PYG{n}{nr\PYGZus{}matrices}
+      \PYG{n}{active\PYGZus{}matrix} \PYG{o}{=} \PYG{n}{gpu\PYGZus{}band\PYGZus{}matrix}\PYG{o}{.}\PYG{n}{nr\PYGZus{}matrices}
+
+  \PYG{k}{def} \PYG{n+nf}{matvec}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,}\PYG{n}{x\PYGZus{}gpu}\PYG{p}{)}\PYG{p}{:}
+      \PYG{k}{if} \PYG{n}{x\PYGZus{}gpu}\PYG{o}{.}\PYG{n}{size} \PYG{o}{!=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{:}
+          \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{Dimension mismatch!}\PYG{l+s}{"}\PYG{p}{)}
+
+      \PYG{c}{\#self.data.bind\PYGZus{}to\PYGZus{}texref\PYGZus{}ext(matrixTexture,channels = 2)}
+      \PYG{c}{\#cuda.matrix\PYGZus{}to\PYGZus{}texref(self.cpu\PYGZus{}data, matrixTexture, order="F")}
+
+      \PYG{k}{if} \PYG{n}{gpu\PYGZus{}band\PYGZus{}matrix}\PYG{o}{.}\PYG{n}{active\PYGZus{}matrix} \PYG{o}{!=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{identity\PYGZus{}nr}\PYG{p}{:}
+          \PYG{n}{cuda}\PYG{o}{.}\PYG{n}{matrix\PYGZus{}to\PYGZus{}texref}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{data}\PYG{p}{,} \PYG{n}{matrixTexture}\PYG{p}{,} \PYG{n}{order}\PYG{o}{=}\PYG{l+s}{"}\PYG{l+s}{F}\PYG{l+s}{"}\PYG{p}{)}
+          \PYG{n}{gpu\PYGZus{}band\PYGZus{}matrix}\PYG{o}{.}\PYG{n}{active\PYGZus{}matrix} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{identity\PYGZus{}nr}
+
+      \PYG{n}{y\PYGZus{}gpu}  \PYG{o}{=} \PYG{n}{gpuarray}\PYG{o}{.}\PYG{n}{empty}\PYG{p}{(}\PYG{n}{x\PYGZus{}gpu}\PYG{o}{.}\PYG{n}{size}\PYG{p}{,} \PYG{n}{x\PYGZus{}gpu}\PYG{o}{.}\PYG{n}{dtype}\PYG{p}{)}
+      \PYG{n}{matvec\PYGZus{}func}\PYG{p}{(}\PYG{n}{intp}\PYG{p}{(}\PYG{n}{x\PYGZus{}gpu}\PYG{o}{.}\PYG{n}{gpudata}\PYG{p}{)}\PYG{p}{,}\PYG{n}{intp}\PYG{p}{(}\PYG{n}{y\PYGZus{}gpu}\PYG{o}{.}\PYG{n}{gpudata}\PYG{p}{)}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{gpu\PYGZus{}info}\PYG{o}{.}\PYG{n}{gpudata}\PYG{p}{,} \PYG{n}{block} \PYG{o}{=} \PYG{p}{(}\PYG{n}{BLOCK\PYGZus{}SIZE}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{,} \PYG{n}{grid}\PYG{o}{=} \PYG{p}{(}\PYG{n}{NUMBER\PYGZus{}BLOCKS}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{)}
+      \PYG{k}{return} \PYG{n}{y\PYGZus{}gpu}
+
+  \PYG{k}{def} \PYG{n+nf}{\PYGZus{}\PYGZus{}add\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,}\PYG{n}{other}\PYG{p}{)}\PYG{p}{:}
+      \PYG{k}{return} \PYG{n}{add\PYGZus{}band\PYGZus{}mat}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,}\PYG{n}{other}\PYG{p}{)}
+\end{Verbatim}
 \paragraph{Links}
 
 \resetcurrentobjects

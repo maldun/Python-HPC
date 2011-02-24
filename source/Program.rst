@@ -1217,15 +1217,18 @@ only the functions you actually need.
 
 For further information see the Python documention [#]_. 
 
-Reading and Writing external files
-""""""""""""""""""""""""""""""""""
 
-To read or writing external files you first have to open it first. We
+Reading and Writing external files
+----------------------------------
+
+To read or writing external files you first have to open it. We
 do this with the open function: ``open(filename,mode)``. The modes are
-``'r'`` (**r**ead only), ``'w'`` (**w**rite only; a file with the same name will
-be deleted), ``'a'`` (**a**ppends data to the end of the file),
+``'r'`` (**r** ead only), ``'w'`` (**w** rite only; a file with the same name will
+be deleted), ``'a'`` (**a** ppends data to the end of the file),
 ``'r+'`` (read and write). Default mode is ``'r'``. Open returns a
 object of the type FileObject.
+
+You find more information at the Python documentation [#]_, [#]_
 
 Examples: We write some text to a file, named test_file.txt and store
 it in the working directory, containing the following text::
@@ -1240,7 +1243,7 @@ Now let's print it in Python::
   >>> file.read()
   'I am a file. This is my first line\nSecond line.\nThird line.'  
 
-``read``prints the content of the file till it reaches it's end,
+``read`` prints the content of the file till it reaches it's end,
 and returns the content as string.
 You can also tell ``read`` to read a certain amount of bytes::
 
@@ -1486,6 +1489,8 @@ than
 .. [#] http://pleac.sourceforge.net/pleac_python/numbers.html
 .. [#] http://docs.python.org/tutorial/errors.html
 .. [#] http://docs.python.org/tutorial/modules.html
+.. [#] http://docs.python.org/tutorial/inputoutput.html
+.. [#] http://docs.python.org/library/stdtypes.html#bltin-file-objects
 .. [#] http://en.wikipedia.org/wiki/Programming_paradigm
 .. [#] http://www.gigamonkeys.com/book/
 

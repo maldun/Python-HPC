@@ -1,6 +1,8 @@
 Cython
 ======
 
+.. highlight:: cython
+
 Well Cython isn't a part of Python, it is a different language, but
 very similar to Python, and in fact it is almost to 90% compatible.
 (It is stated that Cython is a superset of Python, but it's currently
@@ -146,7 +148,8 @@ example this would look like this::
 
   setup(
       cmdclass = {'build_ext': build_ext},
-      ext_modules = [Extension("my_dot", ["my_dot.pyx"],include_dirs=[numpy.get_include()])]
+      ext_modules = [Extension("my_dot", ["my_dot.pyx"],
+      include_dirs=[numpy.get_include()])]
   )
 
   
@@ -408,7 +411,8 @@ specify this in your setup file (I saved the sinus to *math_stuff.pyx*)::
   setup(
       name = "Math Stuff",
       cmdclass = {'build_ext': build_ext},
-      ext_modules = [Extension("math_stuff", ["math_stuff.pyx"],libraries=["m"])]
+      ext_modules = [Extension("math_stuff", ["math_stuff.pyx"],
+                     libraries=["m"])]
       #m for compiler flag -lm (math library)
   ) 
 
@@ -489,7 +493,8 @@ and here the addition to the math_stuff.pyx::
   ctypedef numpy.float64_t reals #typedef_for easier reedding
   
   cpdef dot(numpy.ndarray[reals,ndim = 1] x, numpy.ndarray[reals,ndim = 1] y):
-      return ddot(x.shape[0],<reals*>x.data,x.strides[0] // sizeof(reals), <reals*>y.data,y.strides[0] // sizeof(reals))
+      return ddot(x.shape[0],<reals*>x.data,x.strides[0] //
+      sizeof(reals), <reals*>y.data,y.strides[0] // sizeof(reals))
 
 
 What is also possible is to declare prototypes in a *.pxd* file like

@@ -369,6 +369,7 @@ CG algorithm::
 
 For more information see again the SciPy reference [#]_
 
+.. _weave_ref:
 
 Weave
 -----
@@ -445,6 +446,10 @@ This is not very fast::
       weave.inline(code,['u', 'A', 'result', 'N', 'B'],
                  type_converters=converters.blitz)
       return result
+
+As it can be seen the syntax is not that different from Numpy. The 
+reason for this is, that Weave uses here the Blitz library for
+numerical computation, which has it's own vector class.
 
 If you call this function the first time it will be compiled in
 runtime::
