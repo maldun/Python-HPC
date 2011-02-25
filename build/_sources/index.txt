@@ -15,6 +15,11 @@ Contents:
    Python
    Steps
    Program
+   Scientific
+   Cython
+   MPI4Py
+   PyCUDA
+   Example
    License
 
 Indices and tables

@@ -1,0 +1,10 @@
+cimport numpy
+
+ctypedef numpy.float64_t reals #typedef_for easier reedding
+
+
+cdef extern from "cblas.h":
+    double ddot "cblas_ddot"(int N, double *X, int incX,double *Y, int incY)
+    
+def blas_matvec(numpy.ndarray[reals,ndim = 1] x, numpy.ndarray[reals,ndim = 1] y):
+    return ddot(x.shape[0],<reals*>x.data,x.strides[0] // sizeof(reals), <reals*>y.data,y.strides[0] // sizeof(reals))

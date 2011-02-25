@@ -1,10 +1,10 @@
 Programming in Python
 ===========================================
 
-In this section I will give all tools for programming with
+In this section I will give an overview of important tools for programming with
 Python. The sections are ordered by programming paradigms.
 If you are new to programming, the last paragraph of this section 
-contains an overview of the paradigms. ( :ref:`paradigm_ref` )
+contains an overview of these paradigms. ( :ref:`paradigm_ref` )
 
 Commenting in Python
 -------------------------------------------
@@ -80,7 +80,7 @@ It is executed when the condition is violated::
   while condition_is_true:
       do_something
   else:
-      do_something
+      do_something_else
 
 Here an example::
 
@@ -121,7 +121,7 @@ A ``for`` loop looks like this::
       do_something_with_x
 
 We can use the ``range`` function (see the section about
-:ref:`list_ref` ) to create a *norma;* ``for`` loop::
+:ref:`list_ref` ) to create a *normal* ``for`` loop::
 
   for i in range(n):
       do_something_with_x
@@ -455,8 +455,6 @@ There are many powerful tools like Sphinx, where you can use your
 docstrings for creating documentation of your code, or tools for
 automatic testing, which read take the docstring as input.
 
-.. _paradigm_ref:
-
 
 Other ways to define functions
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -624,11 +622,11 @@ to
 
 Let's calculate the factorial :math:`10!` ::
 
-  reduce(lambda x,y: x,y, range(1,10))
+  reduce(lambda x,y: x*y, range(1,10))
 
 or the doubled factorial::
 
-  reduce(lambda x,y: x,y, range(1,10),2)
+  reduce(lambda x,y: x*y, range(1,10),2)
 
 **Note** In Python 3 reduce was moved to the ``functools`` module.
 It can be backimported via::
@@ -874,6 +872,8 @@ Consider the for example in the class
 
 the priority order for looking up new methods is new_class-> base1 ->
 base2 -> base3 and not new_class -> base3 -> base2 -> base1.
+
+.. _overload_ref: 
 
 Operator overloading
 """"""""""""""""""""""""""""""""""""""""""""
@@ -1216,6 +1216,164 @@ only the functions you actually need.
 For further information see the Python documention [#]_. 
 
 
+Reading and Writing external files
+----------------------------------
+
+To read or writing external files you first have to open it. We
+do this with the open function: ``open(filename,mode)``. The modes are
+``'r'`` (**r** ead only), ``'w'`` (**w** rite only; a file with the same name will
+be deleted), ``'a'`` (**a** ppends data to the end of the file),
+``'r+'`` (read and write). Default mode is ``'r'``. Open returns a
+object of the type FileObject.
+
+You find more information at the Python documentation [#]_, [#]_
+
+Examples: We write some text to a file, named test_file.txt and store
+it in the working directory, containing the following text::
+
+  I am a file. This is my first line
+  Second line.
+  Third line.
+
+Now let's print it in Python::
+
+  >>> file = open("test_file.txt",'r')
+  >>> file.read()
+  'I am a file. This is my first line\nSecond line.\nThird line.'  
+
+``read`` prints the content of the file till it reaches it's end,
+and returns the content as string.
+You can also tell ``read`` to read a certain amount of bytes::
+
+  >>> file = open("test_file.txt",'r')
+  >>> file.read(12)
+  'I am a file.'  
+
+ 
+We can also read line for line::
+
+  >>> file = open("test_file.txt",'r')
+  >>> file.readline()
+  'I am a file. This is my first line\n'
+  >>> file.readline()
+  'Second line.\n'
+  >>> file.readline()
+  'Third line.'
+  >>> file.readline()
+  ''
+
+``readline`` prints the line till it finds ``\n``.
+Note that we had to reopen the file, because the we reached the
+end of the file after the first read call. With help of the seek
+method::
+
+  >>> file = open("test_file.txt",'r')
+  >>> file.read(12)
+  'I am a file.'
+  >>> file.tell()
+  12L  
+
+To set a different position we use the ``seek`` method. ``seek`` goes
+to number of bytes from the position which is set. As default ``seek``
+uses ``0`` (beginning of file; is equivalent to
+``os.SEEK_CUR``). Other values are ``1`` (the current position;
+os.SEEK_CUR) or ``2`` (end of file; os.SEEK_END).
+
+For example let's read the first line of the file, and jump to the
+next line::
+
+  >>> file.seek(0)
+  >>> file.readline()
+  'I am a file. This is my first line\n'
+  >>> file.seek(13,1)
+  >>> file.readline()
+  'Third line.' 
+
+Alternativley we can use the system's constants::
+
+  >>> file.seek(0)
+  >>> from os import SEEK_CUR
+  >>> file.readline()
+  'I am a file. This is my first line\n'
+  >>> file.seek(13,SEEK_CUR)
+  >>> file.readline()
+  'Third line.'
+  
+The command ``readlines`` prints the lines from the 
+file in a list::
+
+  >>> file.seek(0)
+  >>> file.readlines()
+  ['I am a file. This is my first line\n', 'Second line.\n', 'Third line.']
+
+To close the file again, use the close method::
+
+  >>> file.close()
+  >>> file
+  <closed file 'test_file.txt', mode 'r' at 0xb7866b10>
+
+Now let's add a new line to the file::
+
+  >>> file = open("test_file.txt",'a')
+  >>> file.write("This is the fourth line.\n")
+  >>> file.close()
+  >>> file = open("test_file.txt",'r')
+  >>> print(file.read())
+  I am a file. This is my first line
+  Second line.
+  Third line.
+  This is the fourth line.
+
+We can also do that interactively::
+
+  >>> file = open("test_file.txt",'r+')
+  >>> file.seek(0,2)
+  >>> file.write("This is the fift line.\n")
+
+The file will only be changed on the disc if we close it
+or use the ``flush`` method::
+
+  >>> file.flush()
+
+Now we can read it again::
+
+  >>> file.seek(0)
+  >>> print(file.read())
+  I am a file. This is my first line
+  Second line.
+  Third line.
+  This is the fourth line.
+  This is the fift line.
+
+Oops we forgot an 'h'. Let's change this::
+
+  >>> file.seek(-7,2)
+  >>> file.write("h line.\n")
+  >>> file.flush()
+  >>> file.seek(0)
+  >>> print(file.read())
+  I am a file. This is my first line
+  Second line.
+  Third line.
+  This is the fourth line.
+  This is the fifth line.
+
+The writelines command make it possible to add a list of strings::
+
+  >>> file.seek(0,2)
+  >>> file.writelines(["6th line\n","7th line\n"])
+  >>> file.seek(0,0)  
+  >>> print(file.read())
+  I am a file. This is my first line
+  Second line.
+  Third line.
+  This is the fourth line.
+  This is the fifth line.
+  6th line
+  7th line
+
+
+.. _paradigm_ref:
 
 Some words on programming paradigms
 -------------------------------------------
@@ -1233,7 +1391,7 @@ of your choice, If you want to go deeper into that topic.
 
 In short: 
 
-* In *imperative programming* you define sequences of
+* *Imperative programming*: You define sequences of
   commands the computer should perform, with help of loops,
   control statements, and functions. The program has *states*
   which determine, what the program does, and which action to 
@@ -1271,7 +1429,7 @@ In short:
    would be wheels: There are big wheels, small wheels, wheels
    for snow etc. but they all share common properties that makes
    them wheels (For example they are all round, 
-   and break in a regular basis). 
+   and break on a regular basis). 
    
  
 The good news are, that in Python you are able to work with
@@ -1331,6 +1489,8 @@ than
 .. [#] http://pleac.sourceforge.net/pleac_python/numbers.html
 .. [#] http://docs.python.org/tutorial/errors.html
 .. [#] http://docs.python.org/tutorial/modules.html
+.. [#] http://docs.python.org/tutorial/inputoutput.html
+.. [#] http://docs.python.org/library/stdtypes.html#bltin-file-objects
 .. [#] http://en.wikipedia.org/wiki/Programming_paradigm
 .. [#] http://www.gigamonkeys.com/book/
 
