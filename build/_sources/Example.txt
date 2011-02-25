@@ -152,6 +152,102 @@ You can either import the band matrix base class to the *.pyx* file
 and define the derived Python class in the *.pyx* file, or ``cimport``
 the function to a Python file with the new matrix class defined.
 
+.. highlight:: c
+
+For a comparison, the algorithm implemented in C::
+
+  
+  void band_matvec(float *result, float *A, float *x)
+  {
+    unsigned int i,j;
+    for(i = 0; i < cols; i++)
+    {
+      result[i] = A[i]*x[i]; 
+    }
+    
+    for(j = 1; j < rows; j++)
+    {
+      for(i = 0; i < cols - j; i++)
+      {
+          result[i] += A[j + i*rows]*x[i+j];
+          result[i+j] += A[j + i*rows]*x[i];
+      	
+      }
+    }
+  }
+
+.. highlight:: matlab
+
+and a (direct) Matlab version::
+
+  function result = band_matvec_ma(A,u)
+  
+      [B N] = size(A);
+    
+      result = zeros(N,1);
+    
+      
+      for i = 1:N
+          result(i) = A(1,i)*u(i);
+      end
+      
+      for j = 2:B
+          for i =1:N
+              if ((i+j-1) <= N) 
+                result(i) = result(i) + A(j,i)*u(i+j-1);
+                result(i+j-1) = result(i+j-1) + A(j,i)*u(i);
+              end
+          end
+      end
+  end
+
+I made a time comparison on a Intel Core Duo with 1800MHz and
+2 GB Ram. The dimension was ::math::``2^14``, and a with a 
+band of the size of ::math::``2^6`` under the diagonal. The reason
+for this choice was the limited texture memory on the card to
+compare it with the PyCUDA implementation lateron.
+
+============================= ======= =======
+Language                       time   Speedup
+============================= ======= =======
+Python                         2.96 s    1x
+Matlab                         90 ms    30x
+C                              30 ms    60x
+Cython                         12 ms   220x
+Inline C++                     10 ms   290x
+C (-O2 compiler flag)          10 ms   290x
+Cython (w. Boundscheck false)   6 ms   440x
+============================= ======= =======
+
+**Remarks**: 
+
+* @Matlab: the for loops are bad rule is no longer true! The
+  Java JIT (Just in Time) compilation vectorizes simple for loops like 
+  mine very efficiently, and that's also the reason why the Matlab
+  version is 30 times faster than the Python implementation. There
+  is a JIT compiler for Python too named Psyco. But Psyco doesn't
+  optimize the numpy array access like Cython.
+
+* @C The C implementation is rather straight forward and not well
+  optimised. Of course C cannot be slower than Cython, because
+  Cython is compiled to C. 
+
+There is a saying: "There are lies,
+there are big lies, and there are benchmarks", and my intention
+here is not to show that Python/Cython is the fastest language,
+but it is very easy to write fast Code in that languages, which can
+be faster than other implementations, if you don't optimize them well.
+That is a big Plus
+for Python/Cython, because when you write a prototype you want to get
+your 
+code fast enough that you can work with it, and don't have to invest
+much time with optimizing it. Although well written Cython code is 
+nearly as fast as a direct C implementation. If you don't need the
+last bit of speed out of your programs it is a good and simple
+alternative. 
+
+.. highlight:: python
+
 A more advanced example is an implementation in PyCUDA::
 
   import pycuda.driver as cuda
@@ -323,6 +419,20 @@ A more advanced example is an implementation in PyCUDA::
     def __add__(self,other):
         return add_band_mat(self,other)
 
+I tested it on the GPU4U at the University of Graz and had the
+following times:
+
+============================= ======= =======
+Language                       time   Speedup
+============================= ======= =======
+Python                        2.87 s    1x
+Cython                        9.87 ms   270x
+Cython (w. Boundscheck false) 5.56 ms   500x
+PyCUDA (on GTX 280)            585 µs  5000x
+============================= ======= =======
+
+**Remark**: PyCUDA is very fast, but has a breakeven point!
+For small dimensions Python or Cython are much faster.
 
 .. rubric:: Links
 

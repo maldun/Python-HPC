@@ -1,41 +1,12 @@
-\BOOKMARK [0][-]{chapter.1}{Introduction and personal thoughts}{}
-\BOOKMARK [1][-]{section.1.1}{Foreword}{chapter.1}
-\BOOKMARK [1][-]{section.1.2}{Experiences I want to share with programming beginners}{chapter.1}
-\BOOKMARK [0][-]{chapter.2}{About Python}{}
-\BOOKMARK [1][-]{section.2.1}{What is Python}{chapter.2}
-\BOOKMARK [1][-]{section.2.2}{Why Python?}{chapter.2}
-\BOOKMARK [1][-]{section.2.3}{Get Python}{chapter.2}
-\BOOKMARK [0][-]{chapter.3}{Python Basics}{}
-\BOOKMARK [1][-]{section.3.1}{The ``Goodbye World'' program.}{chapter.3}
-\BOOKMARK [1][-]{section.3.2}{Notes on the syntax}{chapter.3}
-\BOOKMARK [1][-]{section.3.3}{Assignment of variables}{chapter.3}
-\BOOKMARK [1][-]{section.3.4}{Some basic datatpypes}{chapter.3}
-\BOOKMARK [1][-]{section.3.5}{The print statement}{chapter.3}
-\BOOKMARK [1][-]{section.3.6}{Comparison operators}{chapter.3}
-\BOOKMARK [0][-]{chapter.4}{Programming in Python}{}
-\BOOKMARK [1][-]{section.4.1}{Commenting in Python}{chapter.4}
-\BOOKMARK [1][-]{section.4.2}{Go with the control flow}{chapter.4}
-\BOOKMARK [1][-]{section.4.3}{Defining functions}{chapter.4}
-\BOOKMARK [1][-]{section.4.4}{Functional Programming tools in Python \(or hooray for \040\)}{chapter.4}
-\BOOKMARK [1][-]{section.4.5}{Objects and classes}{chapter.4}
-\BOOKMARK [1][-]{section.4.6}{Exceptions}{chapter.4}
-\BOOKMARK [1][-]{section.4.7}{Modules and Packages}{chapter.4}
-\BOOKMARK [1][-]{section.4.8}{Reading and Writing external files}{chapter.4}
-\BOOKMARK [1][-]{section.4.9}{Some words on programming paradigms}{chapter.4}
-\BOOKMARK [0][-]{chapter.5}{Scientific tools in Python}{}
-\BOOKMARK [1][-]{section.5.1}{NumPy}{chapter.5}
-\BOOKMARK [1][-]{section.5.2}{SciPy}{chapter.5}
-\BOOKMARK [1][-]{section.5.3}{Weave}{chapter.5}
-\BOOKMARK [0][-]{chapter.6}{Cython}{}
-\BOOKMARK [1][-]{section.6.1}{How to compile your Cython Code}{chapter.6}
-\BOOKMARK [1][-]{section.6.2}{How to use Cython}{chapter.6}
-\BOOKMARK [0][-]{chapter.7}{MPI4Py}{}
-\BOOKMARK [0][-]{chapter.8}{Python+CUDA = PyCUDA}{}
-\BOOKMARK [1][-]{section.8.1}{Initialize PyCUDA}{chapter.8}
-\BOOKMARK [1][-]{section.8.2}{Get your CUDA code working in Python}{chapter.8}
-\BOOKMARK [1][-]{section.8.3}{The gpuarray class}{chapter.8}
-\BOOKMARK [1][-]{section.8.4}{Using MPI4Py and PyCUDA together}{chapter.8}
-\BOOKMARK [0][-]{chapter.9}{An Example: Band-matrix vector multiplication}{}
-\BOOKMARK [0][-]{chapter.10}{Licenses}{}
-\BOOKMARK [1][-]{section.10.1}{License}{chapter.10}
-\BOOKMARK [0][-]{chapter.11}{Indices and tables}{}
+\BOOKMARK [0][-]{chapter.1}{A brief introduction to Python \(for mathematicians\)}{}
+\BOOKMARK [1][-]{section.1.1}{Introduction and personal thoughts}{chapter.1}
+\BOOKMARK [1][-]{section.1.2}{About Python}{chapter.1}
+\BOOKMARK [1][-]{section.1.3}{Python Basics}{chapter.1}
+\BOOKMARK [1][-]{section.1.4}{Programming in Python}{chapter.1}
+\BOOKMARK [1][-]{section.1.5}{Scientific tools in Python}{chapter.1}
+\BOOKMARK [1][-]{section.1.6}{Cython}{chapter.1}
+\BOOKMARK [1][-]{section.1.7}{MPI4Py}{chapter.1}
+\BOOKMARK [1][-]{section.1.8}{Python+CUDA = PyCUDA}{chapter.1}
+\BOOKMARK [1][-]{section.1.9}{An Example: Band-matrix vector multiplication}{chapter.1}
+\BOOKMARK [1][-]{section.1.10}{Licenses}{chapter.1}
+\BOOKMARK [0][-]{chapter.2}{Indices and tables}{}

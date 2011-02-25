@@ -108,17 +108,20 @@
 \hypertarget{--doc-index}{}
 
 
+
+\chapter{A brief introduction to Python (for mathematicians)}
+
 Contents:
 
 \resetcurrentobjects
 \hypertarget{--doc-Introduction}{}
 
-\chapter{Introduction and personal thoughts}
+\section{Introduction and personal thoughts}
 
 If you want to start with Python right ahead  follow go directly to \hyperlink{basics-ref}{\emph{Python Basics}}
 
 
-\section{Foreword}
+\subsection{Foreword}
 
 This short documentation was written by me for the High Performance Computing Seminar
 in the winter semester 2010/11 of Prof. G. Haase at the University Graz Austria.
@@ -163,7 +166,7 @@ Graz Austria
 2011
 
 
-\section{Experiences I want to share with programming beginners}
+\subsection{Experiences I want to share with programming beginners}
 
 My professors in the basic programming and informatics lectures were all software devolopers, and often cursed programmers from scientific areas,
 because of their complicated and often weird codes. I didn't understand their words that time, but since I'm working with libraries like
@@ -175,11 +178,11 @@ Maybe it's ignorance, because many think they don't need that much programming a
 that they are too deep into it, and think everyone else think the same way. Perhaps it has historical reasons, like in the case of BLAS,
 or it's me because of my friends and education I have a different viewpoint on  that things.
 
-Neverteless I want to use this section to give some important lectures to people, who aren't deep into programming,
-I learnt during the last 13 years since I'm started ``programming'' Visual Basic with the age of 13.
+Neverteless I want to use this section to give some important lectures to people, who aren't deep into programming.
+I list here some things I learned during the last 13 years since I'm started ``programming'' Visual Basic with the age of 13.
 
 
-\subsection{The Zen of Python don't apply only to Python}
+\subsubsection{The Zen of Python don't apply only to Python}
 
 If you type into your Python Interpretor the line
 
@@ -256,7 +259,7 @@ programmer should especially keep in mind the points 1-7, which apply in every
 language you will use!
 
 
-\subsection{Code is more often read than written}
+\subsubsection{Code is more often read than written}
 
 For every time code is written, it is read about 10 times, and
 five times by yourself! If you write code use good and intuitive
@@ -270,7 +273,7 @@ that at the beginning of a function which uses these variables.
 And rest assured: Using longer variable names don't cost performance.
 
 
-\subsection{Program design isn't a waste of time!}
+\subsubsection{Program design isn't a waste of time!}
 
 Of course you don't need to design every snippet of code you do,
 but at least take your time to think about the implementation, and
@@ -278,7 +281,7 @@ how you can eventually reuse it. Sometimes ten minutes of thinking
 can save yourself ours of programming.
 \hypertarget{oo-ref}{}
 
-\subsection{Object oriented programming abstracts away your problems}
+\subsubsection{Object oriented programming abstracts away your problems}
 
 If one is not familiar with the paradigm of object oriented programming change this!
 There are tons of books and websites on this topic.
@@ -297,7 +300,7 @@ While my students needed ours to implement this in Matlab. I only needed one hal
 I simply subdivided the sub problems in classes, and had to write the framework algorithm only once.
 
 
-\subsection{Modularity counts}
+\subsubsection{Modularity counts}
 
 Keep the structure of your programs as modular as possible!
 \textbf{Every function should only do exactly one job, and don't use
@@ -311,7 +314,7 @@ organisation of your code. \textbf{Remember:}  If you have a lot of
 parameters, you can always store them in a container or a class.
 
 
-\subsection{Premature optimisation is the root of all evil!}
+\subsubsection{Premature optimisation is the root of all evil!}
 
 This often cited quote of Donald E. Knuth \footnote{
 \href{http://en.wikiquote.org/wiki/Donald\_Knuth}{http://en.wikiquote.org/wiki/Donald\_Knuth}
@@ -322,7 +325,7 @@ of unreadible code. I remember that I implemented an ``optimized'' for loop some
 3 ms of more speed. And later when I looked on that function I had no Idea what I did that time...
 
 
-\subsection{Choice of the right tools}
+\subsubsection{Choice of the right tools}
 
 Since I descend a family of craftsmans, this was taught me very early. You don't want to use
 a sledgehammer for hitting a tiny nail into a wall, and you don't want to use small axe to cut down a tree.
@@ -338,7 +341,7 @@ preferences. Something that a colleague of yours like, could possible
 a nuissance for yourself.
 
 
-\subsubsection{Don't use Notepad as your editor!}
+\paragraph{Don't use Notepad as your editor!}
 
 A good editor is not expensive (often even free), and saves you a
 whole lot of work! Good editors are for example Emacs \footnote{
@@ -354,7 +357,7 @@ A good List of editors can be found on Wikipedia. \footnote{
 }
 
 
-\subsubsection{Use version control}
+\paragraph{Use version control}
 
 Many, many people simply don't know there are very nice
 tools to keep record of your changes, and make it possible
@@ -368,7 +371,7 @@ or SVN \footnote{
 }.
 
 
-\subsubsection{Use debugging tools}
+\paragraph{Use debugging tools}
 
 Very good debugging tools are for example Valgrind \footnote{
 \href{http://valgrind.org/}{http://valgrind.org/}
@@ -383,7 +386,7 @@ Python is shipped with it's own debugger \footnote{
 }.
 
 
-\subsubsection{Use Linux}
+\paragraph{Use Linux}
 
 This is of course only a personal recommondation. But Linux is in my opinion better
 suited as development enviroment, because most things you need for programming are native, or
@@ -401,11 +404,13 @@ Ubuntu \footnote{
 }  and it's many derivatives (I use Kubuntu), or open SUSE \footnote{
 \href{http://www.opensuse.org/de/}{http://www.opensuse.org/de/}
 } using Linux is nowadays possible for
-normal humans too. \textbf{Note:} Be aware that I assume in that guide,
+normal humans too.
+
+\textbf{Note:} Be aware that I assume in this guide,
 that you are using Linux!
 
 
-\subsection{Not everything from Extreme Programming is that bad}
+\subsubsection{Not everything from Extreme Programming is that bad}
 
 It is shown in many tests that applying the whole concept of XP \footnote{
 \href{http://www.extremeprogramming.org/}{http://www.extremeprogramming.org/}
@@ -441,18 +446,18 @@ When a bug is found tests are created.
 \end{itemize}
 
 
-\subsection{Examples say more than thousend words!}
+\subsubsection{Examples say more than thousend words!}
 
 Make heavy use of examples. They are a quick reference, and you
 can use them for testing your code as well.
 
 
-\subsection{If your programs aren't understandable nobody will use them}
+\subsubsection{If your programs aren't understandable nobody will use them}
 
 ...including yourself.
 
 
-\subsection{Use your brain!}
+\subsubsection{Use your brain!}
 
 Implicitely used in all points above, this is the most fundamental thing.
 Never simply apply concepts or techniques without thinking about the consequences,
@@ -468,10 +473,10 @@ because I simply don't want to do unessecary work.
 \resetcurrentobjects
 \hypertarget{--doc-Python}{}
 
-\chapter{About Python}
+\section{About Python}
 
 
-\section{What is Python}
+\subsection{What is Python}
 
 Python is a high level interpreted object oriented (OO) language.
 It's main field of application is in web design and scripting.
@@ -501,7 +506,7 @@ Python Interpreters like Jython (written in Java), PyPy (written in
 Python), or IronPython (written in C\#) available.
 
 
-\section{Why Python?}
+\subsection{Why Python?}
 \begin{itemize}
 \item {} 
 Intuitive Syntax
@@ -533,10 +538,11 @@ Many nice tools which makes your life easier (like Sphinx, which I use to write 
 \end{itemize}
 
 
-\section{Get Python}
+\subsection{Get Python}
 
 The programs and packages used here are all open source, so they can be obtained freely.
-Most Linux distributions already ship Python, because many scripts are written in Python.
+Most Linux distributions already come with an Python interpreter,
+because many scripts in the system are using Python.
 See also the \emph{Python} project page for further information \footnote{
 \href{http://www.python.org/}{http://www.python.org/}
 } .
@@ -576,10 +582,10 @@ build it from source because then many optimisation options are applied)
 \resetcurrentobjects
 \hypertarget{--doc-Steps}{}
 
-\hypertarget{basics-ref}{}\chapter{Python Basics}
+\hypertarget{basics-ref}{}\section{Python Basics}
 
 
-\section{The ``Goodbye World'' program.}
+\subsection{The ``Goodbye World'' program.}
 
 In the old tradition of the ``\textless{}insert Language here\textgreater{} for Dummies'' books,
 we start with the ``Goodbye World'' program.
@@ -646,10 +652,10 @@ Write:
 and press enter.
 
 
-\section{Notes on the syntax}
+\subsection{Notes on the syntax}
 
 
-\hypertarget{indention-ref}{}\subsection{Intendation for organising blocks of codes}
+\hypertarget{indention-ref}{}\subsubsection{Intendation for organising blocks of codes}
 
 Codes of blocks are, unlike other programming languages like C++
 not organized with parantheses but with indentation. I.e. it looks
@@ -702,7 +708,7 @@ of Python himself \footnote{
 })
 
 
-\subsection{The semicolon}
+\subsubsection{The semicolon}
 
 Generally you don't need a semicolon, and often you don't use it.
 It's usage is for putting more than one statment in a line.For example:
@@ -712,7 +718,7 @@ It's usage is for putting more than one statment in a line.For example:
 \end{Verbatim}
 
 
-\subsection{Identifiers}
+\subsubsection{Identifiers}
 
 Identifier naming follows these rules in Python:
 \begin{itemize}
@@ -749,7 +755,7 @@ are non valid identifiers.
 are not the same!
 
 
-\section{Assignment of variables}
+\subsection{Assignment of variables}
 
 To assign a value to an identifier, we write \code{=}:
 
@@ -790,7 +796,7 @@ does \emph{first} add one to x and then overwrite x with the new value:
 \end{Verbatim}
 
 
-\section{Some basic datatpypes}
+\subsection{Some basic datatpypes}
 
 If you need more information on that topic
 look in the Python documentation \footnote{
@@ -802,7 +808,7 @@ integers or reals. Lookup the documentation
 if you need further information.
 
 
-\subsection{Boolean values}
+\subsubsection{Boolean values}
 
 In Python the following values are considered as false:
 \begin{itemize}
@@ -828,7 +834,7 @@ when that method returns the integer zero or \code{bool} value{}`{}`False{}`{}`.
 All others are true.
 
 
-\subsubsection{Boolean operations}
+\paragraph{Boolean operations}
 
 These are the Boolean operations, ordered by ascending priority:
 
@@ -874,7 +880,7 @@ The return truly means return! Examples:
 \end{Verbatim}
 
 
-\subsection{Numbers}
+\subsubsection{Numbers}
 
 You can represent numbers in many ways:
 
@@ -918,7 +924,7 @@ You can also create numbers directly, with their type specified:
 \end{Verbatim}
 
 
-\subsubsection{Arithmetics}
+\paragraph{Arithmetics}
 
 Of course you can use your Python interpreter as a calculator.
 Simply call
@@ -967,7 +973,7 @@ If you use the // operator than you force floor division:
 \end{Verbatim}
 
 
-\subsubsection{More on mathematical operations}
+\paragraph{More on mathematical operations}
 
 Here is short table on basic operations:
 
@@ -1112,12 +1118,12 @@ the bits of \emph{x} inverted
 
 
 
-\subsection{Container Types}
+\subsubsection{Container Types}
 
 There are several container types in Python
 
 
-\hypertarget{list-ref}{}\subsubsection{Lists}
+\hypertarget{list-ref}{}\paragraph{Lists}
 
 Lists are the most common container type in Python.
 To create a list simply write use the rectangular brackets \code{{[},{]}}:
@@ -1295,7 +1301,7 @@ There are several methods that can be used on lists:
 \end{itemize}
 
 
-\subsubsection{Tuples}
+\paragraph{Tuples}
 
 Tuples can be created via round brackets:
 
@@ -1334,7 +1340,7 @@ anymore:
 \end{Verbatim}
 
 
-\subsubsection{Dictionaries}
+\paragraph{Dictionaries}
 
 Dictionaries are special containers that take ketwords for access.
 They are created with curly brackkets, and each keyword is attached
@@ -1360,7 +1366,7 @@ Dictionaries are not immutable:
 \end{Verbatim}
 
 
-\subsubsection{Sets}
+\paragraph{Sets}
 
 There are also sets in Python. Like the real sets, they are not
 ordered, and every element is contained only once. They are created
@@ -1374,7 +1380,7 @@ Of course you can't access an element since there is no ordering.
 But one can make tests on sets. We come to that right now.
 
 
-\subsubsection{Membership test}
+\paragraph{Membership test}
 
 One can test the membership of elements within containers.
 \begin{itemize}
@@ -1397,7 +1403,7 @@ One can test the membership of elements within containers.
 \end{itemize}
 
 
-\subsubsection{Other operations on containers}
+\paragraph{Other operations on containers}
 \begin{itemize}
 \item {} 
 \code{len} returns the length of an container:
@@ -1487,7 +1493,7 @@ Since the german expressions are not that different, I hope people will
 understand anyway.
 
 
-\subsection{Strings}
+\subsubsection{Strings}
 
 Strings are containers too, but they are quite special, so they get their
 own section here.
@@ -1556,7 +1562,7 @@ from the C world, will be familiar with this, because in C a string
 is also a list of chars.
 
 
-\subsubsection{Special types of strings in Python}
+\paragraph{Special types of strings in Python}
 
 You can specify some types of strings in Python:
 
@@ -1583,7 +1589,7 @@ This looks like the following in Python:
 \end{Verbatim}
 
 
-\subsubsection{Basic manipulation of strings}
+\paragraph{Basic manipulation of strings}
 
 Two put two strings together one can use the + operator:
 
@@ -1645,7 +1651,7 @@ For further information see the Python documentation on strings \footnote{
 }
 
 
-\subsection{Iterators}
+\subsubsection{Iterators}
 
 An iterator is an object representing a stream of Data, and returns
 one element at the time. It is also possible to define infinite
@@ -1693,7 +1699,7 @@ create iterators.
 integers.
 
 
-\section{The print statement}
+\subsection{The print statement}
 
 We used it already some times. Here we give further information.
 
@@ -1789,7 +1795,7 @@ print(1, end=" ")
 \end{Verbatim}
 
 
-\section{Comparison operators}
+\subsection{Comparison operators}
 
 Here I shortly list the available comparison statments in Python.
 The syntax should be very familiar to C programmers.
@@ -1867,15 +1873,15 @@ does not.
 \resetcurrentobjects
 \hypertarget{--doc-Program}{}
 
-\chapter{Programming in Python}
+\section{Programming in Python}
 
-In this section I will give all tools for programming with
+In this section I will give an overview of important tools for programming with
 Python. The sections are ordered by programming paradigms.
 If you are new to programming, the last paragraph of this section
-contains an overview of the paradigms. ( \hyperlink{paradigm-ref}{\emph{Other ways to define functions}} )
+contains an overview of these paradigms. ( \hyperlink{paradigm-ref}{\emph{Some words on programming paradigms}} )
 
 
-\section{Commenting in Python}
+\subsection{Commenting in Python}
 
 To comment out lines of codes use \code{\#}.
 
@@ -1891,10 +1897,10 @@ Examples:
 \end{Verbatim}
 \hypertarget{control-flow-ref}{}
 
-\section{Go with the control flow}
+\subsection{Go with the control flow}
 
 
-\subsection{The \texttt{if} statement}
+\subsubsection{The \texttt{if} statement}
 
 The \code{if} statement in Python is quite the way one would
 expect from other languages.
@@ -1943,7 +1949,7 @@ Here for example we determine the sign of a value:
 \end{Verbatim}
 
 
-\subsection{\texttt{while} loops}
+\subsubsection{\texttt{while} loops}
 
 \code{while} loops are also like expected:
 
@@ -1959,7 +1965,7 @@ It is executed when the condition is violated:
 \PYG{k}{while} \PYG{n}{condition\PYGZus{}is\PYGZus{}true}\PYG{p}{:}
     \PYG{n}{do\PYGZus{}something}
 \PYG{k}{else}\PYG{p}{:}
-    \PYG{n}{do\PYGZus{}something}
+    \PYG{n}{do\PYGZus{}something\PYGZus{}else}
 \end{Verbatim}
 
 Here an example:
@@ -1991,7 +1997,7 @@ the output of this snippet is:
 \end{Verbatim}
 
 
-\subsection{\texttt{for} loops}
+\subsubsection{\texttt{for} loops}
 
 For loops are a little bit different in Python,
 because in contrast to other programming languages
@@ -2007,7 +2013,7 @@ A \code{for} loop looks like this:
 \end{Verbatim}
 
 We can use the \code{range} function (see the section about
-\hyperlink{list-ref}{\emph{Lists}} ) to create a \emph{norma;} \code{for} loop:
+\hyperlink{list-ref}{\emph{Lists}} ) to create a \emph{normal} \code{for} loop:
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{n}\PYG{p}{)}\PYG{p}{:}
@@ -2037,7 +2043,7 @@ See also the Python wiki \footnote{
 } on this topic.
 
 
-\subsection{The \texttt{break} and \texttt{continue} statements}
+\subsubsection{The \texttt{break} and \texttt{continue} statements}
 
 The \code{break} and \code{continue} statements are borrowed from \emph{C}.
 \begin{itemize}
@@ -2087,7 +2093,7 @@ Here a famous example from the official Python tutorial \footnote{
 \end{itemize}
 
 
-\subsection{The \texttt{pass} statement}
+\subsubsection{The \texttt{pass} statement}
 
 The \code{pass} statement, in fact, does nothing.
 It can be used as a placeholder for functions,
@@ -2103,7 +2109,7 @@ For example the snippet
 results in an endless loop, where nothing happens.
 
 
-\section{Defining functions}
+\subsection{Defining functions}
 
 A function is declared with the \code{def} statement in normal Python
 manner.
@@ -2127,7 +2133,7 @@ The factorial would be implemented in Python that way:
 \end{Verbatim}
 
 
-\subsection{The \texttt{return} statement}
+\subsubsection{The \texttt{return} statement}
 
 The \code{return} statement terminate the function and returns the value.
 To return more values simply use a comma:
@@ -2159,7 +2165,7 @@ tuple simple use more identifiers seperated by a comma:
 \code{return} without an expression returns \code{None}
 
 
-\subsection{Variables (inside functions)}
+\subsubsection{Variables (inside functions)}
 
 Variables within a function are all local, except they are
 defined outside of the code block:
@@ -2215,7 +2221,7 @@ except you use the \code{global} statement:
 but I would avoid this as much as possible...
 
 
-\subsection{Default values and keyword arguments}
+\subsubsection{Default values and keyword arguments}
 
 Python allows to define functions with default values:
 
@@ -2295,7 +2301,7 @@ This also applies for the definition of the function:
 \end{Verbatim}
 
 
-\subsection{Calls with lists and dictionaries}
+\subsubsection{Calls with lists and dictionaries}
 
 A function be called with arbitrary many arguments using the
 \code{*} symbol:
@@ -2374,7 +2380,7 @@ and give them to a function as well:
 \end{Verbatim}
 
 
-\subsection{Docstrings}
+\subsubsection{Docstrings}
 
 Docstrings are optional, and come right after the definition of the
 function. A docstring is simply a string. Here is an example:
@@ -2393,9 +2399,9 @@ function. A docstring is simply a string. Here is an example:
 There are many powerful tools like Sphinx, where you can use your
 docstrings for creating documentation of your code, or tools for
 automatic testing, which read take the docstring as input.
-\hypertarget{paradigm-ref}{}
 
-\subsection{Other ways to define functions}
+
+\subsubsection{Other ways to define functions}
 
 There are also some other ways to define functions in Python.
 One would to be write them in one line, and seperate the different
@@ -2494,7 +2500,7 @@ of your code.
 Just my 2 cents.
 \hypertarget{functional-programming-ref}{}
 
-\section{Functional Programming tools in Python (or hooray for $\lambda$ )}
+\subsection{Functional Programming tools in Python (or hooray for $\lambda$ )}
 
 In some sense I'm relaively new to functional programming myself,
 in somse sense not, since I use it hidden in some mathemtaical
@@ -2512,7 +2518,7 @@ to the \emph{Python Functional Programming HOWTO} \footnote{
 }
 
 
-\subsection{The \texttt{map} function}
+\subsubsection{The \texttt{map} function}
 
 The \code{map function} takes any number on iterables and a function, and
 apply the function on the iterables. That means:
@@ -2555,7 +2561,7 @@ returns again
 \end{Verbatim}
 
 
-\subsection{The \texttt{reduce} function}
+\subsubsection{The \texttt{reduce} function}
 
 Reuce takes as input a list, a function and as optional value an
 initial value. Reduce do now the following: It takes the first
@@ -2590,13 +2596,13 @@ to
 Let's calculate the factorial $10!$
 
 \begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n+nb}{reduce}\PYG{p}{(}\PYG{k}{lambda} \PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{p}{:} \PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{p}{,} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{10}\PYG{p}{)}\PYG{p}{)}
+\PYG{n+nb}{reduce}\PYG{p}{(}\PYG{k}{lambda} \PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{p}{:} \PYG{n}{x}\PYG{o}{*}\PYG{n}{y}\PYG{p}{,} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{10}\PYG{p}{)}\PYG{p}{)}
 \end{Verbatim}
 
 or the doubled factorial:
 
 \begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n+nb}{reduce}\PYG{p}{(}\PYG{k}{lambda} \PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{p}{:} \PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{p}{,} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{10}\PYG{p}{)}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{)}
+\PYG{n+nb}{reduce}\PYG{p}{(}\PYG{k}{lambda} \PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{p}{:} \PYG{n}{x}\PYG{o}{*}\PYG{n}{y}\PYG{p}{,} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{10}\PYG{p}{)}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{)}
 \end{Verbatim}
 
 \textbf{Note} In Python 3 reduce was moved to the \code{functools} module.
@@ -2607,7 +2613,7 @@ It can be backimported via:
 \end{Verbatim}
 
 
-\subsection{The \texttt{filter} function}
+\subsubsection{The \texttt{filter} function}
 
 An important tool to select elements from a list is the filter
 function. \code{filter} takes a function and a list and returns, the list
@@ -2627,7 +2633,7 @@ returns now:
 \end{Verbatim}
 \hypertarget{generators-ref}{}
 
-\subsection{Generators}
+\subsubsection{Generators}
 
 Generators are like functions, but they give back a sequence of data
 instead of a single output. They can be used to write iterators.
@@ -2707,7 +2713,7 @@ number with help of functional tools:
 \end{Verbatim}
 
 
-\subsection{List Comprehensions}
+\subsubsection{List Comprehensions}
 
 List comprehensions are often a good alternative to \code{map},
 \code{filter} and \code{lambda}. A list comprehension consists of an
@@ -2737,12 +2743,12 @@ List comprehensions can also be applied to much more complex
 expressions, and nested functions.
 
 
-\section{Objects and classes}
+\subsection{Objects and classes}
 
 Classes are the basis of every OO language, and Python is no exception.
 
 
-\subsection{Definition of classes and basic properties}
+\subsubsection{Definition of classes and basic properties}
 
 Classes look quite similar to functions:
 
@@ -2836,7 +2842,7 @@ Huh what happened to the \code{self}? The answer is Python takes the self
 argument as default, so you don't have to type it anymore.
 
 
-\subsection{Deriving classes from other classes and overloading of methods}
+\subsubsection{Deriving classes from other classes and overloading of methods}
 
 This is rather easy in Python. To tell the interpreter from which
 class he should derive the new class, simple put it into round
@@ -2872,7 +2878,7 @@ the priority order for looking up new methods is new\_class-\textgreater{} base1
 base2 -\textgreater{} base3 and not new\_class -\textgreater{} base3 -\textgreater{} base2 -\textgreater{} base1.
 \hypertarget{overload-ref}{}
 
-\subsection{Operator overloading}
+\subsubsection{Operator overloading}
 
 In my opinion one of the most powerful features in OO languages, and
 the reason why I think Java isn't worth to look at it.
@@ -2943,7 +2949,7 @@ I refer here to the Python reference manual for a complete list \footnote{
 because listing them all here would be too long.
 
 
-\section{Exceptions}
+\subsection{Exceptions}
 
 What is an exception? An exception is a special
 object (yes exceptions are objects too!) which
@@ -2965,7 +2971,7 @@ interpreter checks \emph{many} \code{if} s but only has to wait for \emph{one}
 exception.
 
 
-\subsection{Handling exceptions}
+\subsubsection{Handling exceptions}
 
 To catch exceptions us the \code{try} and \code{except}
 statements:
@@ -3087,7 +3093,7 @@ For further information on Exceptions see the Python documentation \footnote{
 }
 
 
-\subsection{Creating new exceptions}
+\subsubsection{Creating new exceptions}
 
 Since Exceptions are classes too, they can be simply created by
 deriving them from the \code{Exception} base class:
@@ -3114,14 +3120,14 @@ I don't think so, Tim
 \end{Verbatim}
 
 
-\section{Modules and Packages}
+\subsection{Modules and Packages}
 
 Of course no one wants to type everything into the interpreter all the
 time, but safe the programs into files and execute them by calling a
 function. We learn how to do this in Python.
 
 
-\subsection{Modules}
+\subsubsection{Modules}
 
 We alredy dealt indirectly with modules. Modules are several
 functions, classes etc. stored in a file with a \code{.py} suffix,
@@ -3173,7 +3179,7 @@ This is also a great benefit over Matlab: You can do as many functions
 as you want into one file.
 
 
-\subsection{Packages}
+\subsubsection{Packages}
 
 To construct trees of modules we can organise them in packages.
 To make a package do the following:
@@ -3265,7 +3271,7 @@ For further information see the Python documention \footnote{
 }.
 
 
-\section{Reading and Writing external files}
+\subsection{Reading and Writing external files}
 
 To read or writing external files you first have to open it. We
 do this with the open function: \code{open(filename,mode)}. The modes are
@@ -3452,9 +3458,9 @@ The writelines command make it possible to add a list of strings:
 \PYG{g+go}{6th line}
 \PYG{g+go}{7th line}
 \end{Verbatim}
+\hypertarget{paradigm-ref}{}
 
-
-\section{Some words on programming paradigms}
+\subsection{Some words on programming paradigms}
 
 There are several programming paradigms, and the
 most common in modern programming languages are
@@ -3522,7 +3528,7 @@ those features belongs to that class. A real world example
 would be wheels: There are big wheels, small wheels, wheels
 for snow etc. but they all share common properties that makes
 them wheels (For example they are all round,
-and break in a regular basis).
+and break on a regular basis).
 
 \end{description}
 
@@ -3580,10 +3586,10 @@ than
 \resetcurrentobjects
 \hypertarget{--doc-Scientific}{}
 
-\chapter{Scientific tools in Python}
+\section{Scientific tools in Python}
 
 
-\section{NumPy}
+\subsection{NumPy}
 
 NumPy is based on the old Python Project Numeric, and introduces a
 Matlab like vector class to Python. Numpy is currently developed by
@@ -3604,7 +3610,7 @@ online equivalence list between Matlab and Numpy from \emph{Mathesaurus} \footno
 for the first steps with NumPy.
 
 
-\subsection{How to load Numpy}
+\subsubsection{How to load Numpy}
 
 To import numpy into Python simply write:
 
@@ -3624,13 +3630,13 @@ performance reasons. (This is somehow obvious because NumPy is
 a rather big module)
 
 
-\subsection{Numpy arrays}
+\subsubsection{Numpy arrays}
 
 The NumPy \emph{array} class is rather similar to Python \emph{lists}.
 It's the basic datatype for many numerical tools in Python.
 
 
-\subsubsection{Array Creation}
+\paragraph{Array Creation}
 
 To create an \emph{array} we have to import it from NumPy first:
 
@@ -3724,7 +3730,7 @@ the NumPy documentation \footnote{
 } for further details.
 
 
-\subsection{Artithmetics with NumPy arrays}
+\subsubsection{Artithmetics with NumPy arrays}
 
 Since operators can be overloaded (see ::ref::\emph{overload\_ref} , NumPy supports also arithmetics
 with \emph{arrays}. Note that all operations are elementwise.
@@ -3764,7 +3770,7 @@ product:
 \end{Verbatim}
 
 
-\subsection{Applying functions elementwise}
+\subsubsection{Applying functions elementwise}
 
 NumPy also holds a lot of standard functions for elementwise
 operations:
@@ -3813,7 +3819,7 @@ Then we get:
 \end{Verbatim}
 
 
-\section{SciPy}
+\subsection{SciPy}
 
 SciPy is a module for scientific computing. It is based on NumPy and
 holds a lot of extensions and algorithms. In fact NumPy is subsumed
@@ -3824,7 +3830,7 @@ I will explain some scientific tools in detail, which are of common
 interest.
 
 
-\subsection{Linear Algebra}
+\subsubsection{Linear Algebra}
 
 For doing linear algebra with SciPy I would prefer to point at the
 SciPy documentation, because it is much more detailed \footnote{
@@ -3832,7 +3838,7 @@ SciPy documentation, because it is much more detailed \footnote{
 }
 
 
-\subsection{Sparse Linear Algebra}
+\subsubsection{Sparse Linear Algebra}
 
 There are several types of sparse matrices. Each of them has several
 attributes and is used for different tasks.
@@ -3840,7 +3846,7 @@ I introduce here the ones I use the most, and some other important
 features like the LinearOperator class.
 
 
-\subsubsection{LIL (List of Lists)}
+\paragraph{LIL (List of Lists)}
 
 LIL matrices are made for creating sparse matrices.
 To create a LIL matrix simply import the class and call the
@@ -3900,7 +3906,7 @@ To convert it back to a numpy vector simply call:
 \end{Verbatim}
 
 
-\subsubsection{CSC (Compressed Sparse Column) matrix}
+\paragraph{CSC (Compressed Sparse Column) matrix}
 
 CSC matrices are quite often used because they can perform matrix
 vector multiplication quite efficiently. To create a CSC matrix either
@@ -3952,7 +3958,7 @@ data:
 \end{Verbatim}
 
 
-\subsubsection{...and more}
+\paragraph{...and more}
 
 To get more information on sparse matrices and their class methods
 consult the scipy reference guide \footnote{
@@ -3960,7 +3966,7 @@ consult the scipy reference guide \footnote{
 }
 
 
-\subsubsection{The LinearOperator class and iterative solvers}
+\paragraph{The LinearOperator class and iterative solvers}
 
 The LinearOperator class allows to define abstract linear mappings,
 which are not necessarily matrices. A linear operator only consists of
@@ -4018,7 +4024,7 @@ For more information see again the SciPy reference \footnote{
 }
 \hypertarget{weave-ref}{}
 
-\section{Weave}
+\subsection{Weave}
 
 Weave is included in SciPy and a tool for writing inline C++ with
 weave for speedup your code. I give here a short example how to use
@@ -4146,7 +4152,7 @@ version \footnote{
 \resetcurrentobjects
 \hypertarget{--doc-Cython}{}
 
-\chapter{Cython}
+\section{Cython}
 
 Well Cython isn't a part of Python, it is a different language, but
 very similar to Python, and in fact it is almost to 90\% compatible.
@@ -4175,10 +4181,10 @@ documentation for specific details! \footnote{
 }
 
 
-\section{How to compile your Cython Code}
+\subsection{How to compile your Cython Code}
 
 
-\subsection{Sage}
+\subsubsection{Sage}
 
 This is the easiest way. Either write your Cython
 code in a \emph{.spyx} (Sage Pyrex) file, or in the notebook, with the
@@ -4249,7 +4255,7 @@ Now if you evalute it, the function will be compiled, and you can call
 it normally.
 
 
-\subsection{Setup files}
+\subsubsection{Setup files}
 
 The direct approach in Python would be to write a setup file.
 First write your code and save it to a \emph{.pyx} file. I use the
@@ -4324,15 +4330,15 @@ the Cython docu, and I had to search it for long in Cython Mailing
 list. How to import modules as C libraries will we see later.
 
 
-\section{How to use Cython}
+\subsection{How to use Cython}
 
 Here we look at the advanced syntax in Cython, and other features in Python.
 
 
-\subsection{The \emph{cdef} statment}
+\subsubsection{The \emph{cdef} statment}
 
 
-\subsubsection{Type declaration}
+\paragraph{Type declaration}
 
 \code{cdef} is used for C type declaration, and defining C functions.
 This can be very useful for speeding up your Python programs.
@@ -4444,7 +4450,7 @@ The drawback is that the Cython function only take numpy arrays:
 \end{Verbatim}
 
 
-\subsubsection{Declaring functions}
+\paragraph{Declaring functions}
 
 The \code{cdef} statement can also be used for defining functions. A
 function that is defined by a \code{cdef} statment doesn't appear in the
@@ -4521,7 +4527,7 @@ The \code{?} here means that \code{0} is accepted as output too (or else you
 would recieve an error if \code{0} is returned)
 
 
-\subsubsection{\texttt{cdef} classes}
+\paragraph{\texttt{cdef} classes}
 
 Classes can also be defined with \code{cdef} also. Let's take the example
 from the Cython documentation (see \footnote{
@@ -4570,7 +4576,7 @@ See again an example from the Cython documentation:
 \end{Verbatim}
 
 
-\subsection{Calling extern C functions}
+\subsubsection{Calling extern C functions}
 
 In Cython it is possible to call functions from other C programs
 defined in a header file. For example we want to wrap the sinus from
@@ -4667,7 +4673,7 @@ not completely unexpected, because the algorithm is rather simple):
 \end{Verbatim}
 
 
-\subsection{\texttt{cimport} and .pxd files}
+\subsubsection{\texttt{cimport} and .pxd files}
 
 \emph{.pxd} are like \emph{.h} files in C. They can be used for sharing external
 C declarations, or functions that are suited for inlining by the C compiler.
@@ -4728,7 +4734,7 @@ For example let's make a prototype of a function and a class:
 \end{Verbatim}
 
 
-\subsection{Profiling}
+\subsubsection{Profiling}
 
 Profiling is a way to analyse and optimize your Cython programs.
 I only give the reference to a tutorial in the Cython documentation
@@ -4740,7 +4746,7 @@ here  \footnote{
 \resetcurrentobjects
 \hypertarget{--doc-MPI4Py}{}
 
-\chapter{MPI4Py}
+\section{MPI4Py}
 
 MPI4Py is a Python module for calling the MPI API.
 For more information and detailed documentation I refer to
@@ -4848,7 +4854,7 @@ If you need a corrected version, I posted one on Sage trac \footnote{
 \resetcurrentobjects
 \hypertarget{--doc-PyCUDA}{}
 
-\chapter{Python+CUDA = PyCUDA}
+\section{Python+CUDA = PyCUDA}
 
 PyCUDA is a Python Interface for CUDA \footnote{
 \href{http://www.nvidia.com/object/cuda\_home\_new.html}{http://www.nvidia.com/object/cuda\_home\_new.html}
@@ -4874,7 +4880,7 @@ Information I refer to the documentation \footnote{
 }.
 
 
-\section{Initialize PyCUDA}
+\subsection{Initialize PyCUDA}
 
 There are two ways to initialize the PyCUDA driver. The first one is
 to use the autoinit module:
@@ -4905,7 +4911,7 @@ a more detailed example combined with MPI4Py lateron.
 (See \hyperlink{mpi-and-pycuda-ref}{\emph{Using MPI4Py and PyCUDA together}})
 
 
-\section{Get your CUDA code working in Python}
+\subsection{Get your CUDA code working in Python}
 
 Similar to ::ref::\emph{weave\_ref} we can write CUDA code as string in
 Python and then compile it with the NVCC. Here a short example:
@@ -5019,7 +5025,7 @@ and get it:
 \end{Verbatim}
 
 
-\section{The \texttt{gpuarray} class}
+\subsection{The \texttt{gpuarray} class}
 
 The \code{gpuarray} class provides a high level interface for doing
 calculations with CUDA.
@@ -5113,7 +5119,7 @@ Let's for example call the function from the section before:
 \end{Verbatim}
 \hypertarget{mpi-and-pycuda-ref}{}
 
-\section{Using MPI4Py and PyCUDA together}
+\subsection{Using MPI4Py and PyCUDA together}
 
 I give here a short example how to use this, to get PyCUDA
 working with MPI4Py. We initialize as many threads, as graphic
@@ -5185,7 +5191,7 @@ Every thread is working on one device.
 \resetcurrentobjects
 \hypertarget{--doc-Example}{}
 
-\chapter{An Example: Band-matrix vector multiplication}
+\section{An Example: Band-matrix vector multiplication}
 
 We want to implement a band-matrix class for a symmetric band-matrix.
 The constructor  takes an array as input, which holds the matrix
@@ -5197,7 +5203,7 @@ an Idea \footnote{
 }.
 
 First we implement our class with several class methods, like
-addition, and a matvec method:
+addition and a matvec method:
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{k}{def} \PYG{n+nf}{add\PYGZus{}band\PYGZus{}mat}\PYG{p}{(}\PYG{n}{A}\PYG{p}{,}\PYG{n}{M}\PYG{p}{,}\PYG{n}{beta} \PYG{o}{=} \PYG{l+m+mf}{1}\PYG{p}{,}\PYG{n}{alpha} \PYG{o}{=} \PYG{l+m+mf}{1}\PYG{p}{)}\PYG{p}{:}
@@ -5355,18 +5361,166 @@ You can either import the band matrix base class to the \emph{.pyx} file
 and define the derived Python class in the \emph{.pyx} file, or \code{cimport}
 the function to a Python file with the new matrix class defined.
 
+For a comparison, the algorithm implemented in C:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kt}{void} \PYG{n+nf}{band\PYGZus{}matvec}\PYG{p}{(}\PYG{k+kt}{float} \PYG{o}{*}\PYG{n}{result}\PYG{p}{,} \PYG{k+kt}{float} \PYG{o}{*}\PYG{n}{A}\PYG{p}{,} \PYG{k+kt}{float} \PYG{o}{*}\PYG{n}{x}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+  \PYG{k+kt}{unsigned} \PYG{k+kt}{int} \PYG{n}{i}\PYG{p}{,}\PYG{n}{j}\PYG{p}{;}
+  \PYG{k}{for}\PYG{p}{(}\PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{i} \PYG{o}{\textless{}} \PYG{n}{cols}\PYG{p}{;} \PYG{n}{i}\PYG{o}{+}\PYG{o}{+}\PYG{p}{)}
+  \PYG{p}{\PYGZob{}}
+    \PYG{n}{result}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{n}{A}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{*}\PYG{n}{x}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{p}{;}
+  \PYG{p}{\PYGZcb{}}
+
+  \PYG{k}{for}\PYG{p}{(}\PYG{n}{j} \PYG{o}{=} \PYG{l+m+mi}{1}\PYG{p}{;} \PYG{n}{j} \PYG{o}{\textless{}} \PYG{n}{rows}\PYG{p}{;} \PYG{n}{j}\PYG{o}{+}\PYG{o}{+}\PYG{p}{)}
+  \PYG{p}{\PYGZob{}}
+    \PYG{k}{for}\PYG{p}{(}\PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{i} \PYG{o}{\textless{}} \PYG{n}{cols} \PYG{o}{-} \PYG{n}{j}\PYG{p}{;} \PYG{n}{i}\PYG{o}{+}\PYG{o}{+}\PYG{p}{)}
+    \PYG{p}{\PYGZob{}}
+        \PYG{n}{result}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{+}\PYG{o}{=} \PYG{n}{A}\PYG{p}{[}\PYG{n}{j} \PYG{o}{+} \PYG{n}{i}\PYG{o}{*}\PYG{n}{rows}\PYG{p}{]}\PYG{o}{*}\PYG{n}{x}\PYG{p}{[}\PYG{n}{i}\PYG{o}{+}\PYG{n}{j}\PYG{p}{]}\PYG{p}{;}
+        \PYG{n}{result}\PYG{p}{[}\PYG{n}{i}\PYG{o}{+}\PYG{n}{j}\PYG{p}{]} \PYG{o}{+}\PYG{o}{=} \PYG{n}{A}\PYG{p}{[}\PYG{n}{j} \PYG{o}{+} \PYG{n}{i}\PYG{o}{*}\PYG{n}{rows}\PYG{p}{]}\PYG{o}{*}\PYG{n}{x}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{p}{;}
+
+    \PYG{p}{\PYGZcb{}}
+  \PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}
+
+and a (direct) Matlab version:
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{function}\PYG{+w}{ }result \PYG{p}{=}\PYG{+w}{ }\PYG{n+nf}{band\PYGZus{}matvec\PYGZus{}ma}\PYG{p}{(}A,u\PYG{p}{)}
+
+\PYG{+w}{    }\PYG{p}{[}\PYG{n}{B} \PYG{n}{N}\PYG{p}{]} \PYG{p}{=} \PYG{n+nb}{size}\PYG{p}{(}\PYG{n}{A}\PYG{p}{)}\PYG{p}{;}
+
+    \PYG{n}{result} \PYG{p}{=} \PYG{n+nb}{zeros}\PYG{p}{(}\PYG{n}{N}\PYG{p}{,}1\PYG{p}{)}\PYG{p}{;}
+
+
+    \PYG{k}{for} \PYG{n+nb}{i} \PYG{p}{=} 1\PYG{p}{:}\PYG{n}{N}
+        \PYG{n}{result}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{)} \PYG{p}{=} \PYG{n}{A}\PYG{p}{(}1\PYG{p}{,}\PYG{n+nb}{i}\PYG{p}{)}\PYG{o}{*}\PYG{n}{u}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{)}\PYG{p}{;}
+    \PYG{k}{end}
+
+    \PYG{k}{for} \PYG{n+nb}{j} \PYG{p}{=} 2\PYG{p}{:}\PYG{n}{B}
+        \PYG{k}{for} \PYG{n+nb}{i} \PYG{p}{=}1\PYG{p}{:}\PYG{n}{N}
+            \PYG{k}{if} \PYG{p}{(}\PYG{p}{(}\PYG{n+nb}{i}\PYG{o}{+}\PYG{n+nb}{j}\PYG{o}{-}1\PYG{p}{)} \PYG{o}{\textless{}}\PYG{p}{=} \PYG{n}{N}\PYG{p}{)}
+              \PYG{n}{result}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{)} \PYG{p}{=} \PYG{n}{result}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{)} \PYG{o}{+} \PYG{n}{A}\PYG{p}{(}\PYG{n+nb}{j}\PYG{p}{,}\PYG{n+nb}{i}\PYG{p}{)}\PYG{o}{*}\PYG{n}{u}\PYG{p}{(}\PYG{n+nb}{i}\PYG{o}{+}\PYG{n+nb}{j}\PYG{o}{-}1\PYG{p}{)}\PYG{p}{;}
+              \PYG{n}{result}\PYG{p}{(}\PYG{n+nb}{i}\PYG{o}{+}\PYG{n+nb}{j}\PYG{o}{-}1\PYG{p}{)} \PYG{p}{=} \PYG{n}{result}\PYG{p}{(}\PYG{n+nb}{i}\PYG{o}{+}\PYG{n+nb}{j}\PYG{o}{-}1\PYG{p}{)} \PYG{o}{+} \PYG{n}{A}\PYG{p}{(}\PYG{n+nb}{j}\PYG{p}{,}\PYG{n+nb}{i}\PYG{p}{)}\PYG{o}{*}\PYG{n}{u}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{)}\PYG{p}{;}
+            \PYG{k}{end}
+        \PYG{k}{end}
+    \PYG{k}{end}
+\PYG{k}{end}
+\end{Verbatim}
+
+I made a time comparison on a Intel Core Duo with 1800MHz and
+2 GB Ram. The dimension was ::math::\code{2\textasciicircum{}14}, and a with a
+band of the size of ::math::\code{2\textasciicircum{}6} under the diagonal. The reason
+for this choice was the limited texture memory on the card to
+compare it with the PyCUDA implementation lateron.
+
+\begin{tabulary}{\textwidth}{|L|L|L|}
+\hline
+\textbf{
+Language
+} & \textbf{
+time
+} & \textbf{
+Speedup
+}\\
+\hline
+
+Python
+ & 
+2.96 s
+ & 
+1x
+\\
+
+Matlab
+ & 
+90 ms
+ & 
+30x
+\\
+
+C
+ & 
+30 ms
+ & 
+60x
+\\
+
+Cython
+ & 
+12 ms
+ & 
+220x
+\\
+
+Inline C++
+ & 
+10 ms
+ & 
+290x
+\\
+
+C (-O2 compiler flag)
+ & 
+10 ms
+ & 
+290x
+\\
+
+Cython (w. Boundscheck false)
+ & 
+6 ms
+ & 
+440x
+\\
+\hline
+\end{tabulary}
+
+
+\textbf{Remarks}:
+\begin{itemize}
+\item {} 
+@Matlab: the for loops are bad rule is no longer true! The
+Java JIT (Just in Time) compilation vectorizes simple for loops like
+mine very efficiently, and that's also the reason why the Matlab
+version is 30 times faster than the Python implementation. There
+is a JIT compiler for Python too named Psyco. But Psyco doesn't
+optimize the numpy array access like Cython.
+
+\item {} 
+@C The C implementation is rather straight forward and not well
+optimised. Of course C cannot be slower than Cython, because
+Cython is compiled to C.
+
+\end{itemize}
+
+There is a saying: ``There are lies,
+there are big lies, and there are benchmarks'', and my intention
+here is not to show that Python/Cython is the fastest language,
+but it is very easy to write fast Code in that languages, which can
+be faster than other implementations, if you don't optimize them well.
+That is a big Plus
+for Python/Cython, because when you write a prototype you want to get
+your
+code fast enough that you can work with it, and don't have to invest
+much time with optimizing it. Although well written Cython code is
+nearly as fast as a direct C implementation. If you don't need the
+last bit of speed out of your programs it is a good and simple
+alternative.
+
 A more advanced example is an implementation in PyCUDA:
 
 \begin{Verbatim}[commandchars=\\\{\}]
-\PYG{k}{import} \PYG{n+nn}{pycuda.driver} \PYG{k}{as} \PYG{n+nn}{cuda}
-\PYG{k}{import} \PYG{n+nn}{pycuda.gpuarray} \PYG{k}{as} \PYG{n+nn}{gpuarray}
+\PYG{k+kn}{import} \PYG{n+nn}{pycuda.driver} \PYG{k+kn}{as} \PYG{n+nn}{cuda}
+\PYG{k+kn}{import} \PYG{n+nn}{pycuda.gpuarray} \PYG{k+kn}{as} \PYG{n+nn}{gpuarray}
 
-\PYG{k}{import} \PYG{n+nn}{pycuda.autoinit}
-\PYG{k}{import} \PYG{n+nn}{numpy}
-\PYG{k}{from} \PYG{n+nn}{pycuda.compiler} \PYG{k}{import} \PYG{n}{SourceModule}
-\PYG{k}{from} \PYG{n+nn}{pycuda.driver} \PYG{k}{import} \PYG{n}{matrix\PYGZus{}to\PYGZus{}texref}
+\PYG{k+kn}{import} \PYG{n+nn}{pycuda.autoinit}
+\PYG{k+kn}{import} \PYG{n+nn}{numpy}
+\PYG{k+kn}{from} \PYG{n+nn}{pycuda.compiler} \PYG{k+kn}{import} \PYG{n}{SourceModule}
+\PYG{k+kn}{from} \PYG{n+nn}{pycuda.driver} \PYG{k+kn}{import} \PYG{n}{matrix\PYGZus{}to\PYGZus{}texref}
 
-\PYG{k}{from} \PYG{n+nn}{numpy} \PYG{k}{import} \PYG{n}{array}\PYG{p}{,} \PYG{n}{zeros}\PYG{p}{,} \PYG{n}{int32}\PYG{p}{,} \PYG{n}{float32}\PYG{p}{,} \PYG{n}{intp}
+\PYG{k+kn}{from} \PYG{n+nn}{numpy} \PYG{k+kn}{import} \PYG{n}{array}\PYG{p}{,} \PYG{n}{zeros}\PYG{p}{,} \PYG{n}{int32}\PYG{p}{,} \PYG{n}{float32}\PYG{p}{,} \PYG{n}{intp}
 \end{Verbatim}
 
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -5523,18 +5677,66 @@ A more advanced example is an implementation in PyCUDA:
   \PYG{k}{def} \PYG{n+nf}{\PYGZus{}\PYGZus{}add\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,}\PYG{n}{other}\PYG{p}{)}\PYG{p}{:}
       \PYG{k}{return} \PYG{n}{add\PYGZus{}band\PYGZus{}mat}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,}\PYG{n}{other}\PYG{p}{)}
 \end{Verbatim}
+
+I tested it on the GPU4U at the University of Graz and had the
+following times:
+
+\begin{tabulary}{\textwidth}{|L|L|L|}
+\hline
+\textbf{
+Language
+} & \textbf{
+time
+} & \textbf{
+Speedup
+}\\
+\hline
+
+Python
+ & 
+2.87 s
+ & 
+1x
+\\
+
+Cython
+ & 
+9.87 ms
+ & 
+270x
+\\
+
+Cython (w. Boundscheck false)
+ & 
+5.56 ms
+ & 
+500x
+\\
+
+PyCUDA (on GTX 280)
+ & 
+585 µs
+ & 
+5000x
+\\
+\hline
+\end{tabulary}
+
+
+\textbf{Remark}: PyCUDA is very fast, but has a breakeven point!
+For small dimensions Python or Cython are much faster.
 \paragraph{Links}
 
 \resetcurrentobjects
 \hypertarget{--doc-License}{}
 
-\hypertarget{license-ref}{}\chapter{Licenses}
+\hypertarget{license-ref}{}\section{Licenses}
 
 To avoid the risk to get sued for nothing... but since everything is
 open, there are no costs except copying them.
 
 
-\section{License}
+\subsection{License}
 
 THE WORK (AS DEFINED BELOW) IS PROVIDED UNDER THE TERMS OF THIS CREATIVE COMMONS PUBLIC LICENSE (``CCPL'' OR ``LICENSE''). THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK OTHER THAN AS AUTHORIZED UNDER THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.
 
