@@ -1,0 +1,431 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>An Example: Band-matrix vector multiplication &mdash; hpc v1.0 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '#',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="hpc v1.0 documentation" href="index.html" />
+    <link rel="next" title="Licenses" href="License.html" />
+    <link rel="prev" title="Python+CUDA = PyCUDA" href="PyCUDA.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="License.html" title="Licenses"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="PyCUDA.html" title="Python+CUDA = PyCUDA"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">hpc v1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="an-example-band-matrix-vector-multiplication">
+<h1>An Example: Band-matrix vector multiplication<a class="headerlink" href="#an-example-band-matrix-vector-multiplication" title="Permalink to this headline">¶</a></h1>
+<p>We want to implement a band-matrix class for a symmetric band-matrix.
+The constructor  takes an array as input, which holds the matrix
+entries, of the lower part of the band matrix. See Wikipedia for
+an Idea <a class="footnote-reference" href="#id3" id="id1">[1]</a>, and the IBM ESSL for precise details <a class="footnote-reference" href="#id4" id="id2">[2]</a>.</p>
+<p>First we implement our class with several class methods, like
+addition and a matvec method:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">add_band_mat</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">M</span><span class="p">,</span><span class="n">beta</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span><span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="p">(</span><span class="n">d1</span><span class="p">,</span><span class="n">d2</span><span class="p">)</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span>
+    <span class="p">(</span><span class="n">d3</span><span class="p">,</span><span class="n">d4</span><span class="p">)</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">shape</span>
+
+    <span class="n">d1</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">band_width</span>
+    <span class="n">d3</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">band_width</span>
+
+    <span class="k">if</span> <span class="n">d2</span> <span class="o">!=</span> <span class="n">d4</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;From _rational_krylov_trigo_band:</span><span class="se">\</span>
+<span class="s">                          Dimension Missmatch!&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">d1</span> <span class="o">&lt;</span> <span class="n">d3</span><span class="p">):</span>
+        <span class="n">SYST</span> <span class="o">=</span> <span class="n">py_band_matrix</span><span class="p">(</span><span class="n">zeros</span><span class="p">((</span><span class="n">d3</span><span class="p">,</span><span class="n">d4</span><span class="p">)));</span>
+        <span class="n">SYST</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">d1</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="n">d2</span><span class="p">]</span> <span class="o">=</span> <span class="n">beta</span><span class="o">*</span><span class="n">A</span><span class="o">.</span><span class="n">data</span><span class="p">;</span>
+        <span class="n">SYST</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">alpha</span><span class="o">*</span><span class="n">M</span><span class="o">.</span><span class="n">data</span> <span class="o">+</span> <span class="n">SYST</span><span class="o">.</span><span class="n">data</span><span class="p">;</span>
+    <span class="k">elif</span> <span class="p">(</span><span class="n">d1</span> <span class="o">&gt;</span> <span class="n">d3</span><span class="p">):</span>
+        <span class="n">SYST</span> <span class="o">=</span> <span class="n">py_band_matrix</span><span class="p">(</span><span class="n">zeros</span><span class="p">((</span><span class="n">d1</span><span class="p">,</span><span class="n">d2</span><span class="p">)));</span>
+        <span class="n">SYST</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">d3</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="n">d4</span><span class="p">]</span> <span class="o">=</span> <span class="n">alpha</span><span class="o">*</span><span class="n">M</span><span class="o">.</span><span class="n">data</span><span class="p">;</span>
+        <span class="n">SYST</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">SYST</span><span class="o">.</span><span class="n">data</span> <span class="o">+</span> <span class="n">beta</span><span class="o">*</span><span class="n">A</span><span class="o">.</span><span class="n">data</span><span class="p">;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">SYST</span> <span class="o">=</span>  <span class="n">py_band_matrix</span><span class="p">(</span><span class="n">alpha</span><span class="o">*</span><span class="n">M</span><span class="o">.</span><span class="n">data</span> <span class="o">+</span> <span class="n">beta</span><span class="o">*</span><span class="n">A</span><span class="o">.</span><span class="n">data</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="n">SYST</span>
+
+<span class="k">class</span> <span class="nc">band_matrix</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">ab</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">ab</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">ab</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">ab</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">band_width</span> <span class="o">=</span> <span class="n">ab</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">ab</span><span class="o">.</span><span class="n">dtype</span>
+
+    <span class="k">def</span> <span class="nf">matvec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">u</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">add_band_mat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">other</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>First we implement our matrix vector multiplication in Python:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">band_matvec_py</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">u</span><span class="p">):</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">dtype</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">j</span><span class="p">):</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="p">]</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+</div>
+<p>Then we derive our Python base class with the Python matrix vector
+multiplication:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">py_band_matrix</span><span class="p">(</span><span class="n">band_matrix</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">matvec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">u</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">u</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Dimension Missmatch!&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">band_matvec_py</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="n">u</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>But this is quite slow. We can alternativly implement this Inline with weave:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">zeros</span>
+<span class="kn">from</span> <span class="nn">scipy.weave</span> <span class="kn">import</span> <span class="n">converters</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">weave</span>
+
+<span class="k">def</span> <span class="nf">band_matvec_inline</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">u</span><span class="p">):</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">dtype</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+    <span class="n">N</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">code</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">    for(int i=0; i &lt; N;i++)</span>
+<span class="s">    {</span>
+<span class="s">      result(i) = A(0,i)*u(i);</span>
+<span class="s">    }</span>
+<span class="s">    for(int j=1;j &lt; B;j++)</span>
+<span class="s">    {</span>
+
+<span class="s">        for(int i=0; i &lt; (N-j);i++)</span>
+<span class="s">        {</span>
+<span class="s">          if((i+j &lt; N))</span>
+<span class="s">          {</span>
+<span class="s">            result(i) += A(j,i)*u(j+i);</span>
+<span class="s">            result(i+j) += A(j,i)*u(i);</span>
+<span class="s">          }</span>
+
+<span class="s">        }</span>
+
+<span class="s">    }</span>
+<span class="s">    &quot;&quot;&quot;</span>
+
+    <span class="n">weave</span><span class="o">.</span><span class="n">inline</span><span class="p">(</span><span class="n">code</span><span class="p">,[</span><span class="s">&#39;u&#39;</span><span class="p">,</span> <span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;result&#39;</span><span class="p">,</span> <span class="s">&#39;N&#39;</span><span class="p">,</span> <span class="s">&#39;B&#39;</span><span class="p">],</span>
+               <span class="n">type_converters</span><span class="o">=</span><span class="n">converters</span><span class="o">.</span><span class="n">blitz</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+</div>
+<p>and create a new band matrix class:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">inline_band_matrix</span><span class="p">(</span><span class="n">band_matrix</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">matvec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">u</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">u</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Dimension Missmatch!&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">band_matvec_inline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="n">u</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>or we implement the matrix vector product with Cython:</p>
+<div class="highlight-python"><pre>cimport numpy as cnumpy
+ctypedef cnumpy.float64_t reals #typedef_for easier reedding
+
+def band_matvec_c(cnumpy.ndarray[reals,ndim=2] A,cnumpy.ndarray[reals,ndim=1] u):
+    cdef Py_ssize_t i,j
+    cdef cnumpy.ndarray[reals,ndim=1] result = numpy.zeros(A.shape[1],dtype=A.dtype)
+    for i in xrange(A.shape[1]):
+        result[i] = A[0,i]*u[i]
+
+    for j in xrange(1,A.shape[0]):
+        for i in xrange(A.shape[1]-j):
+            result[i] = result[i] + A[j,i]*u[i+j]
+            result[i+j] = result[i+j]+A[j,i]*u[i]
+
+    return result</pre>
+</div>
+<p>and make the new band-matrix class analogously:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">c_band_matrix</span><span class="p">(</span><span class="n">band_matrix</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">matvec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">u</span><span class="p">):</span>
+       <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">u</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+           <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Dimension Missmatch!&quot;</span><span class="p">)</span>
+
+       <span class="k">return</span> <span class="n">band_matvec_c</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="n">u</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can either import the band matrix base class to the <em>.pyx</em> file
+and define the derived Python class in the <em>.pyx</em> file, or <tt class="docutils literal"><span class="pre">cimport</span></tt>
+the function to a Python file with the new matrix class defined.</p>
+<p>A more advanced example is an implementation in PyCUDA:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pycuda.driver</span> <span class="kn">as</span> <span class="nn">cuda</span>
+<span class="kn">import</span> <span class="nn">pycuda.gpuarray</span> <span class="kn">as</span> <span class="nn">gpuarray</span>
+
+<span class="kn">import</span> <span class="nn">pycuda.autoinit</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">pycuda.compiler</span> <span class="kn">import</span> <span class="n">SourceModule</span>
+<span class="kn">from</span> <span class="nn">pycuda.driver</span> <span class="kn">import</span> <span class="n">matrix_to_texref</span>
+
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">zeros</span><span class="p">,</span> <span class="n">int32</span><span class="p">,</span> <span class="n">float32</span><span class="p">,</span> <span class="n">intp</span>
+</pre></div>
+</div>
+<div class="highlight-c"><div class="highlight"><pre><span class="n">sourceCodeTemplate</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="n">texture</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span> <span class="mi">2</span><span class="o">&gt;</span> <span class="n">matrixTexture</span><span class="p">;</span>
+
+<span class="n">__global__</span> <span class="kt">void</span> <span class="nf">gpu_band_matvec</span><span class="p">(</span> <span class="c1">//%(REALS)s *matrix,</span>
+                                 <span class="o">%</span><span class="p">(</span><span class="n">REALS</span><span class="p">)</span><span class="n">s</span> <span class="o">*</span><span class="n">vector</span><span class="p">,</span>
+                                 <span class="o">%</span><span class="p">(</span><span class="n">REALS</span><span class="p">)</span><span class="n">s</span> <span class="o">*</span><span class="n">result</span><span class="p">,</span>
+                                 <span class="kt">int</span> <span class="o">*</span><span class="n">info</span>
+                                 <span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// Infos about matrix dimension</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">dim</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">band_with</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+
+  <span class="c1">// Infos about Blocks</span>
+
+  <span class="c1">//unsigned int position = 0;</span>
+  <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">blockIdx</span><span class="p">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">blockDim</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+
+  <span class="n">__shared__</span> <span class="o">%</span><span class="p">(</span><span class="n">REALS</span><span class="p">)</span><span class="n">s</span> <span class="n">vector_help</span><span class="p">[</span><span class="o">%</span><span class="p">(</span><span class="n">DOUBLE_BLOCK_SIZE</span><span class="p">)</span><span class="n">s</span><span class="p">];</span>
+  <span class="o">%</span><span class="p">(</span><span class="n">REALS</span><span class="p">)</span><span class="n">s</span> <span class="n">result_helper</span><span class="p">;</span>
+
+  <span class="c1">//__syncthreads(); //Memory has to be loaded</span>
+
+  <span class="k">while</span><span class="p">(</span><span class="n">idx</span> <span class="o">&lt;</span> <span class="n">dim</span> <span class="o">+</span>  <span class="o">%</span><span class="p">(</span><span class="n">BLOCK_SIZE</span><span class="p">)</span><span class="n">s</span> <span class="o">*</span> <span class="o">%</span><span class="p">(</span><span class="n">NUMBER_BLOCKS</span><span class="p">)</span><span class="n">s</span><span class="p">)</span> <span class="c1">//While loop over all blocks</span>
+  <span class="p">{</span>
+
+      <span class="n">__syncthreads</span><span class="p">();</span> <span class="c1">//Memory has to be loaded</span>
+
+      <span class="k">if</span><span class="p">(</span><span class="n">idx</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">)</span>
+      <span class="p">{</span>
+      <span class="n">vector_help</span><span class="p">[</span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">vector</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
+
+
+      <span class="k">if</span><span class="p">(</span><span class="n">idx</span> <span class="o">+</span> <span class="o">%</span><span class="p">(</span><span class="n">BLOCK_SIZE</span><span class="p">)</span><span class="n">s</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">vector_help</span><span class="p">[</span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="o">+%</span><span class="p">(</span><span class="n">BLOCK_SIZE</span><span class="p">)</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span>  <span class="n">vector</span><span class="p">[</span><span class="n">idx</span><span class="o">+%</span><span class="p">(</span><span class="n">BLOCK_SIZE</span><span class="p">)</span><span class="n">s</span><span class="p">];</span>
+      <span class="p">}</span>
+      <span class="n">__syncthreads</span><span class="p">();</span> <span class="c1">//Memory has to be loaded</span>
+
+      <span class="n">result_helper</span> <span class="o">=</span> <span class="n">tex2D</span><span class="p">(</span><span class="n">matrixTexture</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span> <span class="o">*</span> <span class="n">vector_help</span><span class="p">[</span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">];</span>
+
+      <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">band_with</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+      <span class="p">{</span>
+         <span class="n">result_helper</span> <span class="o">+=</span> <span class="n">tex2D</span><span class="p">(</span><span class="n">matrixTexture</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span><span class="o">*</span><span class="n">vector_help</span><span class="p">[</span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="o">+</span><span class="n">i</span><span class="p">];</span>
+
+      <span class="p">}</span>
+
+
+     <span class="n">__syncthreads</span><span class="p">();</span> <span class="c1">//Memory has to be loaded</span>
+
+     <span class="n">vector_help</span><span class="p">[</span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="o">%</span><span class="p">(</span><span class="n">BLOCK_SIZE</span><span class="p">)</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">vector_help</span><span class="p">[</span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">];</span>
+     <span class="p">}</span>
+
+     <span class="k">if</span><span class="p">((</span><span class="n">idx</span> <span class="o">-</span> <span class="o">%</span><span class="p">(</span><span class="n">BLOCK_SIZE</span><span class="p">)</span><span class="n">s</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">idx</span> <span class="o">-</span> <span class="o">%</span><span class="p">(</span><span class="n">BLOCK_SIZE</span><span class="p">)</span><span class="n">s</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">)</span>
+     <span class="p">{</span>
+       <span class="n">vector_help</span><span class="p">[</span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">vector</span><span class="p">[</span><span class="n">idx</span> <span class="o">-</span> <span class="o">%</span><span class="p">(</span><span class="n">BLOCK_SIZE</span><span class="p">)</span><span class="n">s</span><span class="p">];</span>
+     <span class="p">}</span>
+
+     <span class="n">__syncthreads</span><span class="p">();</span> <span class="c1">//Memory has to be loaded</span>
+
+     <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">band_with</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+     <span class="p">{</span>
+        <span class="k">if</span><span class="p">((</span><span class="n">idx</span> <span class="o">-</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">idx</span> <span class="o">-</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">))</span>
+        <span class="p">{</span>
+          <span class="n">result_helper</span> <span class="o">+=</span> <span class="n">tex2D</span><span class="p">(</span><span class="n">matrixTexture</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">idx</span> <span class="o">-</span> <span class="n">i</span><span class="p">)</span><span class="o">*</span>
+          <span class="n">vector_help</span><span class="p">[</span><span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span> <span class="o">+</span> <span class="o">%</span><span class="p">(</span><span class="n">BLOCK_SIZE</span><span class="p">)</span><span class="n">s</span> <span class="o">-</span> <span class="n">i</span><span class="p">];</span>
+        <span class="p">}</span>
+     <span class="p">}</span>
+
+     <span class="k">if</span><span class="p">(</span><span class="n">idx</span> <span class="o">&lt;</span> <span class="n">dim</span><span class="p">)</span>
+     <span class="p">{</span>
+       <span class="n">result</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">result_helper</span><span class="p">;</span>
+     <span class="p">}</span>
+
+
+    <span class="n">idx</span> <span class="o">+=</span> <span class="o">%</span><span class="p">(</span><span class="n">BLOCK_SIZE</span><span class="p">)</span><span class="n">s</span> <span class="o">*</span> <span class="o">%</span><span class="p">(</span><span class="n">NUMBER_BLOCKS</span><span class="p">)</span><span class="n">s</span><span class="p">;</span>
+
+   <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="s">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">REALS</span> <span class="o">=</span> <span class="s">&quot;float&quot;</span>
+<span class="n">BLOCK_SIZE</span> <span class="o">=</span> <span class="mi">256</span>
+<span class="n">NUMBER_BLOCKS</span> <span class="o">=</span> <span class="mi">8</span>
+
+<span class="n">sourceCode</span> <span class="o">=</span> <span class="n">sourceCodeTemplate</span> <span class="o">%</span> <span class="p">{</span>
+<span class="s">&#39;REALS&#39;</span><span class="p">:</span> <span class="n">REALS</span><span class="p">,</span>
+<span class="s">&#39;BLOCK_SIZE&#39;</span><span class="p">:</span> <span class="n">BLOCK_SIZE</span><span class="p">,</span>
+<span class="s">&#39;DOUBLE_BLOCK_SIZE&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">BLOCK_SIZE</span><span class="p">,</span>
+<span class="s">&#39;NUMBER_BLOCKS&#39;</span><span class="p">:</span> <span class="n">NUMBER_BLOCKS</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">matvec_module</span> <span class="o">=</span> <span class="n">SourceModule</span><span class="p">(</span><span class="n">sourceCode</span><span class="p">)</span>
+
+<span class="n">matvec_func</span> <span class="o">=</span> <span class="n">matvec_module</span><span class="o">.</span><span class="n">get_function</span><span class="p">(</span><span class="s">&quot;gpu_band_matvec&quot;</span><span class="p">)</span>
+<span class="n">matrixTexture</span> <span class="o">=</span> <span class="n">matvec_module</span><span class="o">.</span><span class="n">get_texref</span><span class="p">(</span><span class="s">&quot;matrixTexture&quot;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">band_matrix</span> <span class="kn">import</span> <span class="n">add_band_mat</span>
+
+<span class="k">class</span> <span class="nc">gpu_band_matrix</span><span class="p">:</span>
+  <span class="sd">&quot;&quot;&quot;variables for information about which matrix is</span>
+<span class="sd">     currently on the texture</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+
+  <span class="n">nr_matrices</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="n">active_matrix</span> <span class="o">=</span> <span class="mi">0</span>
+
+  <span class="sd">&quot;&quot;&quot;Takes a numpy array&quot;&quot;&quot;</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">data</span><span class="p">,</span><span class="n">set_right</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+
+      <span class="k">if</span> <span class="n">set_right</span><span class="p">:</span>
+          <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">B</span><span class="p">):</span>
+              <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">j</span><span class="p">:,</span><span class="n">N</span><span class="o">-</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+      <span class="c">#self.data = gpuarray.to_gpu(data)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">band_with</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">dtype</span>
+
+      <span class="n">info</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">int32</span><span class="p">)</span>
+
+      <span class="bp">self</span><span class="o">.</span><span class="n">gpu_info</span> <span class="o">=</span> <span class="n">gpuarray</span><span class="o">.</span><span class="n">to_gpu</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+
+      <span class="n">cuda</span><span class="o">.</span><span class="n">matrix_to_texref</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">matrixTexture</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s">&quot;F&quot;</span><span class="p">)</span>
+
+      <span class="n">gpu_band_matrix</span><span class="o">.</span><span class="n">nr_matrices</span> <span class="o">+=</span> <span class="mi">1</span>
+
+      <span class="bp">self</span><span class="o">.</span><span class="n">identity_nr</span> <span class="o">=</span> <span class="n">gpu_band_matrix</span><span class="o">.</span><span class="n">nr_matrices</span>
+      <span class="n">active_matrix</span> <span class="o">=</span> <span class="n">gpu_band_matrix</span><span class="o">.</span><span class="n">nr_matrices</span>
+
+  <span class="k">def</span> <span class="nf">matvec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x_gpu</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">x_gpu</span><span class="o">.</span><span class="n">size</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+          <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Dimension mismatch!&quot;</span><span class="p">)</span>
+
+      <span class="c">#self.data.bind_to_texref_ext(matrixTexture,channels = 2)</span>
+      <span class="c">#cuda.matrix_to_texref(self.cpu_data, matrixTexture, order=&quot;F&quot;)</span>
+
+      <span class="k">if</span> <span class="n">gpu_band_matrix</span><span class="o">.</span><span class="n">active_matrix</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">identity_nr</span><span class="p">:</span>
+          <span class="n">cuda</span><span class="o">.</span><span class="n">matrix_to_texref</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">matrixTexture</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s">&quot;F&quot;</span><span class="p">)</span>
+          <span class="n">gpu_band_matrix</span><span class="o">.</span><span class="n">active_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">identity_nr</span>
+
+      <span class="n">y_gpu</span>  <span class="o">=</span> <span class="n">gpuarray</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">x_gpu</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">x_gpu</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+      <span class="n">matvec_func</span><span class="p">(</span><span class="n">intp</span><span class="p">(</span><span class="n">x_gpu</span><span class="o">.</span><span class="n">gpudata</span><span class="p">),</span><span class="n">intp</span><span class="p">(</span><span class="n">y_gpu</span><span class="o">.</span><span class="n">gpudata</span><span class="p">),</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">gpu_info</span><span class="o">.</span><span class="n">gpudata</span><span class="p">,</span> <span class="n">block</span> <span class="o">=</span> <span class="p">(</span><span class="n">BLOCK_SIZE</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">grid</span><span class="o">=</span> <span class="p">(</span><span class="n">NUMBER_BLOCKS</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+      <span class="k">return</span> <span class="n">y_gpu</span>
+
+  <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">other</span><span class="p">):</span>
+      <span class="k">return</span> <span class="n">add_band_mat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">other</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">Links</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Band_matrix">http://en.wikipedia.org/wiki/Band_matrix</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="http://publib.boulder.ibm.com/infocenter/clresctr/vxrx/index.jsp?topic=%2Fcom.ibm.cluster.essl43.guideref.doc%2Fam501_upbsm.html">http://publib.boulder.ibm.com/infocenter/clresctr/vxrx/index.jsp?topic=%2Fcom.ibm.cluster.essl43.guideref.doc%2Fam501_upbsm.html</a></td></tr>
+</tbody>
+</table>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="PyCUDA.html"
+                                  title="previous chapter">Python+CUDA = PyCUDA</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="License.html"
+                                  title="next chapter">Licenses</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/Example.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="License.html" title="Licenses"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="PyCUDA.html" title="Python+CUDA = PyCUDA"
+             >previous</a> |</li>
+        <li><a href="index.html">hpc v1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2011, Stefan Reiterer.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+    </div>
+  </body>
+</html>

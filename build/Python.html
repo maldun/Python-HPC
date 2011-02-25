@@ -52,16 +52,23 @@
 <p>Python is a high level interpreted object oriented (OO) language.
 It&#8217;s main field of application is in web design and scripting.</p>
 <p>It was invented by Guido VanRossum in the end of the 80&#8217;s and the begin of
-the 90&#8217;s <a class="footnote-reference" href="#id6" id="id1">[1]</a>. The name was derived of the <em>Monty Python&#8217;s Flying Curcus</em>
+the 90&#8217;s <a class="footnote-reference" href="#id8" id="id1">[1]</a>. The name was derived of the <em>Monty Python&#8217;s Flying Curcus</em>
 show.</p>
 <p>In the last five years there was a huge development of mathematical tools
 and libraries for Python. Actually it seems that there is no particular reason for
 this one could see it as a phenomen, or as a trend. But in the meantime the currently
 available Python projects reached now dimension that make them vaiable alternatives
-for the &#8220;classical&#8221; mathematical languages like Matlab or MAthematica.</p>
-<p>Also there are now some very useful tools for code optimization available like <em>Cython</em>,
+for the &#8220;classical&#8221; mathematical languages like Matlab or Mathematica.</p>
+<p>Also there are now some very useful tools for code optimisation available like <em>Cython</em>,
 that makes it possible to compile your Python Code to <em>C</em> and make it up to 1000x faster,
 than normal Python code.</p>
+<p>There are several versions of Python interpreters. The interpreter I
+refer here as Python is <em>CPython</em>, the first interpreter. The CPython interpreter is written,
+as the name says, in C. The reason for this choice is, that many
+numerical tools are using C bindings, and Cython also works currently
+only on CPython. There are also several other
+Python Interpreters like Jython (written in Java), PyPy (written in
+Python), or IronPython (written in C#) available.</p>
 </div>
 <div class="section" id="why-python">
 <h2>Why Python?<a class="headerlink" href="#why-python" title="Permalink to this headline">¶</a></h2>
@@ -69,9 +76,10 @@ than normal Python code.</p>
 <li>Intuitive Syntax</li>
 <li>Simple</li>
 <li>An easy to learn language.</li>
-<li>Object orientated.</li>
+<li>Object oriented.</li>
+<li>Multi paradigm (OO, imperative functional)</li>
 <li>Fast (if used with brains).</li>
-<li>Rapidly developing.</li>
+<li>Rapid development.</li>
 <li>A common language, so you will find answers to your problem.</li>
 <li>Many nice tools which makes your life easier (like Sphinx, which I use to write this report)</li>
 </ul>
@@ -79,47 +87,67 @@ than normal Python code.</p>
 <div class="section" id="get-python">
 <h2>Get Python<a class="headerlink" href="#get-python" title="Permalink to this headline">¶</a></h2>
 <p>The programs and packages used here are all open source, so they can be obtained freely.
-Most Linux distributions already ship Python, because many scripts are written in Python.
-See also the <em>Python</em> project page for further information <a class="footnote-reference" href="#id7" id="id2">[2]</a> .</p>
-<p>An easy way to obtain Python is to install <em>Sagemath</em> <a class="footnote-reference" href="#id8" id="id3">[3]</a>, which contains many useful packages extensions
+Most Linux distributions already come with an Python interpreter,
+because many scripts in the system are using Python.
+See also the <em>Python</em> project page for further information <a class="footnote-reference" href="#id9" id="id2">[2]</a> .</p>
+<p>For using Python I personally recommend Linux or a virtual machine
+with Linux, because it&#8217;s much easier to install and handle (for my taste).
+But there is currently a .Net Python under development named
+IronPython <a class="footnote-reference" href="#id10" id="id3">[3]</a>.
+Not all packages from classical CPython are currently working on IronPython
+(including NumPy), but there exists IronClad <a class="footnote-reference" href="#id11" id="id4">[4]</a> which should make it
+possible to use these CPython modules in IronPython.</p>
+<p>An easy way to obtain Python is to install <em>Sagemath</em> <a class="footnote-reference" href="#id12" id="id5">[5]</a>, which contains many useful packages extensions
 and packages for mathematics.</p>
-<p>Another possibility would be <em>FEMhub</em> which is a fork of <em>Sage</em> <a class="footnote-reference" href="#id9" id="id4">[4]</a> . FEMhub is smaller, but more experimental than
+<p>Another possibility would be <em>FEMhub</em> which is a fork of <em>Sage</em> <a class="footnote-reference" href="#id13" id="id6">[6]</a> . FEMhub is smaller, but more experimental than
 Sage, and is aimed only for numerics.
 Some of the packages I introduce here are are currently outdated in Sage/FEMhub or not available yet. Current Versions are
-available on my Google code project page <a class="footnote-reference" href="#id10" id="id5">[5]</a>.</p>
+available on my Google code project page <a class="footnote-reference" href="#id14" id="id7">[7]</a>.</p>
 <p>The drawback of these distributions is that they are not available as .deb or .rpm packages. They have to be build
 from source, and currently only work on Linux and other Unix type systems.
 But there are precompiled binaries available. (I personally recommand to
 build it from source because then many optimisation options are applied)</p>
 <p class="rubric">Links</p>
-<table class="docutils footnote" frame="void" id="id6" rules="none">
+<table class="docutils footnote" frame="void" id="id8" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://python-history.blogspot.com/2009/01/brief-timeline-of-python.html">http://python-history.blogspot.com/2009/01/brief-timeline-of-python.html</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id7" rules="none">
+<table class="docutils footnote" frame="void" id="id9" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="http://www.python.org/">http://www.python.org/</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id8" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><a class="reference external" href="http://www.sagemath.org/">http://www.sagemath.org/</a></td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id9" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td><a class="reference external" href="http://www.femhub.org">http://www.femhub.org</a></td></tr>
-</tbody>
-</table>
 <table class="docutils footnote" frame="void" id="id10" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id5">[5]</a></td><td><a class="reference external" href="http://code.google.com/p/computational-sage/">http://code.google.com/p/computational-sage/</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><a class="reference external" href="http://ironpython.net/">http://ironpython.net/</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td><a class="reference external" href="http://code.google.com/p/ironclad/">http://code.google.com/p/ironclad/</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[5]</a></td><td><a class="reference external" href="http://www.sagemath.org/">http://www.sagemath.org/</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id13" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id6">[6]</a></td><td><a class="reference external" href="http://www.femhub.org">http://www.femhub.org</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id14" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id7">[7]</a></td><td><a class="reference external" href="http://code.google.com/p/computational-sage/">http://code.google.com/p/computational-sage/</a></td></tr>
 </tbody>
 </table>
 </div>

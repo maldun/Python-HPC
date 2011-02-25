@@ -1,0 +1,28 @@
+cimport numpy as cnumpy
+
+ctypedef cnumpy.float64_t reals #typedef_for easier reedding
+
+def my_matvec(cnumpy.ndarray[reals,ndim=1] x,
+              cnumpy.ndarray[reals,ndim=1] y):
+
+    if x.size != y.size:
+        raise ValueError("Dimension Mismatch")
+
+    cdef double result = 0
+
+    cdef int i
+
+    for i in range(x.size):
+        result += x[i]*y[i]
+
+    return result
+
+cdef double f(double x) except? 0:
+    
+    if x == 0:
+        raise ValueError("Division by Zero!")
+
+    return x**(-2) - x
+
+def call_f(double x):
+    return f(x)
