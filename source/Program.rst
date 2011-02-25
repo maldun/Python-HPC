@@ -1,10 +1,10 @@
 Programming in Python
 ===========================================
 
-In this section I will give all tools for programming with
+In this section I will give an overview of important tools for programming with
 Python. The sections are ordered by programming paradigms.
 If you are new to programming, the last paragraph of this section 
-contains an overview of the paradigms. ( :ref:`paradigm_ref` )
+contains an overview of these paradigms. ( :ref:`paradigm_ref` )
 
 Commenting in Python
 -------------------------------------------
@@ -80,7 +80,7 @@ It is executed when the condition is violated::
   while condition_is_true:
       do_something
   else:
-      do_something
+      do_something_else
 
 Here an example::
 
@@ -121,7 +121,7 @@ A ``for`` loop looks like this::
       do_something_with_x
 
 We can use the ``range`` function (see the section about
-:ref:`list_ref` ) to create a *norma;* ``for`` loop::
+:ref:`list_ref` ) to create a *normal* ``for`` loop::
 
   for i in range(n):
       do_something_with_x
@@ -455,8 +455,6 @@ There are many powerful tools like Sphinx, where you can use your
 docstrings for creating documentation of your code, or tools for
 automatic testing, which read take the docstring as input.
 
-.. _paradigm_ref:
-
 
 Other ways to define functions
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -624,11 +622,11 @@ to
 
 Let's calculate the factorial :math:`10!` ::
 
-  reduce(lambda x,y: x,y, range(1,10))
+  reduce(lambda x,y: x*y, range(1,10))
 
 or the doubled factorial::
 
-  reduce(lambda x,y: x,y, range(1,10),2)
+  reduce(lambda x,y: x*y, range(1,10),2)
 
 **Note** In Python 3 reduce was moved to the ``functools`` module.
 It can be backimported via::
@@ -1375,6 +1373,8 @@ The writelines command make it possible to add a list of strings::
   7th line
 
 
+.. _paradigm_ref:
+
 Some words on programming paradigms
 -------------------------------------------
 
@@ -1391,7 +1391,7 @@ of your choice, If you want to go deeper into that topic.
 
 In short: 
 
-* In *imperative programming* you define sequences of
+* *Imperative programming*: You define sequences of
   commands the computer should perform, with help of loops,
   control statements, and functions. The program has *states*
   which determine, what the program does, and which action to 
@@ -1429,7 +1429,7 @@ In short:
    would be wheels: There are big wheels, small wheels, wheels
    for snow etc. but they all share common properties that makes
    them wheels (For example they are all round, 
-   and break in a regular basis). 
+   and break on a regular basis). 
    
  
 The good news are, that in Python you are able to work with

@@ -7,7 +7,7 @@ entries, of the lower part of the band matrix. See Wikipedia for
 an Idea [#]_, and the IBM ESSL for precise details [#]_.
 
 First we implement our class with several class methods, like
-addition, and a matvec method::
+addition and a matvec method::
 
   def add_band_mat(A,M,beta = 1,alpha = 1):
       (d1,d2) = A.shape
@@ -232,7 +232,8 @@ A more advanced example is an implementation in PyCUDA::
        {
           if((idx - i >= 0) && (idx - i < dim))
           {
-            result_helper += tex2D(matrixTexture, i, idx - i)*vector_help[threadIdx.x + %(BLOCK_SIZE)s - i];
+            result_helper += tex2D(matrixTexture, i, idx - i)*
+            vector_help[threadIdx.x + %(BLOCK_SIZE)s - i];
           }
        }
       
@@ -315,7 +316,8 @@ A more advanced example is an implementation in PyCUDA::
             gpu_band_matrix.active_matrix = self.identity_nr
         
         y_gpu  = gpuarray.empty(x_gpu.size, x_gpu.dtype)
-        matvec_func(intp(x_gpu.gpudata),intp(y_gpu.gpudata), self.gpu_info.gpudata, block = (BLOCK_SIZE,1,1), grid= (NUMBER_BLOCKS,1))
+        matvec_func(intp(x_gpu.gpudata),intp(y_gpu.gpudata),
+        self.gpu_info.gpudata, block = (BLOCK_SIZE,1,1), grid= (NUMBER_BLOCKS,1))
         return y_gpu
     
     def __add__(self,other):

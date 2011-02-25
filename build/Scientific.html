@@ -479,12 +479,12 @@ numerical computation, which has it&#8217;s own vector class.</p>
 <p>If you call this function the first time it will be compiled in
 runtime:</p>
 <div class="highlight-python"><pre>sage: band_matvec_inline(A,u)
-creating /tmp/maldun/python26_intermediate/compiler_2da6387b1d12110fba46fe47fea9326a
-In file included from /home/maldun/sage/sage-4.6.1/local/lib/python2.6/site-packages/scipy/weave/blitz/blitz/array-impl.h:37,
-                 from /home/maldun/sage/sage-4.6.1/local/lib/python2.6/site-packages/scipy/weave/blitz/blitz/array.h:26,
-                 from /home/maldun/.python26_compiled/sc_7f8ca882b38e1f398003844545921f4a0.cpp:11:
-/home/maldun/sage/sage-4.6.1/local/lib/python2.6/site-packages/scipy/weave/blitz/blitz/range.h: In member function ‘bool blitz::Range::isAscendingContiguous() const’:
-/home/maldun/sage/sage-4.6.1/local/lib/python2.6/site-packages/scipy/weave/blitz/blitz/range.h:120: warning: suggest parentheses around ‘&amp;&amp;’ within ‘||’
+creating .../python26_intermediate/compiler_2da6387b1d12110fba46fe47fea9326a
+In file included from .../python2.6/site-packages/scipy/weave/blitz/blitz/array-impl.h:37,
+                 from .../python2.6/site-packages/scipy/weave/blitz/blitz/array.h:26,
+                 from ....python26_compiled/sc_7f8ca882b38e1f398003844545921f4a0.cpp:11:
+.../blitz/blitz/range.h: In member function ‘bool blitz::Range::isAscendingContiguous() const’:
+.../blitz/range.h:120: warning: suggest parentheses around ‘&amp;&amp;’ within ‘||’
 array([-7.03708979, -0.53476595, -7.52383126, ...,  1.18391403,
         2.27257052,  0.39116477])</pre>
 </div>

@@ -47,10 +47,10 @@
             
   <div class="section" id="programming-in-python">
 <h1>Programming in Python<a class="headerlink" href="#programming-in-python" title="Permalink to this headline">¶</a></h1>
-<p>In this section I will give all tools for programming with
+<p>In this section I will give an overview of important tools for programming with
 Python. The sections are ordered by programming paradigms.
 If you are new to programming, the last paragraph of this section
-contains an overview of the paradigms. ( <a class="reference internal" href="#paradigm-ref"><em>Other ways to define functions</em></a> )</p>
+contains an overview of these paradigms. ( <a class="reference internal" href="#paradigm-ref"><em>Some words on programming paradigms</em></a> )</p>
 <div class="section" id="commenting-in-python">
 <h2>Commenting in Python<a class="headerlink" href="#commenting-in-python" title="Permalink to this headline">¶</a></h2>
 <p>To comment out lines of codes use <tt class="docutils literal"><span class="pre">#</span></tt>.</p>
@@ -117,7 +117,7 @@ It is executed when the condition is violated:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">while</span> <span class="n">condition_is_true</span><span class="p">:</span>
     <span class="n">do_something</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="n">do_something</span>
+    <span class="n">do_something_else</span>
 </pre></div>
 </div>
 <p>Here an example:</p>
@@ -158,7 +158,7 @@ or numbers, like in C.</p>
 </pre></div>
 </div>
 <p>We can use the <tt class="docutils literal"><span class="pre">range</span></tt> function (see the section about
-<a class="reference external" href="Steps.html#list-ref"><em>Lists</em></a> ) to create a <em>norma;</em> <tt class="docutils literal"><span class="pre">for</span></tt> loop:</p>
+<a class="reference external" href="Steps.html#list-ref"><em>Lists</em></a> ) to create a <em>normal</em> <tt class="docutils literal"><span class="pre">for</span></tt> loop:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="n">do_something_with_x</span>
 </pre></div>
@@ -482,7 +482,7 @@ docstrings for creating documentation of your code, or tools for
 automatic testing, which read take the docstring as input.</p>
 </div>
 <div class="section" id="other-ways-to-define-functions">
-<span id="paradigm-ref"></span><h3>Other ways to define functions<a class="headerlink" href="#other-ways-to-define-functions" title="Permalink to this headline">¶</a></h3>
+<h3>Other ways to define functions<a class="headerlink" href="#other-ways-to-define-functions" title="Permalink to this headline">¶</a></h3>
 <p>There are also some other ways to define functions in Python.
 One would to be write them in one line, and seperate the different
 operations with a semicolon:</p>
@@ -618,11 +618,11 @@ this is taken as the first value. This menas now in expressions that</p>
 <div class="highlight-python"><pre>..f(f(f(init,liste[0]).liste[1]),liste[2])..</pre>
 </div>
 <p>Let&#8217;s calculate the factorial <img class="math" src="_images/math/c824ea490ff073932a1c17d8ce0b9a4215f90d95.png" alt="10!"/></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="nb">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="nb">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>or the doubled factorial:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="nb">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="nb">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>Note</strong> In Python 3 reduce was moved to the <tt class="docutils literal"><span class="pre">functools</span></tt> module.
@@ -1321,7 +1321,7 @@ or use the <tt class="docutils literal"><span class="pre">flush</span></tt> meth
 </div>
 </div>
 <div class="section" id="some-words-on-programming-paradigms">
-<h2>Some words on programming paradigms<a class="headerlink" href="#some-words-on-programming-paradigms" title="Permalink to this headline">¶</a></h2>
+<span id="paradigm-ref"></span><h2>Some words on programming paradigms<a class="headerlink" href="#some-words-on-programming-paradigms" title="Permalink to this headline">¶</a></h2>
 <p>There are several programming paradigms, and the
 most common in modern programming languages are</p>
 <ul class="simple">
@@ -1334,7 +1334,7 @@ overwiev on that topic <a class="footnote-reference" href="#id27" id="id13">[13]
 of your choice, If you want to go deeper into that topic.</p>
 <p>In short:</p>
 <ul>
-<li><p class="first">In <em>imperative programming</em> you define sequences of
+<li><p class="first"><em>Imperative programming</em>: You define sequences of
 commands the computer should perform, with help of loops,
 control statements, and functions. The program has <em>states</em>
 which determine, what the program does, and which action to
@@ -1375,7 +1375,7 @@ those features belongs to that class. A real world example
 would be wheels: There are big wheels, small wheels, wheels
 for snow etc. but they all share common properties that makes
 them wheels (For example they are all round,
-and break in a regular basis).</p>
+and break on a regular basis).</p>
 </dd>
 </dl>
 </li>

@@ -47,7 +47,8 @@ Why Python?
 Get Python
 ------------------------------
 The programs and packages used here are all open source, so they can be obtained freely.
-Most Linux distributions already ship Python, because many scripts are written in Python.
+Most Linux distributions already come with an Python interpreter,
+because many scripts in the system are using Python.
 See also the *Python* project page for further information [#]_ . 
 
 For using Python I personally recommend Linux or a virtual machine

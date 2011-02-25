@@ -10,7 +10,7 @@
 
 
 \title{hpc Documentation}
-\date{February 24, 2011}
+\date{February 25, 2011}
 \release{1.0}
 \author{Stefan Reiterer}
 \newcommand{\sphinxlogo}{}
@@ -123,13 +123,14 @@ If you want to start with Python right ahead  follow go directly to \hyperlink{b
 This short documentation was written by me for the High Performance Computing Seminar
 in the winter semester 2010/11 of Prof. G. Haase at the University Graz Austria.
 
-Actually to learn Sphinx and to make it possible for other to get a quick and dirty reference
-for working with Python in mathematics and scientific computing I started to write this tech report.
+In order to learn Sphinx and to make it possible for others to get a
+quick start with Python in mathematics and scientific computing I started to write this tech report.
 
 I started with Python last summer, after a short introduction to the \emph{Sage} mathematics software. One could
 say it was love at first sight. I was implementing some test code with krylov methods in Matlab and Octave that
-time, and was annoyed by the lack of object oriented features like abstracting and capsuling. I had the problem, that
-every time I implement a new numerical scheme I have to rewrite the code of my optimisations algorithms, or at least have
+time, and was annoyed by the lack of object oriented features like
+abstracting and capsuling (and no: I don't count structs as objects!). I had the problem, that
+every time I implement a new numerical scheme I had to rewrite the code of my optimisations algorithms, or at least have
 to alter it, so that every time I need to retest the new implemtation, which costs time and nerves. And since I'm a
 lazy person I didn't want to do that.
 
@@ -154,6 +155,9 @@ I distribute this under an open license so people can share it
 freely. (See Section \hyperlink{license-ref}{\emph{Licenses}}). You are allowed to use and
 copy contents as you wish.
 
+I would like to thank Stefan Fürtinger and Andreas Niederl for giving
+me advice and feedback, which I really needed to write this document.
+
 Stefan Reiterer,
 Graz Austria
 2011
@@ -172,7 +176,7 @@ that they are too deep into it, and think everyone else think the same way. Perh
 or it's me because of my friends and education I have a different viewpoint on  that things.
 
 Neverteless I want to use this section to give some important lectures to people, who aren't deep into programming,
-I learnt during the last 13 years since I'm started ``programming'' Visual Basic with 13.
+I learnt during the last 13 years since I'm started ``programming'' Visual Basic with the age of 13.
 
 
 \subsection{The Zen of Python don't apply only to Python}
@@ -246,7 +250,7 @@ You will get this:
 
 \end{enumerate}
 
-This is the philosophy of python and can argue about some the points,
+This is the philosophy of Python and can argue about some the points,
 e.g. point 13., but I can say without bad feeling, that \textbf{every}
 programmer should especially keep in mind the points 1-7, which apply in every
 language you will use!
@@ -307,7 +311,7 @@ organisation of your code. \textbf{Remember:}  If you have a lot of
 parameters, you can always store them in a container or a class.
 
 
-\subsection{Premature optimisation is the rule of all evil!}
+\subsection{Premature optimisation is the root of all evil!}
 
 This often cited quote of Donald E. Knuth \footnote{
 \href{http://en.wikiquote.org/wiki/Donald\_Knuth}{http://en.wikiquote.org/wiki/Donald\_Knuth}
@@ -321,7 +325,7 @@ of unreadible code. I remember that I implemented an ``optimized'' for loop some
 \subsection{Choice of the right tools}
 
 Since I descend a family of craftsmans, this was taught me very early. You don't want to use
-a siedgehammer for hitting a tiny nail into a wall, and you don't want to use small axe to cut down a tree.
+a sledgehammer for hitting a tiny nail into a wall, and you don't want to use small axe to cut down a tree.
 (Well I know people who do...). And this applies for programming as well. You don''t want to write a parser in Fortran,
 and you don't want to write a program for symbolic manipulation in Java. (I personally would never implement \emph{anything}
 mathematical in Java, because it lacks some aspects like operator overloading and efficiency, but that's only a biased opinion.)
@@ -339,7 +343,10 @@ a nuissance for yourself.
 A good editor is not expensive (often even free), and saves you a
 whole lot of work! Good editors are for example Emacs \footnote{
 \href{http://www.gnu.org/software/emacs/}{http://www.gnu.org/software/emacs/}
-}, VIM \footnote{
+},
+(to get your Emacs working with Python I recommend this link \footnote{
+\href{http://hide1713.wordpress.com/2009/01/30/setup-perfect-python-environment-in-emacs/}{http://hide1713.wordpress.com/2009/01/30/setup-perfect-python-environment-in-emacs/}
+})  VIM \footnote{
 \href{http://www.vim.org/}{http://www.vim.org/}
 }.
 A good List of editors can be found on Wikipedia. \footnote{
@@ -371,6 +378,9 @@ Very good debugging tools are for example Valgrind \footnote{
 and many, many more... \footnote{
 \href{http://en.wikipedia.org/wiki/Debugger}{http://en.wikipedia.org/wiki/Debugger}
 }
+Python is shipped with it's own debugger \footnote{
+\href{http://docs.python.org/library/pdb.html}{http://docs.python.org/library/pdb.html}
+}.
 
 
 \subsubsection{Use Linux}
@@ -391,7 +401,8 @@ Ubuntu \footnote{
 }  and it's many derivatives (I use Kubuntu), or open SUSE \footnote{
 \href{http://www.opensuse.org/de/}{http://www.opensuse.org/de/}
 } using Linux is nowadays possible for
-normal humans too.
+normal humans too. \textbf{Note:} Be aware that I assume in that guide,
+that you are using Linux!
 
 
 \subsection{Not everything from Extreme Programming is that bad}
@@ -3468,7 +3479,7 @@ of your choice, If you want to go deeper into that topic.
 In short:
 \begin{itemize}
 \item {} 
-In \emph{imperative programming} you define sequences of
+\emph{Imperative programming}: You define sequences of
 commands the computer should perform, with help of loops,
 control statements, and functions. The program has \emph{states}
 which determine, what the program does, and which action to
@@ -4042,48 +4053,50 @@ sage: B = 2**6
 sage: A = rand(B,N).astype(datatype)
 sage: @%timeit band@_matvec@_py(A,u)
 5 loops, best of 3: 3.48 s per loop
+\end{Verbatim}
 
 The reason for this is that array access is quite costly
 in Python. A possibility to make that better would be to write
 C++ code inline with the Weave module. To do that give the Python
 Interpreter your C++ code as string, and then let compile it. Here
-an implementation of the band-matrix vector multiplication with weave::
+an implementation of the band-matrix vector multiplication with weave:
 
-from numpy import array, zeros
-from scipy.weave import converters
-from scipy import weave
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{numpy} \PYG{k+kn}{import} \PYG{n}{array}\PYG{p}{,} \PYG{n}{zeros}
+\PYG{k+kn}{from} \PYG{n+nn}{scipy.weave} \PYG{k+kn}{import} \PYG{n}{converters}
+\PYG{k+kn}{from} \PYG{n+nn}{scipy} \PYG{k+kn}{import} \PYG{n}{weave}
 
-def band@_matvec@_inline(A,u):
+\PYG{k}{def} \PYG{n+nf}{band\PYGZus{}matvec\PYGZus{}inline}\PYG{p}{(}\PYG{n}{A}\PYG{p}{,}\PYG{n}{u}\PYG{p}{)}\PYG{p}{:}
 
-    result = zeros(u.shape@PYGZlb[]0@PYGZrb[],dtype=u.dtype)
+    \PYG{n}{result} \PYG{o}{=} \PYG{n}{zeros}\PYG{p}{(}\PYG{n}{u}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{,}\PYG{n}{dtype}\PYG{o}{=}\PYG{n}{u}\PYG{o}{.}\PYG{n}{dtype}\PYG{p}{)}
 
-    N = A.shape@PYGZlb[]1@PYGZrb[]
-    B = A.shape@PYGZlb[]0@PYGZrb[]
+    \PYG{n}{N} \PYG{o}{=} \PYG{n}{A}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}
+    \PYG{n}{B} \PYG{o}{=} \PYG{n}{A}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
 
-    code = """
-    for(int i=0; i @textless[] N;i++)
-    {
-      result(i) = A(0,i)*u(i);
-    }
-    for(int j=1;j @textless[] B;j++)
-    {
+    \PYG{n}{code} \PYG{o}{=} \PYG{l+s}{"""}
+\PYG{l+s}{    for(int i=0; i \textless{} N;i++)}
+\PYG{l+s}{    \PYGZob{}}
+\PYG{l+s}{      result(i) = A(0,i)*u(i);}
+\PYG{l+s}{    \PYGZcb{}}
+\PYG{l+s}{    for(int j=1;j \textless{} B;j++)}
+\PYG{l+s}{    \PYGZob{}}
 
-        for(int i=0; i @textless[] (N-j);i++)
-        {
-          if((i+j @textless[] N))
-          {
-            result(i) += A(j,i)*u(j+i);
-            result(i+j) += A(j,i)*u(i);
-          }
+\PYG{l+s}{        for(int i=0; i \textless{} (N-j);i++)}
+\PYG{l+s}{        \PYGZob{}}
+\PYG{l+s}{          if((i+j \textless{} N))}
+\PYG{l+s}{          \PYGZob{}}
+\PYG{l+s}{            result(i) += A(j,i)*u(j+i);}
+\PYG{l+s}{            result(i+j) += A(j,i)*u(i);}
+\PYG{l+s}{          \PYGZcb{}}
 
-        }
+\PYG{l+s}{        \PYGZcb{}}
 
-    }
-    """
+\PYG{l+s}{    \PYGZcb{}}
+\PYG{l+s}{    }\PYG{l+s}{"""}
 
-    weave.inline(code,@PYGZlb[]'u', 'A', 'result', 'N', 'B'@PYGZrb[],
-               type@_converters=converters.blitz)
-    return result
+    \PYG{n}{weave}\PYG{o}{.}\PYG{n}{inline}\PYG{p}{(}\PYG{n}{code}\PYG{p}{,}\PYG{p}{[}\PYG{l+s}{'}\PYG{l+s}{u}\PYG{l+s}{'}\PYG{p}{,} \PYG{l+s}{'}\PYG{l+s}{A}\PYG{l+s}{'}\PYG{p}{,} \PYG{l+s}{'}\PYG{l+s}{result}\PYG{l+s}{'}\PYG{p}{,} \PYG{l+s}{'}\PYG{l+s}{N}\PYG{l+s}{'}\PYG{p}{,} \PYG{l+s}{'}\PYG{l+s}{B}\PYG{l+s}{'}\PYG{p}{]}\PYG{p}{,}
+               \PYG{n}{type\PYGZus{}converters}\PYG{o}{=}\PYG{n}{converters}\PYG{o}{.}\PYG{n}{blitz}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n}{result}
 \end{Verbatim}
 
 As it can be seen the syntax is not that different from Numpy. The
@@ -4095,12 +4108,12 @@ runtime:
 
 \begin{Verbatim}[commandchars=@\[\]]
 sage: band@_matvec@_inline(A,u)
-creating /tmp/maldun/python26@_intermediate/compiler@_2da6387b1d12110fba46fe47fea9326a
-In file included from /home/maldun/sage/sage-4.6.1/local/lib/python2.6/site-packages/scipy/weave/blitz/blitz/array-impl.h:37,
-                 from /home/maldun/sage/sage-4.6.1/local/lib/python2.6/site-packages/scipy/weave/blitz/blitz/array.h:26,
-                 from /home/maldun/.python26@_compiled/sc@_7f8ca882b38e1f398003844545921f4a0.cpp:11:
-/home/maldun/sage/sage-4.6.1/local/lib/python2.6/site-packages/scipy/weave/blitz/blitz/range.h: In member function ‘bool blitz::Range::isAscendingContiguous() const’:
-/home/maldun/sage/sage-4.6.1/local/lib/python2.6/site-packages/scipy/weave/blitz/blitz/range.h:120: warning: suggest parentheses around ‘@&@&’ within ‘@textbar[]@textbar[]’
+creating .../python26@_intermediate/compiler@_2da6387b1d12110fba46fe47fea9326a
+In file included from .../python2.6/site-packages/scipy/weave/blitz/blitz/array-impl.h:37,
+                 from .../python2.6/site-packages/scipy/weave/blitz/blitz/array.h:26,
+                 from ....python26@_compiled/sc@_7f8ca882b38e1f398003844545921f4a0.cpp:11:
+.../blitz/blitz/range.h: In member function ‘bool blitz::Range::isAscendingContiguous() const’:
+.../blitz/range.h:120: warning: suggest parentheses around ‘@&@&’ within ‘@textbar[]@textbar[]’
 array(@PYGZlb[]-7.03708979, -0.53476595, -7.52383126, ...,  1.18391403,
         2.27257052,  0.39116477@PYGZrb[])
 \end{Verbatim}
@@ -4857,7 +4870,7 @@ I will give here a short introduction how to use it. For more detailed
 Information I refer to the documentation \footnote{
 \href{http://documen.tician.de/pycuda/}{http://documen.tician.de/pycuda/}
 } or the Wiki \footnote{
-wikilink
+\href{http://wiki.tiker.net/PyCuda}{http://wiki.tiker.net/PyCuda}
 }.
 
 
@@ -4866,7 +4879,9 @@ wikilink
 There are two ways to initialize the PyCUDA driver. The first one is
 to use the autoinit module:
 
-import pycuda.autoinit
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{import} \PYG{n+nn}{pycuda.autoinit}
+\end{Verbatim}
 
 This makes the first device ready for use. Another possibility
 is to manually initialize the device and create a context on this
@@ -4887,7 +4902,7 @@ device to use it:
 
 This is useful if you are working on different devices. I will give
 a more detailed example combined with MPI4Py lateron.
-(See ::ref::\emph{mpi\_and\_pycuda\_ref})
+(See \hyperlink{mpi-and-pycuda-ref}{\emph{Using MPI4Py and PyCUDA together}})
 
 
 \section{Get your CUDA code working in Python}
@@ -5419,7 +5434,8 @@ A more advanced example is an implementation in PyCUDA:
      \PYG{p}{\PYGZob{}}
         \PYG{k}{if}\PYG{p}{(}\PYG{p}{(}\PYG{n}{idx} \PYG{o}{-} \PYG{n}{i} \PYG{o}{\textgreater{}}\PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{)} \PYG{o}{\&}\PYG{o}{\&} \PYG{p}{(}\PYG{n}{idx} \PYG{o}{-} \PYG{n}{i} \PYG{o}{\textless{}} \PYG{n}{dim}\PYG{p}{)}\PYG{p}{)}
         \PYG{p}{\PYGZob{}}
-          \PYG{n}{result\PYGZus{}helper} \PYG{o}{+}\PYG{o}{=} \PYG{n}{tex2D}\PYG{p}{(}\PYG{n}{matrixTexture}\PYG{p}{,} \PYG{n}{i}\PYG{p}{,} \PYG{n}{idx} \PYG{o}{-} \PYG{n}{i}\PYG{p}{)}\PYG{o}{*}\PYG{n}{vector\PYGZus{}help}\PYG{p}{[}\PYG{n}{threadIdx}\PYG{p}{.}\PYG{n}{x} \PYG{o}{+} \PYG{o}{\%}\PYG{p}{(}\PYG{n}{BLOCK\PYGZus{}SIZE}\PYG{p}{)}\PYG{n}{s} \PYG{o}{-} \PYG{n}{i}\PYG{p}{]}\PYG{p}{;}
+          \PYG{n}{result\PYGZus{}helper} \PYG{o}{+}\PYG{o}{=} \PYG{n}{tex2D}\PYG{p}{(}\PYG{n}{matrixTexture}\PYG{p}{,} \PYG{n}{i}\PYG{p}{,} \PYG{n}{idx} \PYG{o}{-} \PYG{n}{i}\PYG{p}{)}\PYG{o}{*}
+          \PYG{n}{vector\PYGZus{}help}\PYG{p}{[}\PYG{n}{threadIdx}\PYG{p}{.}\PYG{n}{x} \PYG{o}{+} \PYG{o}{\%}\PYG{p}{(}\PYG{n}{BLOCK\PYGZus{}SIZE}\PYG{p}{)}\PYG{n}{s} \PYG{o}{-} \PYG{n}{i}\PYG{p}{]}\PYG{p}{;}
         \PYG{p}{\PYGZcb{}}
      \PYG{p}{\PYGZcb{}}
 
@@ -5500,7 +5516,8 @@ A more advanced example is an implementation in PyCUDA:
           \PYG{n}{gpu\PYGZus{}band\PYGZus{}matrix}\PYG{o}{.}\PYG{n}{active\PYGZus{}matrix} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{identity\PYGZus{}nr}
 
       \PYG{n}{y\PYGZus{}gpu}  \PYG{o}{=} \PYG{n}{gpuarray}\PYG{o}{.}\PYG{n}{empty}\PYG{p}{(}\PYG{n}{x\PYGZus{}gpu}\PYG{o}{.}\PYG{n}{size}\PYG{p}{,} \PYG{n}{x\PYGZus{}gpu}\PYG{o}{.}\PYG{n}{dtype}\PYG{p}{)}
-      \PYG{n}{matvec\PYGZus{}func}\PYG{p}{(}\PYG{n}{intp}\PYG{p}{(}\PYG{n}{x\PYGZus{}gpu}\PYG{o}{.}\PYG{n}{gpudata}\PYG{p}{)}\PYG{p}{,}\PYG{n}{intp}\PYG{p}{(}\PYG{n}{y\PYGZus{}gpu}\PYG{o}{.}\PYG{n}{gpudata}\PYG{p}{)}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{gpu\PYGZus{}info}\PYG{o}{.}\PYG{n}{gpudata}\PYG{p}{,} \PYG{n}{block} \PYG{o}{=} \PYG{p}{(}\PYG{n}{BLOCK\PYGZus{}SIZE}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{,} \PYG{n}{grid}\PYG{o}{=} \PYG{p}{(}\PYG{n}{NUMBER\PYGZus{}BLOCKS}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{)}
+      \PYG{n}{matvec\PYGZus{}func}\PYG{p}{(}\PYG{n}{intp}\PYG{p}{(}\PYG{n}{x\PYGZus{}gpu}\PYG{o}{.}\PYG{n}{gpudata}\PYG{p}{)}\PYG{p}{,}\PYG{n}{intp}\PYG{p}{(}\PYG{n}{y\PYGZus{}gpu}\PYG{o}{.}\PYG{n}{gpudata}\PYG{p}{)}\PYG{p}{,}
+      \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{gpu\PYGZus{}info}\PYG{o}{.}\PYG{n}{gpudata}\PYG{p}{,} \PYG{n}{block} \PYG{o}{=} \PYG{p}{(}\PYG{n}{BLOCK\PYGZus{}SIZE}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{,} \PYG{n}{grid}\PYG{o}{=} \PYG{p}{(}\PYG{n}{NUMBER\PYGZus{}BLOCKS}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{)}
       \PYG{k}{return} \PYG{n}{y\PYGZus{}gpu}
 
   \PYG{k}{def} \PYG{n+nf}{\PYGZus{}\PYGZus{}add\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,}\PYG{n}{other}\PYG{p}{)}\PYG{p}{:}

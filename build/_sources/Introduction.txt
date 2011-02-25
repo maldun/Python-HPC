@@ -65,8 +65,8 @@ Maybe it's ignorance, because many think they don't need that much programming a
 that they are too deep into it, and think everyone else think the same way. Perhaps it has historical reasons, like in the case of BLAS,
 or it's me because of my friends and education I have a different viewpoint on  that things.
 
-Neverteless I want to use this section to give some important lectures to people, who aren't deep into programming, 
-I learnt during the last 13 years since I'm started "programming" Visual Basic with the age of 13.
+Neverteless I want to use this section to give some important lectures to people, who aren't deep into programming. 
+I list here some things I learned during the last 13 years since I'm started "programming" Visual Basic with the age of 13.
 
 The Zen of Python don't apply only to Python
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -212,7 +212,9 @@ available in Windows (including many of the things we use here).
 You don't even need to install a whole Linux distribution. Recently there was a huge development of free
 Virtual Machines like Virtual Box [#]_, or projects like Wubi [#]_. And thanks to Distributions like
 Ubuntu [#]_  and it's many derivatives (I use Kubuntu), or open SUSE [#]_ using Linux is nowadays possible for
-normal humans too. **Note:** Be aware that I assume in that guide,
+normal humans too. 
+
+**Note:** Be aware that I assume in this guide,
 that you are using Linux!
 
 Not everything from Extreme Programming is that bad
