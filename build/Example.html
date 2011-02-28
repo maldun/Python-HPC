@@ -511,6 +511,133 @@ following times:</p>
 </table>
 <p><strong>Remark</strong>: PyCUDA is very fast, but has a breakeven point!
 For small dimensions Python or Cython are much faster.</p>
+<p>At last I represent here an implementation of the CG algorithm. It was
+built in such a way that it accepts different forms of matrix vector
+products. For readability the gpu calculation was assumed to be a
+special case. But it could be avoided if the import statements had
+been named correctly.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span><span class="o">,</span> <span class="nn">scipy</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse.linalg</span> <span class="kn">import</span> <span class="n">LinearOperator</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse.linalg</span> <span class="kn">import</span> <span class="n">cg</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="n">reshape</span><span class="p">,</span> <span class="n">vstack</span><span class="p">,</span> <span class="n">hstack</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">sqrt</span>
+
+<span class="k">def</span> <span class="nf">abstract_cg</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">x0</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">inner_product</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">tol</span> <span class="o">=</span> <span class="mf">10e-5</span><span class="p">,</span> <span class="n">maxiter</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+                <span class="n">xtype</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">preconditioner</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">implicit_preconditioner</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+                <span class="n">callback</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">nr_iterations</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">gpu</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is an implementation of the CG algorithm on different inner product spaces</span>
+<span class="sd">    It is assumed that the scalar product is positive definite.</span>
+<span class="sd">    The preconditioner could either be a LinerOperator or a solver, depending on what</span>
+<span class="sd">    is prefered.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">gpu</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">pycuda.autoinit</span>
+        <span class="kn">from</span> <span class="nn">pycuda.gpuarray</span> <span class="kn">import</span> <span class="n">zeros</span>
+        <span class="kn">from</span> <span class="nn">pycuda.gpuarray</span> <span class="kn">import</span> <span class="n">dot</span> <span class="k">as</span> <span class="n">cu_dot</span>
+        <span class="n">dot</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="n">cu_dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">*</span><span class="mf">1.</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">zeros</span><span class="p">,</span> <span class="n">dot</span>
+
+    <span class="c">#Prepare input</span>
+    <span class="c">#dim = A.shape[1]</span>
+    <span class="n">dim</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">size</span>
+
+    <span class="k">if</span> <span class="n">maxiter</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">maxiter</span> <span class="o">=</span> <span class="n">dim</span><span class="o">*</span><span class="mi">10</span>
+
+    <span class="k">if</span> <span class="n">xtype</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">x0</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">xtype</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">dtype</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">xtype</span> <span class="o">=</span> <span class="n">x0</span><span class="o">.</span><span class="n">dtype</span>
+
+    <span class="k">if</span> <span class="n">x0</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">x0</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">xtype</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">inner_product</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">inner_product</span> <span class="o">=</span> <span class="n">dot</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">x0</span><span class="o">.</span><span class="n">size</span><span class="p">,</span><span class="n">x0</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">+=</span> <span class="n">x0</span>
+
+    <span class="k">if</span> <span class="n">preconditioner</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">implicit_preconditioner</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">b</span> <span class="o">-</span> <span class="n">A</span><span class="o">.</span><span class="n">matvec</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">r</span>
+        <span class="n">residuum_old</span> <span class="o">=</span> <span class="n">inner_product</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">maxiter</span><span class="p">):</span>
+            <span class="n">Ap</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">matvec</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+
+            <span class="n">checker</span> <span class="o">=</span> <span class="n">inner_product</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">Ap</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">checker</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;A not p.d.&quot;</span><span class="p">)</span>
+
+            <span class="n">alpha</span> <span class="o">=</span> <span class="n">residuum_old</span><span class="o">/</span><span class="n">inner_product</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">Ap</span><span class="p">)</span>
+
+            <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">alpha</span><span class="o">*</span><span class="n">p</span>
+
+            <span class="k">if</span> <span class="n">callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">callback</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+            <span class="n">r</span> <span class="o">=</span>  <span class="n">r</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">*</span><span class="n">Ap</span>
+            <span class="n">residuum_new</span> <span class="o">=</span> <span class="n">inner_product</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">residuum_new</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">k</span>
+
+            <span class="n">p</span> <span class="o">=</span> <span class="n">r</span> <span class="o">+</span> <span class="n">residuum_new</span><span class="o">/</span><span class="n">residuum_old</span><span class="o">*</span><span class="n">p</span>
+            <span class="n">residuum_old</span> <span class="o">=</span> <span class="n">residuum_new</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">&quot;Maxiter reached!&quot;</span>
+            <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">preconditioner</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+
+        <span class="n">r</span> <span class="o">=</span> <span class="n">b</span> <span class="o">-</span> <span class="n">A</span><span class="o">.</span><span class="n">matvec</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">preconditioner</span><span class="o">.</span><span class="n">matvec</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">residuum_old</span> <span class="o">=</span> <span class="n">inner_product</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
+
+
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">maxiter</span><span class="p">):</span>
+
+
+            <span class="n">s</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">matvec</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+
+            <span class="n">sigma</span> <span class="o">=</span> <span class="n">inner_product</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">p</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">sigma</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;A not p.d.&quot;</span><span class="p">)</span>
+
+            <span class="n">alpha</span> <span class="o">=</span> <span class="n">residuum_old</span><span class="o">/</span><span class="n">sigma</span>
+
+            <span class="n">x</span> <span class="o">+=</span> <span class="n">alpha</span><span class="o">*</span><span class="n">p</span>
+            <span class="n">r</span> <span class="o">-=</span> <span class="n">alpha</span><span class="o">*</span><span class="n">s</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">preconditioner</span><span class="o">.</span><span class="n">matvec</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+            <span class="n">residuum_new</span> <span class="o">=</span> <span class="n">inner_product</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">residuum_new</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">k</span>
+
+            <span class="n">beta</span> <span class="o">=</span> <span class="n">residuum_new</span><span class="o">/</span><span class="n">residuum_old</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">v</span> <span class="o">+</span> <span class="n">beta</span><span class="o">*</span><span class="n">p</span>
+
+            <span class="n">residuum_old</span> <span class="o">=</span> <span class="n">residuum_new</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">&quot;Maxiter reached!&quot;</span>
+            <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">implicit_preconditioner</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s">&quot;preconditioning not implemented yet!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 <p class="rubric">Links</p>
 <table class="docutils footnote" frame="void" id="id3" rules="none">
 <colgroup><col class="label" /><col /></colgroup>

@@ -123,7 +123,7 @@
 \contentsline {subsection}{\numberline {1.8.4}Using MPI4Py and PyCUDA together}{66}{subsection.1.8.4}
 \contentsline {paragraph}{Links}{68}{paragraph*.86}
 \contentsline {section}{\numberline {1.9}An Example: Band-matrix vector multiplication}{68}{section.1.9}
-\contentsline {paragraph}{Links}{75}{paragraph*.87}
-\contentsline {section}{\numberline {1.10}Licenses}{75}{section.1.10}
-\contentsline {subsection}{\numberline {1.10.1}License}{75}{subsection.1.10.1}
-\contentsline {chapter}{\numberline {2}Indices and tables}{81}{chapter.2}
+\contentsline {paragraph}{Links}{77}{paragraph*.87}
+\contentsline {section}{\numberline {1.10}Licenses}{77}{section.1.10}
+\contentsline {subsection}{\numberline {1.10.1}License}{77}{subsection.1.10.1}
+\contentsline {chapter}{\numberline {2}Indices and tables}{85}{chapter.2}

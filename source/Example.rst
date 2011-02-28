@@ -434,6 +434,136 @@ PyCUDA (on GTX 280)            585 µs  5000x
 **Remark**: PyCUDA is very fast, but has a breakeven point!
 For small dimensions Python or Cython are much faster.
 
+At last I represent here an implementation of the CG algorithm. It was
+built in such a way that it accepts different forms of matrix vector
+products. For readability the gpu calculation was assumed to be a
+special case. But it could be avoided if the import statements had
+been named correctly.
+
+::
+
+  # -*- coding: utf-8 -*-
+  
+  import numpy, scipy
+  from scipy.sparse.linalg import LinearOperator
+  from scipy.sparse.linalg import cg
+  from numpy import dtype, array, reshape, vstack, hstack
+  from numpy import sqrt
+  
+  def abstract_cg(A,b,x0 = None, inner_product = None, tol = 10e-5, maxiter = None,
+                  xtype = None, preconditioner = None, implicit_preconditioner = None,
+                  callback = None, nr_iterations = False, gpu = False):
+      """
+      This is an implementation of the CG algorithm on different inner product spaces
+      It is assumed that the scalar product is positive definite.
+      The preconditioner could either be a LinerOperator or a solver, depending on what
+      is prefered.
+  
+      """
+      if gpu:
+          import pycuda.autoinit
+          from pycuda.gpuarray import zeros
+          from pycuda.gpuarray import dot as cu_dot
+          dot = lambda x,y: cu_dot(x,y).get()*1.
+      else:
+          from numpy import zeros, dot
+    
+      #Prepare input
+      #dim = A.shape[1]
+      dim = b.size
+  
+      if maxiter is None:
+          maxiter = dim*10
+  
+      if xtype is None:
+          if x0 is None:
+              xtype = A.dtype
+          else:
+              xtype = x0.dtype
+  
+      if x0 is None:
+          x0 = zeros(dim,dtype = xtype)
+  
+      if inner_product is None:
+          inner_product = dot
+  
+      x = zeros(x0.size,x0.dtype)
+      x += x0
+      
+      if preconditioner is None and implicit_preconditioner is None: 
+          r = b - A.matvec(x0)
+          p = r
+          residuum_old = inner_product(r,r)
+  
+          for k in xrange(maxiter):
+              Ap = A.matvec(p)
+              
+              checker = inner_product(p,Ap)
+              
+              if checker <= 0:
+                  raise ValueError("A not p.d.")
+              
+              alpha = residuum_old/inner_product(p,Ap)
+  
+              x = x + alpha*p
+  
+              if callback is not None:
+                  callback(x)
+              
+              r =  r - alpha*Ap
+              residuum_new = inner_product(r,r)
+  
+              if sqrt(residuum_new) < tol:
+                  return x, k
+  
+              p = r + residuum_new/residuum_old*p
+              residuum_old = residuum_new
+          else:
+              print "Maxiter reached!"
+              return x, (k+1)
+      
+      if preconditioner is not None:
+          
+          r = b - A.matvec(x0)
+          v = preconditioner.matvec(r)
+          p = v
+  
+          residuum_old = inner_product(v,r)
+  
+  
+          for k in xrange(maxiter):
+            
+
+              s = A.matvec(p)
+  
+              sigma = inner_product(s,p)
+              if sigma <= 0:
+                  raise ValueError("A not p.d.")
+  
+              alpha = residuum_old/sigma
+  
+              x += alpha*p
+              r -= alpha*s
+              v = preconditioner.matvec(r)
+  
+              residuum_new = inner_product(v,r)
+  
+              if sqrt(residuum_new) < tol:
+                  return x, k
+  
+              beta = residuum_new/residuum_old
+              p = v + beta*p
+  
+              residuum_old = residuum_new
+  
+          else:
+              print "Maxiter reached!"
+              return x, (k+1)
+              
+      if implicit_preconditioner is not None:
+          raise NotImplementedError("preconditioning not implemented yet!")
+
+
 .. rubric:: Links
 
 .. [#] http://en.wikipedia.org/wiki/Band_matrix 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.8.29)  25 FEB 2011 19:54
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.10.20)  28 FEB 2011 12:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -6,8 +6,8 @@ entering extended mode
 (./hpc.tex
 LaTeX2e <2009/09/24>
 Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
-yphenation, french, basque, ngerman, german, german-x-2009-06-19, ngerman-x-200
-9-06-19, loaded.
+yphenation, ngerman, german, german-x-2009-06-19, ngerman-x-2009-06-19, loaded.
+
 (./manual.cls
 Document Class: manual 2008/10/18 Document class (Sphinx manual)
 (/usr/share/texmf-texlive/tex/latex/base/report.cls
@@ -678,7 +678,7 @@ Package etexcmds Info: Could not find \expanded.
 (etexcmds)             that some package has redefined \expanded.
 (etexcmds)             In the latter case, load this package earlier.
 )
-(/usr/share/texmf-texlive/tex/latex/latexconfig/hyperref.cfg
+(/etc/texmf/tex/latex/config/hyperref.cfg
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
 (/usr/share/texmf-texlive/tex/latex/oberdiek/kvoptions.sty
@@ -791,7 +791,7 @@ LaTeX Font Info:    Try loading font information for T1+ptm on input line 104.
 (/usr/share/texmf-texlive/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
-(/usr/share/texmf/tex/context/base/supp-pdf.mkii
+(/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count121
 \scratchdimen=\dimen139
@@ -918,42 +918,58 @@ Overfull \vbox (0.82112pt too high) detected at line 5524
  []
 
 [71] [72] [73] [74]
-Underfull \hbox (badness 10000) in paragraph at lines 5755--5756
+Underfull \vbox (badness 10000) detected at line 5856
+ []
+
+
+Underfull \vbox (badness 5245) detected at line 5856
+ []
+
+[75]
+Underfull \vbox (badness 10000) detected at line 5856
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 5856
+ []
+
+[76]
+Underfull \hbox (badness 10000) in paragraph at lines 5884--5885
 []\T1/ptm/m/n/10 ``Creative Com-mons Com-pat-i-ble Li-cense'' means a li-cense 
 that is listed at
  []
 
-[75] [76] [77] [78] [79] [80]
+[77] [78] [79] [80] [81] [82] [83] [84
+
+]
 Chapter 2.
 No file modhpc.ind.
 No file hpc.ind.
-[81
-
-] (./hpc.aux) ) 
+[85] (./hpc.aux) ) 
 Here is how much of TeX's memory you used:
- 8337 strings out of 494991
- 111060 string characters out of 1179718
+ 8341 strings out of 495021
+ 111074 string characters out of 1181034
  198452 words of memory out of 3000000
- 10954 multiletter control sequences out of 15000+50000
+ 10947 multiletter control sequences out of 15000+50000
  72581 words of font info for 83 fonts, out of 3000000 for 9000
  29 hyphenation exceptions out of 8191
- 45i,12n,45p,2059b,556s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/shar
-e/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-tex
-live/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-texlive/fonts/
-type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-texlive/fonts/type1/public
-/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm
-/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/urw/courier/ucrb8a.pfb></usr/
-share/texmf-texlive/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texmf-texliv
-e/fonts/type1/urw/courier/ucrro8a.pfb></usr/share/texmf-texlive/fonts/type1/urw
-/helvetic/uhvb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/helvetic/uhvbo8a
-.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmb8a.pfb></usr/share/tex
-mf-texlive/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texmf-texlive/fonts/ty
-pe1/urw/times/utmr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmri8
-a.pfb>
-Output written on hpc.pdf (85 pages, 479992 bytes).
+ 45i,12n,45p,2059b,439s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/s
+hare/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-
+texlive/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-texlive/fon
+ts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-texlive/fonts/type1/pub
+lic/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts
+/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/urw/courier/ucrb8a.pfb></u
+sr/share/texmf-texlive/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texmf-tex
+live/fonts/type1/urw/courier/ucrro8a.pfb></usr/share/texmf-texlive/fonts/type1/
+urw/helvetic/uhvb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/helvetic/uhvb
+o8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmb8a.pfb></usr/share/
+texmf-texlive/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texmf-texlive/fonts
+/type1/urw/times/utmr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utm
+ri8a.pfb>
+Output written on hpc.pdf (89 pages, 486372 bytes).
 PDF statistics:
- 991 PDF objects out of 1000 (max. 8388607)
- 382 named destinations out of 1000 (max. 500000)
+ 1008 PDF objects out of 1200 (max. 8388607)
+ 386 named destinations out of 1000 (max. 500000)
  97 words of extra memory for PDF output out of 10000 (max. 10000000)
 

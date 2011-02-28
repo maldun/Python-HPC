@@ -10,7 +10,7 @@
 
 
 \title{hpc Documentation}
-\date{February 25, 2011}
+\date{February 28, 2011}
 \release{1.0}
 \author{Stefan Reiterer}
 \newcommand{\sphinxlogo}{}
@@ -5725,6 +5725,135 @@ PyCUDA (on GTX 280)
 
 \textbf{Remark}: PyCUDA is very fast, but has a breakeven point!
 For small dimensions Python or Cython are much faster.
+
+At last I represent here an implementation of the CG algorithm. It was
+built in such a way that it accepts different forms of matrix vector
+products. For readability the gpu calculation was assumed to be a
+special case. But it could be avoided if the import statements had
+been named correctly.
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{\# -*- coding: utf-8 -*-}
+
+\PYG{k+kn}{import} \PYG{n+nn}{numpy}\PYG{o}{,} \PYG{n+nn}{scipy}
+\PYG{k+kn}{from} \PYG{n+nn}{scipy.sparse.linalg} \PYG{k+kn}{import} \PYG{n}{LinearOperator}
+\PYG{k+kn}{from} \PYG{n+nn}{scipy.sparse.linalg} \PYG{k+kn}{import} \PYG{n}{cg}
+\PYG{k+kn}{from} \PYG{n+nn}{numpy} \PYG{k+kn}{import} \PYG{n}{dtype}\PYG{p}{,} \PYG{n}{array}\PYG{p}{,} \PYG{n}{reshape}\PYG{p}{,} \PYG{n}{vstack}\PYG{p}{,} \PYG{n}{hstack}
+\PYG{k+kn}{from} \PYG{n+nn}{numpy} \PYG{k+kn}{import} \PYG{n}{sqrt}
+
+\PYG{k}{def} \PYG{n+nf}{abstract\PYGZus{}cg}\PYG{p}{(}\PYG{n}{A}\PYG{p}{,}\PYG{n}{b}\PYG{p}{,}\PYG{n}{x0} \PYG{o}{=} \PYG{n+nb+bp}{None}\PYG{p}{,} \PYG{n}{inner\PYGZus{}product} \PYG{o}{=} \PYG{n+nb+bp}{None}\PYG{p}{,} \PYG{n}{tol} \PYG{o}{=} \PYG{l+m+mf}{10e-5}\PYG{p}{,} \PYG{n}{maxiter} \PYG{o}{=} \PYG{n+nb+bp}{None}\PYG{p}{,}
+                \PYG{n}{xtype} \PYG{o}{=} \PYG{n+nb+bp}{None}\PYG{p}{,} \PYG{n}{preconditioner} \PYG{o}{=} \PYG{n+nb+bp}{None}\PYG{p}{,} \PYG{n}{implicit\PYGZus{}preconditioner} \PYG{o}{=} \PYG{n+nb+bp}{None}\PYG{p}{,}
+                \PYG{n}{callback} \PYG{o}{=} \PYG{n+nb+bp}{None}\PYG{p}{,} \PYG{n}{nr\PYGZus{}iterations} \PYG{o}{=} \PYG{n+nb+bp}{False}\PYG{p}{,} \PYG{n}{gpu} \PYG{o}{=} \PYG{n+nb+bp}{False}\PYG{p}{)}\PYG{p}{:}
+    \PYG{l+s+sd}{"""}
+\PYG{l+s+sd}{    This is an implementation of the CG algorithm on different inner product spaces}
+\PYG{l+s+sd}{    It is assumed that the scalar product is positive definite.}
+\PYG{l+s+sd}{    The preconditioner could either be a LinerOperator or a solver, depending on what}
+\PYG{l+s+sd}{    is prefered.}
+
+\PYG{l+s+sd}{    """}
+    \PYG{k}{if} \PYG{n}{gpu}\PYG{p}{:}
+        \PYG{k+kn}{import} \PYG{n+nn}{pycuda.autoinit}
+        \PYG{k+kn}{from} \PYG{n+nn}{pycuda.gpuarray} \PYG{k+kn}{import} \PYG{n}{zeros}
+        \PYG{k+kn}{from} \PYG{n+nn}{pycuda.gpuarray} \PYG{k+kn}{import} \PYG{n}{dot} \PYG{k}{as} \PYG{n}{cu\PYGZus{}dot}
+        \PYG{n}{dot} \PYG{o}{=} \PYG{k}{lambda} \PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{p}{:} \PYG{n}{cu\PYGZus{}dot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{p}{)}\PYG{o}{.}\PYG{n}{get}\PYG{p}{(}\PYG{p}{)}\PYG{o}{*}\PYG{l+m+mf}{1.}
+    \PYG{k}{else}\PYG{p}{:}
+        \PYG{k+kn}{from} \PYG{n+nn}{numpy} \PYG{k+kn}{import} \PYG{n}{zeros}\PYG{p}{,} \PYG{n}{dot}
+
+    \PYG{c}{\#Prepare input}
+    \PYG{c}{\#dim = A.shape[1]}
+    \PYG{n}{dim} \PYG{o}{=} \PYG{n}{b}\PYG{o}{.}\PYG{n}{size}
+
+    \PYG{k}{if} \PYG{n}{maxiter} \PYG{o+ow}{is} \PYG{n+nb+bp}{None}\PYG{p}{:}
+        \PYG{n}{maxiter} \PYG{o}{=} \PYG{n}{dim}\PYG{o}{*}\PYG{l+m+mi}{10}
+
+    \PYG{k}{if} \PYG{n}{xtype} \PYG{o+ow}{is} \PYG{n+nb+bp}{None}\PYG{p}{:}
+        \PYG{k}{if} \PYG{n}{x0} \PYG{o+ow}{is} \PYG{n+nb+bp}{None}\PYG{p}{:}
+            \PYG{n}{xtype} \PYG{o}{=} \PYG{n}{A}\PYG{o}{.}\PYG{n}{dtype}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{n}{xtype} \PYG{o}{=} \PYG{n}{x0}\PYG{o}{.}\PYG{n}{dtype}
+
+    \PYG{k}{if} \PYG{n}{x0} \PYG{o+ow}{is} \PYG{n+nb+bp}{None}\PYG{p}{:}
+        \PYG{n}{x0} \PYG{o}{=} \PYG{n}{zeros}\PYG{p}{(}\PYG{n}{dim}\PYG{p}{,}\PYG{n}{dtype} \PYG{o}{=} \PYG{n}{xtype}\PYG{p}{)}
+
+    \PYG{k}{if} \PYG{n}{inner\PYGZus{}product} \PYG{o+ow}{is} \PYG{n+nb+bp}{None}\PYG{p}{:}
+        \PYG{n}{inner\PYGZus{}product} \PYG{o}{=} \PYG{n}{dot}
+
+    \PYG{n}{x} \PYG{o}{=} \PYG{n}{zeros}\PYG{p}{(}\PYG{n}{x0}\PYG{o}{.}\PYG{n}{size}\PYG{p}{,}\PYG{n}{x0}\PYG{o}{.}\PYG{n}{dtype}\PYG{p}{)}
+    \PYG{n}{x} \PYG{o}{+}\PYG{o}{=} \PYG{n}{x0}
+
+    \PYG{k}{if} \PYG{n}{preconditioner} \PYG{o+ow}{is} \PYG{n+nb+bp}{None} \PYG{o+ow}{and} \PYG{n}{implicit\PYGZus{}preconditioner} \PYG{o+ow}{is} \PYG{n+nb+bp}{None}\PYG{p}{:}
+        \PYG{n}{r} \PYG{o}{=} \PYG{n}{b} \PYG{o}{-} \PYG{n}{A}\PYG{o}{.}\PYG{n}{matvec}\PYG{p}{(}\PYG{n}{x0}\PYG{p}{)}
+        \PYG{n}{p} \PYG{o}{=} \PYG{n}{r}
+        \PYG{n}{residuum\PYGZus{}old} \PYG{o}{=} \PYG{n}{inner\PYGZus{}product}\PYG{p}{(}\PYG{n}{r}\PYG{p}{,}\PYG{n}{r}\PYG{p}{)}
+
+        \PYG{k}{for} \PYG{n}{k} \PYG{o+ow}{in} \PYG{n+nb}{xrange}\PYG{p}{(}\PYG{n}{maxiter}\PYG{p}{)}\PYG{p}{:}
+            \PYG{n}{Ap} \PYG{o}{=} \PYG{n}{A}\PYG{o}{.}\PYG{n}{matvec}\PYG{p}{(}\PYG{n}{p}\PYG{p}{)}
+
+            \PYG{n}{checker} \PYG{o}{=} \PYG{n}{inner\PYGZus{}product}\PYG{p}{(}\PYG{n}{p}\PYG{p}{,}\PYG{n}{Ap}\PYG{p}{)}
+
+            \PYG{k}{if} \PYG{n}{checker} \PYG{o}{\textless{}}\PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{:}
+                \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{A not p.d.}\PYG{l+s}{"}\PYG{p}{)}
+
+            \PYG{n}{alpha} \PYG{o}{=} \PYG{n}{residuum\PYGZus{}old}\PYG{o}{/}\PYG{n}{inner\PYGZus{}product}\PYG{p}{(}\PYG{n}{p}\PYG{p}{,}\PYG{n}{Ap}\PYG{p}{)}
+
+            \PYG{n}{x} \PYG{o}{=} \PYG{n}{x} \PYG{o}{+} \PYG{n}{alpha}\PYG{o}{*}\PYG{n}{p}
+
+            \PYG{k}{if} \PYG{n}{callback} \PYG{o+ow}{is} \PYG{o+ow}{not} \PYG{n+nb+bp}{None}\PYG{p}{:}
+                \PYG{n}{callback}\PYG{p}{(}\PYG{n}{x}\PYG{p}{)}
+
+            \PYG{n}{r} \PYG{o}{=}  \PYG{n}{r} \PYG{o}{-} \PYG{n}{alpha}\PYG{o}{*}\PYG{n}{Ap}
+            \PYG{n}{residuum\PYGZus{}new} \PYG{o}{=} \PYG{n}{inner\PYGZus{}product}\PYG{p}{(}\PYG{n}{r}\PYG{p}{,}\PYG{n}{r}\PYG{p}{)}
+
+            \PYG{k}{if} \PYG{n}{sqrt}\PYG{p}{(}\PYG{n}{residuum\PYGZus{}new}\PYG{p}{)} \PYG{o}{\textless{}} \PYG{n}{tol}\PYG{p}{:}
+                \PYG{k}{return} \PYG{n}{x}\PYG{p}{,} \PYG{n}{k}
+
+            \PYG{n}{p} \PYG{o}{=} \PYG{n}{r} \PYG{o}{+} \PYG{n}{residuum\PYGZus{}new}\PYG{o}{/}\PYG{n}{residuum\PYGZus{}old}\PYG{o}{*}\PYG{n}{p}
+            \PYG{n}{residuum\PYGZus{}old} \PYG{o}{=} \PYG{n}{residuum\PYGZus{}new}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{k}{print} \PYG{l+s}{"}\PYG{l+s}{Maxiter reached!}\PYG{l+s}{"}
+            \PYG{k}{return} \PYG{n}{x}\PYG{p}{,} \PYG{p}{(}\PYG{n}{k}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)}
+
+    \PYG{k}{if} \PYG{n}{preconditioner} \PYG{o+ow}{is} \PYG{o+ow}{not} \PYG{n+nb+bp}{None}\PYG{p}{:}
+
+        \PYG{n}{r} \PYG{o}{=} \PYG{n}{b} \PYG{o}{-} \PYG{n}{A}\PYG{o}{.}\PYG{n}{matvec}\PYG{p}{(}\PYG{n}{x0}\PYG{p}{)}
+        \PYG{n}{v} \PYG{o}{=} \PYG{n}{preconditioner}\PYG{o}{.}\PYG{n}{matvec}\PYG{p}{(}\PYG{n}{r}\PYG{p}{)}
+        \PYG{n}{p} \PYG{o}{=} \PYG{n}{v}
+
+        \PYG{n}{residuum\PYGZus{}old} \PYG{o}{=} \PYG{n}{inner\PYGZus{}product}\PYG{p}{(}\PYG{n}{v}\PYG{p}{,}\PYG{n}{r}\PYG{p}{)}
+
+
+        \PYG{k}{for} \PYG{n}{k} \PYG{o+ow}{in} \PYG{n+nb}{xrange}\PYG{p}{(}\PYG{n}{maxiter}\PYG{p}{)}\PYG{p}{:}
+
+
+            \PYG{n}{s} \PYG{o}{=} \PYG{n}{A}\PYG{o}{.}\PYG{n}{matvec}\PYG{p}{(}\PYG{n}{p}\PYG{p}{)}
+
+            \PYG{n}{sigma} \PYG{o}{=} \PYG{n}{inner\PYGZus{}product}\PYG{p}{(}\PYG{n}{s}\PYG{p}{,}\PYG{n}{p}\PYG{p}{)}
+            \PYG{k}{if} \PYG{n}{sigma} \PYG{o}{\textless{}}\PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{:}
+                \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{A not p.d.}\PYG{l+s}{"}\PYG{p}{)}
+
+            \PYG{n}{alpha} \PYG{o}{=} \PYG{n}{residuum\PYGZus{}old}\PYG{o}{/}\PYG{n}{sigma}
+
+            \PYG{n}{x} \PYG{o}{+}\PYG{o}{=} \PYG{n}{alpha}\PYG{o}{*}\PYG{n}{p}
+            \PYG{n}{r} \PYG{o}{-}\PYG{o}{=} \PYG{n}{alpha}\PYG{o}{*}\PYG{n}{s}
+            \PYG{n}{v} \PYG{o}{=} \PYG{n}{preconditioner}\PYG{o}{.}\PYG{n}{matvec}\PYG{p}{(}\PYG{n}{r}\PYG{p}{)}
+
+            \PYG{n}{residuum\PYGZus{}new} \PYG{o}{=} \PYG{n}{inner\PYGZus{}product}\PYG{p}{(}\PYG{n}{v}\PYG{p}{,}\PYG{n}{r}\PYG{p}{)}
+
+            \PYG{k}{if} \PYG{n}{sqrt}\PYG{p}{(}\PYG{n}{residuum\PYGZus{}new}\PYG{p}{)} \PYG{o}{\textless{}} \PYG{n}{tol}\PYG{p}{:}
+                \PYG{k}{return} \PYG{n}{x}\PYG{p}{,} \PYG{n}{k}
+
+            \PYG{n}{beta} \PYG{o}{=} \PYG{n}{residuum\PYGZus{}new}\PYG{o}{/}\PYG{n}{residuum\PYGZus{}old}
+            \PYG{n}{p} \PYG{o}{=} \PYG{n}{v} \PYG{o}{+} \PYG{n}{beta}\PYG{o}{*}\PYG{n}{p}
+
+            \PYG{n}{residuum\PYGZus{}old} \PYG{o}{=} \PYG{n}{residuum\PYGZus{}new}
+
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{k}{print} \PYG{l+s}{"}\PYG{l+s}{Maxiter reached!}\PYG{l+s}{"}
+            \PYG{k}{return} \PYG{n}{x}\PYG{p}{,} \PYG{p}{(}\PYG{n}{k}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)}
+
+    \PYG{k}{if} \PYG{n}{implicit\PYGZus{}preconditioner} \PYG{o+ow}{is} \PYG{o+ow}{not} \PYG{n+nb+bp}{None}\PYG{p}{:}
+        \PYG{k}{raise} \PYG{n+ne}{NotImplementedError}\PYG{p}{(}\PYG{l+s}{"}\PYG{l+s}{preconditioning not implemented yet!}\PYG{l+s}{"}\PYG{p}{)}
+\end{Verbatim}
 \paragraph{Links}
 
 \resetcurrentobjects
