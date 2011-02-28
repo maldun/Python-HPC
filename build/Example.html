@@ -194,6 +194,123 @@ def band_matvec_c(cnumpy.ndarray[reals,ndim=2] A,cnumpy.ndarray[reals,ndim=1] u)
 <p>You can either import the band matrix base class to the <em>.pyx</em> file
 and define the derived Python class in the <em>.pyx</em> file, or <tt class="docutils literal"><span class="pre">cimport</span></tt>
 the function to a Python file with the new matrix class defined.</p>
+<p>For a comparison, the algorithm implemented in C:</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="kt">void</span> <span class="nf">band_matvec</span><span class="p">(</span><span class="kt">float</span> <span class="o">*</span><span class="n">result</span><span class="p">,</span> <span class="kt">float</span> <span class="o">*</span><span class="n">A</span><span class="p">,</span> <span class="kt">float</span> <span class="o">*</span><span class="n">x</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">;</span>
+  <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">cols</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+  <span class="p">}</span>
+
+  <span class="k">for</span><span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">rows</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">cols</span> <span class="o">-</span> <span class="n">j</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">A</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="n">i</span><span class="o">*</span><span class="n">rows</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="p">];</span>
+        <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">A</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="n">i</span><span class="o">*</span><span class="n">rows</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>and a (direct) Matlab version:</p>
+<div class="highlight-matlab"><div class="highlight"><pre><span class="k">function</span><span class="w"> </span>result <span class="p">=</span><span class="w"> </span><span class="nf">band_matvec_ma</span><span class="p">(</span>A,u<span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="p">[</span><span class="n">B</span> <span class="n">N</span><span class="p">]</span> <span class="p">=</span> <span class="nb">size</span><span class="p">(</span><span class="n">A</span><span class="p">);</span>
+
+    <span class="n">result</span> <span class="p">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">,</span>1<span class="p">);</span>
+
+
+    <span class="k">for</span> <span class="nb">i</span> <span class="p">=</span> 1<span class="p">:</span><span class="n">N</span>
+        <span class="n">result</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span> <span class="p">=</span> <span class="n">A</span><span class="p">(</span>1<span class="p">,</span><span class="nb">i</span><span class="p">)</span><span class="o">*</span><span class="n">u</span><span class="p">(</span><span class="nb">i</span><span class="p">);</span>
+    <span class="k">end</span>
+
+    <span class="k">for</span> <span class="nb">j</span> <span class="p">=</span> 2<span class="p">:</span><span class="n">B</span>
+        <span class="k">for</span> <span class="nb">i</span> <span class="p">=</span>1<span class="p">:</span><span class="n">N</span>
+            <span class="k">if</span> <span class="p">((</span><span class="nb">i</span><span class="o">+</span><span class="nb">j</span><span class="o">-</span>1<span class="p">)</span> <span class="o">&lt;</span><span class="p">=</span> <span class="n">N</span><span class="p">)</span>
+              <span class="n">result</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span> <span class="p">=</span> <span class="n">result</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span> <span class="o">+</span> <span class="n">A</span><span class="p">(</span><span class="nb">j</span><span class="p">,</span><span class="nb">i</span><span class="p">)</span><span class="o">*</span><span class="n">u</span><span class="p">(</span><span class="nb">i</span><span class="o">+</span><span class="nb">j</span><span class="o">-</span>1<span class="p">);</span>
+              <span class="n">result</span><span class="p">(</span><span class="nb">i</span><span class="o">+</span><span class="nb">j</span><span class="o">-</span>1<span class="p">)</span> <span class="p">=</span> <span class="n">result</span><span class="p">(</span><span class="nb">i</span><span class="o">+</span><span class="nb">j</span><span class="o">-</span>1<span class="p">)</span> <span class="o">+</span> <span class="n">A</span><span class="p">(</span><span class="nb">j</span><span class="p">,</span><span class="nb">i</span><span class="p">)</span><span class="o">*</span><span class="n">u</span><span class="p">(</span><span class="nb">i</span><span class="p">);</span>
+            <span class="k">end</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<p>I made a time comparison on a Intel Core Duo with 1800MHz and
+2 GB Ram. The dimension was ::math::<tt class="docutils literal"><span class="pre">2^14</span></tt>, and a with a
+band of the size of ::math::<tt class="docutils literal"><span class="pre">2^6</span></tt> under the diagonal. The reason
+for this choice was the limited texture memory on the card to
+compare it with the PyCUDA implementation lateron.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="67%" />
+<col width="16%" />
+<col width="16%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Language</th>
+<th class="head">time</th>
+<th class="head">Speedup</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>Python</td>
+<td>2.96 s</td>
+<td>1x</td>
+</tr>
+<tr><td>Matlab</td>
+<td>90 ms</td>
+<td>30x</td>
+</tr>
+<tr><td>C</td>
+<td>30 ms</td>
+<td>60x</td>
+</tr>
+<tr><td>Cython</td>
+<td>12 ms</td>
+<td>220x</td>
+</tr>
+<tr><td>Inline C++</td>
+<td>10 ms</td>
+<td>290x</td>
+</tr>
+<tr><td>C (-O2 compiler flag)</td>
+<td>10 ms</td>
+<td>290x</td>
+</tr>
+<tr><td>Cython (w. Boundscheck false)</td>
+<td>6 ms</td>
+<td>440x</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Remarks</strong>:</p>
+<ul class="simple">
+<li>&#64;Matlab: the for loops are bad rule is no longer true! The
+Java JIT (Just in Time) compilation vectorizes simple for loops like
+mine very efficiently, and that&#8217;s also the reason why the Matlab
+version is 30 times faster than the Python implementation. There
+is a JIT compiler for Python too named Psyco. But Psyco doesn&#8217;t
+optimize the numpy array access like Cython.</li>
+<li>&#64;C The C implementation is rather straight forward and not well
+optimised. Of course C cannot be slower than Cython, because
+Cython is compiled to C.</li>
+</ul>
+<p>There is a saying: &#8220;There are lies,
+there are big lies, and there are benchmarks&#8221;, and my intention
+here is not to show that Python/Cython is the fastest language,
+but it is very easy to write fast Code in that languages, which can
+be faster than other implementations, if you don&#8217;t optimize them well.
+That is a big Plus
+for Python/Cython, because when you write a prototype you want to get
+your
+code fast enough that you can work with it, and don&#8217;t have to invest
+much time with optimizing it. Although well written Cython code is
+nearly as fast as a direct C implementation. If you don&#8217;t need the
+last bit of speed out of your programs it is a good and simple
+alternative.</p>
 <p>A more advanced example is an implementation in PyCUDA:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pycuda.driver</span> <span class="kn">as</span> <span class="nn">cuda</span>
 <span class="kn">import</span> <span class="nn">pycuda.gpuarray</span> <span class="kn">as</span> <span class="nn">gpuarray</span>
@@ -359,6 +476,41 @@ the function to a Python file with the new matrix class defined.</p>
       <span class="k">return</span> <span class="n">add_band_mat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">other</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>I tested it on the GPU4U at the University of Graz and had the
+following times:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="67%" />
+<col width="16%" />
+<col width="16%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Language</th>
+<th class="head">time</th>
+<th class="head">Speedup</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>Python</td>
+<td>2.87 s</td>
+<td>1x</td>
+</tr>
+<tr><td>Cython</td>
+<td>9.87 ms</td>
+<td>270x</td>
+</tr>
+<tr><td>Cython (w. Boundscheck false)</td>
+<td>5.56 ms</td>
+<td>500x</td>
+</tr>
+<tr><td>PyCUDA (on GTX 280)</td>
+<td>585 µs</td>
+<td>5000x</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Remark</strong>: PyCUDA is very fast, but has a breakeven point!
+For small dimensions Python or Cython are much faster.</p>
 <p class="rubric">Links</p>
 <table class="docutils footnote" frame="void" id="id3" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
