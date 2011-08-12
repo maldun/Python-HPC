@@ -9,7 +9,7 @@ HPC Techreport
 
 
 
-A brief introduction to Python (for mathematicians)
+A brief introduction to Python (for scientific computing)
 ======================================================
 
 Contents:

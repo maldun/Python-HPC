@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -10,14 +12,15 @@
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '#',
+        URL_ROOT:    '',
         VERSION:     '1.0',
-        COLLAPSE_MODINDEX: false,
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="hpc v1.0 documentation" href="index.html" />
     <link rel="next" title="Scientific tools in Python" href="Scientific.html" />
@@ -70,7 +73,7 @@ contains an overview of these paradigms. ( <a class="reference internal" href="#
 <h3>The <tt class="docutils literal"><span class="pre">if</span></tt> statement<a class="headerlink" href="#the-if-statement" title="Permalink to this headline">¶</a></h3>
 <p>The <tt class="docutils literal"><span class="pre">if</span></tt> statement in Python is quite the way one would
 expect from other languages.
-As mentioned in the section <a class="reference external" href="Steps.html#indention-ref"><em>Intendation for organising blocks of codes</em></a> the <tt class="docutils literal"><span class="pre">if</span></tt> statement
+As mentioned in the section <a class="reference internal" href="Steps.html#indention-ref"><em>Intendation for organising blocks of codes</em></a> the <tt class="docutils literal"><span class="pre">if</span></tt> statement
 has the following structure:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">if</span> <span class="n">condition_is_true</span><span class="p">:</span>
     <span class="n">do_something</span>
@@ -158,7 +161,7 @@ or numbers, like in C.</p>
 </pre></div>
 </div>
 <p>We can use the <tt class="docutils literal"><span class="pre">range</span></tt> function (see the section about
-<a class="reference external" href="Steps.html#list-ref"><em>Lists</em></a> ) to create a <em>normal</em> <tt class="docutils literal"><span class="pre">for</span></tt> loop:</p>
+<a class="reference internal" href="Steps.html#list-ref"><em>Lists</em></a> ) to create a <em>normal</em> <tt class="docutils literal"><span class="pre">for</span></tt> loop:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="n">do_something_with_x</span>
 </pre></div>
@@ -240,16 +243,28 @@ or classe which have to be implemented yet.</p>
 <p>A function is declared with the <tt class="docutils literal"><span class="pre">def</span></tt> statement in normal Python
 manner.
 The statment has to be followed by an identifier
-We simply start with a classical example, and give explaination later on.</p>
+We simply start with some examples, and later we will explain it in detail.</p>
+<p>A function which prints a string looks like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">print_string</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">string</span>
+</pre></div>
+</div>
+<p>A simple function which does square a numberlooks like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">square_it</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+</div>
 <p>The factorial would be implemented in Python that way:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">my_factorial</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">pochhammer</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Your documentation comes here&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot; Your documentation comes here &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">pochhammer</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span> <span class="c"># Check if evaluate Pochhammer Symbol</span>
         <span class="n">a</span> <span class="o">=</span> <span class="n">n</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">pochhammer</span>
 
     <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
         <span class="n">k</span> <span class="o">*=</span> <span class="n">a</span> <span class="o">-</span> <span class="n">i</span>
 
     <span class="k">return</span> <span class="n">k</span> <span class="c"># Give back the result</span>
@@ -293,8 +308,8 @@ defined outside of the code block:</p>
 <span class="go">1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="c"># not defined outside of the function</span>
 <span class="gt">Traceback (most recent call last):</span>
-  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n-Identifier">&lt;module&gt;</span>
-<span class="nc">NameError</span>: <span class="n-Identifier">name &#39;a&#39; is not defined</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+<span class="gr">NameError</span>: <span class="n">name &#39;a&#39; is not defined</span>
 <span class="go"> But you can&#39;t assign values</span>
 <span class="go">to a global variable within a function</span>
 </pre></div>
@@ -385,7 +400,7 @@ value for offset_x:</p>
 <p><strong>Important</strong>: A non keyword argument cannot follow a keyword argument:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">(</span><span class="n">offset_x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>
-<span class="nc">SyntaxError</span>: <span class="n-Identifier">non-keyword arg after keyword arg</span>
+<span class="gr">SyntaxError</span>: <span class="n">non-keyword arg after keyword arg</span>
 </pre></div>
 </div>
 <p>This also applies for the definition of the function:</p>
@@ -393,7 +408,7 @@ value for offset_x:</p>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
 <span class="gp">...</span>
   File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>
-<span class="nc">SyntaxError</span>: <span class="n-Identifier">non-default argument follows default argument</span>
+<span class="gr">SyntaxError</span>: <span class="n">non-default argument follows default argument</span>
 </pre></div>
 </div>
 </div>
@@ -848,11 +863,72 @@ With that logic one also can inherit from multiple base classes.
 After checking what&#8217;s in the new class, it looks what is in the first
 class given, then in the second, and so on.
 Consider the for example in the class</p>
-<div class="highlight-python"><pre>new_class(base1,base2,base3)
-    pass</pre>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">NewClass</span><span class="p">(</span><span class="n">Base1</span><span class="p">,</span><span class="n">Base2</span><span class="p">,</span><span class="n">Base3</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
 </div>
 <p>the priority order for looking up new methods is new_class-&gt; base1 -&gt;
 base2 -&gt; base3 and not new_class -&gt; base3 -&gt; base2 -&gt; base1.</p>
+<p>Let&#8217;s make a small example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+<span class="k">class</span> <span class="nc">Base1</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">method1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">method2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Base2</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">method2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="mf">2.5</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">method3</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Base3</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">method3</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="mf">3.5</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">method4</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">NewClass</span><span class="p">(</span><span class="n">Base1</span><span class="p">,</span><span class="n">Base2</span><span class="p">,</span><span class="n">Base3</span><span class="p">):</span>
+
+      <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+          <span class="k">print</span><span class="p">(</span><span class="s">&quot;I&#39;m here&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>So the new class has the new <tt class="docutils literal"><span class="pre">__init__</span></tt>
+method, <tt class="docutils literal"><span class="pre">method1</span></tt> from <tt class="docutils literal"><span class="pre">Base1</span></tt>, <tt class="docutils literal"><span class="pre">method2</span></tt>
+from <tt class="docutils literal"><span class="pre">Base2</span></tt>, <tt class="docutils literal"><span class="pre">method3</span></tt> from <tt class="docutils literal"><span class="pre">Base3</span></tt> and
+<tt class="docutils literal"><span class="pre">method4</span></tt> from <tt class="docutils literal"><span class="pre">Base3</span></tt>.
+This snippet gives the following output:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pochhammer</span> <span class="kn">import</span> <span class="n">NewClass</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">newt</span> <span class="o">=</span> <span class="n">NewClass</span><span class="p">()</span>
+<span class="go">I&#39;m here</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">newt</span><span class="o">.</span><span class="n">method1</span><span class="p">()</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">newt</span><span class="o">.</span><span class="n">method2</span><span class="p">()</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">newt</span><span class="o">.</span><span class="n">method3</span><span class="p">()</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">newt</span><span class="o">.</span><span class="n">method4</span><span class="p">()</span>
+<span class="go">4</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="operator-overloading">
 <span id="overload-ref"></span><h3>Operator overloading<a class="headerlink" href="#operator-overloading" title="Permalink to this headline">¶</a></h3>
@@ -960,8 +1036,8 @@ except exception_type2, and_exception_type3:
 exceptions. For example</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;spam&#39;</span><span class="p">,</span><span class="s">&#39;eggs&#39;</span><span class="p">)</span>
 <span class="gt">Traceback (most recent call last):</span>
-  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n-Identifier">&lt;module&gt;</span>
-<span class="nc">Exception</span>: <span class="n-Identifier">(&#39;spam&#39;, &#39;eggs&#39;)</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+<span class="gr">Exception</span>: <span class="n">(&#39;spam&#39;, &#39;eggs&#39;)</span>
 </pre></div>
 </div>
 <p>This is important to throw the correct exceptions of certain types,
@@ -1100,6 +1176,36 @@ can use the <tt class="docutils literal"><span class="pre">from...import</span><
 </div>
 <p>This is also a great benefit over Matlab: You can do as many functions
 as you want into one file.</p>
+<p><strong>Note</strong>: If we import a module from a <tt class="docutils literal"><span class="pre">.py</span></tt> file, find a bug in the
+file and fix it, then the chnages don&#8217;t apply automatically.
+If we for example have the module <tt class="docutils literal"><span class="pre">test.py</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">true_function</span><span class="p">():</span>
+    <span class="k">return</span> <span class="bp">False</span>
+</pre></div>
+</div>
+<p>Then after importing in the interpreter we change it to:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">true_function</span><span class="p">():</span>
+    <span class="k">return</span> <span class="bp">True</span>
+</pre></div>
+</div>
+<p>If we now import it again, nothing will change:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">test</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test</span><span class="o">.</span><span class="n">true_function</span><span class="p">()</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c">#Do the changes</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">test</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test</span><span class="o">.</span><span class="n">true_function</span><span class="p">()</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>To apply the changes one has to use the <tt class="docutils literal"><span class="pre">reload</span></tt> function:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">reload</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
+<span class="go">&lt;module &#39;test&#39; from &#39;test.py&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test</span><span class="o">.</span><span class="n">true_function</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="packages">
 <h3>Packages<a class="headerlink" href="#packages" title="Permalink to this headline">¶</a></h3>
@@ -1366,7 +1472,7 @@ the <em>Python Functional Programming Howto</em>.</p>
 <dd><p class="first last">send me hatemail) more a way to organize your data, and program
 than a real paradigm, and in fact you can program OO even in <em>C</em>
 with the help of structs. I already wrote a little about
-that (see <a class="reference external" href="Introduction.html#oo-ref"><em>Object oriented programming abstracts away your problems</em></a> ), and at least for everyone who does
+that (see <a class="reference internal" href="Introduction.html#oo-ref"><em>Object oriented programming abstracts away your problems</em></a> ), and at least for everyone who does
 abstraction in a regular  basis this is a very intuitive concept.
 (And in fact every human does! )
 OO programming means to collect things, that share specific
@@ -1511,81 +1617,81 @@ for i in range(0,10,2):
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-            <h3><a href="index.html">Table Of Contents</a></h3>
-            <ul>
-<li><a class="reference external" href="#">Programming in Python</a><ul>
-<li><a class="reference external" href="#commenting-in-python">Commenting in Python</a></li>
-<li><a class="reference external" href="#go-with-the-control-flow">Go with the control flow</a><ul>
-<li><a class="reference external" href="#the-if-statement">The <tt class="docutils literal"><span class="pre">if</span></tt> statement</a></li>
-<li><a class="reference external" href="#while-loops"><tt class="docutils literal"><span class="pre">while</span></tt> loops</a></li>
-<li><a class="reference external" href="#for-loops"><tt class="docutils literal"><span class="pre">for</span></tt> loops</a></li>
-<li><a class="reference external" href="#the-break-and-continue-statements">The <tt class="docutils literal"><span class="pre">break</span></tt> and <tt class="docutils literal"><span class="pre">continue</span></tt> statements</a></li>
-<li><a class="reference external" href="#the-pass-statement">The <tt class="docutils literal"><span class="pre">pass</span></tt> statement</a></li>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Programming in Python</a><ul>
+<li><a class="reference internal" href="#commenting-in-python">Commenting in Python</a></li>
+<li><a class="reference internal" href="#go-with-the-control-flow">Go with the control flow</a><ul>
+<li><a class="reference internal" href="#the-if-statement">The <tt class="docutils literal"><span class="pre">if</span></tt> statement</a></li>
+<li><a class="reference internal" href="#while-loops"><tt class="docutils literal"><span class="pre">while</span></tt> loops</a></li>
+<li><a class="reference internal" href="#for-loops"><tt class="docutils literal"><span class="pre">for</span></tt> loops</a></li>
+<li><a class="reference internal" href="#the-break-and-continue-statements">The <tt class="docutils literal"><span class="pre">break</span></tt> and <tt class="docutils literal"><span class="pre">continue</span></tt> statements</a></li>
+<li><a class="reference internal" href="#the-pass-statement">The <tt class="docutils literal"><span class="pre">pass</span></tt> statement</a></li>
 </ul>
 </li>
-<li><a class="reference external" href="#defining-functions">Defining functions</a><ul>
-<li><a class="reference external" href="#the-return-statement">The <tt class="docutils literal"><span class="pre">return</span></tt> statement</a></li>
-<li><a class="reference external" href="#variables-inside-functions">Variables (inside functions)</a></li>
-<li><a class="reference external" href="#default-values-and-keyword-arguments">Default values and keyword arguments</a></li>
-<li><a class="reference external" href="#calls-with-lists-and-dictionaries">Calls with lists and dictionaries</a></li>
-<li><a class="reference external" href="#docstrings">Docstrings</a></li>
-<li><a class="reference external" href="#other-ways-to-define-functions">Other ways to define functions</a></li>
+<li><a class="reference internal" href="#defining-functions">Defining functions</a><ul>
+<li><a class="reference internal" href="#the-return-statement">The <tt class="docutils literal"><span class="pre">return</span></tt> statement</a></li>
+<li><a class="reference internal" href="#variables-inside-functions">Variables (inside functions)</a></li>
+<li><a class="reference internal" href="#default-values-and-keyword-arguments">Default values and keyword arguments</a></li>
+<li><a class="reference internal" href="#calls-with-lists-and-dictionaries">Calls with lists and dictionaries</a></li>
+<li><a class="reference internal" href="#docstrings">Docstrings</a></li>
+<li><a class="reference internal" href="#other-ways-to-define-functions">Other ways to define functions</a></li>
 </ul>
 </li>
-<li><a class="reference external" href="#functional-programming-tools-in-python-or-hooray-for">Functional Programming tools in Python (or hooray for <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> )</a><ul>
-<li><a class="reference external" href="#the-map-function">The <tt class="docutils literal"><span class="pre">map</span></tt> function</a></li>
-<li><a class="reference external" href="#the-reduce-function">The <tt class="docutils literal"><span class="pre">reduce</span></tt> function</a></li>
-<li><a class="reference external" href="#the-filter-function">The <tt class="docutils literal"><span class="pre">filter</span></tt> function</a></li>
-<li><a class="reference external" href="#generators">Generators</a></li>
-<li><a class="reference external" href="#list-comprehensions">List Comprehensions</a></li>
+<li><a class="reference internal" href="#functional-programming-tools-in-python-or-hooray-for">Functional Programming tools in Python (or hooray for <img class="math" src="_images/math/ce4588fd900d02afcbd260bc07f54cce49a7dc4a.png" alt="\lambda"/> )</a><ul>
+<li><a class="reference internal" href="#the-map-function">The <tt class="docutils literal"><span class="pre">map</span></tt> function</a></li>
+<li><a class="reference internal" href="#the-reduce-function">The <tt class="docutils literal"><span class="pre">reduce</span></tt> function</a></li>
+<li><a class="reference internal" href="#the-filter-function">The <tt class="docutils literal"><span class="pre">filter</span></tt> function</a></li>
+<li><a class="reference internal" href="#generators">Generators</a></li>
+<li><a class="reference internal" href="#list-comprehensions">List Comprehensions</a></li>
 </ul>
 </li>
-<li><a class="reference external" href="#objects-and-classes">Objects and classes</a><ul>
-<li><a class="reference external" href="#definition-of-classes-and-basic-properties">Definition of classes and basic properties</a></li>
-<li><a class="reference external" href="#deriving-classes-from-other-classes-and-overloading-of-methods">Deriving classes from other classes and overloading of methods</a></li>
-<li><a class="reference external" href="#operator-overloading">Operator overloading</a></li>
+<li><a class="reference internal" href="#objects-and-classes">Objects and classes</a><ul>
+<li><a class="reference internal" href="#definition-of-classes-and-basic-properties">Definition of classes and basic properties</a></li>
+<li><a class="reference internal" href="#deriving-classes-from-other-classes-and-overloading-of-methods">Deriving classes from other classes and overloading of methods</a></li>
+<li><a class="reference internal" href="#operator-overloading">Operator overloading</a></li>
 </ul>
 </li>
-<li><a class="reference external" href="#exceptions">Exceptions</a><ul>
-<li><a class="reference external" href="#handling-exceptions">Handling exceptions</a></li>
-<li><a class="reference external" href="#creating-new-exceptions">Creating new exceptions</a></li>
+<li><a class="reference internal" href="#exceptions">Exceptions</a><ul>
+<li><a class="reference internal" href="#handling-exceptions">Handling exceptions</a></li>
+<li><a class="reference internal" href="#creating-new-exceptions">Creating new exceptions</a></li>
 </ul>
 </li>
-<li><a class="reference external" href="#modules-and-packages">Modules and Packages</a><ul>
-<li><a class="reference external" href="#modules">Modules</a></li>
-<li><a class="reference external" href="#packages">Packages</a></li>
+<li><a class="reference internal" href="#modules-and-packages">Modules and Packages</a><ul>
+<li><a class="reference internal" href="#modules">Modules</a></li>
+<li><a class="reference internal" href="#packages">Packages</a></li>
 </ul>
 </li>
-<li><a class="reference external" href="#reading-and-writing-external-files">Reading and Writing external files</a></li>
-<li><a class="reference external" href="#some-words-on-programming-paradigms">Some words on programming paradigms</a></li>
+<li><a class="reference internal" href="#reading-and-writing-external-files">Reading and Writing external files</a></li>
+<li><a class="reference internal" href="#some-words-on-programming-paradigms">Some words on programming paradigms</a></li>
 </ul>
 </li>
 </ul>
 
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="Steps.html"
-                                  title="previous chapter">Python Basics</a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="Scientific.html"
-                                  title="next chapter">Scientific tools in Python</a></p>
-            <h3>This Page</h3>
-            <ul class="this-page-menu">
-              <li><a href="_sources/Program.txt"
-                     rel="nofollow">Show Source</a></li>
-            </ul>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Steps.html"
+                        title="previous chapter">Python Basics</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Scientific.html"
+                        title="next chapter">Scientific tools in Python</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/Program.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -1606,8 +1712,8 @@ for i in range(0,10,2):
       </ul>
     </div>
     <div class="footer">
-      &copy; Copyright 2011, Stefan Reiterer.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+        &copy; Copyright 2011, Stefan Reiterer.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.1.
     </div>
   </body>
 </html>

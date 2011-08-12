@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -10,14 +12,15 @@
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '#',
+        URL_ROOT:    '',
         VERSION:     '1.0',
-        COLLAPSE_MODINDEX: false,
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="hpc v1.0 documentation" href="index.html" />
     <link rel="next" title="Cython" href="Cython.html" />
@@ -577,59 +580,59 @@ version <a class="footnote-reference" href="#id22" id="id11">[11]</a></p>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-            <h3><a href="index.html">Table Of Contents</a></h3>
-            <ul>
-<li><a class="reference external" href="#">Scientific tools in Python</a><ul>
-<li><a class="reference external" href="#numpy">NumPy</a><ul>
-<li><a class="reference external" href="#how-to-load-numpy">How to load Numpy</a></li>
-<li><a class="reference external" href="#numpy-arrays">Numpy arrays</a><ul>
-<li><a class="reference external" href="#array-creation">Array Creation</a></li>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Scientific tools in Python</a><ul>
+<li><a class="reference internal" href="#numpy">NumPy</a><ul>
+<li><a class="reference internal" href="#how-to-load-numpy">How to load Numpy</a></li>
+<li><a class="reference internal" href="#numpy-arrays">Numpy arrays</a><ul>
+<li><a class="reference internal" href="#array-creation">Array Creation</a></li>
 </ul>
 </li>
-<li><a class="reference external" href="#artithmetics-with-numpy-arrays">Artithmetics with NumPy arrays</a></li>
-<li><a class="reference external" href="#applying-functions-elementwise">Applying functions elementwise</a></li>
+<li><a class="reference internal" href="#artithmetics-with-numpy-arrays">Artithmetics with NumPy arrays</a></li>
+<li><a class="reference internal" href="#applying-functions-elementwise">Applying functions elementwise</a></li>
 </ul>
 </li>
-<li><a class="reference external" href="#scipy">SciPy</a><ul>
-<li><a class="reference external" href="#linear-algebra">Linear Algebra</a></li>
-<li><a class="reference external" href="#sparse-linear-algebra">Sparse Linear Algebra</a><ul>
-<li><a class="reference external" href="#lil-list-of-lists">LIL (List of Lists)</a></li>
-<li><a class="reference external" href="#csc-compressed-sparse-column-matrix">CSC (Compressed Sparse Column) matrix</a></li>
-<li><a class="reference external" href="#and-more">...and more</a></li>
-<li><a class="reference external" href="#the-linearoperator-class-and-iterative-solvers">The LinearOperator class and iterative solvers</a></li>
+<li><a class="reference internal" href="#scipy">SciPy</a><ul>
+<li><a class="reference internal" href="#linear-algebra">Linear Algebra</a></li>
+<li><a class="reference internal" href="#sparse-linear-algebra">Sparse Linear Algebra</a><ul>
+<li><a class="reference internal" href="#lil-list-of-lists">LIL (List of Lists)</a></li>
+<li><a class="reference internal" href="#csc-compressed-sparse-column-matrix">CSC (Compressed Sparse Column) matrix</a></li>
+<li><a class="reference internal" href="#and-more">...and more</a></li>
+<li><a class="reference internal" href="#the-linearoperator-class-and-iterative-solvers">The LinearOperator class and iterative solvers</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference external" href="#weave">Weave</a></li>
+<li><a class="reference internal" href="#weave">Weave</a></li>
 </ul>
 </li>
 </ul>
 
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="Program.html"
-                                  title="previous chapter">Programming in Python</a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="Cython.html"
-                                  title="next chapter">Cython</a></p>
-            <h3>This Page</h3>
-            <ul class="this-page-menu">
-              <li><a href="_sources/Scientific.txt"
-                     rel="nofollow">Show Source</a></li>
-            </ul>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Program.html"
+                        title="previous chapter">Programming in Python</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Cython.html"
+                        title="next chapter">Cython</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/Scientific.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -650,8 +653,8 @@ version <a class="footnote-reference" href="#id22" id="id11">[11]</a></p>
       </ul>
     </div>
     <div class="footer">
-      &copy; Copyright 2011, Stefan Reiterer.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+        &copy; Copyright 2011, Stefan Reiterer.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.1.
     </div>
   </body>
 </html>

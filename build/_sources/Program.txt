@@ -206,20 +206,32 @@ Defining functions
 A function is declared with the ``def`` statement in normal Python
 manner.
 The statment has to be followed by an identifier
-We simply start with a classical example, and give explaination later on.
+We simply start with some examples, and later we will explain it in detail.
+
+A function which prints a string looks like this::
+
+  def print_string(string):
+      print string
+
+A simple function which does square a numberlooks like this::
+  
+  def square_it(x):
+      return x**2
 
 The factorial would be implemented in Python that way::
 
   def my_factorial(n, pochhammer = None):
-      """ Your documentation comes here"""
+      """ Your documentation comes here """
       
       if pochhammer is None: # Check if evaluate Pochhammer Symbol
           a = n
-
+      else:
+          a = pochhammer
+        
       k = 1
-      for i in xrange(n):
+      for i in range(n):
           k *= a - i
-
+      
       return k # Give back the result
 
 The ``return`` statement
@@ -867,11 +879,71 @@ class given, then in the second, and so on.
 Consider the for example in the class
 ::
 
-  new_class(base1,base2,base3)
+  class NewClass(Base1,Base2,Base3):
       pass
 
 the priority order for looking up new methods is new_class-> base1 ->
 base2 -> base3 and not new_class -> base3 -> base2 -> base1.
+
+Let's make a small example::
+
+  from __future__ import print_function
+  
+  class Base1(object):
+      
+      def __init__(self):
+          pass
+  
+      def method1(self):
+          print(1)
+  
+      def method2(self):
+          print(2)
+  
+  class Base2(object):
+        
+      def __init__(self):
+          pass
+  
+      def method2(self):
+          print(2.5)
+  
+      def method3(self):
+          print(3)
+  
+  class Base3(object):
+    
+      def __init__(self):
+          pass
+  
+      def method3(self):
+          print(3.5)
+  
+      def method4(self):
+          print(4)
+  
+  class NewClass(Base1,Base2,Base3):
+        
+        def __init__(self):
+            print("I'm here")
+
+So the new class has the new ``__init__``
+method, ``method1`` from ``Base1``, ``method2``
+from ``Base2``, ``method3`` from ``Base3`` and
+``method4`` from ``Base3``.
+This snippet gives the following output::
+
+  >>> from pochhammer import NewClass
+  >>> newt = NewClass()
+  I'm here
+  >>> newt.method1()
+  1
+  >>> newt.method2()
+  2
+  >>> newt.method3()
+  3
+  >>> newt.method4()
+  4
 
 .. _overload_ref: 
 
@@ -1145,6 +1217,36 @@ Now cube can be called directly::
 
 This is also a great benefit over Matlab: You can do as many functions
 as you want into one file. 
+
+**Note**: If we import a module from a ``.py`` file, find a bug in the
+file and fix it, then the chnages don't apply automatically.
+If we for example have the module ``test.py``::
+
+  def true_function():
+      return False
+
+Then after importing in the interpreter we change it to::
+  
+  def true_function():
+      return True
+
+If we now import it again, nothing will change::
+
+  >>> import test
+  >>> test.true_function()
+  False
+  >>> #Do the changes
+  ... 
+  >>> import test
+  >>> test.true_function()
+  False
+
+To apply the changes one has to use the ``reload`` function::
+
+  >>> reload(test)
+  <module 'test' from 'test.py'>
+  >>> test.true_function()
+  True
 
 Packages
 """"""""""""""""""""""""""""""""""""""""""""

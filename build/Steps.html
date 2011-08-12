@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -10,14 +12,15 @@
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '#',
+        URL_ROOT:    '',
         VERSION:     '1.0',
-        COLLAPSE_MODINDEX: false,
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="hpc v1.0 documentation" href="index.html" />
     <link rel="next" title="Programming in Python" href="Program.html" />
@@ -409,15 +412,15 @@ C or C++ which can be performed on integers.</p>
 </thead>
 <tbody valign="top">
 <tr><td><tt class="docutils literal"><span class="pre">x</span> <span class="pre">|</span> <span class="pre">y</span></tt></td>
-<td>bitwise <em>or</em> of <em>x</em> and
+<td>bitwise <em class="dfn">or</em> of <em>x</em> and
 <em>y</em></td>
 </tr>
 <tr><td><tt class="docutils literal"><span class="pre">x</span> <span class="pre">^</span> <span class="pre">y</span></tt></td>
-<td>bitwise <em>exclusive or</em> of
+<td>bitwise <em class="dfn">exclusive or</em> of
 <em>x</em> and <em>y</em></td>
 </tr>
 <tr><td><tt class="docutils literal"><span class="pre">x</span> <span class="pre">&amp;</span> <span class="pre">y</span></tt></td>
-<td>bitwise <em>and</em> of <em>x</em> and
+<td>bitwise <em class="dfn">and</em> of <em>x</em> and
 <em>y</em></td>
 </tr>
 <tr><td><tt class="docutils literal"><span class="pre">x</span> <span class="pre">&lt;&lt;</span> <span class="pre">n</span></tt></td>
@@ -603,8 +606,8 @@ runtime
 anymore:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">coordinate</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="gt">Traceback (most recent call last):</span>
-  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n-Identifier">&lt;module&gt;</span>
-<span class="nc">TypeError</span>: <span class="n-Identifier">&#39;tuple&#39; object does not support item assignment</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+<span class="gr">TypeError</span>: <span class="n">&#39;tuple&#39; object does not support item assignment</span>
 </pre></div>
 </div>
 </div>
@@ -876,8 +879,8 @@ every sequence type supports iterating (even strings).</p>
 <span class="go">2</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">iterator</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
 <span class="gt">Traceback (most recent call last):</span>
-  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n-Identifier">&lt;module&gt;</span>
-<span class="nc">StopIteration</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+<span class="gr">StopIteration</span>
 </pre></div>
 </div>
 <p>Iterators can be converted to lists or tuples:</p>
@@ -1050,74 +1053,74 @@ statment, is different from the <tt class="docutils literal"><span class="pre">=
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-            <h3><a href="index.html">Table Of Contents</a></h3>
-            <ul>
-<li><a class="reference external" href="#">Python Basics</a><ul>
-<li><a class="reference external" href="#the-goodbye-world-program">The &#8220;Goodbye World&#8221; program.</a></li>
-<li><a class="reference external" href="#notes-on-the-syntax">Notes on the syntax</a><ul>
-<li><a class="reference external" href="#intendation-for-organising-blocks-of-codes">Intendation for organising blocks of codes</a></li>
-<li><a class="reference external" href="#the-semicolon">The semicolon</a></li>
-<li><a class="reference external" href="#identifiers">Identifiers</a></li>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Python Basics</a><ul>
+<li><a class="reference internal" href="#the-goodbye-world-program">The &#8220;Goodbye World&#8221; program.</a></li>
+<li><a class="reference internal" href="#notes-on-the-syntax">Notes on the syntax</a><ul>
+<li><a class="reference internal" href="#intendation-for-organising-blocks-of-codes">Intendation for organising blocks of codes</a></li>
+<li><a class="reference internal" href="#the-semicolon">The semicolon</a></li>
+<li><a class="reference internal" href="#identifiers">Identifiers</a></li>
 </ul>
 </li>
-<li><a class="reference external" href="#assignment-of-variables">Assignment of variables</a></li>
-<li><a class="reference external" href="#some-basic-datatpypes">Some basic datatpypes</a><ul>
-<li><a class="reference external" href="#boolean-values">Boolean values</a><ul>
-<li><a class="reference external" href="#boolean-operations">Boolean operations</a></li>
+<li><a class="reference internal" href="#assignment-of-variables">Assignment of variables</a></li>
+<li><a class="reference internal" href="#some-basic-datatpypes">Some basic datatpypes</a><ul>
+<li><a class="reference internal" href="#boolean-values">Boolean values</a><ul>
+<li><a class="reference internal" href="#boolean-operations">Boolean operations</a></li>
 </ul>
 </li>
-<li><a class="reference external" href="#numbers">Numbers</a><ul>
-<li><a class="reference external" href="#arithmetics">Arithmetics</a></li>
-<li><a class="reference external" href="#more-on-mathematical-operations">More on mathematical operations</a></li>
+<li><a class="reference internal" href="#numbers">Numbers</a><ul>
+<li><a class="reference internal" href="#arithmetics">Arithmetics</a></li>
+<li><a class="reference internal" href="#more-on-mathematical-operations">More on mathematical operations</a></li>
 </ul>
 </li>
-<li><a class="reference external" href="#container-types">Container Types</a><ul>
-<li><a class="reference external" href="#lists">Lists</a></li>
-<li><a class="reference external" href="#tuples">Tuples</a></li>
-<li><a class="reference external" href="#dictionaries">Dictionaries</a></li>
-<li><a class="reference external" href="#sets">Sets</a></li>
-<li><a class="reference external" href="#membership-test">Membership test</a></li>
-<li><a class="reference external" href="#other-operations-on-containers">Other operations on containers</a></li>
+<li><a class="reference internal" href="#container-types">Container Types</a><ul>
+<li><a class="reference internal" href="#lists">Lists</a></li>
+<li><a class="reference internal" href="#tuples">Tuples</a></li>
+<li><a class="reference internal" href="#dictionaries">Dictionaries</a></li>
+<li><a class="reference internal" href="#sets">Sets</a></li>
+<li><a class="reference internal" href="#membership-test">Membership test</a></li>
+<li><a class="reference internal" href="#other-operations-on-containers">Other operations on containers</a></li>
 </ul>
 </li>
-<li><a class="reference external" href="#strings">Strings</a><ul>
-<li><a class="reference external" href="#special-types-of-strings-in-python">Special types of strings in Python</a></li>
-<li><a class="reference external" href="#basic-manipulation-of-strings">Basic manipulation of strings</a></li>
+<li><a class="reference internal" href="#strings">Strings</a><ul>
+<li><a class="reference internal" href="#special-types-of-strings-in-python">Special types of strings in Python</a></li>
+<li><a class="reference internal" href="#basic-manipulation-of-strings">Basic manipulation of strings</a></li>
 </ul>
 </li>
-<li><a class="reference external" href="#iterators">Iterators</a></li>
+<li><a class="reference internal" href="#iterators">Iterators</a></li>
 </ul>
 </li>
-<li><a class="reference external" href="#the-print-statement">The print statement</a></li>
-<li><a class="reference external" href="#comparison-operators">Comparison operators</a></li>
+<li><a class="reference internal" href="#the-print-statement">The print statement</a></li>
+<li><a class="reference internal" href="#comparison-operators">Comparison operators</a></li>
 </ul>
 </li>
 </ul>
 
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="Python.html"
-                                  title="previous chapter">About Python</a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="Program.html"
-                                  title="next chapter">Programming in Python</a></p>
-            <h3>This Page</h3>
-            <ul class="this-page-menu">
-              <li><a href="_sources/Steps.txt"
-                     rel="nofollow">Show Source</a></li>
-            </ul>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Python.html"
+                        title="previous chapter">About Python</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Program.html"
+                        title="next chapter">Programming in Python</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/Steps.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -1138,8 +1141,8 @@ statment, is different from the <tt class="docutils literal"><span class="pre">=
       </ul>
     </div>
     <div class="footer">
-      &copy; Copyright 2011, Stefan Reiterer.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+        &copy; Copyright 2011, Stefan Reiterer.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.1.
     </div>
   </body>
 </html>

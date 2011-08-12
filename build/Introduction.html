@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -10,14 +12,15 @@
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '#',
+        URL_ROOT:    '',
         VERSION:     '1.0',
-        COLLAPSE_MODINDEX: false,
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="hpc v1.0 documentation" href="index.html" />
     <link rel="next" title="About Python" href="Python.html" />
@@ -47,7 +50,7 @@
             
   <div class="section" id="introduction-and-personal-thoughts">
 <h1>Introduction and personal thoughts<a class="headerlink" href="#introduction-and-personal-thoughts" title="Permalink to this headline">¶</a></h1>
-<p>If you want to start with Python right ahead  follow go directly to <a class="reference external" href="Steps.html#basics-ref"><em>Python Basics</em></a></p>
+<p>If you want to start with Python right ahead  follow go directly to <a class="reference internal" href="Steps.html#basics-ref"><em>Python Basics</em></a></p>
 <div class="section" id="foreword">
 <h2>Foreword<a class="headerlink" href="#foreword" title="Permalink to this headline">¶</a></h2>
 <p>This short documentation was written by me for the High Performance Computing Seminar
@@ -75,7 +78,7 @@ I had writing.</p>
 People have different opinions and experiences, either with food, cars or programming languages. I only tend to say it more
 directly what I feel than other people do. =)</p>
 <p>I distribute this under an open license so people can share it
-freely. (See Section <a class="reference external" href="License.html#license-ref"><em>Licenses</em></a>). You are allowed to use and
+freely. (See Section <a class="reference internal" href="License.html#license-ref"><em>Licenses</em></a>). You are allowed to use and
 copy contents as you wish.</p>
 <p>I would like to thank Stefan Fürtinger and Andreas Niederl for giving
 me advice and feedback, which I really needed to write this document.</p>
@@ -384,58 +387,58 @@ because I simply don&#8217;t want to do unessecary work.</p>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-            <h3><a href="index.html">Table Of Contents</a></h3>
-            <ul>
-<li><a class="reference external" href="#">Introduction and personal thoughts</a><ul>
-<li><a class="reference external" href="#foreword">Foreword</a></li>
-<li><a class="reference external" href="#experiences-i-want-to-share-with-programming-beginners">Experiences I want to share with programming beginners</a><ul>
-<li><a class="reference external" href="#the-zen-of-python-don-t-apply-only-to-python">The Zen of Python don&#8217;t apply only to Python</a></li>
-<li><a class="reference external" href="#code-is-more-often-read-than-written">Code is more often read than written</a></li>
-<li><a class="reference external" href="#program-design-isn-t-a-waste-of-time">Program design isn&#8217;t a waste of time!</a></li>
-<li><a class="reference external" href="#object-oriented-programming-abstracts-away-your-problems">Object oriented programming abstracts away your problems</a></li>
-<li><a class="reference external" href="#modularity-counts">Modularity counts</a></li>
-<li><a class="reference external" href="#premature-optimisation-is-the-root-of-all-evil">Premature optimisation is the root of all evil!</a></li>
-<li><a class="reference external" href="#choice-of-the-right-tools">Choice of the right tools</a><ul>
-<li><a class="reference external" href="#don-t-use-notepad-as-your-editor">Don&#8217;t use Notepad as your editor!</a></li>
-<li><a class="reference external" href="#use-version-control">Use version control</a></li>
-<li><a class="reference external" href="#use-debugging-tools">Use debugging tools</a></li>
-<li><a class="reference external" href="#use-linux">Use Linux</a></li>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Introduction and personal thoughts</a><ul>
+<li><a class="reference internal" href="#foreword">Foreword</a></li>
+<li><a class="reference internal" href="#experiences-i-want-to-share-with-programming-beginners">Experiences I want to share with programming beginners</a><ul>
+<li><a class="reference internal" href="#the-zen-of-python-don-t-apply-only-to-python">The Zen of Python don&#8217;t apply only to Python</a></li>
+<li><a class="reference internal" href="#code-is-more-often-read-than-written">Code is more often read than written</a></li>
+<li><a class="reference internal" href="#program-design-isn-t-a-waste-of-time">Program design isn&#8217;t a waste of time!</a></li>
+<li><a class="reference internal" href="#object-oriented-programming-abstracts-away-your-problems">Object oriented programming abstracts away your problems</a></li>
+<li><a class="reference internal" href="#modularity-counts">Modularity counts</a></li>
+<li><a class="reference internal" href="#premature-optimisation-is-the-root-of-all-evil">Premature optimisation is the root of all evil!</a></li>
+<li><a class="reference internal" href="#choice-of-the-right-tools">Choice of the right tools</a><ul>
+<li><a class="reference internal" href="#don-t-use-notepad-as-your-editor">Don&#8217;t use Notepad as your editor!</a></li>
+<li><a class="reference internal" href="#use-version-control">Use version control</a></li>
+<li><a class="reference internal" href="#use-debugging-tools">Use debugging tools</a></li>
+<li><a class="reference internal" href="#use-linux">Use Linux</a></li>
 </ul>
 </li>
-<li><a class="reference external" href="#not-everything-from-extreme-programming-is-that-bad">Not everything from Extreme Programming is that bad</a></li>
-<li><a class="reference external" href="#examples-say-more-than-thousend-words">Examples say more than thousend words!</a></li>
-<li><a class="reference external" href="#if-your-programs-aren-t-understandable-nobody-will-use-them">If your programs aren&#8217;t understandable nobody will use them</a></li>
-<li><a class="reference external" href="#use-your-brain">Use your brain!</a></li>
+<li><a class="reference internal" href="#not-everything-from-extreme-programming-is-that-bad">Not everything from Extreme Programming is that bad</a></li>
+<li><a class="reference internal" href="#examples-say-more-than-thousend-words">Examples say more than thousend words!</a></li>
+<li><a class="reference internal" href="#if-your-programs-aren-t-understandable-nobody-will-use-them">If your programs aren&#8217;t understandable nobody will use them</a></li>
+<li><a class="reference internal" href="#use-your-brain">Use your brain!</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="index.html"
-                                  title="previous chapter">HPC Techreport</a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="Python.html"
-                                  title="next chapter">About Python</a></p>
-            <h3>This Page</h3>
-            <ul class="this-page-menu">
-              <li><a href="_sources/Introduction.txt"
-                     rel="nofollow">Show Source</a></li>
-            </ul>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">HPC Techreport</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Python.html"
+                        title="next chapter">About Python</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/Introduction.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -456,8 +459,8 @@ because I simply don&#8217;t want to do unessecary work.</p>
       </ul>
     </div>
     <div class="footer">
-      &copy; Copyright 2011, Stefan Reiterer.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.4.
+        &copy; Copyright 2011, Stefan Reiterer.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.1.
     </div>
   </body>
 </html>
